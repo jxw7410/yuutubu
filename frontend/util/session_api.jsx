@@ -1,3 +1,11 @@
+export const confirmEmail = email => {
+    return $.ajax({
+        method: 'post',
+        url: 'api/session/email',
+        data: { email }
+    });
+}
+
 export const signUp = user => {
     return $.ajax({
         method: "POST",

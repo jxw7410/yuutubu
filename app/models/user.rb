@@ -19,8 +19,8 @@ class User < ApplicationRecord
     attr_reader :password
     after_initialize :ensure_session
 
-    def self.find_by_email(email)
-        return email if User.find_by_email(email)
+    def self.verify_email(email)
+        User.find_by_email(email)
     end
 
     def self.find_by_credentials(email, password)
