@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 const Auth = ({ component: Component, islogin, exact, path}) => {
     return (
-        <Route path={path}
-            exact={exact}
-            render={props =>
-                islogin ? <Redirect to='/' />
-                    : <Component  {...props} />}
+        <Route 
+            path={path}
+            exact={ exact }
+            render={ props => (
+                islogin ? <Redirect to='/' /> : <Component  {...props} /> )}
         />
     )
 }
@@ -19,5 +19,5 @@ const msp = state => {
     }
 }
 
-export default withRouter(connect(msp)(Auth));
+export const AuthRoute = withRouter(connect(msp)(Auth));
 

@@ -17,4 +17,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     ReactDOM.render( <Root store={store}/>, root);
+
+
+
+    //THESE MUST BE REMOVED IN THE PRODUCTION CODE
+
+
+    window.getState = store.getState;
+    
 });

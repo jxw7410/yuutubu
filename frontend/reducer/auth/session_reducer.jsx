@@ -1,9 +1,7 @@
 import { RECEIVE_USER, LOGOUT_USER } from "../../actions/session/session_action";
 
-const _nullSession = () => {
-    return {
+const _nullSession = {
         id: null
-    };
 };
 
 
