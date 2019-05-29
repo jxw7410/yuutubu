@@ -1,6 +1,7 @@
 import React from 'react'
 import SignUpInputitem from './signup_input_item';
 import {isEmpty} from 'lodash'
+import { Link } from 'react-router-dom'
 
 class SignUpForm extends React.Component {
     constructor(props) {
@@ -27,7 +28,20 @@ class SignUpForm extends React.Component {
     }
     
     componentDidUpdate(){
-
+        //debugger
+        if(!this.didUpdate){
+            if(!isEmpty(this.props.errors)){
+                this.didUpdate = true;
+                //debugger
+                if(this.props.errors.Username){
+                    document.getElementById('Username').focus();
+                } else if(this.props.errors.Email) {
+                    document.getElementById('Email').focus();
+                } else if(this.props.errors.Password) {
+                    document.getElementById('Password').focus();
+                }
+            }
+        }
     }
 
     textChangeEvent(field) {
@@ -39,6 +53,7 @@ class SignUpForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.didUpdate = false;
         this.props.signUp(this.state)
     }
 
@@ -64,12 +79,15 @@ class SignUpForm extends React.Component {
             <div id={'create-form-grid'}>
                 <div id={'create-form-container'}>
                     <div id={'create-form-header'}>
-
+                        <h1>{"Yuutubu"}</h1>
+                        <h1>{"Create your Yuutubu Account"}</h1>
+                        <h2>{"to continue to Yuutubu"}</h2>
                     </div>
 
                     <form id={'create-form'}>   
 
                         <SignUpInputitem 
+                            id = {"Username"}
                             field={"Username"}
                             value={this.state.username}
                             focus={this.state.userNameFocus}
@@ -84,6 +102,7 @@ class SignUpForm extends React.Component {
 
 
                         <SignUpInputitem
+                            id = {"Email"}
                             field={"Your email address"}
                             value={this.state.email}
                             focus={this.state.emailFocus}
@@ -97,11 +116,12 @@ class SignUpForm extends React.Component {
                         />
 
                         <SignUpInputitem
+                            id = {"Password"}
                             field={"Your Password"}
                             value={this.state.password}
                             focus={this.state.passwordFocus}
                             inputLabelName={inputLabelName + (errors.Password ? "-errors" : "")}
-                            inputClassName={inputClassName + (errors.Email ? "-errors" : "")}
+                            inputClassName={inputClassName + (errors.Password ? "-errors" : "")}
                             blurEvent={this.handleFocus("passwordFocus")}
                             focusEvent={this.handleFocus("passwordFocus")}
                             changeEvent={this.textChangeEvent('password')}
@@ -110,7 +130,7 @@ class SignUpForm extends React.Component {
                         />
                         
                         <section>
-                            <span> Sign In Instead </span>
+                            <Link to='/login'> Sign In Instead </Link>
                             <button onClick={this.handleSubmit}>Next</button>
                         </section>
                     </form>
