@@ -29,6 +29,7 @@ const AnimatePlaceHolderText = (props) => {
 
 const SignUpInputItem = props => {
     const { 
+        id,
         field, 
         value, 
         focus,
@@ -50,7 +51,7 @@ const SignUpInputItem = props => {
             />
 
             <input
-                id={field}
+                id={id}
                 className={inputClassName}
                 onBlur={blurEvent}
                 onFocus={focusEvent}
