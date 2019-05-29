@@ -6,7 +6,8 @@ import LoginForm from './login_form';
 
 const msp = state => {
     return {
-        email: state.session.email
+        email: state.session.email,
+        errors: state.errors
     }
 }
 

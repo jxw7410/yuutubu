@@ -1,47 +1,60 @@
 import React from 'react';
-import SessionForm from './session_form';
+import Login_Form_Item from './login_form_item';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 const LoginForm = (props) => {
-        return (
-            <div id='login-container'>
-                <div id='login-container-header'> 
-                    <h1>Yuutubu</h1>         
+    return (
+        <div id='login-container'>
+
+            <h1>Yuutubu</h1>
+            {
+                props.email ?
+                    <>
+                        <h2>Welcome</h2>
+                        <h3>{props.email}</h3>
+                    </>
+                    :
+                    <>
+                        <h2>Sign In</h2>
+                        <h3>to continue to Yuutubu</h3>
+                    </>
+            }
+
+
+            <div id='auth-div'>
+                <ReactCSSTransitionGroup
+                    transitionName="session-form"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
+
                     {
-                        props.email ? 
-                            <>
-                            <h2>Welcome</h2>
-                            <h3>{props.email}</h3>
-                            </>
+                        !props.email ?
+                            <Login_Form_Item
+                                key={'email'}
+                                errors={props.errors}
+                                email={props.email}
+                                type={'email'}
+                                className={'session'}
+                                action={props.fetchEmail} />
                             :
-                            <>
-                            <h2>Sign In</h2>
-                            <h3>to continue to Yuutubu</h3>
-                            </>
+                            <Login_Form_Item
+                                key={'password'}
+                                errors={props.errors}
+                                email={props.email}
+                                type={'password'}
+                                className={'session'}
+                                action={props.login} />
                     }
-                </div>
 
-                <div id='auth-div'>
+                </ReactCSSTransitionGroup>
 
-                    {/* <ReactCSSTransitionGroup
-                        transitionName="auth_slide"
-                        transitionEnterTimeout={1000}
-                        transitionLeaveTimeout={1000}> */}
-                        <SessionForm 
-                            key={'email'} 
-                            email={props.email} 
-                            type={'email'} 
-                            action={props.fetchEmail}/>
-                        <SessionForm 
-                            key={'password'} 
-                            email={props.email} 
-                            type={'password'} 
-                            action={props.login}/>
-                    {/* </ReactCSSTransitionGroup> */}
-                </div>
+
+
+
             </div>
-        )
+        </div>
+    )
 }
 
 export default LoginForm;
