@@ -31,13 +31,12 @@ class SplashNav extends React.Component {
 
                 <div id="splash-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
+                        <li><i class="fas fa-video"></i></li>
                         <li>{
                             this.props.isLoggedIn ? 
                             <button onClick={this.handleLogout} >Sign Out</button> : 
                             <Link to='/signup'>Sign In</Link>
                         }</li>
-
-                        <li> </li>
                     </ul>
                 </div>
             </div>
