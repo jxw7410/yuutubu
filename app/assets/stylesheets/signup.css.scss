@@ -1,0 +1,125 @@
+#create-form-grid{
+    display:grid;
+    grid-template-columns: 70% auto;
+    border: 1px solid lightgray;
+    width: 650px;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 10px;
+    
+}
+
+
+#create-form-container{
+    grid-column: 1 / 2;
+    padding: 25px;
+    display: grid;
+    grid-template-rows: 30% auto;
+}
+
+
+#create-form-header{
+    display: flex;
+    flex-direction: column;
+}
+
+#create-form{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    padding: 20px;
+}
+
+#create-form label{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#create-form label > * {
+    padding-top: 5px;
+}
+
+
+.create-form-input{
+    height: 25px;
+    padding: 10px 15px;
+    font-size: 20px;
+}
+
+.create-form-input-errors{
+    height: 25px;
+    padding: 10px 15px;
+    font-size: 20px;
+}
+
+.create-form-input-errors{
+    border: 2px solid red;
+    outline-color: red; 
+}
+
+.create-form-label-errors span:last-child{
+    color: red;
+}
+
+
+.createform-input-tag{
+    position: absolute;
+    padding: 3px;
+    background: white;
+    font-size: 12px;
+    left: 8px;
+    top: -5px;
+    color: gray;
+}
+
+.createform-input-placeholder-enter{
+    font-size: 20px;
+    left: 11px;
+    top: 20px;
+}
+
+.createform-input-placeholder-enter.createform-input-placeholder-enter-active{
+    font-size: 12px;
+    padding: 3px;
+    background: white;
+    position: absolute;
+    color: gray;
+    left: 8px;
+    top: -5px;
+    transition: font-size 150ms ease-in, top 150ms ease-in;
+}
+
+.createform-input-placeholder-leave{
+    font-size: 12px;
+    left: 8px;
+    top: -5px;
+    padding: 3px;
+    background: white;
+}
+
+.createform-input-placeholder-leave.createform-input-placeholder-leave-active{ 
+    padding: 3px;
+    background: white;
+    position: absolute;
+    color: gray;
+    font-size: 20px;
+    left: 12px;
+    top: 20px;
+    transition: font-size 150ms ease-in, top 150ms ease-in;
+}
+
+#create-form > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#create-form button {
+    background:  #1a73e8;
+    height: 40px;
+    font-size: 20px;
+    color:white;
+    border-radius: 5px;
+    width: 80px;
+}

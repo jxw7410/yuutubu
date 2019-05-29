@@ -28,14 +28,17 @@ const receiveErrors = (errors) => ({
 
 
 export const signUp = user => dispatch => {
-    debugger
     return APIUtil.signUp(user)
-        .then(user_rsp => dispatch(receiveUser(user_rsp)));
+        .then(user_rsp => dispatch(receiveUser(user_rsp)),
+            rsp => dispatch(receiveErrors(rsp.responseJSON))
+        );
 };
 
 export const login = user => dispatch => {
     return APIUtil.login(user)
-        .then(user_rsp => dispatch(receiveUser(user_rsp)));
+        .then(user_rsp => dispatch(receiveUser(user_rsp)),
+            rsp => dispatch(receiveErrors(rsp.responseJSON))
+        );
 };
 
 export const logOut = () => dispatch => {
@@ -45,5 +48,7 @@ export const logOut = () => dispatch => {
 
 export const fetchEmail = email => dispatch => {
     return APIUtil.confirmEmail(email)
-        .then( email_rsp => dispatch( receiveEmail(email_rsp) ));
+        .then( email_rsp => dispatch( receiveEmail(email_rsp)),
+            rsp => dispatch(receiveErrors(rsp.responseJSON))
+        );
 }

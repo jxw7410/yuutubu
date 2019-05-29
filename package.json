@@ -26,7 +26,11 @@
     "lib": "lib",
     "test": "test"
   },
+<<<<<<< HEAD
   "engines":{
+=======
+  "engines": {
+>>>>>>> auth_branch
     "node": "10.13.0",
     "npm": "6.4.1"
   },
