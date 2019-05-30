@@ -4,7 +4,6 @@ import configureStore from './store/store';
 import Root from './root';
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    console.log("Testing")
     const root = document.getElementById('root')
     let store;
 
@@ -27,8 +26,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
     //THESE MUST BE REMOVED IN THE PRODUCTION CODE
-
-
-    window.getState = store.getState;
+    //window.getState = store.getState;
     
 });

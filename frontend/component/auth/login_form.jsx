@@ -13,8 +13,7 @@ const LoginForm = (props) => {
                     <>
                         <h2>Welcome</h2>
                         <h3>{props.email}</h3>
-                    </>
-                    :
+                    </> :
                     <>
                         <h2>Sign In</h2>
                         <h3>to continue to Yuutubu</h3>
@@ -36,7 +35,8 @@ const LoginForm = (props) => {
                                 email={props.email}
                                 type={'email'}
                                 className={'session'}
-                                action={props.fetchEmail} />
+                                action={props.fetchEmail}
+                                defaultAction={props.defaultAction} />
                             :
                             <Login_Form_Item
                                 key={'password'}
@@ -44,7 +44,9 @@ const LoginForm = (props) => {
                                 email={props.email}
                                 type={'password'}
                                 className={'session'}
-                                action={props.login} />
+                                action={props.login} 
+                                defaultAction={props.defaultAction}
+                                clearEmail={props.clearEmail} />
                     }
 
                 </ReactCSSTransitionGroup>

@@ -28,11 +28,9 @@ class SignUpForm extends React.Component {
     }
     
     componentDidUpdate(){
-        //debugger
         if(!this.didUpdate){
             if(!isEmpty(this.props.errors)){
                 this.didUpdate = true;
-                //debugger
                 if(this.props.errors.Username){
                     document.getElementById('Username').focus();
                 } else if(this.props.errors.Email) {
@@ -42,6 +40,10 @@ class SignUpForm extends React.Component {
                 }
             }
         }
+    }
+
+    componentWillUnmount(){
+        this.props.defaultAction();
     }
 
     textChangeEvent(field) {
@@ -73,7 +75,6 @@ class SignUpForm extends React.Component {
         //debugger
         const inputClassName = 'create-form-input';
         const inputLabelName = "create-form-label";
-        console.log(isEmpty(errors));
        // debugger
         return (
             <div id={'create-form-grid'}>

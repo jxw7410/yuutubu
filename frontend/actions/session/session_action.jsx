@@ -3,6 +3,7 @@ export const RECEIVE_USER = "RECEIVE_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const RECEIVE_EMAIL = "RECEIVE_EMAIL";
+export const RECEIVE_CLEAR_EMAIL = "RECEIVE_CLEAR_EMAIL";
 
 const receiveEmail = ({ email }) => ({
     type: RECEIVE_EMAIL,
@@ -24,6 +25,15 @@ const receiveErrors = (errors) => ({
     errors
 });
 
+
+export const clearEmail = () => ({
+    type: RECEIVE_CLEAR_EMAIL
+})
+
+///Special Case: No POJO goes beyond this.
+export const defaultAction = () => ({
+    type: "DEFAULT_ACTION"
+})
 
 
 

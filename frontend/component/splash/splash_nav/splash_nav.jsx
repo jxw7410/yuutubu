@@ -1,18 +1,25 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class SplashNav extends React.Component {
     constructor(props){
         super(props)
 
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleSignIn = this.handleSignIn.bind(this);
     }
 
+
+    handleSignIn(){
+        this.props.history.push('/login');
+    }
 
     handleLogout(e){
         e.preventDefault();
         this.props.logOut();
     }
+    
+
 
     render() {
         return (
@@ -24,18 +31,24 @@ class SplashNav extends React.Component {
 
                 <div id="splash-nav-sec-2">
                     <section id='search-bar'>
-                        <input id='search-bar-input' type='text' />
+                        <input id='search-bar-input' type='text' placeholder={'Search'}/>
                         <button id='search-bar-button'> <i className="fas fa-search"></i> </button>
                     </section>
                 </div>
 
                 <div id="splash-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
-                        <li><i class="fas fa-video"></i></li>
+                        <li><i className="fas fa-video"></i></li>
+                        <li><i className="fas fa-th"></i></li>
+                        <li><i className="fas fa-comment"></i></li>
+                        <li><i className="fas fa-ellipsis-v"></i></li>
                         <li>{
                             this.props.isLoggedIn ? 
-                            <button onClick={this.handleLogout} >Sign Out</button> : 
-                            <Link to='/signup'>Sign In</Link>
+                                <button className='signin-button' onClick={this.handleLogout} >Sign Out</button> : 
+                            <button className='signin-button' onClick={this.handleSignIn} > 
+                                    <i className="fas fa-user-circle"></i>
+                                    SIGN IN
+                            </button> 
                         }</li>
                     </ul>
                 </div>

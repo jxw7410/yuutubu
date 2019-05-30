@@ -29,6 +29,11 @@ class LoginFormItem extends React.Component {
         document.getElementById('auth-input-element').focus();
     }
 
+    componentWillUnmount(){
+        this.props.defaultAction();
+        if (this.props.email)
+            this.props.clearEmail();
+    }
 
     componentDidUpdate() {
         if (!this.didUpdate) {
