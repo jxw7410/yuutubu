@@ -1,12 +1,15 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import UserModal from '../modals/user_modal';
 
-class SplashNav extends React.Component {
+
+class TopNav extends React.Component {
     constructor(props){
         super(props)
 
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
+        //debugger
     }
 
 
@@ -23,28 +26,33 @@ class SplashNav extends React.Component {
 
     render() {
         return (
-            <div id='splash-nav'>
-                <div id="splash-nav-sec-1">
-                    <i className="fas fa-bars"></i>
+            <div id='top-nav'>
+                <div id="top-nav-sec-1">
+                    <i className="fas fa-bars" onClick={this.props.handleToggled}></i>
                     <span id='nav-bar-icon'><i className="fab fa-youtube"></i><h1>Yuutubu</h1></span>
                 </div>
 
-                <div id="splash-nav-sec-2">
+                <div id="top-nav-sec-2">
                     <section id='search-bar'>
                         <input id='search-bar-input' type='text' placeholder={'Search'}/>
                         <button id='search-bar-button'> <i className="fas fa-search"></i> </button>
                     </section>
                 </div>
 
-                <div id="splash-nav-sec-3">  
+                <div id="top-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
                         <li><i className="fas fa-video"></i></li>
                         <li><i className="fas fa-th"></i></li>
                         <li><i className="fas fa-comment"></i></li>
-                        <li><i className="fas fa-ellipsis-v"></i></li>
+                        {
+                            this.props.isLoggedIn ?
+                            <li><i className="fas fa-bell"></i> </li> :
+                            <li><i className="fas fa-ellipsis-v"></i></li>
+                        }
                         <li>{
                             this.props.isLoggedIn ? 
-                                <button className='signin-button' onClick={this.handleLogout} >Sign Out</button> : 
+                                <UserModal 
+                                    logOut={this.handleLogout}/>: 
                             <button className='signin-button' onClick={this.handleSignIn} > 
                                     <i className="fas fa-user-circle"></i>
                                     SIGN IN
@@ -58,4 +66,4 @@ class SplashNav extends React.Component {
     }
 }
 
-export default SplashNav;
+export default TopNav;
