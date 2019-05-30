@@ -12,14 +12,31 @@ class SignUpForm extends React.Component {
             email: "",
             userNameFocus: false,
             passwordFocus: false,
-            emailFocus: false
+            emailFocus: false,
+            userNamePlaceholder: "Username",
+            emailPlaceholder: "Your Email Address",
+            passwordPlaceholder: "Your Password"
         }
 
         this.didUpdate = false;
+        
+        this.timeOut= {
+            userNameFocus: null,
+            passwordFocus: null,
+            emailFocus: null,
+        }
+
+        this.map = {
+            userNameFocus: "Username",
+            passwordFocus: "Your Password",
+            emailFocus: "Your Email Address"
+        }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.textChangeEvent = this.textChangeEvent.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.handeUnfocus = this.handleUnfocus.bind(this);
+        this.changePlaceholder = this.changePlaceholder.bind(this);
     }
 
 
@@ -59,15 +76,31 @@ class SignUpForm extends React.Component {
         this.props.signUp(this.state)
     }
 
-    handleFocus(field) {
+
+    changePlaceholder(placeholder, field) {
+        this.setState({[placeholder]: field})
+    }
+
+    handleFocus(focus, placeholder) {
         return e => {
             e.preventDefault();
-            const bool = this.state[field] ? false : true;
-            this.setState({ [field]: bool })
+            this.setState({ [focus]: true, [placeholder]: "" })
         }
     }
 
+    handleUnfocus(field, placeholder){
+        return e => {
+            e.preventDefault();
+            const mappedField = this.map[field]
+            clearTimeout( this.timeOut[field]); 
 
+            this.timeOut[field] = setTimeout(()=>{
+                this.changePlaceholder(placeholder, mappedField )
+            }, 140);
+
+            this.setState({ [field]: false})
+        }
+    }
 
     //Be careful, this is a atrocious
     render() {
@@ -80,7 +113,7 @@ class SignUpForm extends React.Component {
             <div id={'create-form-grid'}>
                 <div id={'create-form-container'}>
                     <div id={'create-form-header'}>
-                        <h1>{"Yuutubu"}</h1>
+                        <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"Yuutubu"}</h1></span>
                         <h1>{"Create your Yuutubu Account"}</h1>
                         <h2>{"to continue to Yuutubu"}</h2>
                     </div>
@@ -89,44 +122,47 @@ class SignUpForm extends React.Component {
 
                         <SignUpInputitem 
                             id = {"Username"}
-                            field={"Username"}
+                            field={this.map.userNameFocus}
                             value={this.state.username}
                             focus={this.state.userNameFocus}
                             inputLabelName={inputLabelName + ( errors.Username  ? "-errors" : "") }
                             inputClassName={inputClassName + (errors.Username ? "-errors" : "")}
-                            blurEvent={this.handleFocus("userNameFocus")}
-                            focusEvent={this.handleFocus("userNameFocus")}
+                            blurEvent={this.handleUnfocus("userNameFocus", "userNamePlaceholder")}
+                            focusEvent={this.handleFocus("userNameFocus", "userNamePlaceholder")}
                             changeEvent={this.textChangeEvent('username')}
                             type={'text'}
+                            placeholder={this.state.userNameFocus ? null : this.state.userNamePlaceholder}
                             message={errors.Username ? errors.Username : ""}
                         />
 
 
                         <SignUpInputitem
                             id = {"Email"}
-                            field={"Your email address"}
+                            field={this.map.emailFocus}
                             value={this.state.email}
                             focus={this.state.emailFocus}
                             inputLabelName={inputLabelName + (errors.Email ? "-errors" : "")}
                             inputClassName={inputClassName + (errors.Email ? "-errors" : "")}
-                            blurEvent={this.handleFocus("emailFocus")}
-                            focusEvent={this.handleFocus("emailFocus")}
+                            blurEvent={this.handleUnfocus("emailFocus", "emailPlaceholder")}
+                            focusEvent={this.handleFocus("emailFocus", "emailPlaceholder")}
                             changeEvent={this.textChangeEvent('email')}
                             type={'text'}
+                            placeholder={this.state.emailFocus ? null : this.state.emailPlaceholder}
                             message={errors.Email ? errors.Email : "You don't need a real email for now"}
                         />
 
                         <SignUpInputitem
                             id = {"Password"}
-                            field={"Your Password"}
+                            field={this.map.passwordFocus}
                             value={this.state.password}
                             focus={this.state.passwordFocus}
                             inputLabelName={inputLabelName + (errors.Password ? "-errors" : "")}
                             inputClassName={inputClassName + (errors.Password ? "-errors" : "")}
-                            blurEvent={this.handleFocus("passwordFocus")}
-                            focusEvent={this.handleFocus("passwordFocus")}
+                            blurEvent={this.handleUnfocus("passwordFocus", "passwordPlaceholder")}
+                            focusEvent={this.handleFocus("passwordFocus", "passwordPlaceholder")}
                             changeEvent={this.textChangeEvent('password')}
                             type={'password'}
+                            placeholder={this.state.passwordFocus? null : this.state.passwordPlaceholder}
                             message={errors.Password ? errors.Password : "Password should be at least 6 characters long"}
                         />
                         

@@ -17,16 +17,22 @@ class LoginFormItem extends React.Component {
             focus: false,
         }
 
+        this.timeOut;
         this.didUpdate = false;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.textChangeEvent = this.textChangeEvent.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.handleUnfocus = this.handleUnfocus.bind(this);
 
+        this.changePlaceholder = this.changePlaceholder.bind(this);
     }
 
     componentDidMount() {
-        this.didUpdate = false;
-        document.getElementById('auth-input-element').focus();
+        this.didUpdate = false; 
+        document.getElementById('auth-input-element-' + this.props.type).placeholder = 
+            this.props.type === 'email' ? 'Email' : 'Enter Your password';
+            
+        document.getElementById('auth-input-element-'+ this.props.type).focus();
     }
 
     componentWillUnmount(){
@@ -39,10 +45,11 @@ class LoginFormItem extends React.Component {
         if (!this.didUpdate) {
             if (this.props.errors.length > 0) {
                 this.didUpdate = true;
-                document.getElementById('auth-input-element').focus();
+                document.getElementById('auth-input-element-'+this.props.type).focus();
             }
         }
     }
+
 
     textChangeEvent(field) {
         return e => {
@@ -59,20 +66,31 @@ class LoginFormItem extends React.Component {
         this.props.action({ email, password });
     }
 
-    handleFocus(e) {
-        e.preventDefault();
-        const focus = this.state.focus ? false : true;
-        if (!focus) {
-
-        }
-
-        this.setState({ focus })
+    changePlaceholder(target, field) {
+        if (!this.state.focus)
+            document.getElementById(target).placeholder = field;
     }
 
+    handleFocus(e) {
+        e.preventDefault();
+        this.changePlaceholder(e.target.id, "")
+        this.setState({ focus: true })
+    }
+
+    handleUnfocus(field){
+        return e => {
+            e.preventDefault();
+            const target = e.target.id;
+            clearTimeout(this.timeOut);
+            this.timeOut = setTimeout(()=>{
+                this.changePlaceholder(target, field)
+            }, 140);
+            this.setState({focus: false })
+        }
+    }   
 
     render() {
         const field = this.props.type;
-        // debugger
         const inputClassName = 'auth-input' + (this.props.errors.length === 0 ? "" : '-errors');
 
         return (
@@ -86,24 +104,21 @@ class LoginFormItem extends React.Component {
                             {
                                 this.state.focus || this.state.password || this.state.email ?
                                     <h5 className='input-tag'>
-                                        {field === 'email' ? 'Email' : 'Enter your password'}
+                                        {field === 'email' ? 'Email' : 'Enter Your password'}
                                     </h5> : null
                             }
                         </ReactCSSTransistionGroup>
 
 
                         <input
-                            id="auth-input-element"
-                            onBlur={this.handleFocus}
+                            id={"auth-input-element-"+field}
+                            onBlur={this.handleUnfocus(field === 'email' ? 'Email' : 'Enter Your password')}
                             onFocus={this.handleFocus}
                             onChange={this.textChangeEvent(field)}
-                            type={field === 'email' ? 'text' : 'password'}
+                            type={field === 'email' ? 'email' : 'password'}
                             className={inputClassName}
                             value={this.setState[field]}
-                            placeholder={
-                                this.state.focus ? null :
-                                    field === 'email' ? 'Email' : 'Enter your password'
-                            } />
+                            />
 
                         <span>{this.props.errors ? this.props.errors : null}</span>
                     </label>

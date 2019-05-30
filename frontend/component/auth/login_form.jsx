@@ -7,7 +7,7 @@ const LoginForm = (props) => {
     return (
         <div id='login-container'>
 
-            <h1>Yuutubu</h1>
+            <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"Yuutubu"}</h1></span>
             {
                 props.email ?
                     <>

@@ -39,6 +39,7 @@ const SignUpInputItem = props => {
         focusEvent, 
         changeEvent,
         type,
+        placeholder,
         message } = props;
 
        // debugger
@@ -58,7 +59,7 @@ const SignUpInputItem = props => {
                 onChange={changeEvent}
                 type={type}
                 value={value}
-                placeholder={ focus ? null : field  }
+                placeholder={placeholder}
             />
 
             <span>{message}</span>

@@ -80,6 +80,11 @@
     left: 8px;
     top: -5px;
     color: gray;
+    outline: none;
+}
+
+.createform-input-tag:focus{
+    outline: none;
 }
 
 .createform-input-placeholder-enter{
@@ -96,7 +101,7 @@
     color: gray;
     left: 8px;
     top: -5px;
-    transition: font-size 150ms ease-in, top 150ms ease-in;
+    transition: font-size 150ms ease-in, top 150ms ease-in, left 150ms ease-in;
 }
 
 .createform-input-placeholder-leave{
@@ -115,7 +120,7 @@
     font-size: 20px;
     left: 12px;
     top: 20px;
-    transition: font-size 150ms ease-in, top 150ms ease-in;
+    transition: font-size 150ms ease-in, top 150ms ease-in, left 150ms ease-in;
 }
 
 #create-form > section {
