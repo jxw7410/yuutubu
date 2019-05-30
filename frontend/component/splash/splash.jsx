@@ -1,5 +1,6 @@
 import React from 'react';
 import SplashNavContainer from './splash_nav/splash_nav_container'
+import SplashSideNavContainer from './splash_nav/splash_side_nav_container';
 import {Route} from 'react-router-dom';
 
 export default props => {
