@@ -19,6 +19,11 @@ class User < ApplicationRecord
     attr_reader :password
     after_initialize :ensure_session
 
+    has_many :user_channels,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :UserChannel 
+         
     def self.verify_email(email)
         User.find_by_email(email)
     end

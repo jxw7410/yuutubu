@@ -69,3 +69,16 @@ const SignUpInputItem = props => {
 
 
 export default SignUpInputItem;
+
+/*
+this.stae{
+    errorpopup: false
+}
+
+
+
+onchange
+{
+    if this.errorpopup
+}
+*/

@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   
   namespace :api,  defaults: {format: 'json'} do
       resources :users, only: [:create]
+      
       resource :session, only: [:create, :destroy]
       post '/session/email', to: 'sessions#email'
+
+      resources :user_channels, only: [:create, :index, :show]
   end
 
 

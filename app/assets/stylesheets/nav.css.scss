@@ -22,7 +22,7 @@
 
 
 #top-nav{
-    border-bottom: 1px solid lightgray;
+    box-shadow: 0 8px 6px -4px rgb(240, 240, 240);
     display: grid;
     grid-template-columns: 150px auto 250px;
     padding: 0 15px;
@@ -82,20 +82,25 @@
     justify-content: center;
 }
 
+//media query should change the width to percentage base later on
 #search-bar-input{
-    width: 50%;
-    height: 30px;
+    width: 575px;
+    height: 32px;
     padding: 0 10px;
     font-size: 18px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border: 1px solid  rgb(204,204,204);
     outline:none;
 }
 
 #search-bar-input:active{
-    border-color: rgb(48, 59, 170);
+    border-color: rgb(106, 150, 202);
 }
 
 #search-bar-input:focus{
-    border-color: rgb(48, 59, 170);
+    box-shadow: inset -2px 2px 3px -3px;
+    border-color: rgb(30, 80, 175);
 }
 
 #search-bar-button{
