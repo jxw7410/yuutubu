@@ -10,8 +10,10 @@
 
 
 User.destroy_all
+UserChannel.destroy_all
 
-User.create(username: 'Jimmy', email: 'Jimmy1@gmail.com', password: 'password123');
-User.create(username: 'Jimmy', email: 'Jimmy2@gmail.com', password: 'password123');
-User.create(username: 'Jimmy', email: 'Jimmy3@gmail.com', password: 'password123');
-User.create(username: 'Jimmy', email: 'Jimmy4@gmail.com', password: 'password123');
+user1 = User.create(username: 'Jimmy', email: 'jimmy@gmail.com', password: 'password123');
+user2 = User.create(username: 'Johan', email: 'johan@gmail.com', password: 'password123');
+
+UserChannel.create(name: user1.username, user: user1)
+UserChannel.create(name: user2.username, user: user2)

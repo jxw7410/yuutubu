@@ -3,21 +3,36 @@ import MainNav from '../nav-bars/main_nav';
 import SubSideNav from '../nav-bars/sub_side_nav';
 import { Route } from 'react-router-dom';
 import FeatureContainer from './feature_container';
-import { connect } from 'react-redux';
-import { throws } from 'assert';
+
 
 class Channel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             toggledSideNav: true,
+            active_tab: 1,
         }
 
         this.basePath = this.props.match.url;
         this.handleToggled = this.handleToggled.bind(this);
         this.redirectEvent = this.redirectEvent.bind(this);
+  
     }
 
+    componentDidMount(){
+
+        switch(this.props.history.location.pathname){
+            case this.basePath:
+                this.setState({active_tab : 1})
+                break;
+            case this.basePath + '/videos':
+                this.setState({ active_tab: 2 })
+                break;
+            default:
+                this.setState({ active_tab: 1 })
+                break;
+        }
+    }
 
     handleToggled(e) {
         e.preventDefault();
@@ -26,9 +41,11 @@ class Channel extends React.Component {
 
     }
 
-    redirectEvent(field){
+    redirectEvent(field, active_tab){
         return e => {
-        }
+            this.props.history.push(this.basePath + (field ? field : ""));
+            this.setState({active_tab});
+        }   
     }
 
     render() {
@@ -50,21 +67,29 @@ class Channel extends React.Component {
                                         <div id='channel-header-profile'>
                                             <i className="fas fa-user-circle" />
                                             <span id='channel-header-profile-info'>
-                                                {this.props.username}
+                                                <span>{this.props.username}</span>
+                                                <span>0 subscribers</span>
                                             </span>
+                                        </div>
+
+                                        <div id='channel-header-buttons'>
+                                            <button id="subscribe-button">
+                                                SUBSCRIBE
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="channel-header-nav">
                                     <ul>
                                         <li 
-                                            onClick={ this.redirectEvent() }
-                                            className={ 'channel_tab_active'}> 
+                                            onClick={ this.redirectEvent(null, 1) }
+                                            className={ this.state.active_tab === 1 ? 'channel_tab_active' : null}> 
                                             HOME 
                                         </li>
 
                                         <li 
-                                            onClick={this.redirectEvent('/videos')}>
+                                            onClick={this.redirectEvent('/videos', 2)}
+                                            className={this.state.active_tab === 2 ? 'channel_tab_active' : null}> 
                                             VIDEOS 
                                         </li>
 
@@ -89,14 +114,4 @@ class Channel extends React.Component {
     }
 }
 
-
-const msp = state => {
-    return {
-        username: state.session.username,
-        isLogin: Boolean(state.session.id),
-    }
-}
-
-
-
-export default connect(msp)(Channel);
+export default Channel;

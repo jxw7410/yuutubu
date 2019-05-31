@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
     def email
-        @user = User.verify_email(email_params[:email])
+        @user = User.verify_email(email_params[:email].downcase)
         if @user
             render :email
         else 
@@ -9,13 +9,14 @@ class Api::SessionsController < ApplicationController
     end
 
     def create
-        @user = User.find_by_credentials(params[:user][:email],
-                                          params[:user][:password])
+        @user = User.find_by_credentials(params[:user][:email].downcase,
+            params[:user][:password])
+
         if @user 
             login(@user)
             render :show
         else
-            render json: ["invalid Password" ], status: 422
+            render json: ["Invalid Password" ], status: 422
         end
     end
    

@@ -22,12 +22,12 @@
 
 
 #top-nav{
-    box-shadow: 0 8px 6px -4px rgb(240, 240, 240);
+    box-shadow: 0 8px 2px -4px rgb(240, 240, 240);
     display: grid;
     grid-template-columns: 150px auto 250px;
     padding: 0 15px;
     height: inherit;
-    background:rgba(255,255,255,0.95);
+    background:rgba(255,255,255,0.98);
 }
 
 #nav-bar-icon{
@@ -85,9 +85,9 @@
 //media query should change the width to percentage base later on
 #search-bar-input{
     width: 575px;
-    height: 32px;
+    height: 30px;
     padding: 0 10px;
-    font-size: 18px;
+    font-size: 15px;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     border: 1px solid  rgb(204,204,204);
@@ -104,7 +104,7 @@
 }
 
 #search-bar-button{
-    height: 34px;
+    height: 32px;
     width: 65px;
     font-size: 18px;
     color: rgb(128,128,128);
@@ -112,6 +112,8 @@
     border-left: 0px;
     border-color: rgb(211, 211, 211);
     padding: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
     outline: none;
 }
 
@@ -243,7 +245,7 @@
     align-items: center;
     width: 100%;
     padding: 10px 0;
-    border-bottom: 2px solid rgb(220, 220, 220);
+    border-bottom: 1px solid rgb(220, 220, 220);
 }
 
 #main-side-nav > ul > li {
