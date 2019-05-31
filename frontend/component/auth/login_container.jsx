@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { login, fetchEmail, defaultAction, clearEmail } from '../../actions/session/session_action';
+import { login, fetchEmail, defaultAction, clearEmail, raiseEmailError } from '../../actions/session/session_action';
 import LoginForm from './login_form';
 
 
@@ -15,7 +15,8 @@ const mdp = dispatch => {
     return {
         login: user => dispatch(login(user)),
         fetchEmail: email => dispatch( fetchEmail(email) ),
-        defaultAction: () => dispatch( defaultAction() ),
+        raiseEmailError: () => dispatch( raiseEmailError() ),
+        defaultAction: () => dispatch( defaultAction()),
         clearEmail: () => dispatch( clearEmail())
     };
 };

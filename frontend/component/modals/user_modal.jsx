@@ -1,5 +1,7 @@
 import React from 'react';
 import UserModelItem from './user_modal_item';
+import { connect } from 'react-redux';
+
 
 class UserModal extends React.Component{
     constructor(props){
@@ -8,11 +10,13 @@ class UserModal extends React.Component{
             isToggled: false,
         }
         this.togglePopUp = this.togglePopUp.bind(this);
+
     }
 
   
 
     togglePopUp(){
+        //debugger
         const isToggled = this.state.isToggled ? false : true;
         this.setState({ isToggled})
     }
@@ -22,20 +26,29 @@ class UserModal extends React.Component{
     render(){
         return(
             <div id='user-icon-modal-hook'>
-                <i onClick={this.togglePopUp} id='user-profile-icon' className="fas fa-user-circle">
+                <i key={'1'} onClick={this.togglePopUp} id='user-icon' className="fas fa-user-circle"/>
 
                 <div id="user-modal-item-ref">
-                { this.state.isToggled ? 
-                            <UserModelItem 
-                                togglePopUp={this.togglePopUp}
-                                logOut={this.props.logOut}
-                            />
-                     : null}
+                    {this.state.isToggled ?
+                        <UserModelItem
+                            togglePopUp={this.togglePopUp}
+                            logOut={this.props.logOut}
+                            user={this.props.user}
+                        />
+                        : null}
                 </div>
-                </i>
             </div>
         )
     }
 }
 
-export default UserModal;
+
+const msp = state => {
+    //debugger
+    const user = state.entities.users[state.session.id]
+    return {
+        user
+    }
+}
+
+export default connect(msp)(UserModal);

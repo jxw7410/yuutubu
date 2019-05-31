@@ -2,7 +2,8 @@ import React from 'react'
 import SignUpInputitem from './signup_input_item';
 import {isEmpty} from 'lodash'
 import { Link } from 'react-router-dom'
-
+import {isEmailValid} from '../../util/selectors'
+ 
 class SignUpForm extends React.Component {
     constructor(props) {
         super(props)
@@ -73,7 +74,11 @@ class SignUpForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.didUpdate = false;
-        this.props.signUp(this.state)
+        if (this.state.email && !isEmailValid(this.state.email)){
+            this.props.raiseEmailError();
+        } else {
+            this.props.signUp(this.state)
+        }
     }
 
 
@@ -113,9 +118,9 @@ class SignUpForm extends React.Component {
             <div id={'create-form-grid'}>
                 <div id={'create-form-container'}>
                     <div id={'create-form-header'}>
-                        <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"Yuutubu"}</h1></span>
-                        <h1>{"Create your Yuutubu Account"}</h1>
-                        <h2>{"to continue to Yuutubu"}</h2>
+                        <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"YuuTubu"}</h1></span>
+                        <h1>{"Create your YuuTubu Account"}</h1>
+                        <h2>{"to continue to YuuTubu"}</h2>
                     </div>
 
                     <form id={'create-form'}>   

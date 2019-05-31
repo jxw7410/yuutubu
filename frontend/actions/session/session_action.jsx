@@ -4,6 +4,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const RECEIVE_EMAIL = "RECEIVE_EMAIL";
 export const RECEIVE_CLEAR_EMAIL = "RECEIVE_CLEAR_EMAIL";
+export const RECEIVE_EMAIL_ERROR = "RECEIVE_EMAIL_ERROR";
 
 const receiveEmail = ({ email }) => ({
     type: RECEIVE_EMAIL,
@@ -36,6 +37,11 @@ export const defaultAction = () => ({
 })
 
 
+export const raiseEmailError = () => ({
+    type: RECEIVE_EMAIL_ERROR,
+    errors: ["Email is not a valid email format"]
+})
+
 
 export const signUp = user => dispatch => {
     return APIUtil.signUp(user)
@@ -62,3 +68,4 @@ export const fetchEmail = email => dispatch => {
             rsp => dispatch(receiveErrors(rsp.responseJSON))
         );
 }
+

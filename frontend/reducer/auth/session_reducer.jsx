@@ -3,7 +3,8 @@ import { merge }  from 'lodash'
 
 const _nullSession = {
         id: null,
-        email: null
+        email: null,
+        username: null
 };
 
 
@@ -11,14 +12,16 @@ const sessionReducer = (state= _nullSession, action) => {
     Object.freeze(state)
     switch(action.type){
         case RECEIVE_USER:
-            return { id: action.user.id, email: null }
+            return action.user
         
         case RECEIVE_EMAIL:
             const newState = merge({}, state)
             newState.email = action.email
             return newState;
+
         case RECEIVE_CLEAR_EMAIL:
-            return merge({}, state, { email: null } )
+            return merge({}, state, { email: null} )
+            
         case LOGOUT_USER:
             return _nullSession;
 

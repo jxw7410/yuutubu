@@ -7,7 +7,7 @@ const LoginForm = (props) => {
     return (
         <div id='login-container'>
 
-            <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"Yuutubu"}</h1></span>
+            <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"YuuTubu"}</h1></span>
             {
                 props.email ?
                     <>
@@ -16,7 +16,7 @@ const LoginForm = (props) => {
                     </> :
                     <>
                         <h2>Sign In</h2>
-                        <h3>to continue to Yuutubu</h3>
+                        <h3>to continue to YuuTubu</h3>
                     </>
             }
 
@@ -36,7 +36,9 @@ const LoginForm = (props) => {
                                 type={'email'}
                                 className={'session'}
                                 action={props.fetchEmail}
-                                defaultAction={props.defaultAction} />
+                                defaultAction={props.defaultAction} 
+                                raiseEmailError={props.raiseEmailError}
+                                />
                             :
                             <Login_Form_Item
                                 key={'password'}
@@ -46,7 +48,9 @@ const LoginForm = (props) => {
                                 className={'session'}
                                 action={props.login} 
                                 defaultAction={props.defaultAction}
-                                clearEmail={props.clearEmail} />
+                                clearEmail={props.clearEmail} 
+                                raiseEmailError={props.raiseEmailError}
+                                />
                     }
 
                 </ReactCSSTransitionGroup>

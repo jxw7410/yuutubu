@@ -1,9 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 
 
 class SubSideNav extends React.Component{
+    
+    constructor(props) {
+        super(props);
+
+        this.toHomeEvent = this.toHomeEvent.bind(this);
+    }
+
+
+    toHomeEvent(e) {
+        if (this.props.match.url !== '/')
+            this.props.history.push('/')
+    }
     
 
     render(){
@@ -12,9 +24,23 @@ class SubSideNav extends React.Component{
                 <nav id='sub-side-nav'>
                     <article id='sub-side-nav-content'>
                         <ul>
-                            <li><i className="fas fa-home"></i>Home</li>
-                            <li><i className="fab fa-github"></i>Git</li>
-                            <li><i className="fab fa-linkedin"></i>Linkedin</li>
+                            <li
+                                onClick={this.toHomeEvent}
+                                id='Home'
+                                className={this.props.match.url === '/' ? 'sub-side-icon-selected' : ""}>
+                                <i className="fas fa-home" />
+                                <span>Home</span>
+                            </li>
+
+                            <li>
+                                <i className="fab fa-github"></i>
+                                <span>Git</span>
+                            </li>
+                            
+                            <li>
+                                <i className="fab fa-linkedin"></i>
+                                <span>Linkedin</span>
+                            </li>
                         </ul>
                     </article>
                 </nav>
@@ -36,4 +62,4 @@ const mdp = dispatch => {
     )
 }
 
-export default connect(msp, mdp)(SubSideNav)
+export default withRouter(connect(msp, mdp)(SubSideNav));

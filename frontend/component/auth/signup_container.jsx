@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { signUp, defaultAction } from '../../actions/session/session_action';
+import { signUp, defaultAction, raiseEmailError } from '../../actions/session/session_action';
 import { convertErrorMessageToObject } from '../../util/selectors';
 import SignUpForm from './signup';
 
@@ -15,7 +15,8 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         signUp: user => dispatch(signUp(user)),
-        defaultAction: () => dispatch(defaultAction())
+        defaultAction: () => dispatch(defaultAction()),
+        raiseEmailError: () => dispatch(raiseEmailError()),
     }
 };
 

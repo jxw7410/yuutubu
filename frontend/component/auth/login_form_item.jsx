@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactCSSTransistionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom'
+import {isEmailValid} from './../../util/selectors';
 
 function EmailFormStuff(props) {
     return (
@@ -63,7 +64,11 @@ class LoginFormItem extends React.Component {
         const email = this.state.email || this.props.email;
         const password = this.state.password
         this.didUpdate = false;
-        this.props.action({ email, password });
+        if (email && !isEmailValid(email)){
+            this.props.raiseEmailError();
+        } else {
+            this.props.action({ email, password });
+        }
     }
 
     changePlaceholder(target, field) {

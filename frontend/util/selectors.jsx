@@ -7,3 +7,9 @@ export const convertErrorMessageToObject = errors =>{
     });
     return errorsObj;
 }
+
+
+//Snippet per tylermcgnnis.com         
+export const isEmailValid = email => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}

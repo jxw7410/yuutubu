@@ -12,7 +12,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
             session:
             { 
                 id: window.currentUser.id,
-                email: window.currentUser.email
+                email: window.currentUser.email,
+                username: window.currentUser.username
+            },
+
+            entities: {
+                users: {
+                    [window.currentUser.id] : {
+                        id: window.currentUser.id,
+                        email: window.currentUser.email,
+                        username: window.currentUser.username
+                    }
+                }
             }
         }
         store = configureStore(preloadedState);
@@ -26,6 +37,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
     //THESE MUST BE REMOVED IN THE PRODUCTION CODE
-    //window.getState = store.getState;
+    window.getState = store.getState;
     
 });
