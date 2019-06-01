@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             { 
                 id: window.currentUser.id,
                 email: window.currentUser.email,
-                username: window.currentUser.username
+                username: window.currentUser.username,
+                channel_id: window.currentUser.channel_id
             },
 
             entities: {
@@ -21,7 +22,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
                     [window.currentUser.id] : {
                         id: window.currentUser.id,
                         email: window.currentUser.email,
-                        username: window.currentUser.username
+                        username: window.currentUser.username,
+                        channel_id: window.currentUser.channel_id
                     }
                 }
             }

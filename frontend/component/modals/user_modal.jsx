@@ -16,7 +16,6 @@ class UserModal extends React.Component{
   
 
     togglePopUp(){
-        //debugger
         const isToggled = this.state.isToggled ? false : true;
         this.setState({ isToggled})
     }
@@ -44,7 +43,6 @@ class UserModal extends React.Component{
 
 
 const msp = state => {
-    //debugger
     const user = state.entities.users[state.session.id]
     return {
         user

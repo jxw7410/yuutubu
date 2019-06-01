@@ -4,8 +4,10 @@ import { merge }  from 'lodash'
 const _nullSession = {
         id: null,
         email: null,
-        username: null
+        username: null,
+        channel_id: null,
 };
+
 
 
 const sessionReducer = (state= _nullSession, action) => {

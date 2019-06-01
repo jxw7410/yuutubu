@@ -9,7 +9,7 @@ class TopNav extends React.Component {
 
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
-        //debugger
+
     }
 
 

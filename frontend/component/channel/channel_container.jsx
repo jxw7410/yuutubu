@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import Channel from './channel';
 
-const msp = state => {
+const msp = (state, props) => {
+    const channel = state.entities.channels[props.match.params.channel_id] || {}
     return {
-        username: state.session.username,
+        channel,
+        userId: state.session.id,
         isLogin: Boolean(state.session.id),
 
     }

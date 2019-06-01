@@ -110,10 +110,8 @@ class SignUpForm extends React.Component {
     //Be careful, this is a atrocious
     render() {
         const errors = this.props.errors;
-        //debugger
         const inputClassName = 'create-form-input';
         const inputLabelName = "create-form-label";
-       // debugger
         return (
             <div id={'create-form-grid'}>
                 <div id={'create-form-container'}>

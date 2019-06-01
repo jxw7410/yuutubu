@@ -4,7 +4,6 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 const AnimatePlaceHolderText = (props) => {
-    //debugger
     return (
         <ReactCSSTransitionGroup
             transitionName='createform-input-placeholder'
@@ -42,7 +41,7 @@ const SignUpInputItem = props => {
         placeholder,
         message } = props;
 
-       // debugger
+
     return (
         <label className={inputLabelName}>
             <AnimatePlaceHolderText

@@ -16,7 +16,8 @@ class Channel extends React.Component {
         this.basePath = this.props.match.url;
         this.handleToggled = this.handleToggled.bind(this);
         this.redirectEvent = this.redirectEvent.bind(this);
-  
+
+        
     }
 
     componentDidMount(){
@@ -67,15 +68,19 @@ class Channel extends React.Component {
                                         <div id='channel-header-profile'>
                                             <i className="fas fa-user-circle" />
                                             <span id='channel-header-profile-info'>
-                                                <span>{this.props.username}</span>
+                                                <span>{this.props.channel.name}</span>
                                                 <span>0 subscribers</span>
                                             </span>
                                         </div>
 
                                         <div id='channel-header-buttons'>
-                                            <button id="subscribe-button">
-                                                SUBSCRIBE
-                                            </button>
+                                            {
+                                            
+                                                this.props.channel.user_id !== parseInt(this.props.userId) ? 
+                                                <button id="subscribe-button">
+                                                    SUBSCRIBE
+                                                </button> : null
+                                            }
                                         </div>
                                     </div>
                                 </div>

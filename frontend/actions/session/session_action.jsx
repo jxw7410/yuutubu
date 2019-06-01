@@ -52,7 +52,9 @@ export const signUp = user => dispatch => {
 
 export const login = user => dispatch => {
     return APIUtil.login(user)
-        .then(user_rsp => dispatch(receiveUser(user_rsp)),
+        .then(user_rsp => 
+        { 
+            dispatch(receiveUser(user_rsp))},
             rsp => dispatch(receiveErrors(rsp.responseJSON))
         );
 };
