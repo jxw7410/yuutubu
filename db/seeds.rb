@@ -11,6 +11,7 @@
 
 User.destroy_all
 UserChannel.destroy_all
+Video.destroy_all
 
 user1 = User.create(username: 'testuser1', email: 'testuser1@gmail.com', password: 'password123');
 user2 = User.create(username: 'testuser2', email: 'testuser2@gmail.com', password: 'password123');
