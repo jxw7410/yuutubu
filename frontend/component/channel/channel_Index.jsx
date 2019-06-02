@@ -1,5 +1,5 @@
 import React from 'react';
-import ChannelIndexItem from '../channel/channel_index_item';
+import ChannelIndexItem from './channel_index_item';
 
 
 class ChannelIndex extends React.Component{
