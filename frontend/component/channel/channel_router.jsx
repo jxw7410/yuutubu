@@ -11,9 +11,7 @@ class ChannelRouter extends React.Component {
             isChannel: null,
             request: false
         }
-      
         this.didUpdate = false;
-
     }
 
 
