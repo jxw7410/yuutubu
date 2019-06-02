@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ChannelIndex from './channel_index';
+import ChannelIndex from './channel_Index';
 import { fetchChannels } from '../../actions/channel/channel_action';
 
 const msp = state => {
