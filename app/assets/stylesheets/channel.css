@@ -83,7 +83,7 @@
 #subscribe-button:focus{
     outline: none;
 }
-/////////////////////////
+
 #channel-header-nav{
     grid-row: 2 / 3;
     display: flex;

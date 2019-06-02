@@ -1,10 +1,26 @@
 class Api::UserChannelsController < ApplicationController
     def index 
+        if params[:user_id].length > 0
+            @channels = UserChannel.where
+                .not(user_id: params[:user_id])
+                .limit(params[:limit])
+                .offset(params[:offset])
+        else
+            @channels = UserChannel.all
+                .limit(params[:limit])
+                .offset(params[:offset])
+        end
+
+
+        if @channels.empty?
+            render json: ["Channels not found."], status: 404
+        else 
+            render :index
+        end
     end
 
     def show
         @channel = UserChannel.find_by(id: params[:id])
-        #debugger
         if @channel 
             render :show
         else 

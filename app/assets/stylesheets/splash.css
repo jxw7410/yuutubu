@@ -1,0 +1,43 @@
+#splash-main-content{
+    grid-column: 2 / 3;
+    /* overflow-y:  scroll; */
+}
+
+
+
+#channels_list{
+    padding: 0 8%;
+    padding-top: 80px;
+    position: relative;
+    overflow-y: scroll;
+}
+
+.channel_index_items{
+    height: 295px;
+    border-top: 1px solid rgb(225, 225, 255);
+    display:grid;
+    grid-template-rows: 70px auto;
+}
+
+
+.channel_index_items_header{
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.channel_index_items_header_ch_name{
+    /* position: relative; */
+    font-size: 12px;
+    color: rgb(116,116,116);
+}
+
+
+
+.channel_index_items_header_ch_name > a{
+   text-decoration: none;
+   color: black;
+   font-size: 20px; 
+}
+

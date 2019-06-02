@@ -8,18 +8,15 @@ const AnimatePlaceHolderText = (props) => {
         <ReactCSSTransitionGroup
             transitionName='createform-input-placeholder'
             transitionEnterTimeout={150}
-            transitionLeaveTimeout={150}
-        >
+            transitionLeaveTimeout={150}>
             {
                 props.focus || props.value ?
 
-                    <h5 key={props.field} className='createform-input-tag'>
+                    <h5 key={props.field} 
+                        className='createform-input-tag'>
                         {props.field}
-                    </h5>
-
-                    : null
+                    </h5> : null
             }
-
         </ReactCSSTransitionGroup>
     )
 }
@@ -69,15 +66,3 @@ const SignUpInputItem = props => {
 
 export default SignUpInputItem;
 
-/*
-this.stae{
-    errorpopup: false
-}
-
-
-
-onchange
-{
-    if this.errorpopup
-}
-*/

@@ -1,6 +1,7 @@
 import * as ChannelAPI from '../../util/channel_api';
 
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
+export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS';
 
 const receiveChannel = channel => (
     {
@@ -10,6 +11,10 @@ const receiveChannel = channel => (
 )
 
 
+const receiveChannels = channels => ({
+    type: RECEIVE_CHANNELS,
+    channels
+})
 
 
 export const fetchChannel = channel_id => dispatch => {
@@ -19,3 +24,9 @@ export const fetchChannel = channel_id => dispatch => {
         );
 };
 
+export const fetchChannels = (offset, limit, user_id) => dispatch => {
+    return ChannelAPI.requestChannels(offset, limit, user_id)
+        .then( channels => {
+            dispatch(receiveChannels(channels)
+        )});
+}

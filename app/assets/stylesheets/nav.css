@@ -82,7 +82,7 @@
     justify-content: center;
 }
 
-//media query should change the width to percentage base later on
+
 #search-bar-input{
     width: 575px;
     height: 30px;
@@ -203,7 +203,6 @@
     background: transparent;
 }
 
-//MAIN SIDE NAV
 
 #main-side-nav{
     background:rgb(245, 245, 245);
@@ -285,8 +284,6 @@
 }
 
 
-
-//splash-main
 #splash-main{
     display: grid;
     grid-template-columns: 70px auto;
@@ -299,7 +296,7 @@
     height: 100%;
 }
 
-//SubSide Nav
+
 
 #sub-side-nav-ctn{
     grid-column: 1 / 2;

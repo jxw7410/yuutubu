@@ -3,7 +3,7 @@ import MainNav from '../nav-bars/main_nav';
 import SubSideNav from '../nav-bars/sub_side_nav';
 import { Route } from 'react-router-dom';
 import FeatureContainer from './feature_container';
-
+import ChannelHeader from './channel_header';
 
 class Channel extends React.Component {
     constructor(props) {
@@ -17,14 +17,14 @@ class Channel extends React.Component {
         this.handleToggled = this.handleToggled.bind(this);
         this.redirectEvent = this.redirectEvent.bind(this);
 
-        
+
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
-        switch(this.props.history.location.pathname){
+        switch (this.props.history.location.pathname) {
             case this.basePath:
-                this.setState({active_tab : 1})
+                this.setState({ active_tab: 1 })
                 break;
             case this.basePath + '/videos':
                 this.setState({ active_tab: 2 })
@@ -42,11 +42,11 @@ class Channel extends React.Component {
 
     }
 
-    redirectEvent(field, active_tab){
+    redirectEvent(field, active_tab) {
         return e => {
             this.props.history.push(this.basePath + (field ? field : ""));
-            this.setState({active_tab});
-        }   
+            this.setState({ active_tab });
+        }
     }
 
     render() {
@@ -61,55 +61,13 @@ class Channel extends React.Component {
                     <SubSideNav />
                     <div id={'channel-main-content'}>
                         <div>
-                            <div id='channel-header'>
-                                <div id='channel-header-msc-grid-hook'>
-                                    <div id="channel-header-msc">
-
-                                        <div id='channel-header-profile'>
-                                            <i className="fas fa-user-circle" />
-                                            <span id='channel-header-profile-info'>
-                                                <span>{this.props.channel.name}</span>
-                                                <span>0 subscribers</span>
-                                            </span>
-                                        </div>
-
-                                        <div id='channel-header-buttons'>
-                                            {
-                                            
-                                                this.props.channel.user_id !== parseInt(this.props.userId) ? 
-                                                <button id="subscribe-button">
-                                                    SUBSCRIBE
-                                                </button> : null
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="channel-header-nav">
-                                    <ul>
-                                        <li 
-                                            onClick={ this.redirectEvent(null, 1) }
-                                            className={ this.state.active_tab === 1 ? 'channel_tab_active' : null}> 
-                                            HOME 
-                                        </li>
-
-                                        <li 
-                                            onClick={this.redirectEvent('/videos', 2)}
-                                            className={this.state.active_tab === 2 ? 'channel_tab_active' : null}> 
-                                            VIDEOS 
-                                        </li>
-
-                                        <li > PLAYLISTS </li>
-                                        <li > CHANNELS </li>
-                                        <li > DISCUSSION </li>
-                                        <li > ABOUT </li>
-                                    </ul>
-
-                                </div>
-
-
-                            </div>
+                            <ChannelHeader 
+                                userId = {this.props.userId}
+                                channel ={this.props.channel}
+                                active_tab = {this.state.active_tab}
+                                redirectEvent =  {this.redirectEvent }
+                            />
                             <Route exact path={this.basePath} component={FeatureContainer}></Route>
-                            <Route path={`${this.basePath}/features`} component={FeatureContainer}></Route>
                             <Route path={`${this.basePath}/videos`} component={FeatureContainer}></Route>
                         </div>
                     </div>
