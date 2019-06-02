@@ -29,7 +29,7 @@ class Api::UserChannelsController < ApplicationController
     end
 
     def create
-
+        render json: ['Unavailable at this time.'], status: 422
     end
 
     private

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import ChannelIndex from './channel_Index';
-import { fetchChannels } from '../../actions/channel/channel_action';
+import ChannelIndex from './channel_list';
+import { fetchChannels, clearChannels } from '../../actions/channel/channel_action';
 
 const msp = state => {
     return {
@@ -12,7 +12,8 @@ const msp = state => {
 
 const mdp = dispatch => {
     return {
-        fetchChannels: (offset, num, user_id) => dispatch( fetchChannels(offset, num, user_id))
+        fetchChannels: (offset, num, user_id) => dispatch( fetchChannels(offset, num, user_id)),
+        clearChannels: () => dispatch( clearChannels() )
     }
 }
 

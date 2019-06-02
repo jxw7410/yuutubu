@@ -7,18 +7,20 @@ class ChannelIndex extends React.Component {
         super(props)
         this.offset = 0;
         this.scrollPercentage = null;
+        this.defaultPercentage = 0.48;
         this.scrollHeightOffset = 888;
         this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
+        this.props.clearChannels();
         this.props.fetchChannels(this.offset, 6, this.props.user_id)
             .then(() => {
                 this.offset += 6;
             })
             .then(() => {
                 document.addEventListener('scroll', this.handleScroll);
-                this.scrollPercentage = .45;
+                this.scrollPercentage = this.defaultPercentage;
             });
     }
 
@@ -34,7 +36,7 @@ class ChannelIndex extends React.Component {
                 .then(() => {
                     this.offset += 3;
                     let refactorPercentage = (this.scrollPercentage * this.scrollHeightOffset) / splashScrollHeight;
-                    this.scrollPercentage += (0.45 * refactorPercentage);
+                    this.scrollPercentage += (this.defaultPercentage * refactorPercentage);
 
                 })
                 .fail(() => {

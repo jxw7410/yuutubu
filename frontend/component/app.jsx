@@ -1,10 +1,11 @@
 import React from 'react'
 import { Route } from 'react-router-dom';
-import { AuthRoute } from '../util/auth_route'
+import { AuthRoute, ProtectedRoute } from '../util/auth_route'
 import SignUpContainer  from '../component/auth/signup_container'
 import LoginContainer from '../component/auth/login_container'
 import SplashComponent from '../component/splash/splash';
 import ChannelRouter from '../component/channel/channel_router';
+import VideoRouter from '../component/video/video_router';
 
 const App = () => (
     <div>
@@ -12,6 +13,7 @@ const App = () => (
         <Route path='/channel/:channel_id' component={ChannelRouter}/>
         <AuthRoute path="/signup" component={SignUpContainer}/>  
         <AuthRoute path="/login" component={LoginContainer}/>  
+        <ProtectedRoute path='/video/:video_id' component={VideoRouter} />
     </div>
 )
 

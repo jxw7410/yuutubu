@@ -1,6 +1,12 @@
 class Api::VideosController < ApplicationController
     def show
-        render json: ['No token'], status: 404
+        @video = Video.find_by(id: params[:id])
+        #debugger 
+        if @video 
+            render :show 
+        else 
+            render json: ['Video is unavailable'], status: 422
+        end
     end
 end
 

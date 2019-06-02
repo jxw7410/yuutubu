@@ -21,3 +21,16 @@ const msp = state => {
 
 export const AuthRoute = withRouter(connect(msp)(Auth));
 
+const Protected = ({ component: Component, islogin, exact, path }) => {
+    return (
+        <Route
+            path={path}
+            exact={exact}
+            render={props => (
+                islogin ? <Component  {...props} /> : <Redirect to='/login' /> )}
+        />
+    )
+}
+
+
+export const ProtectedRoute = withRouter(connect(msp)(Protected));

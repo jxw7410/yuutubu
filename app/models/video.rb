@@ -17,6 +17,18 @@ class Video < ApplicationRecord
 
     has_one_attached :thumbnail
     has_one_attached :video_content
+
+    belongs_to :user,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :User
+    
+
+    belongs_to :channel,
+        primary_key: :id,
+        foreign_key: :channel_id,
+        class_name: :UserChannel
+    
     
 end
 
