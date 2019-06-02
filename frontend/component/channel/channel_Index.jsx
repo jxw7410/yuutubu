@@ -17,13 +17,13 @@ class ChannelIndex extends React.Component{
                 this.offset += 6;
             })
             .then(() => {
-                document.addEventListener('scroll', this.handleScroll)
+                document.addEventListener('scroll', this.handleScroll);
                 this.scrollPercentage = .45;
             });
     }
 
     componentWillUnmount(){
-        document.removeEventListener('scroll', this.handleScroll)
+        document.removeEventListener('scroll', this.handleScroll);
     }
 
     handleScroll(e){
@@ -32,13 +32,13 @@ class ChannelIndex extends React.Component{
         if ($(document).scrollTop() > (splashScrollHeight * this.scrollPercentage)) {
             this.props.fetchChannels(this.offset, 3, this.props.user_id)
                 .then( () => {
-                    this.offset += 3
+                    this.offset += 3;
                     let refactorPercentage = ( this.scrollPercentage * this.scrollHeightOffset ) / splashScrollHeight;
-                    this.scrollPercentage += (0.45 * refactorPercentage )
+                    this.scrollPercentage += (0.45 * refactorPercentage );
 
                 })
                 .fail( ()=>{
-                    document.removeEventListener('scroll', this.handleScroll)
+                    document.removeEventListener('scroll', this.handleScroll);
                 })
         }
      
@@ -46,7 +46,6 @@ class ChannelIndex extends React.Component{
 
 
     render(){
-        //debugger
         const channelIndexItems =  this.props.channels.map( (channel, index) => {
             if (this.props.user_id !== channel.user_id)
                 return (<ChannelIndexItem key={ index } channel = {channel} />)
