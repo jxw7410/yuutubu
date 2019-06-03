@@ -13,7 +13,6 @@ class VideoRouter extends React.Component {
         }
     }
     componentDidMount() {
-        debugger
         this.props.fetchVideo(this.props.match.params.video_id)
             .then(() => {
                 this.didUpdate = true;
@@ -26,9 +25,8 @@ class VideoRouter extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        debugger
-        if (prevProps.match.url !== this.props.match.url)
-
+        if (prevProps.match.url !== this.props.match.url){
+            debugger
             this.props.fetchVideo(this.props.match.params.video_id)
                 .then(() => {
                     this.didUpdate = true;
@@ -38,6 +36,7 @@ class VideoRouter extends React.Component {
                     this.didUpdate = true
                     this.setState({ isVideo: false })
                 })
+            }
         else
             this.didUpdate = true;
     }

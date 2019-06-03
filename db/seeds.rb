@@ -29,7 +29,7 @@ user13 = User.create(username: 'testuser13', email: 'testuser13@gmail.com', pass
 user14 = User.create(username: 'testuser14', email: 'testuser14@gmail.com', password: 'password123');
 user15 = User.create(username: 'testuser15', email: 'testuser15@gmail.com', password: 'password123');
 
-UserChannel.create(name: user1.username, user: user1)
+channel1 = UserChannel.create(name: user1.username, user: user1)
 UserChannel.create(name: user2.username, user: user2)
 UserChannel.create(name: user3.username, user: user3)
 UserChannel.create(name: user4.username, user: user4)
@@ -44,3 +44,6 @@ UserChannel.create(name: user12.username, user: user12)
 UserChannel.create(name: user13.username, user: user13)
 UserChannel.create(name: user14.username, user: user14)
 UserChannel.create(name: user15.username, user: user15)
+
+vid1 = Video.create(title: '4 plates', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid1.video_content.attach( io: File.open("/Users/jxw7410/Desktop/videos/405.mov"), filename: "405.mov")

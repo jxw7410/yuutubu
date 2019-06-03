@@ -1,15 +1,23 @@
 import React from 'react';
 import Video from './video';
 import { connect } from 'react-redux'
+import {fetchChannel} from '../../actions/channel/channel_action'
 
 
 
 const msp = (state, props) => {
     const video = state.entities.videos[props.match.params.video_id] || {}
-    debugger
+    //debugger
     return {
-        video
+        video,
+        channels: state.entities.channels
     }
 }
 
-export default connect(msp)(Video);
+const mdp = dispatch => {
+    return {
+        fetchChannel: channel_id => dispatch(fetchChannel(channel_id)),
+    }
+}
+
+export default connect(msp, mdp)(Video);

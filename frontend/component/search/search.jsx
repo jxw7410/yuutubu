@@ -22,7 +22,7 @@ class Search extends React.Component{
 
     render() {
         return (
-            <div id='splash-div'>
+            <div id='main-nav-div'>
                 <div id='splash-nav-bars'>
                     <TopNavContainer handleToggled={this.handleToggled} />
                     {

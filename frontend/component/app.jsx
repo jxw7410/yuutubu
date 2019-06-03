@@ -13,7 +13,7 @@ const App = () => (
         <Route path='/channel/:channel_id' component={ChannelRouter}/>
         <AuthRoute path="/signup" component={SignUpContainer}/>  
         <AuthRoute path="/login" component={LoginContainer}/>  
-        <ProtectedRoute path='/video/:video_id' component={VideoRouter} />
+        <Route path='/video/:video_id' component={VideoRouter} />
     </div>
 )
 

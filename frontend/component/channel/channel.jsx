@@ -51,7 +51,7 @@ class Channel extends React.Component {
 
     render() {
         return (
-            <div id='splash-div'>
+            <div id='main-nav-div'>
                 <MainNav
                     handleToggled={this.handleToggled}
                     toggledSideNav={this.state.toggledSideNav}
