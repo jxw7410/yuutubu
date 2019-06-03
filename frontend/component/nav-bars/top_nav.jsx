@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserModal from '../modals/user_modal';
 
 
@@ -29,7 +29,7 @@ class TopNav extends React.Component {
             <div id='top-nav'>
                 <div id="top-nav-sec-1">
                     <i className="fas fa-bars" onClick={this.props.handleToggled}></i>
-                    <span id='nav-bar-icon'><i className="fab fa-youtube"></i><h1>YuuTubu</h1></span>
+                    <span id='nav-bar-icon'><Link to={'/'}><i className="fab fa-youtube"></i><h1>YuuTubu</h1></Link></span>
                 </div>
 
                 <div id="top-nav-sec-2">

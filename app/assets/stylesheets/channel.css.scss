@@ -75,6 +75,7 @@
     border-radius: 3px;
     color: white;
     font-size: 14px;
+    position: relative;
 }
 
 #subscribe-button:active {
@@ -82,6 +83,10 @@
 }
 #subscribe-button:focus{
     outline: none;
+}
+
+#subscribe-button:hover{
+    cursor: pointer;
 }
 
 #channel-header-nav{

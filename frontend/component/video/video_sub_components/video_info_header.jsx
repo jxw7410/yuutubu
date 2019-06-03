@@ -1,12 +1,12 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 
 const VideoInfoHeader = props => {
     //debugger
     return (
         <div id='video-info-header'>
-            <section>Video Title: {props.videoTitle}</section>
+            <section>{props.videoTitle}</section>
             <section>
                 <span>0 Views</span>
                 <span>Likes Dislikes</span>
@@ -26,12 +26,12 @@ const VideoInfoBody = props => {
 
                 <div id='video-info-body-header'>
                     <div>
-                        <span id="vid-channel-name">{props.channelName}</span>
+                        <Link to={`/channel/${props.channel.id}`} id="vid-channel-name">{props.channel.name}</Link>
                         <span id="vid-video-date">{props.videoDate}</span>
                     </div>
 
                     <div>
-                        Subscribe Button Goes Here
+                        <button id="subscribe-button"> SUBSCRIBE </button> 
                     </div>
                 </div>
             </section>
@@ -39,7 +39,7 @@ const VideoInfoBody = props => {
             <section>
                 <div></div>
                 <div id="video-description">
-                    Video Description: {props.videoDescription}
+                   {props.videoDescription}
                 </div>
             </section>
         </div>

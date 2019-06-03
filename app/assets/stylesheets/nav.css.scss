@@ -35,10 +35,19 @@
     align-items: center;
 }
 
-#nav-bar-icon > h1 {
-    font-size: 18px;
-    font-family: futura;
+#nav-bar-icon > a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
     margin: 0 auto;
+}
+
+
+#nav-bar-icon > a > h1{
+    font-size: 15px;
+    font-family: futura;
+    font-family: futura;
+    color: #000;
 }
 
 .fa-youtube{
@@ -169,6 +178,10 @@
     align-items: center;
 }
 
+#top-nav  .fas{
+    cursor: pointer;
+}
+
 .signin-button{
     height: 40px;
     width: 110px;
@@ -194,6 +207,10 @@
     font-size: 25px;
 }
 
+.signin-button:hover{
+    cursor: pointer;
+}
+
 
 #main-nav-bars-ctn{
     display: grid;
@@ -214,6 +231,10 @@
 
 #main-side-nav:hover{
     overflow-y: scroll;
+}
+
+#main-side-nav > ul > li:hover {
+    cursor: pointer;
 }
 
 
@@ -337,6 +358,10 @@
     font-size: 10px;
     background: rgb(245, 245, 245);
     color: rgb(144,144,144);
+}
+
+#sub-side-nav-content > ul > li:hover{
+    cursor: pointer;
 }
 
 #sub-side-nav-content > ul > li > i {
