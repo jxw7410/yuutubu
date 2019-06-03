@@ -46,4 +46,4 @@ UserChannel.create(name: user14.username, user: user14)
 UserChannel.create(name: user15.username, user: user15)
 
 vid1 = Video.create(title: '4 plates', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
-vid1.video_content.attach( io: File.open("/Users/jxw7410/Desktop/videos/405.mov"), filename: "405.mov")
+#vid1.video_content.attach( io: File.open("/Users/jxw7410/Desktop/videos/405.mov"), filename: "405.mov")
