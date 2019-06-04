@@ -29,6 +29,7 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
+    transition: width 0.2s linear;
 }
 
 
@@ -131,12 +132,14 @@
     width: 1256px;
     display: grid;
     grid-template-columns: 1069px 187px;
+    transition: width 0.2s linear;
 }
 
 #channel-header-nav-wrapper-fixed > div{
     width: 100%;
     display: grid;
     grid-template-columns: 1069px 187px;
+    transition: width 0.2s linear;
 }
 
 
@@ -218,6 +221,8 @@
     grid-column: 2 / 3;
     display: grid;
     grid-template-columns: 1069px 187px;
+    width: 1256px;
+    transition: width 0.2s linear;
 }
 
 #ch-main-contentlower-grid-hook > div{

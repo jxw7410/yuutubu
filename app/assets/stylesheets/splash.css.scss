@@ -13,14 +13,15 @@
 
 
 #channels-list{
-    width: 88.5%;
+    width: 1275px;
     padding-top: 80px;
     position: relative;
+    z-index: 10;
     overflow-y: scroll;
 }
 
 #channels-list-toggled{
-    width: 79%;
+    width: 1275px;
     padding-top: 80px;
     position: relative;
     overflow-y: scroll;
@@ -71,4 +72,128 @@
 
 .channel-index-item-thumbnails:hover{
     cursor: pointer;
+}
+
+
+
+/////////////////////////////////
+//With Toggle
+/////////////////////////////////
+
+@media screen and (max-width: 1530px){
+
+    #channels-list{
+        width: 1060px;
+        padding-top: 80px;
+        position: relative;
+        overflow-y: scroll;
+    }
+}
+
+
+
+@media screen and (max-width: 1305px){
+
+    #channels-list{
+        width: 845px;
+        padding-top: 80px;
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+
+
+@media screen and (max-width: 1090px){
+
+    #channels-list{
+        width: 635px;
+        padding-top: 80px;
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+
+
+
+@media screen and (max-width: 880px){
+
+    #channels-list{
+        width: 421px;
+        padding-top: 80px;
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+
+@media screen and (max-width: 660px){
+    #channels-list{
+        width: 210px;
+        padding-top: 80px;
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+/////////////////////////////////
+//With Toggle
+/////////////////////////////////
+
+
+@media screen and (max-width: 1360px){
+
+    #channels-list-toggled{
+        width: 1060px;
+        padding-top: 80px;
+        position: relative;
+        overflow-y: scroll;
+    }
+}
+
+
+
+@media screen and (max-width: 1160px){
+
+    #channels-list-toggled{
+        width: 845px;
+        padding-top: 80px;
+        position: relative;
+        overflow-y: scroll;
+    }
+}
+
+
+
+@media screen and (max-width: 940px){
+
+    #channels-list-toggled{
+        width: 635px;
+        padding-top: 80px;
+        position: relative;
+        overflow-y: scroll;
+    }
+}
+
+
+
+@media screen and (max-width: 710px){
+
+    #channels-list-toggled{
+        width: 421px;
+        padding-top: 80px;
+        position: relative;
+        overflow-y: scroll;
+    }
+}
+
+@media screen and (max-width: 505px){
+
+    #channels-list-toggled{
+        width: 210px;
+        padding-top: 80px;
+        position: relative;
+        overflow-y: scroll;
+    }
 }

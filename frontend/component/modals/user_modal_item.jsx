@@ -13,7 +13,7 @@ class UserModalItem extends React.Component {
 
     componentDidMount() {
         document.addEventListener('click', this.handleClick)
-        this.modalRef = document.getElementById("user-modal-item-ref");
+        this.modalRef = document.getElementById(this.props.ref);
     }
 
     componentWillUnmount() {

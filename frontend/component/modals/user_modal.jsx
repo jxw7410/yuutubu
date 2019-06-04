@@ -10,7 +10,7 @@ class UserModal extends React.Component{
             isToggled: false,
         }
         this.togglePopUp = this.togglePopUp.bind(this);
-
+        this.ref = 'modal-item-ref';
     }
 
   
@@ -27,12 +27,13 @@ class UserModal extends React.Component{
             <div id='user-icon-modal-hook'>
                 <i key={'1'} onClick={this.togglePopUp} id='user-icon' className="fas fa-user-circle"/>
 
-                <div id="user-modal-item-ref">
+                <div id={this.ref}>
                     {this.state.isToggled ?
                         <UserModelItem
                             togglePopUp={this.togglePopUp}
                             logOut={this.props.logOut}
                             user={this.props.user}
+                            ref={this.ref}
                         />
                         : null}
                 </div>
