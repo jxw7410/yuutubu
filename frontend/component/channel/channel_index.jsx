@@ -10,6 +10,7 @@ class ChannelIndex extends React.Component {
         this.defaultPercentage = 0.40;
         this.scrollHeightOffset = 888;
         this.handleScroll = this.handleScroll.bind(this);
+        //debugger
     }
 
     componentDidMount() {
@@ -55,7 +56,7 @@ class ChannelIndex extends React.Component {
 
         return (
             <div id='main-content-section-1'>
-                <ul id='channels_list'>
+                <ul id={'channels-list' + (this.props.toggledSideNav ? "" : '-toggled')}>
                     {channelIndexItems}
                 </ul>
             </div>

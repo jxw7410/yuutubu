@@ -70,10 +70,14 @@ class Channel extends React.Component {
                                 redirectEvent =  {this.redirectEvent }
                             />
                             <Route exact path={this.basePath}
-                                render={props => <ChannelBaseContainer {...props} channelId={this.props.match.params.channel_id} />} />
+                                render={props => <ChannelBaseContainer {...props} 
+                                    toggledSideNav={this.state.toggledSideNav}
+                                    channelId={this.props.match.params.channel_id} />} />
 
                             <Route path={`${this.basePath}/videos`} 
-                                render={props => <AllVideosContainer {...props} channelId={this.props.match.params.channel_id} />} />
+                                render={props => <AllVideosContainer {...props} 
+                                    toggledSideNav={this.state.toggledSideNav}
+                                    channelId={this.props.match.params.channel_id} />} />
 
                         </div>
                     </div>

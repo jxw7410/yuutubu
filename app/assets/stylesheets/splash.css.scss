@@ -4,9 +4,23 @@
 }
 
 
+#main-content-section-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-#channels_list{
-    padding: 0 8%;
+}
+
+
+#channels-list{
+    width: 88.5%;
+    padding-top: 80px;
+    position: relative;
+    overflow-y: scroll;
+}
+
+#channels-list-toggled{
+    width: 79%;
     padding-top: 80px;
     position: relative;
     overflow-y: scroll;
@@ -41,3 +55,20 @@
    font-size: 20px; 
 }
 
+
+#channel-index-items-body > ul {
+    display:flex;
+}
+
+.channel-index-item-thumbnails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 117.5px;
+    width: 210px;
+    margin-right: 2px;
+}
+
+.channel-index-item-thumbnails:hover{
+    cursor: pointer;
+}

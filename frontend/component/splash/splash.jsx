@@ -32,7 +32,9 @@ class Splash extends React.Component {
                 <div id={'splash-main' + (this.state.toggledSideNav ? '-toggled' : "")}>
                     <SubSideNav />
                     <div id={'splash-main-content'}>
-                       <ChannelIndexContainer />
+                       <ChannelIndexContainer 
+                        toggledSideNav = {this.state.toggledSideNav}
+                       />
                     </div>
                 </div>
             </div>
