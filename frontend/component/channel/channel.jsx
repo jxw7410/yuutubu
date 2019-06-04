@@ -62,12 +62,13 @@ class Channel extends React.Component {
                 <div id={'splash-main' + (this.state.toggledSideNav ? '-toggled' : "")}>
                     <SubSideNav />
                     <div id={'channel-main-content'}>
-                        <div>
+                        <div id="channel-main-content-wrapper">
                             <ChannelHeader 
                                 userId = {this.props.userId}
                                 channel ={this.props.channel}
                                 active_tab = {this.state.active_tab}
                                 redirectEvent =  {this.redirectEvent }
+                                toggledSideNav={this.state.toggledSideNav}
                             />
                             <Route exact path={this.basePath}
                                 render={props => <ChannelBaseContainer {...props} 

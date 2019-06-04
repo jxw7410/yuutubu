@@ -32,10 +32,9 @@ class ChannelHeader extends React.Component {
 
     render() {
         return (
-
-            <div id='channel-header'>
-                <div id='channel-header-msc-grid-hook'>
-                    <div id="channel-header-msc">
+            <>
+                <div id='channel-header'>
+                    <div id='channel-header-wrap'>
                         <div id='channel-header-profile'>
                             <i className="fas fa-user-circle" />
                             <span id='channel-header-profile-info'>
@@ -51,8 +50,12 @@ class ChannelHeader extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div id={"channel-header-nav" + (this.state.navBarFixed ? "-fixed" : "")}>
-                    <div id='channel-header-nav-hook'>
+
+
+                <div id={"channel-header-nav" 
+                    + (this.state.navBarFixed ? "-fixed" : "")
+                    + (this.props.toggledSideNav ? "-toggled" : "")}>
+                    <div id={'channel-header-nav-wrapper'}>
                         <div>
                             <ul id="channel-header-nav-list">
                                 <li
@@ -76,7 +79,9 @@ class ChannelHeader extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+            </>
         )
     }
 }
