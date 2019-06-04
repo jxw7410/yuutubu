@@ -13,3 +13,14 @@ export const convertErrorMessageToObject = errors =>{
 export const isEmailValid = email => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
+
+
+
+export const getVideosForChannel = (videos, keys = []) => {
+    const vidArray = [];
+    keys.forEach(key => {
+        if (videos[key.id])
+            vidArray.push(videos[key.id])
+    });
+    return vidArray;
+}

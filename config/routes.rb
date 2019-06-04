@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
       resources :user_channels, only: [:create, :index, :show]
       resources :videos, only: [:show]
+      get '/videos/index_lite/:channel_id', to: 'videos#index_lite'
   end
 
 

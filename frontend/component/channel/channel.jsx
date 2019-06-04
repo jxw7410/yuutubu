@@ -2,8 +2,10 @@ import React from 'react';
 import MainNav from '../nav-bars/main_nav';
 import SubSideNav from '../nav-bars/sub_side_nav';
 import { Route } from 'react-router-dom';
-import FeatureContainer from './feature_container';
+import AllVideosContainer from './all_vid_container';
+import ChannelBaseContainer from './channel_base_container';
 import ChannelHeader from './channel_header';
+import { withRouter } from 'react-router-dom';
 
 class Channel extends React.Component {
     constructor(props) {
@@ -67,8 +69,12 @@ class Channel extends React.Component {
                                 active_tab = {this.state.active_tab}
                                 redirectEvent =  {this.redirectEvent }
                             />
-                            <Route exact path={this.basePath} component={FeatureContainer}></Route>
-                            <Route path={`${this.basePath}/videos`} component={FeatureContainer}></Route>
+                            <Route exact path={this.basePath}
+                                render={props => <ChannelBaseContainer {...props} channelId={this.props.match.params.channel_id} />} />
+
+                            <Route path={`${this.basePath}/videos`} 
+                                render={props => <AllVideosContainer {...props} channelId={this.props.match.params.channel_id} />} />
+
                         </div>
                     </div>
                 </div>
@@ -77,4 +83,4 @@ class Channel extends React.Component {
     }
 }
 
-export default Channel;
+export default withRouter(Channel);

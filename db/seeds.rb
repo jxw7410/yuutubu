@@ -30,7 +30,7 @@ user14 = User.create(username: 'testuser14', email: 'testuser14@gmail.com', pass
 user15 = User.create(username: 'testuser15', email: 'testuser15@gmail.com', password: 'password123');
 
 channel1 = UserChannel.create(name: user1.username, user: user1)
-UserChannel.create(name: user2.username, user: user2)
+channel2 = UserChannel.create(name: user2.username, user: user2)
 UserChannel.create(name: user3.username, user: user3)
 UserChannel.create(name: user4.username, user: user4)
 UserChannel.create(name: user5.username, user: user5)
@@ -45,5 +45,15 @@ UserChannel.create(name: user13.username, user: user13)
 UserChannel.create(name: user14.username, user: user14)
 UserChannel.create(name: user15.username, user: user15)
 
-vid1 = Video.create(title: '4 plates', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid1 = Video.create(title: 'This is a test, there is no video 1', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid2 = Video.create(title: 'This is a test, there is no video 2', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid3 = Video.create(title: 'This is a test, there is no video 3', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid4 = Video.create(title: 'This is a test, there is no video 4', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid5 = Video.create(title: 'This is a test, there is no video 5', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid6 = Video.create(title: 'This is a test, there is no video 6', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid7 = Video.create(title: 'This is a test, there is no video 7', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+vid8 = Video.create(title: 'This is a test, there is no video 8', description: "There is a better place and time for this.", user_id: user1.id, channel_id: channel1.id)
+
+vid2 = Video.create(title: 'This is a test, there is no video 4', description: "There is a better place and time for this.", user_id: user2.id, channel_id: channel2.id)
+vid3 = Video.create(title: 'This is a test, there is no video 5', description: "There is a better place and time for this.", user_id: user2.id, channel_id: channel2.id)
 #vid1.video_content.attach( io: File.open("/Users/jxw7410/Desktop/videos/405.mov"), filename: "405.mov")

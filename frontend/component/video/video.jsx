@@ -37,7 +37,8 @@ class Video extends React.Component {
 
                 <div id='video-main-hook'>
                     <div id='video-main'>
-                        <div id='video-main-left'>
+                            <div id='video-main-left-gap'></div>
+                            <div id='video-main-left'>
                             <VideoPlayer videoUrl={this.props.video.videoUrl} />
                             <VideoInfoHeader
                                 videoTitle={this.props.video.title}

@@ -18,4 +18,17 @@ class UserChannel < ApplicationRecord
         foreign_key: :user_id,
         class_name: :User  
     
+    has_many :videos,
+        primary_key: :id,
+        foreign_key: :channel_id,
+        class_name: :Video
+
+
+
+    #To be replaced by an association later in the future.
+    def featured_video
+        false
+    end
+
+
 end
