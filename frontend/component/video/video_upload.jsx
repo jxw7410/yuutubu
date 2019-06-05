@@ -38,11 +38,11 @@ class UploadVideo extends React.Component {
         this.setState({ thumbnail, thumbnailUrl, duration });
     }
 
-    handleTypeEvent(field){
+    handleTypeEvent(field) {
         return e => {
             e.preventDefault();
             const text = e.target.value;
-            this.setState({[field] : text})
+            this.setState({ [field]: text })
         }
     }
 
@@ -79,59 +79,64 @@ class UploadVideo extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.file && this.state.thumbnail && this.state.title.length > 0 && this.state.description.length > 0)
-        {
-            const formData  = new FormData();
+        if (this.state.file && this.state.thumbnail && this.state.title.length > 0 && this.state.description.length > 0) {
+            const formData = new FormData();
             formData.append('video[thumbnail]', this.state.thumbnail);
             formData.append('video[file]', this.state.file);
             formData.append('video[duration]', this.state.duration);
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
             formData.append('video[channel_id]', this.props.user.channel_id);
-            this.props.createVideo(formData).then( ()=>{
-                this.setState({
-                    doneUploading: true,
-                    uploading: false,
-                })
-            });
+            this.props.createVideo(formData)
+                .then(() =>
+                    this.setState({
+                        doneUploading: true,
+                        uploading: false,
+                    }))
+                .fail(()=>{
+                    this.setState({
+                        doneUploading: true
+                    })
+                    console.log('upload failed.')
+                });
 
-            this.setState({uploading: true})
+            this.setState({ uploading: true })
         }
-        else 
+        else
             console.log('No Token!');
     }
 
     render() {
         return (
             <>
-            <div id='main-nav-div'>
-                <div id='nav-bar-hook'>
-                    <div id='main-nav-bars-ctn'>
-                        <div id='top-nav-ctn'>
-                            <TopNavContainer handleToggled={this.handleToggled} />
+                <div id='main-nav-div'>
+                    <div id='nav-bar-hook'>
+                        <div id='main-nav-bars-ctn'>
+                            <div id='top-nav-ctn'>
+                                <TopNavContainer handleToggled={this.handleToggled} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id='upload-body'>{
+                    <div id='upload-body'>{
                         this.state.uploadForm ?
-                            <VideoUploadForm 
+                            <VideoUploadForm
                                 fileUrl={this.state.fileUrl}
                                 thumbnailUrl={this.state.thumbnailUrl}
                                 handleThumbnail={this.handleThumbnail}
                                 handleSubmit={this.handleSubmit}
                                 handleTypeEvent={this.handleTypeEvent}
-                                doneUploading = {this.state.doneUploading}
+                                doneUploading={this.state.doneUploading}
                             />
                             :
                             <VideoUploadArea
                                 handleDrop={this.handleDrop}
                                 handleFile={this.handleFile} />
-                }
+                    }
+                    </div>
                 </div>
-            </div>
                 {
-                    this.state.uploading ? 
-                        <div id='uploading-page'> <div className='spinner'/></div> : null 
+                    this.state.uploading ?
+                        <div id='uploading-page'> <div className='spinner' /></div> : null
                 }
             </>
         )
