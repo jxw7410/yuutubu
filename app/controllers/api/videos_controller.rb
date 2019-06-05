@@ -1,7 +1,5 @@
 class Api::VideosController < ApplicationController
-    def index_lite
-        #debugger
-       
+    def index_lite   
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])
             .offset(params[:offset])
@@ -13,14 +11,42 @@ class Api::VideosController < ApplicationController
         end
     end
 
+    def create
+        channel = current_user.user_channels.where(id: video_params[:channel_id]).first
+        @video = Video.create(user_id: current_user.id, 
+            title: video_params[:title],
+            channel_id: channel.id,
+            description: video_params[:description],
+            duration: video_params[:duration])
+
+        if @video
+            begin
+                @video.thumbnail.attach(video_params[:thumbnail])
+                @video.video_content.attach(video_params[:file])
+                render json: ['Video uploaded'], status: 200
+            rescue
+                @video.destroy
+                render json: ['Video cannot be uploaded'], status: 422
+            end            
+        else 
+            render json: ['Video cannot be uploaded'], status: 422
+        end
+    end
+
     def show
         @video = Video.find_by(id: params[:id])
-        #debugger 
         if @video 
             render :show 
         else 
             render json: ['Video is unavailable'], status: 422
         end
+    end
+
+
+    private 
+
+    def video_params 
+        params.require(:video).permit(:title, :description, :channel_id, :duration, :file, :thumbnail)
     end
 end
 

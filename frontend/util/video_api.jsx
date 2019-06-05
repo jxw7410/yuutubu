@@ -14,3 +14,14 @@ export const requestChannelVideos = (channel_id, limit, offset) => {
     });
 }
 
+export const uploadVideo = video => {
+    return $.ajax({
+        method: 'post',
+        url: '/api/videos',
+        data: video,
+        contentType: false,
+        processData: false,
+
+    })
+}
+

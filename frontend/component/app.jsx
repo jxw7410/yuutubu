@@ -6,7 +6,7 @@ import LoginContainer from '../component/auth/login_container'
 import SplashComponent from '../component/splash/splash';
 import ChannelRouter from '../component/channel/channel_router';
 import VideoRouter from '../component/video/video_router';
-import UploadVideo from '../component/video/video_upload';
+import UploadVideoContainer from '../component/video/video_upload_ctn';
 //import Modal from '../component/modals/modal';
 
 
@@ -17,7 +17,7 @@ const App = () => (
         <AuthRoute path="/signup" component={SignUpContainer}/>  
         <AuthRoute path="/login" component={LoginContainer}/>  
         <Route path='/video/:video_id' component={VideoRouter} />
-        <ProtectedRoute path='/upload' component={UploadVideo} />
+        <ProtectedRoute path='/upload' component={UploadVideoContainer} />
     </div>
 )
 

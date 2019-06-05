@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       post '/session/email', to: 'sessions#email'
 
       resources :user_channels, only: [:create, :index, :show]
-      resources :videos, only: [:show]
+      resources :videos, only: [:show, :create]
       get '/videos/index_lite/:channel_id', to: 'videos#index_lite'
   end
 

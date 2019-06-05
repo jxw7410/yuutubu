@@ -38,7 +38,9 @@ class ChannelBase extends React.Component {
                         { 
                             this.state.video ?
                             <> 
-                                 <ChannelBaseVideoPlayer /> 
+                                 <ChannelBaseVideoPlayer 
+                                    video={this.state.video}
+                                 /> 
 
                                 <div id='featured-videos'></div>
                             </>

@@ -9,10 +9,11 @@
 #  channel_id  :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  duration    :float            not null
 #
 
 class Video < ApplicationRecord
-    validates :title, :description, :user_id, :channel_id, presence: true
+    validates :title, :description, :user_id, :channel_id, :duration, presence: true
 
 
     has_one_attached :thumbnail
