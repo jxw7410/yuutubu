@@ -33,7 +33,7 @@ class UserModal extends React.Component{
                             togglePopUp={this.togglePopUp}
                             logOut={this.props.logOut}
                             user={this.props.user}
-                            ref={this.ref}
+                            node={this.ref}
                         />
                         : null}
                 </div>

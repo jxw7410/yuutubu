@@ -1,0 +1,200 @@
+#upload-body{
+    display: flex;
+    justify-content: center;
+    background: rgb(241,241,241);
+    height: 100%;
+}
+
+#upload-area{
+    position: relative;
+    top: 70px;
+    height: 390px;
+    width: 745px;
+    border: 1px solid rgb(241,241,241);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background:white;
+}
+
+
+#upload-input{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#upload-input .fa-arrow-up{
+    font-size:50px;
+    font-weight: bold;
+    padding: 0px 20px;
+    padding-top: 10px;
+    background: rgb(204,204,204);
+    border-radius: 10px;
+    color: white;
+    
+}
+
+#upload-input > input[type="file"]{
+    display: none;
+}
+
+#upload-input:hover{
+    cursor: pointer;
+    .fa-arrow-up {
+        background:red;
+    }
+}
+
+
+#video-submit-form{
+    height: 600px;
+    width: 800px;
+    top: 70px;
+    position: relative;
+    border: 1px solid lightgray;
+    display: grid;
+    grid-template-columns: 230px auto;
+    background: white;
+}
+
+
+
+#video-submit-form-col-1{
+    grid-column: 1 / 2;
+    padding: 10px;
+}
+#video-submit-form-col-1 > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+
+#video-submit-form-col-1 > div > video {
+    width: 195px;
+    height: 100px;
+    padding: 10px 0px;
+}
+
+#loading-video{
+    width: 195px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
+    padding: 10px 0px;
+}
+
+#loading-video .spinner{
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+}
+
+#video-submit-form-col-2{
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-rows: 110px auto;
+}
+
+
+#video-submit-button-ctn{
+    grid-row: 1 / 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#video-submit-button-ctn > button {
+    height: 50px;
+    width: 60%;
+    background: rgb(54, 122, 192);
+    font-size: 24px;
+    color: white;
+}
+
+
+
+#video-submit-form-lower-section{
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0px;
+    padding-right: 20px;
+}
+
+#video-submit-form-lower-section > input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#video-submit-form-lower-section > textarea{
+    width: 100%;
+}
+
+#thumbnail-section{
+    grid-row: 3 / 4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+#thumbnail-img{
+    width: 200px;
+    height: 100px;
+    background-size: 100%;
+    border: 1px solid lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#thumbnail-img > img{
+    width: 100%;
+    height: 100%;
+}
+
+#loading-thumbnail{
+    width: 200px;
+    height: 100px;
+    background: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading-thumbnail .spinner{
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+}
+
+
+#preview-video{
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    z-index: -1;
+}
+
+#capture-canvas{
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+}   
+
