@@ -5,7 +5,8 @@ const VideoUploadArea = (props) => {
         <div id='upload-area'
             onDrop={props.handleDrop}
             onDragEnter={e => e.preventDefault()}
-            onDragOver={e => e.preventDefault()}>
+            onDragOver={e => e.preventDefault()}
+            onDragLeave={e => e.preventDefault()}>
 
             <label id='upload-input'>
                 <input onChange={props.handleFile} type="file" />

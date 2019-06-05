@@ -23,6 +23,7 @@ class Channel extends React.Component {
     }
 
     componentDidMount() {
+        //debugger
 
         switch (this.props.history.location.pathname) {
             case this.basePath:
@@ -35,6 +36,10 @@ class Channel extends React.Component {
                 this.setState({ active_tab: 1 })
                 break;
         }
+    }
+
+    componentDidUpdate(){   
+        this.basePath = this.props.match.url;
     }
 
     handleToggled(e) {
@@ -68,17 +73,22 @@ class Channel extends React.Component {
                                 channel ={this.props.channel}
                                 active_tab = {this.state.active_tab}
                                 redirectEvent =  {this.redirectEvent }
-                                toggledSideNav={this.state.toggledSideNav}
-                            />
+                                toggledSideNav={this.state.toggledSideNav}/>
+
+
                             <Route exact path={this.basePath}
                                 render={props => <ChannelBaseContainer {...props} 
                                     toggledSideNav={this.state.toggledSideNav}
-                                    channelId={this.props.match.params.channel_id} />} />
+                                    channelId={this.props.match.params.channel_id} 
+                                    />}   
+                                />
 
                             <Route path={`${this.basePath}/videos`} 
-                                render={props => <AllVideosContainer {...props} 
+                                render={props => <AllVideosContainer {...props}
                                     toggledSideNav={this.state.toggledSideNav}
-                                    channelId={this.props.match.params.channel_id} />} />
+                                    channelId={this.props.match.params.channel_id} 
+                                    />} 
+                                />
 
                         </div>
                     </div>
