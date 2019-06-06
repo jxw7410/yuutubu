@@ -7,4 +7,4 @@
             json.thumbnail image_url('YouTube-icon-our_icon.png')
         end
     end
-end
+end     
