@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_133939) do
+ActiveRecord::Schema.define(version: 2019_06_06_032510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,28 @@ ActiveRecord::Schema.define(version: 2019_06_05_133939) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "video_dislikes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "video_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "category", default: "DISLIKES"
+    t.index ["user_id", "video_id"], name: "index_video_dislikes_on_user_id_and_video_id", unique: true
+    t.index ["user_id"], name: "index_video_dislikes_on_user_id"
+    t.index ["video_id"], name: "index_video_dislikes_on_video_id"
+  end
+
+  create_table "video_likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "video_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "category", default: "LIKES"
+    t.index ["user_id", "video_id"], name: "index_video_likes_on_user_id_and_video_id", unique: true
+    t.index ["user_id"], name: "index_video_likes_on_user_id"
+    t.index ["video_id"], name: "index_video_likes_on_video_id"
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -62,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_06_05_133939) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "duration", null: false
+    t.integer "views", default: 0
     t.index ["channel_id"], name: "index_videos_on_channel_id"
     t.index ["user_id"], name: "index_videos_on_user_id"
   end

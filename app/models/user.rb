@@ -24,6 +24,24 @@ class User < ApplicationRecord
         foreign_key: :user_id,
         class_name: :UserChannel 
          
+    has_many :likes,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :VideoLike
+
+    has_many :dislikes,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :VideoDislike
+
+    has_many :like_videos,
+        through: :likes,
+        source: :video
+
+    has_many :dislike_videos,
+        through: :dislikes,
+        source: :video
+
     def self.verify_email(email)
         User.find_by_email(email)
     end

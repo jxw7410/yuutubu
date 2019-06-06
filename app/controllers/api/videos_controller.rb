@@ -11,6 +11,15 @@ class Api::VideosController < ApplicationController
         end
     end
 
+    def update_views
+        begin
+            Video.find_by(:id => params[:video_id]).increment!(:views)
+            render json: {}, status: 200
+        rescue
+            return
+        end
+    end
+
     def create
         channel = current_user.user_channels.where(id: video_params[:channel_id]).first
         @video = Video.create(user_id: current_user.id, 
@@ -34,8 +43,19 @@ class Api::VideosController < ApplicationController
     end
 
     def show
-        @video = Video.find_by(id: params[:id])
-        if @video 
+        @video = Video.where(id: params[:id])
+            .includes(:likes)
+            .includes(:dislikes)
+            .first
+            
+        if @video
+            if current_user  
+                @like_dislike = @video.likes.where(user_id: current_user.id).first ||
+                    @video.dislikes.where(user_id: current_user.id).first
+            else 
+                @like_dislike = nil;
+            end
+
             render :show 
         else 
             render json: ['Video is unavailable'], status: 422

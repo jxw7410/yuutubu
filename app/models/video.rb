@@ -10,6 +10,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  duration    :float            not null
+#  views       :integer          default(0)
 #
 
 class Video < ApplicationRecord
@@ -30,6 +31,23 @@ class Video < ApplicationRecord
         foreign_key: :channel_id,
         class_name: :UserChannel
     
-    
+    has_many :likes,
+        primary_key: :id,
+        foreign_key: :video_id,
+        class_name: :VideoLike
+
+    has_many :dislikes,
+        primary_key: :id,
+        foreign_key: :video_id,
+        class_name: :VideoDislike
+
+    has_many :like_by_users,
+        through: :likes,
+        source: :user
+
+    has_many :dislike_by_users,
+        through: :dislikes,
+        source: :user
+
 end
 

@@ -17,8 +17,34 @@
     grid-template-rows: auto 110px auto auto;
 }
 
-#video-player {
+#video-player-hook{
     grid-row: 1 / 2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#replay-button{
+    position: absolute;
+    z-index: 10;
+    font-size: 50px;
+    color: gray;
+}
+
+#replay-button-hidden{
+    display: none;
+    position: absolute;
+    z-index: 10;
+    font-size: 50px;
+    color: gray;
+}
+
+#replay-button:hover{
+    cursor: pointer;
+}
+
+#video-player {
     width: 100%;
     height: auto;
     max-height: 660px;
@@ -120,6 +146,46 @@
 
 #video-main-right{
     grid-column: 3 / 4;
+}
+
+
+#video-info-header-utils{
+    width: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#vid-like-dislike-icons{
+    display: flex;
+    width: 120px;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(144,144,144);
+}
+
+#vid-like-dislike-icons  i {
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+#vid-like-dislike-icons  > span:hover{
+    cursor: pointer;
+}
+
+#vid-like-dislike-icons  > span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.like-counts{
+    font-size: 14px;
+    color: black;
+}
+
+.voted{
+    color: blue;
 }
 
 

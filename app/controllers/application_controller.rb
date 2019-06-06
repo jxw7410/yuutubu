@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
 
     def ensure_login
-        render json: ['Need to be logged in'], status: 402
+        render json: ['Auth Token not valid'], status: 402 unless login?
     end
 
 

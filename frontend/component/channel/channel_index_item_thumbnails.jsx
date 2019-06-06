@@ -86,7 +86,7 @@ class ChannelIndexItemThumbnail extends React.Component {
                         <span>{this.props.channel.name}</span> : null
                     }
 
-                    <span>0 views</span>
+                    <span>{this.props.video.views} views</span>
                 </section>
             </li>
         )
