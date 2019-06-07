@@ -173,28 +173,6 @@
 }
 
 
-#video-post-body{
-    grid-row: 4/5;
-    display: grid;
-    grid-template-rows: 100px auto;
-}
-
-#user-post-form-ctn{
-    grid-row: 1 / 2;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#user-post-form{
-    width: 80%;
-}
-
-#user-post-form > textarea{
-    width: 100%;
-}
 
 
 #progress-bar{

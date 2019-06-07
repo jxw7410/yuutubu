@@ -11,7 +11,7 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 
 const receiveDeletePost = post =>{
     return {
-        type: DELETE_POST,
+        type: RECEIVE_DELETE_POST,
         post
     }
 }
@@ -49,7 +49,7 @@ export const requestDeletePost = post_id => dispatch => {
         .then( post => dispatch(receiveDeletePost(post)));
 };
 
-export const requestSomePosts = (video_id, offset, limit) => {
+export const requestSomePosts = (video_id, offset, limit) => dispatch => {
     return VideoPostApi.requestSomeVideoPosts(video_id, offset, limit)
         .then(posts => dispatch(receiveSomePosts(posts))); 
 }

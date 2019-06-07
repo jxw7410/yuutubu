@@ -1,0 +1,181 @@
+#video-post-body{
+    grid-row: 4/5;
+    display: grid;
+    margin-top: 20px;
+    grid-template-rows: 80px auto;
+}
+
+#user-post-form-ctn{
+    grid-row: 1 / 2;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55px auto;
+}
+#user-form-profile-pic{
+    font-size: 36px;
+}
+
+#user-post-form{
+    grid-column: 2/3;
+    width: 100%;
+    display:grid;
+    grid-template-rows: 20px 2px auto;
+}   
+
+#user-post-form > textarea{
+    grid-row: 1 / 2;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    border-style: none;
+    outline: none;
+    font-size: 14px;
+    resize: none;
+}
+
+#textarea-border{
+    grid-row: 2 /3;
+    height: 100%;
+    width: 100%;
+    background: lightgray;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#expander{
+    width: 0px;
+    height: 100%;
+    background: gray;
+}
+
+#expander-active{
+    width: 100%;
+    height: 100%;
+    background: gray;
+    transition: width 0.3s linear;
+}
+
+
+#user-post-form-buttons{
+    grid-row: 3 / 4;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#user-post-form-buttons > button:last-child.button-disabled{
+    background: lightgray;
+}
+
+#user-post-form-buttons > button:first-child{
+    background:transparent;
+    color: gray;
+    border:none;
+}
+
+
+#user-post-form-buttons > button:last-child{
+    background: rgb(36, 97, 204);
+    color: white;
+    border-radius: 3px;
+}
+#user-post-form button{
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+}
+
+#user-post-form button:active{
+    outline: none;
+}
+
+
+.list-of-posts{
+    display:flex;
+    flex-direction: column;
+}
+
+.video-posts{
+    height: 186px;
+    display: grid;
+    grid-template-rows: 150px 36px;
+}
+
+
+.video-posts-row-1{
+    grid-row: 1 / 2;
+    display: grid;
+    grid-template-columns: 55px auto;
+}
+
+
+
+.video-posts-row-2{
+    grid-row: 2 / 3;
+}
+
+.video-posts-row-1-col-1{
+    grid-column: 1 / 2;
+}
+
+.video-posts-row-1-col-1 > i{
+    font-size: 32px;
+}
+
+.video-posts-row-1-col-2{
+    grid-column: 2 / 3;
+    display:grid;
+    grid-template-rows: 20px 96px auto;
+}
+
+.video-posts-row-1-col-2-header{
+    grid-row: 1/2;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.video-posts-row-1-col-2-header-left {
+    display:flex;
+    align-items: center;
+}
+
+.video-posts-row-1-col-2-header-left > span:last-child{
+    font-size: 12px;
+    color: rgb(126,126,126);
+    margin-left: 5px;
+}
+
+.form-delete-button{
+    border: none;
+    background: transparent;
+
+}
+
+.video-posts-row-1-col-2-body{
+    grid-row: 2 / 3;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+
+
+.video-posts-row-1-col-2-body > div{
+    height: auto;
+    font-size: 14px;
+}
+
+
+.video-posts-row-1-col-2-footer{
+    grid-row: 3 / 4;
+}
+
+.form-delete-button{
+    border: none;
+    background: transparent;
+}
+
+.form-delete-button:hover{
+    font-weight: bold;
+}

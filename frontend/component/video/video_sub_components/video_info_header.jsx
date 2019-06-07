@@ -137,7 +137,8 @@ class VideoInfoHeader extends React.Component {
 const msp = state => {
     return {
         isLogin: Boolean(state.session.id),
-        like_dislike: state.entities.like
+        like_dislike: state.entities.like,
+        user: state.session
     }
 }
 

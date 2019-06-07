@@ -25,7 +25,13 @@ const VideoUploadForm = props => {
             </div>
 
             <div id='video-submit-form-col-2'>
-                <div id='video-submit-button-ctn'>{
+                <div id='video-submit-button-ctn'>
+                 
+                {
+                    props.uploading ?  
+                        <div id='uploading-spinner'> <div className='spinner' /></div>
+                    :
+                    
                     props.doneUploading ? 
                         <h1>Video Upload Successful!</h1>
                     :

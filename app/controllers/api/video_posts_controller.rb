@@ -1,9 +1,11 @@
 class Api::VideoPostsController < ApplicationController 
     before_action :ensure_login, only: [:create, :destroy]
     def index
-        #debugger
-        @posts = VideoPost.all.where(video_id: params[:video_id]).limit(10)
-        #debugger
+        @posts = VideoPost.all.where(video_id: params[:video_id])
+            .includes(:user)
+            .limit(6)
+            .order("created_at DESC")
+
         if @posts
             render :index
         else 
@@ -12,14 +14,26 @@ class Api::VideoPostsController < ApplicationController
     end
 
     def index_partial
-        debugger
+        @posts = VideoPost.all.where(video_id: params[:video_id])
+            .includes(:user)
+            .limit(params[:limit])
+            .offset(params[:offset])
+            .order("created_at DESC")
+        #debugger 
+        if @posts.length > 0
+            render :index
+        else
+            render json: ["Posts are not found"], status: 404
+        end
+    
     end
 
     def create
         @post = VideoPost.create(user_id: current_user.id, 
             video_id: post_params[:video_id], 
             description: post_params[:description])
-
+        
+        @user = current_user
 
         if @post
             render :show 
@@ -29,7 +43,13 @@ class Api::VideoPostsController < ApplicationController
     end
 
     def destroy
-        debugger
+        @post = VideoPost.find_by(id: params[:id]).destroy
+
+        if @post 
+            render :delete
+        else 
+            render json: ['Post failed to be destroyed'], status: 422
+        end
     end
 
 

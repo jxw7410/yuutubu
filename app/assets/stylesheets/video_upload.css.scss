@@ -192,15 +192,13 @@
     height: 16px;
 }
 
-#uploading-page{
-  position: fixed; 
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+#uploading-spinner .spinner{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #3498db; /* Blue */
+
 }
 
 #preview-video{

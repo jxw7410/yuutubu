@@ -4,11 +4,13 @@ class Api::UserChannelsController < ApplicationController
             @channels = UserChannel.where
                 .not(user_id: params[:user_id])
                 .limit(params[:limit])
-                .offset(params[:offset]).includes(:videos)
+                .offset(params[:offset])
+                .includes(:videos)
         else
             @channels = UserChannel.all
                 .limit(params[:limit])
-                .offset(params[:offset]).includes(:videos)
+                .offset(params[:offset])
+                .includes(:videos)
         end
 
 

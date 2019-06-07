@@ -8,6 +8,7 @@ const videoPostReducer = (state={}, action) => {
             //debugger
             return merge({}, state, action.post );
         case RECEIVE_SOME_POSTS:
+            //debugger
             return merge({}, state, action.response.posts )
         case RECEIVE_POSTS:
             return action.response.posts || {};

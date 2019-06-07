@@ -24,7 +24,7 @@
  @import "channel";
  @import "channel_media";
  @import "splash";
-
+ @import 'post';
 
  .spinner{
     border: 16px solid #f3f3f3; /* Light grey */
@@ -67,5 +67,9 @@
 
 
 i:hover{
+  cursor: pointer;
+}
+
+button:hover{
   cursor: pointer;
 }

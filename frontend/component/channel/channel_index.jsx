@@ -38,7 +38,7 @@ class ChannelIndex extends React.Component {
                     this.offset += 3;
                     let refactorPercentage = (this.defaultPercentage * this.scrollHeightOffset) / splashScrollHeight;
                     this.scrollPercentage += (this.defaultPercentage * refactorPercentage);
-                    console.log(this.scrollPercentage);
+                    //console.log(this.scrollPercentage);
                 })
                 .fail(() => {
                     document.removeEventListener('scroll', this.handleScroll);

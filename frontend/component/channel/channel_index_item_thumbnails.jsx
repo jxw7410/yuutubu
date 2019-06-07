@@ -33,7 +33,7 @@ class ChannelIndexItemThumbnail extends React.Component {
                     .then( ()=>{
                         this.setState({ renderVideo: true })
                     })
-            }, 400); 
+            }, 300); 
         } else {
             this.throttledAjax = setTimeout(() => {
                         this.setState({ renderVideo: true })

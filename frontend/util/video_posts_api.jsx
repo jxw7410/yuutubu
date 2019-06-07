@@ -28,7 +28,6 @@ export const createVideoPost = post => {
 export const deleteVideoPost = post_id => {
     return $.ajax({
         method: 'delete',
-        url: '/api/video_posts',
-        data: { post_id }
+        url: `/api/video_posts/${post_id}`,
     })
 }

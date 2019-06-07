@@ -151,7 +151,7 @@ class SignUpForm extends React.Component {
                             changeEvent={this.textChangeEvent('email')}
                             type={'text'}
                             placeholder={this.state.emailFocus ? null : this.state.emailPlaceholder}
-                            message={errors.Email ? errors.Email : "You don't need a real email for now"}
+                            message={errors.Email ? errors.Email : "Please enter a valid email."}
                         />
 
                         <SignUpInputitem

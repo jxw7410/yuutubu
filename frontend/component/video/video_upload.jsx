@@ -95,7 +95,8 @@ class UploadVideo extends React.Component {
                     }))
                 .fail(()=>{
                     this.setState({
-                        doneUploading: true
+                        doneUploading: true,
+                        uploading: false,
                     })
                     console.log('upload failed.')
                 });
@@ -125,6 +126,7 @@ class UploadVideo extends React.Component {
                                 handleThumbnail={this.handleThumbnail}
                                 handleSubmit={this.handleSubmit}
                                 handleTypeEvent={this.handleTypeEvent}
+                                uploading={this.state.uploading}
                                 doneUploading={this.state.doneUploading}
                             />
                             :
@@ -134,10 +136,6 @@ class UploadVideo extends React.Component {
                     }
                     </div>
                 </div>
-                {
-                    this.state.uploading ?
-                        <div id='uploading-page'> <div className='spinner' /></div> : null
-                }
             </>
         )
     }
