@@ -3,7 +3,7 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   movies = Movie.create([( name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
@@ -178,26 +178,28 @@ video10.thumbnail.attach(io: file, filename: 'abcguy.png')
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/beatonpoint.mp4')
 video10.video_content.attach(io: file, filename: 'abcguy.png')
 
-video11 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+
+
+video11 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user3.id,
     channel_id: channel3.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video11.thumbnail.attach(io: file, filename: 'kenshiro_1.png')
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video11.video_content.attach(io: file, filename: 'kenshiro_1.mp4')
 
-video12 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video12 = Video.create(
+    title: 'Omae wo mou shindeiru',r
+    description: "Nani?!",
     user_id: user4.id,
     channel_id: channel4.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video12.thumbnail.attach(io: file, filename: 'kenshiro_2.png')
@@ -205,13 +207,13 @@ file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video12.video_content.attach(io: file, filename: 'kenshiro_2.mp4')
 
 
-video13 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video13 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user5.id,
     channel_id: channel5.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video13.thumbnail.attach(io: file, filename: 'kenshiro_3.png')
@@ -219,26 +221,26 @@ file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video13.video_content.attach(io: file, filename: 'kenshiro_3.mp4')
 
 
-video14 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video14 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user6.id,
     channel_id: channel6.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video14.thumbnail.attach(io: file, filename: 'kenshiro_4.png')
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video14.video_content.attach(io: file, filename: 'kenshiro_4.mp4')
 
-video15 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video15 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user7.id,
     channel_id: channel7.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video15.thumbnail.attach(io: file, filename: 'kenshiro_5.png')
@@ -246,13 +248,13 @@ file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video15.video_content.attach(io: file, filename: 'kenshiro_5.mp4')
 
 
-video16 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video16 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user8.id,
     channel_id: channel8.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video16.thumbnail.attach(io: file, filename: 'kenshiro_6.png')
@@ -260,13 +262,13 @@ file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video16.video_content.attach(io: file, filename: 'kenshiro_6.mp4')
 
 
-video17 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video17 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user9.id,
     channel_id: channel9.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video17.thumbnail.attach(io: file, filename: 'kenshiro_7.png')
@@ -274,13 +276,13 @@ file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video17.video_content.attach(io: file, filename: 'kenshiro_7.mp4')
 
 
-video18 = Video.create{
-    title: 'Omae wo mou shindeiru'
-    description: "Nani?!"
+video18 = Video.create(
+    title: 'Omae wo mou shindeiru',
+    description: "Nani?!",
     user_id: user10.id,
     channel_id: channel10.id,
     duration: 4.00
-}
+)
 
 file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
 video18.thumbnail.attach(io: file, filename: 'kenshiro_8.png')
