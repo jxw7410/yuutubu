@@ -56,11 +56,13 @@ class VideoPlayer extends React.Component {
         document.getElementById("video-player").load();
     }
 
-    maximizeScreen(){
+    maximizeScreen(e){
+        e.stopPropagation();
         this.setState({fullScreen: true})
     }
 
-    normalScreen(){
+    normalScreen(e){
+        e.stopPropagation();
         this.setState({fullScreen: false});
     }
 
@@ -72,8 +74,9 @@ class VideoPlayer extends React.Component {
 
     handleSeeking(e){
         e.preventDefault();
+        e.stopPropagation();
         this.videoElement.pause();
-        const time = this.props.video.duration * (e.target.value / 100);
+        const time = this.videoElement.duration * (e.target.value / 100);
         this.videoElement.currentTime = time;
 
     }
@@ -81,7 +84,7 @@ class VideoPlayer extends React.Component {
     handleProgress(e) {
         e.preventDefault()
         if (e.target.buffered.length > 0)
-            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.props.video.duration) * 100 })
+            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.duration) * 100 })
 
     }
 
@@ -94,7 +97,7 @@ class VideoPlayer extends React.Component {
             }
         }
 
-        const value = (this.videoElement.currentTime / this.props.video.duration) * 100;
+        const value = (this.videoElement.currentTime / this.videoElement.duration) * 100;
         this.setState({ userStream: value, seekerValue: value })
     }
 
@@ -113,12 +116,14 @@ class VideoPlayer extends React.Component {
 
     handleVolumeChange(e){
         e.preventDefault();
+        e.stopPropagation();
         this.videoElement.volume = e.target.value;
         this.setState({volumeValue: e.target.value})
     }
 
     handleReplay(e) {
         e.preventDefault();
+        e.stopPropagation();
         this.videoElement.currentTime = 0;
         this.videoElement.play();
     }
@@ -127,9 +132,10 @@ class VideoPlayer extends React.Component {
     handlePlay(field) {
 
         return (e)=>{
-            if(!field)
+            e.stopPropagation();
+            if(!field){
                 this.videoElement.play();
-            else{
+            }else{
                 if(this.state.videoStatus === 'PLAY')
                     this.videoElement.pause();
                 else if ( this.state.videoStatus === 'PAUSE')
@@ -139,7 +145,8 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    handlePause(){
+    handlePause(e){
+        e.stopPropagation();
         this.videoElement.pause();
     }
 
@@ -195,6 +202,8 @@ class VideoPlayer extends React.Component {
                             <div id='buffer-streamed' style={{ width: this.state.bufferStream + "%" }} />
 
                             <input id='seeker-bar' type='range' value={this.state.seekerValue}
+                                onMouseDown={e => e.stopPropagation()}
+                                onClick={e => e.stopPropagation()}
                                 onChange={this.handleSeeking} onMouseUp={() => setTimeout(() => this.videoElement.play(), 0)}
                             />
                         </div>
@@ -207,8 +216,12 @@ class VideoPlayer extends React.Component {
                                 </div>
 
                                 <div id='volume-control-div'>
-                                    <i className="material-icons">volume_up</i>
+                                    <i 
+                                        onClick={e => e.stopPropagation()}
+                                    className="material-icons">volume_up</i>
                                     <input id='volume-control' type="range" min="0" max="1" step="0.1" value={this.state.volumeValue}
+                                        onMouseDown={e => e.stopPropagation()}
+                                        onClick={e => e.stopPropagation()}
                                         onChange={this.handleVolumeChange} />
                                 </div>
                             </section>
