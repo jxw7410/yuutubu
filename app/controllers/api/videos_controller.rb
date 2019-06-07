@@ -1,5 +1,5 @@
 class Api::VideosController < ApplicationController
-    def index_lite   
+    def index_partial   
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])
             .offset(params[:offset])

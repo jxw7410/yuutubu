@@ -42,6 +42,18 @@ class User < ApplicationRecord
         through: :dislikes,
         source: :video
 
+    has_many :video_posts,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :VideoPost
+    
+
+    has_many :posts_in_video,
+        through: :video_posts,
+        source: :video
+
+    
+
     def self.verify_email(email)
         User.find_by_email(email)
     end

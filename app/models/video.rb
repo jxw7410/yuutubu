@@ -49,5 +49,13 @@ class Video < ApplicationRecord
         through: :dislikes,
         source: :user
 
+
+    has_many :video_posts,
+        primary_key: :id,
+        foreign_key: :video_id
+
+    has_many :video_post_posters,
+        through: :video_posts,
+        source: :user
 end
 

@@ -11,8 +11,11 @@ Rails.application.routes.draw do
       resources :user_channels, only: [:create, :index, :show]
       
       resources :videos, only: [:show, :create]
-      get '/videos/index_lite/:channel_id', to: 'videos#index_lite'
+      get '/videos/index_partial/:channel_id', to: 'videos#index_partial'
       patch '/videos/:video_id/views', to: "videos#update_views"
+
+      resources :video_posts, only: [:create, :destroy, :index]
+      get '/video_posts/index_partial/:video_id', to: 'video_posts#index_partial'
 
       post '/video_likes/create_like', to: 'video_likes#create_like'
       delete '/video_likes/delete_like', to: 'video_likes#delete_like'

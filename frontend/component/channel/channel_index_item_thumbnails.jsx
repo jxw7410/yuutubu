@@ -9,6 +9,7 @@ class ChannelIndexItemThumbnail extends React.Component {
         
         this.state = {
             renderVideo: false,
+            dataLoaded: false
         }
 
         this.receiveVideo = false;
@@ -19,24 +20,24 @@ class ChannelIndexItemThumbnail extends React.Component {
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
         this.setRender = this.setRender.bind(this);
         this.didRequested = false;
+        this.setDataloaded = this.setDataloaded.bind(this);
     }
 
     handleMouseEnter(){
         clearTimeout(this.throttledAjax)
-        
+        this.mouseHover = true;
         if(!this.didRequested) {
             this.didRequested = true;
             this.throttledAjax = setTimeout(()=>{
                 this.props.fetchVideo(this.props.video.id)
                     .then( ()=>{
-                        //debugger
                         this.setState({ renderVideo: true })
                     })
-            }, 500); 
+            }, 400); 
         } else {
             this.throttledAjax = setTimeout(() => {
                         this.setState({ renderVideo: true })
-            }, 500); 
+            }, 250); 
         }
     }
 
@@ -45,14 +46,21 @@ class ChannelIndexItemThumbnail extends React.Component {
     }   
 
     setRender(){
-        this.setState({ renderVideo: false })
+        this.setState({ renderVideo: false, dataLoaded: false})
+    }
+
+    setDataloaded(e){
+        e.preventDefault();
+        console.log('video_loaded')
+        this.setState({dataLoaded: true})
     }
 
     handleMouseLeave(){
         clearTimeout(this.throttledAjax)
+        console.log('mouse-leave');
         this.mouseHover = false;
         if (this.state.renderVideo)
-            this.setState({renderVideo: false})
+            this.setRender();
     }
 
 
@@ -65,17 +73,18 @@ class ChannelIndexItemThumbnail extends React.Component {
                     onMouseOver={ this.handleMouseOver }
                     onMouseLeave={ this.handleMouseLeave }>   
                     {
-                        this.state.renderVideo && this.mouseHover ?
+                        this.state.renderVideo && this.mouseHover?
                 
                             <ThumbnailPreviewVideo 
                               setRender={this.setRender}
+                              setDataloaded={this.setDataloaded}
                               video={this.props.video}  />
 
                         : <video className='thumbnail-preview-video' muted autoPlay> <source src={""} type="video/mp4" /> </video>
                      
                     }
                     <img className={`thumbnail-preview` + 
-                        (this.state.renderVideo && this.mouseHover ? "-active" : "")}
+                        (this.state.renderVideo && this.mouseHover && this.state.dataLoaded ? "-active" : "")}
                         src={this.props.video.thumbnail} />
                 </div>
                 <section className='ch-title'>

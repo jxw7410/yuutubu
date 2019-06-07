@@ -56,7 +56,7 @@ class VideoRouter extends React.Component {
             )
         } else {
             return (
-                <div>Please Wait...</div>
+                <div id='uploading-page'> <div className='spinner' /></div>
             )
         }
     }

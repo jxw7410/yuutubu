@@ -1,94 +1,233 @@
 import React from 'react';
 
-
-
-
 //Not kept as a util because this doesn't / should not affect state
 const updateView = video_id => {
     return $.ajax({
         method: 'patch',
         url: `/api/videos/${video_id}/views`
     })
-} 
+}
 
 
 
 //Have plans for custom play bar in the future.
 
-class VideoPlayer extends React.Component{
-    constructor(props){
+class VideoPlayer extends React.Component {
+    constructor(props) {
         super(props)
         this.state = {
-            replay: false, 
+            videoStatus: null,
+            fullScreen: false,
+            userStream: 0,
+            bufferStream: 0,
+            volumeValue: 1,
+            seekerValue: 0, 
         }
 
         this.minDuration = null;
-        this.videoElement = null;
         this.viewUpdated = false;
         this.startTime = 0;
+        this.videoElement = null;
+        this.seeker = null;
 
-        this.handleOnLoad = this.handleOnLoad.bind(this)
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
+        this.handleProgress = this.handleProgress.bind(this);
+        this.handleVolumeChange = this.handleVolumeChange.bind(this);
+        this.handleSeeking = this.handleSeeking.bind(this);
+        this.handleCanPlayThrough =this.handleCanPlayThrough.bind(this);
+        this.handlePlayStatus = this.handlePlayStatus.bind(this);
+        this.handlePauseStatus = this.handlePauseStatus.bind(this);
+        this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
+
+        this.handlePlay = this.handlePlay.bind(this);
+        this.handlePause = this.handlePause.bind(this);
         this.handleReplay = this.handleReplay.bind(this);
+
+
+        this.maximizeScreen = this.maximizeScreen.bind(this);
+        this.normalScreen = this.normalScreen.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.videoElement = document.getElementById("video-player");
-        this.minDuration = this.props.video.duration  > 30 ? 30 : this.props.video.duration / 10;
+        this.seeker = document.getElementById("seeker-bar");
+        this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
+        document.getElementById("video-player").load();
     }
 
-    handleOnLoad(e){
-        e.preventDefault();
-        this.startTime = this.videoElement.currentTime;
+    maximizeScreen(){
+        this.setState({fullScreen: true})
     }
 
-    handleTimeUpdate(e){
+    normalScreen(){
+        this.setState({fullScreen: false});
+    }
+
+    handleCanPlayThrough(e){
         e.preventDefault();
-        if(!this.viewUpdated){
-            if( (this.videoElement.currentTime - this.startTime) > this.startTime){
+        this.setState({bufferStream: 100});
+    }
+    
+
+    handleSeeking(e){
+        e.preventDefault();
+        this.videoElement.pause();
+        const time = this.props.video.duration * (e.target.value / 100);
+        this.videoElement.currentTime = time;
+
+    }
+
+    handleProgress(e) {
+        e.preventDefault()
+        if (e.target.buffered.length > 0)
+            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.props.video.duration) * 100 })
+
+    }
+
+    handleTimeUpdate(e) {
+        e.preventDefault();
+        if (!this.viewUpdated) {
+            if ((this.videoElement.currentTime - this.startTime) > this.startTime) {
                 this.viewUpdated = true;
-                updateView(this.props.video.id).then(()=>console.log('On playing'));
+                updateView(this.props.video.id);
             }
         }
+
+        const value = (this.videoElement.currentTime / this.props.video.duration) * 100;
+        this.setState({ userStream: value, seekerValue: value })
     }
 
-    handleReplay(e){
+
+
+
+    handleEnded(e) {
+        e.preventDefault();
+        if (!this.viewUpdated) {
+            this.viewUpdated = true;
+            updateView(this.props.video.id);
+        }
+        this.setState({ videoStatus: 'REPLAY' });
+    }
+
+
+    handleVolumeChange(e){
+        e.preventDefault();
+        this.videoElement.volume = e.target.value;
+        this.setState({volumeValue: e.target.value})
+    }
+
+    handleReplay(e) {
         e.preventDefault();
         this.videoElement.currentTime = 0;
         this.videoElement.play();
-        this.setState({replay: false})
     }
 
-    handleEnded(e){
-        e.preventDefault();
-        if(!this.viewUpdated){
-            this.viewUpdated = true;
-            updateView(this.props.video.id).then(() => console.log('On ended'));
+
+    handlePlay(field) {
+
+        return (e)=>{
+            if(!field)
+                this.videoElement.play();
+            else{
+                if(this.state.videoStatus === 'PLAY')
+                    this.videoElement.pause();
+                else if ( this.state.videoStatus === 'PAUSE')
+                    this.videoElement.play(); 
+
+            }
         }
-
-        this.setState({replay: true})
     }
 
-    render(){
+    handlePause(){
+        this.videoElement.pause();
+    }
+
+    handlePlayStatus(e){
+        e.preventDefault();
+        this.setState({videoStatus: 'PLAY'})
+    }
+
+    handlePauseStatus(e){
+        e.preventDefault();
+        this.setState({videoStatus: 'PAUSE'});
+    }
+
+
+
+
+    renderPlayStatusButtons(){
+        switch(this.state.videoStatus){
+            case 'PLAY':
+                return <div id='pause-button' onClick={this.handlePause}> <i className="material-icons">pause</i></div> 
+            case 'REPLAY':
+                return <div id='replay-button' onClick={this.handleReplay}> <i className="material-icons"> replay </i></div>
+            case 'PAUSE':
+                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div> 
+            default:
+                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div> 
+        }
+    }
+
+    render() {
+        const playButton = this.renderPlayStatusButtons();
         return (
             <>
-            <div id='video-player-hook'>
-                <video id="video-player"  autoPlay controls
-                    onLoadedData={this.handleOnload}
-                    onTimeUpdate={this.handleTimeUpdate}
-                    onEnded={ this.handleEnded }>
-                    <source src={this.props.video.videoUrl} type="video/mp4" />
-                </video>
+                <div onClick={this.handlePlay('screen')} 
+                    id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
+                    <video id="video-player"
+                        autoPlay
+                        onTimeUpdate={this.handleTimeUpdate}
+                        onEnded={this.handleEnded}
+                        onProgress={this.handleProgress} 
+                        onCanPlayThrough={this.handleCanPlayThrough}
+                        onPlay={this.handlePlayStatus}
+                        onPause={this.handlePauseStatus}
+                        >
+                        <source src={this.props.video.videoUrl} type="video/mp4" />
+                    </video>
 
-                    <div onClick={this.handleReplay} id={`replay-button` + (this.state.replay ? "" : "-hidden")}>
-                        <i className="fas fa-redo"></i>
-                    </div> 
-            </div>
+                    <div id='video-control'>
 
-            {
-               
-            }
+                        <div id='progress-bar'>
+                            <div id='dud-bar'></div>
+                            <div id='user-streamed' style={{ width: this.state.userStream + "%" }} />
+                            <div id='buffer-streamed' style={{ width: this.state.bufferStream + "%" }} />
+
+                            <input id='seeker-bar' type='range' value={this.state.seekerValue}
+                                onChange={this.handleSeeking} onMouseUp={() => setTimeout(() => this.videoElement.play(), 0)}
+                            />
+                        </div>
+
+
+                        <div id='video-control-ui'>
+                            <section>
+                                <div id='play-pause-hook'>
+                                    {playButton}
+                                </div>
+
+                                <div id='volume-control-div'>
+                                    <i className="material-icons">volume_up</i>
+                                    <input id='volume-control' type="range" min="0" max="1" step="0.1" value={this.state.volumeValue}
+                                        onChange={this.handleVolumeChange} />
+                                </div>
+                            </section>
+
+                            <section>
+                                {
+                                    this.state.fullScreen ?
+                                        <div onClick={this.normalScreen}>
+                                            <i className="material-icons">fullscreen_exit</i>
+                                        </div>
+                                        :
+                                        <div onClick={this.maximizeScreen}>
+                                            <i className="material-icons">fullscreen</i>
+                                        </div>
+                                }
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </>
         )
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import VideoNav from './video_sub_components/video_nav';
 import VideoPlayer from './video_sub_components/video_player';
 import VideoInfoHeader from './video_sub_components/video_info_header';
-
+import VideoMainBody from './video_main_body';
 class Video extends React.Component {
     constructor(props) {
         super(props);
@@ -43,6 +43,10 @@ class Video extends React.Component {
                             <VideoInfoHeader
                                 video={this.props.video}
                                 channel={this.state.channel}
+                            />
+
+                            <VideoMainBody 
+                                video={this.props.video}
                             />
                         </div>
 

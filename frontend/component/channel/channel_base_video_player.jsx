@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const ChannelBaseVideoPlayer = (props) => {
@@ -11,13 +12,13 @@ const ChannelBaseVideoPlayer = (props) => {
 
             <section id='featured-video-info'>
                 <div>
-                    <span>{props.video.title}</span>
-                    <span>0 views</span>
+                    <span id='featured-video-title'>{props.video.title}</span>
+                    <span id='featured-video-views'>{props.video.views} views &middot; {props.video.created_at}</span>
                 </div>
 
                 <div>
-                    <span>{props.video.description}</span>
-                    <span>Read More</span>
+                    <span id='featured-video-description'>{props.video.description}</span>
+                    <span><Link to={`/video/${props.video.id}`}>Read More</Link></span>
                 </div>
             </section>
         </div>

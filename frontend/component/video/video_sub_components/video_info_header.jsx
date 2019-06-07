@@ -107,18 +107,18 @@ class VideoInfoHeader extends React.Component {
                         <div id='video-info-header-utils'>
                             <section id='vid-like-dislike-icons'>
                                 <span onClick={this.handleClick(this.like)}>
-                                    <i className={"fas fa-thumbs-up"
+                                    <i className={"material-icons"
                                         + (this.props.like_dislike.category === this.like ? " voted" : "")
-                                    }></i>
+                                    }>thumb_up</i>
                                     <span className='like-counts'>
                                         {this.state.likeCount}
                                     </span>
                                 </span>
 
                                 <span onClick={this.handleClick(this.dislike)}>
-                                    <i className={"fas fa-thumbs-down"
+                                    <i className={"material-icons"
                                         + (this.props.like_dislike.category === this.dislike ? " voted" : "")
-                                    }></i>
+                                    }>thumb_down</i>
                                     <span className='like-counts'>
                                         {this.state.dislikeCount}
                                     </span>

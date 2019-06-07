@@ -13,7 +13,7 @@ const VideoInfoBody = props => {
                 <div id='video-info-body-header'>
                     <div>
                         <Link to={`/channel/${props.channel.id}`} id="vid-channel-name">{props.channel.name}</Link>
-                        <span id="vid-video-date">{props.video.created_at}</span>
+                        <span id="vid-video-date">Published on {props.video.created_at}</span>
                     </div>
 
                     <div>
@@ -25,7 +25,7 @@ const VideoInfoBody = props => {
             <section>
                 <div></div>
                 <div id="video-description">
-                    {props.videoDescription}
+                    {props.video.description}
                 </div>
             </section>
         </div>

@@ -46,7 +46,8 @@ class ChannelIndexItem extends React.Component {
                     <span className='channel_index_items_header_ch_name'>
                         <Link to={`/channel/${this.props.channel.id}`}
                             className="channel_index_items_channel_links" >
-                            {this.props.channel.name}</Link> Recommended channel for you</span>
+                            <i className="fas fa-user-circle"></i>
+                            <span>{this.props.channel.name}</span></Link> Recommended channel for you</span>
                 </section>
                 <section id="channel-index-items-body">
                     <ul>
