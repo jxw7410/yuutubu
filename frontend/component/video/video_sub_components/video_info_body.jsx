@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 
 const VideoInfoBody = props => {
-    console.log(props.user.id === props.video.user_id );   
     return (
         <div id='video-info-body'>
             <section>

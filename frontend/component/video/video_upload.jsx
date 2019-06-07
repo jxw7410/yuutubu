@@ -98,7 +98,6 @@ class UploadVideo extends React.Component {
                         doneUploading: true,
                         uploading: false,
                     })
-                    console.log('upload failed.')
                 });
 
             this.setState({ uploading: true })

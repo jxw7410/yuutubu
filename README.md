@@ -10,8 +10,6 @@
 
 ### Users
  * Users can sign up and login 
-  ![Sign-In](./readme_assets/signin.png) 
-  ![Sign-Up](./readme_assets/signup.png)
    
  * Users can upload videos 
  * Users can post comments, and like/dislike videos

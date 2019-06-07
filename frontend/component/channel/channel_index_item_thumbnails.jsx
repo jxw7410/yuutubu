@@ -27,7 +27,6 @@ class ChannelIndexItemThumbnail extends React.Component {
         clearTimeout(this.throttledAjax)
         this.mouseHover = true;
         if(!this.didRequested) {
-            console.log('fetching...');
             this.throttledAjax = setTimeout(()=>{
                 this.props.fetchVideo(this.props.video.id)
                     .then( ()=>{

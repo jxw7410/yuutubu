@@ -29,6 +29,7 @@ class VideoPlayer extends React.Component {
         this.startTime = 0;
         this.videoElement = null;
         this.seeker = null;
+        this.autoPlay = false;
 
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
@@ -39,6 +40,7 @@ class VideoPlayer extends React.Component {
         this.handlePlayStatus = this.handlePlayStatus.bind(this);
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
+        this.handleCanPlay = this.handleCanPlay.bind(this);
 
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
@@ -51,9 +53,9 @@ class VideoPlayer extends React.Component {
 
     componentDidMount() {
         this.videoElement = document.getElementById("video-player");
+        this.videoElement.muted = false;
         this.seeker = document.getElementById("seeker-bar");
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
-        document.getElementById("video-player").load();
     }
 
     maximizeScreen(e){
@@ -71,6 +73,9 @@ class VideoPlayer extends React.Component {
         this.setState({bufferStream: 100});
     }
     
+    handleCanPlay(){
+    } 
+    
 
     handleSeeking(e){
         e.preventDefault();
@@ -82,7 +87,7 @@ class VideoPlayer extends React.Component {
     }
 
     handleProgress(e) {
-        e.preventDefault()
+        e.preventDefault();
         if (e.target.buffered.length > 0)
             this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.duration) * 100 })
 
@@ -151,7 +156,11 @@ class VideoPlayer extends React.Component {
     }
 
     handlePlayStatus(e){
-        e.preventDefault();
+        //e.preventDefault();
+        if (!this.autoPlay){
+            $(document).ready(() => e.currentTarget.muted = false);
+            this.autoPlay = true;
+        }
         this.setState({videoStatus: 'PLAY'})
     }
 
@@ -183,11 +192,13 @@ class VideoPlayer extends React.Component {
                 <div onClick={this.handlePlay('screen')} 
                     id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
                     <video id="video-player"
+                        muted
                         autoPlay
-                        onTimeUpdate={this.handleTimeUpdate}
+                        onTimeUpdate={ this.handleTimeUpdate}
                         onEnded={this.handleEnded}
                         onProgress={this.handleProgress} 
-                        onCanPlayThrough={this.handleCanPlayThrough}
+                        onCanPlay={this.handleCanPlay}
+                        onCanPlayThrough={ this.handleCanPlayThrough  }
                         onPlay={this.handlePlayStatus}
                         onPause={this.handlePauseStatus}
                         >
