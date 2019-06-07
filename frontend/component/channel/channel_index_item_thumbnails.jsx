@@ -27,10 +27,11 @@ class ChannelIndexItemThumbnail extends React.Component {
         clearTimeout(this.throttledAjax)
         this.mouseHover = true;
         if(!this.didRequested) {
-            this.didRequested = true;
+            console.log('fetching...');
             this.throttledAjax = setTimeout(()=>{
                 this.props.fetchVideo(this.props.video.id)
                     .then( ()=>{
+                        this.didRequested = true;
                         this.setState({ renderVideo: true })
                     })
             }, 300); 
@@ -51,13 +52,11 @@ class ChannelIndexItemThumbnail extends React.Component {
 
     setDataloaded(e){
         e.preventDefault();
-        console.log('video_loaded')
         this.setState({dataLoaded: true})
     }
 
     handleMouseLeave(){
         clearTimeout(this.throttledAjax)
-        console.log('mouse-leave');
         this.mouseHover = false;
         if (this.state.renderVideo)
             this.setRender();
@@ -84,7 +83,7 @@ class ChannelIndexItemThumbnail extends React.Component {
                      
                     }
                     <img className={`thumbnail-preview` + 
-                        (this.state.renderVideo && this.mouseHover && this.state.dataLoaded ? "-active" : "")}
+                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? "-active" : "")}
                         src={this.props.video.thumbnail} />
                 </div>
                 <section className='ch-title'>
