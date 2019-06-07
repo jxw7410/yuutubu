@@ -16,6 +16,7 @@ UserChannel.destroy_all
 Video.destroy_all
 VideoPost.destroy_all
 VideoLike.destroy_all
+VideoDislike.destroy_all
 
 user1 = User.create(username: 'Master', email: 'master@gmail.com', password: 'password123');
 user2 = User.create(username: 'User1', email: 'User1@gmail.com', password: 'password123');
@@ -194,7 +195,7 @@ file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
 video11.video_content.attach(io: file, filename: 'kenshiro_1.mp4')
 
 video12 = Video.create(
-    title: 'Omae wo mou shindeiru',r
+    title: 'Omae wo mou shindeiru',
     description: "Nani?!",
     user_id: user4.id,
     channel_id: channel4.id,
