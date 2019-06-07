@@ -101,6 +101,7 @@
     border-bottom-left-radius: 2px;
     border: 1px solid  rgb(204,204,204);
     outline:none;
+    transition: width 0.2s linear;
 }
 
 #search-bar-input:active{

@@ -128,7 +128,22 @@
         position: relative;
         overflow: hidden;
     }
+
+
+    #search-bar-input {
+        width: 375px;
+        height: 30px;
+        padding: 0 10px;
+        font-size: 15px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border: 1px solid #cccccc;
+        outline: none;
+        transition: width 0.2s linear;
+    }
 }
+
+
 
 
 
@@ -189,6 +204,20 @@
         padding-top: 80px;
         position: relative;
         overflow-y: scroll;
+    }
+
+
+
+    #search-bar-input {
+        width: 225px;
+        height: 30px;
+        padding: 0 10px;
+        font-size: 15px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border: 1px solid #cccccc;
+        outline: none;
+        transition: width 0.2s linear;
     }
 }
 
