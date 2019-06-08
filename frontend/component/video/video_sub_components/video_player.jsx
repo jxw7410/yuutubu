@@ -1,6 +1,6 @@
 import React from 'react';
 
-//Not kept as a util because this doesn't / should not affect state
+
 const updateView = video_id => {
     return $.ajax({
         method: 'patch',
@@ -8,9 +8,6 @@ const updateView = video_id => {
     })
 }
 
-
-
-//Have plans for custom play bar in the future.
 
 class VideoPlayer extends React.Component {
     constructor(props) {
@@ -22,6 +19,7 @@ class VideoPlayer extends React.Component {
             bufferStream: 0,
             volumeValue: 1,
             seekerValue: 0, 
+            miniScreen: false,
         }
 
         this.minDuration = null;
@@ -30,6 +28,7 @@ class VideoPlayer extends React.Component {
         this.videoElement = null;
         this.seeker = null;
         this.autoPlay = false;
+        this.prevVideoId = null;
 
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
@@ -41,6 +40,7 @@ class VideoPlayer extends React.Component {
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
         this.handleCanPlay = this.handleCanPlay.bind(this);
+        this.handleMiniScreen = this.handleMiniScreen.bind(this);
 
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
@@ -54,8 +54,16 @@ class VideoPlayer extends React.Component {
     componentDidMount() {
         this.videoElement = document.getElementById("video-player");
         this.videoElement.muted = false;
+        this.prevVideoId =  this.props.video.id;
         this.seeker = document.getElementById("seeker-bar");
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
+    }
+
+    componentDidUpdate(){
+        if(this.props.video.id != this.prevVideoId){
+            this.prevVideoId = this.props.video.id;
+            this.props.requestDefaultPlayer();
+        }
     }
 
     maximizeScreen(e){
@@ -76,6 +84,13 @@ class VideoPlayer extends React.Component {
     handleCanPlay(){
     } 
     
+    handleMiniScreen(e){
+       e.stopPropagation();
+       this.setState({miniScreen: true});
+       this.props.requestMiniPlayer();
+       this.props.history.push('/');
+
+    }
 
     handleSeeking(e){
         e.preventDefault();
@@ -105,8 +120,6 @@ class VideoPlayer extends React.Component {
         const value = (this.videoElement.currentTime / this.videoElement.duration) * 100;
         this.setState({ userStream: value, seekerValue: value })
     }
-
-
 
 
     handleEnded(e) {
@@ -156,7 +169,6 @@ class VideoPlayer extends React.Component {
     }
 
     handlePlayStatus(e){
-        //e.preventDefault();
         if (!this.autoPlay){
             $(document).ready(() => e.currentTarget.muted = false);
             this.autoPlay = true;
@@ -237,6 +249,10 @@ class VideoPlayer extends React.Component {
                             </section>
 
                             <section>
+                                <div  onClick={this.handleMiniScreen}>
+                                    <i className="material-icons">
+                                        branding_watermark</i>
+                                </div>
                                 {
                                     this.state.fullScreen ?
                                         <div onClick={this.normalScreen}>

@@ -1,5 +1,4 @@
 import React from 'react';
-import TopNavContainer from '../nav-bars/top_nav_container';
 import VideoUploadArea from './video_upload_sub/vid_upload_area';
 import VideoUploadForm from './video_upload_sub/video_upload_form';
 
@@ -112,14 +111,6 @@ class UploadVideo extends React.Component {
     render() {
         return (
             <>
-                <div id='main-nav-div'>
-                    <div id='nav-bar-hook'>
-                        <div id='main-nav-bars-ctn'>
-                            <div id='top-nav-ctn'>
-                                <TopNavContainer handleToggled={this.handleToggled} />
-                            </div>
-                        </div>
-                    </div>
                     <div id='upload-body'>{
                         this.state.uploadForm ?
                             <VideoUploadForm
@@ -137,7 +128,6 @@ class UploadVideo extends React.Component {
                                 handleFile={this.handleFile} />
                     }
                     </div>
-                </div>
             </>
         )
     }

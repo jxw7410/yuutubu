@@ -3,8 +3,7 @@ import * as VideoAPI from '../../util/video_api';
 export const RECEIVE_VIDEO = 'RECEIVE_VIDEO';
 export const RECEIVE_CHANNEL_VIDEOS = 'RECEIVE_CHANNEL_VIDEOS';
 export const CLEAR_CHANNEL_VIDEOS = "CLEAR_CHANNEL_VIDEOS";
-export const CREATE_VIDEO = 'CREATE_VIDEO'
-
+export const CREATE_VIDEO = 'CREATE_VIDEO';
 
 const receiveVideo = video => {
     return {

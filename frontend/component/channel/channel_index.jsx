@@ -16,6 +16,10 @@ class ChannelIndex extends React.Component {
     componentDidMount() {
         this.props.clearChannels();
         this.props.sideBarOne();
+        
+        if (this.props.videoPlayer.type !== 'MINI')
+             this.props.removeVideoPlayer();
+
         this.props.fetchChannels(this.offset, 6, this.props.user_id)
             .then(() => {
                 this.offset += 6;
