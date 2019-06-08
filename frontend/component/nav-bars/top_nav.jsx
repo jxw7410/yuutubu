@@ -14,7 +14,12 @@ class TopNav extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
         this.openModal = this.openModal.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
+    }
 
+    handleToggle(e){
+        e.preventDefault();
+        this.props.toggleSideBar()
     }
 
 
@@ -32,14 +37,8 @@ class TopNav extends React.Component {
         return e =>{
             //debugger
             e.preventDefault();
-            //console.log(this.previousModal)
-            if (this.previousModal === modal){
-                this.previousModal = null
-            } else {   
-                this.previousModal = modal;
-                this.props.openModal(modal);
+            this.props.openModal(modal);
             }
-        }
     }
 
 
@@ -47,7 +46,7 @@ class TopNav extends React.Component {
         return (
             <div id='top-nav'>
                 <div id="top-nav-sec-1">
-                    <i className="fas fa-bars" onClick={this.props.handleToggled}></i>
+                    <i onClick={this.handleToggle} className="fas fa-bars" ></i>
                     <span id='nav-bar-icon'><Link to={'/'}><i className="fab fa-youtube"></i><h1>YuuTubu</h1></Link></span>
                 </div>
 
@@ -60,9 +59,7 @@ class TopNav extends React.Component {
 
                 <div id="top-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
-                        <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i>
-                                    <Modal />
-                        </li>
+                        <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
 
                         <li><i className="fas fa-th"></i></li>
                         <li><i className="fas fa-comment"></i></li>

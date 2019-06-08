@@ -1,4 +1,24 @@
-#splash-main-content{
+
+#main-content-ctn{
+    display: grid;
+    grid-template-columns: 70px auto;
+    height: 100%;
+    position: relative;
+    z-index: 103;
+    width: 100%;
+}
+
+#main-content-ctn-toggled{
+    display: grid;
+    grid-template-columns: 240px auto;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 103;
+}
+
+
+#main-content{
     grid-column: 2 / 3;
     /* overflow-y:  scroll; */
 }
@@ -12,18 +32,17 @@
 }
 
 
+
+
 #channels-list{
     width: 1275px;
     padding-top: 80px;
-    position: relative;
-    z-index: 10;
     overflow-y: scroll;
 }
 
 #channels-list-toggled{
     width: 1275px;
     padding-top: 80px;
-    position: relative;
     overflow-y: scroll;
 }
 

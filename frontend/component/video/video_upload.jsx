@@ -29,6 +29,9 @@ class UploadVideo extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(){
+        this.props.sideBarTwo();
+    }
 
     handleToggled(e) {
         e.preventDefault();

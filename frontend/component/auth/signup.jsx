@@ -42,6 +42,7 @@ class SignUpForm extends React.Component {
 
 
     componentDidMount(){
+        this.props.removeNavBars();
         document.getElementById('Username').focus();
     }
     

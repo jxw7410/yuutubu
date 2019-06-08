@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { login, fetchEmail, defaultAction, clearEmail, raiseEmailError } from '../../actions/session/session_action';
+import { removeNavBars } from '../../actions/nav_bar_action';
 import LoginForm from './login_form';
 
 
@@ -17,7 +18,8 @@ const mdp = dispatch => {
         fetchEmail: email => dispatch( fetchEmail(email) ),
         raiseEmailError: () => dispatch( raiseEmailError() ),
         defaultAction: () => dispatch( defaultAction()),
-        clearEmail: () => dispatch( clearEmail())
+        clearEmail: () => dispatch( clearEmail()),
+        removeNavBars: () => dispatch(removeNavBars()),
     };
 };
 

@@ -38,6 +38,7 @@ const LoginForm = (props) => {
                                 action={props.fetchEmail}
                                 defaultAction={props.defaultAction} 
                                 raiseEmailError={props.raiseEmailError}
+                                removeNavBars={props.removeNavBars }
                                 />
                             :
                             <Login_Form_Item
@@ -50,6 +51,7 @@ const LoginForm = (props) => {
                                 defaultAction={props.defaultAction}
                                 clearEmail={props.clearEmail} 
                                 raiseEmailError={props.raiseEmailError}
+                                removeNavBars={props.removeNavBars}
                                 />
                     }
 

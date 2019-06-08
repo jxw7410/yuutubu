@@ -3,6 +3,7 @@ import VideoNav from './video_sub_components/video_nav';
 import VideoPlayer from './video_sub_components/video_player';
 import VideoInfoHeader from './video_sub_components/video_info_header';
 import VideoMainBody from './video_main_body';
+
 class Video extends React.Component {
     constructor(props) {
         super(props);
@@ -10,11 +11,10 @@ class Video extends React.Component {
             toggledSideNav: true,
             channel: {},
         }
-
-        this.handleToggled = this.handleToggled.bind(this);
     }
 
     componentDidMount() {
+        this.props.sideBarTwo();
         const channel_id = this.props.video.channel_id;
         this.props.fetchChannel(channel_id)
             .then(() => {
@@ -22,19 +22,10 @@ class Video extends React.Component {
             });
     }
 
-    handleToggled(e) {
-        e.preventDefault();
-        const toggledSideNav = this.state.toggledSideNav ? false : true;
-        this.setState({ toggledSideNav });
-
-    }
 
     render() {
         //debugger
         return (
-            <div id='main-nav-div'>
-                <VideoNav handleToggled={this.props.handleToggled} />
-
                 <div id='video-main-hook'>
                     <div id='video-main'>
                             <div id='video-main-left-gap'></div>
@@ -56,7 +47,6 @@ class Video extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
         )
     }
 }

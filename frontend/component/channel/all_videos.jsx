@@ -12,6 +12,7 @@ class AllVideos extends React.Component{
     }
 
     componentDidMount(){
+        this.props.setActiveTab(2);
         this.props.fetchChannelVideos(this.props.channelId, 36, this.offset)
             .then( () => {
                 this.offset += 36;

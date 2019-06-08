@@ -1,6 +1,7 @@
 #video-main-hook{
     position: relative;
     height: 100%;
+    width: 100%;
 }
 
 
@@ -8,6 +9,7 @@
     padding-top: 85px;
     display: grid;
     grid-template-columns: auto 75% 25%;
+    width: 100%;
 }
 
 
@@ -184,15 +186,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    background: rgb(51, 51, 51);
+}
+#progress-bar:hover{
+    height: 4px;
 }
 
-#dud-bar{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 0;
-    background: gray;
-}
 
 #buffer-streamed{
     position: absolute;

@@ -30,6 +30,7 @@ class LoginFormItem extends React.Component {
 
     componentDidMount() {
         this.didUpdate = false; 
+        this.props.removeNavBars();
         document.getElementById('auth-input-element-' + this.props.type).placeholder = 
             this.props.type === 'email' ? 'Email' : 'Enter Your password';
             

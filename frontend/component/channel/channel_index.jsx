@@ -15,6 +15,7 @@ class ChannelIndex extends React.Component {
 
     componentDidMount() {
         this.props.clearChannels();
+        this.props.sideBarOne();
         this.props.fetchChannels(this.offset, 6, this.props.user_id)
             .then(() => {
                 this.offset += 6;
@@ -31,14 +32,14 @@ class ChannelIndex extends React.Component {
 
     handleScroll(e) {
         e.preventDefault();
-        let splashScrollHeight = document.getElementById("splash-main-content").scrollHeight;
+        let splashScrollHeight = document.getElementById("main-content").scrollHeight;
         if ($(document).scrollTop() > (splashScrollHeight * this.scrollPercentage)) {
             this.props.fetchChannels(this.offset, 3, this.props.user_id)
                 .then(() => {
                     this.offset += 3;
                     let refactorPercentage = (this.defaultPercentage * this.scrollHeightOffset) / splashScrollHeight;
                     this.scrollPercentage += (this.defaultPercentage * refactorPercentage);
-                    //console.log(this.scrollPercentage);
+        
                 })
                 .fail(() => {
                     document.removeEventListener('scroll', this.handleScroll);
@@ -55,10 +56,14 @@ class ChannelIndex extends React.Component {
         });
 
         return (
-            <div id='main-content-section-1'>
-                <ul id={'channels-list' + (this.props.toggledSideNav ? "" : '-toggled')}>
-                    {channelIndexItems}
-                </ul>
+            <div id={'main-content-ctn' + (this.props.navBar.toggled ? "-toggled" : "")}>
+                <div id={'main-content'}>
+                    <div id='main-content-section-1'>
+                        <ul id={'channels-list'}>
+                            {channelIndexItems}
+                        </ul>
+                    </div>
+                </div>
             </div>
         )
     }

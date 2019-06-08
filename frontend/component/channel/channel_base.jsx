@@ -14,6 +14,7 @@ class ChannelBase extends React.Component {
     }
 
     componentDidMount() {
+        this.props.setActiveTab(1);
         this.props.fetchChannelVideos(this.props.channelId, 6, 0)
     }
 

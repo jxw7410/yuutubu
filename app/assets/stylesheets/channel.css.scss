@@ -1,3 +1,17 @@
+#channel-main-content-grid-toggled{
+    display: grid;
+    grid-template-columns: 240px auto;
+    width: 100%;
+    height: 100%;
+}
+
+#channel-main-content-grid{
+    display: grid;
+    grid-template-columns: 70px auto;
+    width: 100%;
+    height: 100%;
+}
+
 #channel-main-content{
     position: relative;
     grid-column: 2 / 3;

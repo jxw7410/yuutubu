@@ -7,12 +7,9 @@ body{
 }
 
 #root{
-    height: inherit;
-}
-
-#root > div {
     display: flex;
     height: inherit;
     justify-content: center;
     align-items: center;
+    position: relative;
 }

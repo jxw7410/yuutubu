@@ -208,7 +208,6 @@ class VideoPlayer extends React.Component {
                     <div id='video-control'>
 
                         <div id='progress-bar'>
-                            <div id='dud-bar'></div>
                             <div id='user-streamed' style={{ width: this.state.userStream + "%" }} />
                             <div id='buffer-streamed' style={{ width: this.state.bufferStream + "%" }} />
 
