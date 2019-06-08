@@ -43,6 +43,7 @@ class SignUpForm extends React.Component {
 
     componentDidMount(){
         this.props.removeNavBars();
+        this.props.removeVideoPlayer();
         document.getElementById('Username').focus();
     }
     

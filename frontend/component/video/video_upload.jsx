@@ -30,6 +30,7 @@ class UploadVideo extends React.Component {
 
     componentDidMount(){
         this.props.sideBarTwo();
+        this.props.removeVideoPlayer();
     }
 
     handleToggled(e) {

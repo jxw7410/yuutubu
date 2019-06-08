@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { login, fetchEmail, defaultAction, clearEmail, raiseEmailError } from '../../actions/session/session_action';
 import { removeNavBars } from '../../actions/nav_bar_action';
+import { removeVideoPlayer } from '../../actions/video_player';
 import LoginForm from './login_form';
 
 
@@ -20,6 +21,7 @@ const mdp = dispatch => {
         defaultAction: () => dispatch( defaultAction()),
         clearEmail: () => dispatch( clearEmail()),
         removeNavBars: () => dispatch(removeNavBars()),
+        removeVideoPlayer: () => dispatch(removeVideoPlayer())
     };
 };
 

@@ -24,13 +24,13 @@ class LoginFormItem extends React.Component {
         this.textChangeEvent = this.textChangeEvent.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleUnfocus = this.handleUnfocus.bind(this);
-
         this.changePlaceholder = this.changePlaceholder.bind(this);
     }
 
     componentDidMount() {
         this.didUpdate = false; 
         this.props.removeNavBars();
+        this.props.removeVideoPlayer();
         document.getElementById('auth-input-element-' + this.props.type).placeholder = 
             this.props.type === 'email' ? 'Email' : 'Enter Your password';
             

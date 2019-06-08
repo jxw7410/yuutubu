@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 70px auto;
     height: 100%;
-    position: relative;
+    position: absolute;
     z-index: 103;
     width: 100%;
 }
@@ -12,7 +12,7 @@
     display: grid;
     grid-template-columns: 240px auto;
     height: 100%;
-    position: relative;
+    position: absolute;
     width: 100%;
     z-index: 103;
 }
