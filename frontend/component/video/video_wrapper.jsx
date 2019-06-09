@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import VideoPlayer from './video_sub_components/video_player_ctn';
+import VideoPlayer from '../video_player/video_player_ctn';
 import { Route } from 'react-router-dom';
 import VideoRouter from './video_router';
 const VideoWrapper = (props) => {

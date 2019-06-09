@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ProgressBar from './progress_bar';
 
 const updateView = video_id => {
     return $.ajax({
@@ -28,7 +28,6 @@ class VideoPlayer extends React.Component {
         this.videoElement = null;
         this.seeker = null;
         this.autoPlay = false;
-        this.prevVideoId = null;
 
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
@@ -59,12 +58,6 @@ class VideoPlayer extends React.Component {
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
     }
 
-    componentDidUpdate(){
-        if(this.props.video.id != this.prevVideoId){
-            this.prevVideoId = this.props.video.id;
-            this.props.requestDefaultPlayer();
-        }
-    }
 
     maximizeScreen(e){
         e.stopPropagation();
@@ -202,7 +195,13 @@ class VideoPlayer extends React.Component {
         return (
             <>
                 <div onClick={this.handlePlay('screen')} 
-                    id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
+                    id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")
+                    }>
+
+                    {
+                        this.state.videoStatus === 'REPLAY' ?
+                        <div id="video-dark-screen" /> : null
+                    }
                     <video id="video-player"
                         muted
                         autoPlay
@@ -217,18 +216,16 @@ class VideoPlayer extends React.Component {
                         <source src={this.props.video.videoUrl} type="video/mp4" />
                     </video>
 
-                    <div id='video-control'>
+                    <div id={'video-control' + (this.state.videoStatus  ? `-${this.state.videoStatus}` : "")} >
 
-                        <div id='progress-bar'>
-                            <div id='user-streamed' style={{ width: this.state.userStream + "%" }} />
-                            <div id='buffer-streamed' style={{ width: this.state.bufferStream + "%" }} />
 
-                            <input id='seeker-bar' type='range' value={this.state.seekerValue}
-                                onMouseDown={e => e.stopPropagation()}
-                                onClick={e => e.stopPropagation()}
-                                onChange={this.handleSeeking} onMouseUp={() => setTimeout(() => this.videoElement.play(), 0)}
-                            />
-                        </div>
+                        <ProgressBar 
+                            userStream={this.state.userStream}
+                            bufferStream={this.state.bufferStream}
+                            seekerValue={this.state.seekerValue}
+                            handleSeeking={this.handleSeeking}
+                            videoElement={this.videoElement}
+                        />
 
 
                         <div id='video-control-ui'>
@@ -240,7 +237,8 @@ class VideoPlayer extends React.Component {
                                 <div id='volume-control-div'>
                                     <i 
                                         onClick={e => e.stopPropagation()}
-                                    className="material-icons">volume_up</i>
+                                        className="material-icons">volume_up</i>
+
                                     <input id='volume-control' type="range" min="0" max="1" step="0.1" value={this.state.volumeValue}
                                         onMouseDown={e => e.stopPropagation()}
                                         onClick={e => e.stopPropagation()}

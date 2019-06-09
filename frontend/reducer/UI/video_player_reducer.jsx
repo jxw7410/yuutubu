@@ -5,7 +5,6 @@ import {REMOVE_VIDEO_PLAYER,
         REQUEST_SET_VIDEO,
     } from '../../actions/video_player';
 
-import { RECEIVE_VIDEO } from '../../actions/video/video_action';
 
 import { merge } from 'lodash'
 
