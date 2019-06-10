@@ -11,8 +11,7 @@ class MainSideNav extends React.Component {
 
 
     toHomeEvent(e){
-        if (this.props.match.url !== '/')
-            this.props.history.push('/')
+        this.props.history.push('/')
     }
 
     render() {

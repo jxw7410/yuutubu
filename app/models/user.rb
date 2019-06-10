@@ -52,7 +52,10 @@ class User < ApplicationRecord
         through: :video_posts,
         source: :video
 
-    
+    has_many :searches,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :SearchHistory
 
     def self.verify_email(email)
         User.find_by_email(email)

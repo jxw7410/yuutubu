@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import UserModal from '../modals/user_modal';
-import Modal from '../modals/modal';
+import SearchBarContainer from './search_bar_container';
+
+
 
 class TopNav extends React.Component {
     constructor(props){
@@ -51,16 +53,14 @@ class TopNav extends React.Component {
                 </div>
 
                 <div id="top-nav-sec-2">
-                    <section id='search-bar'>
-                        <input id='search-bar-input' type='text' placeholder={'Search'}/>
-                        <button id='search-bar-button'> <i className="fas fa-search"></i> </button>
-                    </section>
+                    <SearchBarContainer />
                 </div>
 
                 <div id="top-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
                         <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
-
+                        
+                        
                         <li><i className="fas fa-th"></i></li>
                         <li><i className="fas fa-comment"></i></li>
 
@@ -69,6 +69,7 @@ class TopNav extends React.Component {
                             <li><i className="fas fa-bell"></i> </li> :
                             <li><i className="fas fa-ellipsis-v"></i></li>
                         }
+                        
                         <li>{
                             this.props.isLoggedIn ? 
                                 <UserModal 
@@ -87,3 +88,6 @@ class TopNav extends React.Component {
 }
 
 export default TopNav;
+
+
+

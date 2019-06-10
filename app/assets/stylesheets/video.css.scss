@@ -4,6 +4,7 @@
     display: grid;
     grid-template-columns: auto 75% 25%;
     width: 100%;
+    position: relative;
 }
 
 #video-main-mini{
@@ -141,6 +142,9 @@
 
 #video-main-right{
     grid-column: 3 / 4;
+    position: absolute;
+    margin-top: 85px;
+    width: 100%;
 }
 
 
@@ -183,3 +187,66 @@
     color: blue;
 }
 
+
+
+#video-main-right{
+    grid-column: 3 / 4;
+    position: absolute;
+    margin-top: 85px;
+    width: 100%;
+}
+
+
+#preview-video-list {
+    display: flex;  
+    flex-direction: column;
+    width: 100%;
+}
+
+#preview-video-list  .channel-index-item-thumbnails{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    flex-direction: row;
+
+}
+
+#preview-video-list .channel-index-item-media, 
+#preview-video-list .thumbnail-preview,
+#preview-video-list .thumbnail-preview-video,
+#preview-video-list .thumbnail-preview-video-active{
+    height: 95px;
+    width: 170px;
+}
+
+#preview-video-list .thumbnail-preview{
+    opacity: 1;
+    transition: opacity 0.5s linear;
+}
+
+#preview-video-list .thumbnail-preview-active{
+    height: 95px;
+    width: 170px;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+#videopage-thumbnail-preview{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#videopage-thumbnail-preview > section{
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+#videopage-thumbnail-preview > section:first-child{
+    font-size: 14px;
+    font-weight: bold;
+}
+#videopage-thumbnail-preview > section:last-child{
+    color: rgb(134,134,134);
+    font-size: 12px;
+}

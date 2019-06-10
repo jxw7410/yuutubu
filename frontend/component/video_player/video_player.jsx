@@ -85,7 +85,7 @@ class VideoPlayer extends React.Component {
         e.stopPropagation();
         this.props.requestMiniPlayer();
         this.setState({previousURL: `/video/${this.props.videoPlayer.video.id}`})
-        this.props.history.goBack();
+        this.props.history.push('/');
     }
 
 
@@ -277,4 +277,6 @@ class VideoPlayer extends React.Component {
 
 
 export default withRouter(VideoPlayer);
+
+
 

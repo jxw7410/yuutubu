@@ -1,4 +1,5 @@
 import * as VideoAPI from '../../util/video_api';
+import Video from '../../component/video/video';
 
 export const RECEIVE_VIDEO = 'RECEIVE_VIDEO';
 export const RECEIVE_CHANNEL_VIDEOS = 'RECEIVE_CHANNEL_VIDEOS';
@@ -44,10 +45,19 @@ export const fetchVideo = video_id => dispatch => {
 };
 
 
+//On index page
 export const fetchChannelVideos = (channel_id, limit, offset) => dispatch => {
     return VideoAPI.requestChannelVideos(channel_id, limit, offset)
         .then( videos => {
             dispatch(receiveChannelVideos(videos));
+        });
+}
+
+//On video page
+export const fetchRecommendedVideos = video_id => dispatch => {
+    return VideoAPI.requestRecommendedVideos(video_id)
+        .then( videos => {
+            dispatch(receiveChannelVideos(videos))
         });
 }
 

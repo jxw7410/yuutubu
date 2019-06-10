@@ -13,7 +13,6 @@ class SubSideNav extends React.Component{
 
 
     toHomeEvent(e) {
-        if (this.props.match.url !== '/')
             this.props.history.push('/')
     }
     

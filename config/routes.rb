@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       
       resources :videos, only: [:show, :create]
       get '/videos/index_partial/:channel_id', to: 'videos#index_partial'
+      get '/videos/index_recommended/:video_id', to: 'videos#index_recommended'
       patch '/videos/:video_id/views', to: "videos#update_views"
 
       resources :video_posts, only: [:create, :destroy, :index]

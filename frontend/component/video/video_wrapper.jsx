@@ -4,7 +4,7 @@ import VideoPlayerContainer from '../video_player/video_player_ctn';
 import { requestDefaultPlayer } from '../../actions/video_player';
 import { Route } from 'react-router-dom';
 import VideoRouter from './video_router';
-
+import VideoRecommendedListContainer from './video_sub_components/video_recommended_list';
 
 //This is seemingly redundant. In terms of functionality, it really is,
 //But the true purpose of this is to hide the actual video player html from users
@@ -50,7 +50,8 @@ const VideoWrapper = (props) => {
                                 </div>
                                 {
                                     props.videoPlayer.type === 'MINI' ? null
-                                        : <div id='video-main-right'></div>
+                                        : 
+                                        <VideoRecommendedListContainer />
                                 }
                             </div>
                         }

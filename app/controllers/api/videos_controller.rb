@@ -1,5 +1,6 @@
 class Api::VideosController < ApplicationController
     def index_partial   
+      
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])
             .offset(params[:offset])
@@ -9,6 +10,19 @@ class Api::VideosController < ApplicationController
         else 
             render json: ["Videos not found"], status: 422
         end
+    end
+
+    def index_recommended
+        @videos = Video.where
+            .not(id: params[:video_id])
+            .limit(20)
+
+        #debugger
+        if @videos 
+            render :index_lite 
+        else 
+            render json: ["Videos not found"], status: 422
+        end 
     end
 
     def update_views
