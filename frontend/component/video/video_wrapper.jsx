@@ -11,6 +11,7 @@ import VideoRouter from './video_router';
 //This way it seems like the videoplayer is global, but it is only so conditionally depending on the state
 
 class FakeVideoRouter extends React.Component {
+
     componentDidMount() {   
         console.log('token path');
         this.props.requestDefaultPlayer();

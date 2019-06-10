@@ -3,14 +3,21 @@ import { convertDurationToTime } from '../../util/selector';
 
 const MiniControlUI = props => {
     return (
-        <div id='mini-control-ui'>
+        <div id='mini-control-ui' onClick={props.handleGoBack}>
             <div> 
                 {/* Replace later with the google material io X */}
-                <i className="material-icons">
+                <i onClick={ (e) => {
+                            e.stopPropagation();
+                            props.closeButton();
+                        }
+                    } 
+                    className="material-icons">
                     close</i>
             </div>
             <div> 
-                {props.playButton}
+                <div id='mini-screen-play-button'>
+                    {props.playButton}
+                </div>
             </div>
             <div id='video-time'>
                 <span>{convertDurationToTime(props.currentTime)} / {convertDurationToTime(props.duration)}</span>

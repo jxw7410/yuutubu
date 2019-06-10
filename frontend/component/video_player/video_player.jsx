@@ -2,6 +2,7 @@ import React from 'react';
 import ProgressBar from './progress_bar';
 import DefaultControlUI from './default_control_ui';
 import MiniControlUI from './mini_control_ui';
+import {withRouter} from 'react-router-dom';
 
 const updateView = video_id => {
     return $.ajax({
@@ -22,6 +23,7 @@ class VideoPlayer extends React.Component {
             volumeValue: 1,
             currentTime: 0,
             duration: 0,
+            previousURL: "/",
         }
 
         this.minDuration = null;
@@ -41,12 +43,12 @@ class VideoPlayer extends React.Component {
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
         this.handleMiniScreen = this.handleMiniScreen.bind(this);
-
+    
 
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
         this.handleReplay = this.handleReplay.bind(this);
-
+        this.handleGoBack = this.handleGoBack.bind(this);
 
         this.maximizeScreen = this.maximizeScreen.bind(this);
         this.normalScreen = this.normalScreen.bind(this);
@@ -64,6 +66,11 @@ class VideoPlayer extends React.Component {
         this.setState({ fullScreen: true })
     }
 
+    handleGoBack(e){
+        e.stopPropagation();
+        this.props.history.push(this.state.previousURL);
+    }
+
     normalScreen(e) {
         e.stopPropagation();
         this.setState({ fullScreen: false });
@@ -77,6 +84,7 @@ class VideoPlayer extends React.Component {
     handleMiniScreen(e) {
         e.stopPropagation();
         this.props.requestMiniPlayer();
+        this.setState({previousURL: `/video/${this.props.videoPlayer.video.id}`})
         this.props.history.goBack();
     }
 
@@ -225,6 +233,7 @@ class VideoPlayer extends React.Component {
                                 currentTime={this.state.currentTime}
                                 duration={this.state.duration}
                                 closeButton={this.props.removeVideoPlayer}
+                                handleGoBack={this.handleGoBack}
                             /> : null
                         }
 
@@ -267,5 +276,5 @@ class VideoPlayer extends React.Component {
 }
 
 
-export default VideoPlayer;
+export default withRouter(VideoPlayer);
 
