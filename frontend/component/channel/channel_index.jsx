@@ -10,15 +10,16 @@ class ChannelIndex extends React.Component {
         this.defaultPercentage = 0.40;
         this.scrollHeightOffset = 888;
         this.handleScroll = this.handleScroll.bind(this);
+        this.fetching = false;
         //debugger
     }
 
     componentDidMount() {
         this.props.clearChannels();
         this.props.sideBarOne();
-        
+
         if (this.props.videoPlayer.type !== 'MINI')
-             this.props.removeVideoPlayer();
+            this.props.removeVideoPlayer();
 
         this.props.fetchChannels(this.offset, 6, this.props.user_id)
             .then(() => {
@@ -36,18 +37,21 @@ class ChannelIndex extends React.Component {
 
     handleScroll(e) {
         e.preventDefault();
-        let splashScrollHeight = document.getElementById("main-content").scrollHeight;
-        if ($(document).scrollTop() > (splashScrollHeight * this.scrollPercentage)) {
-            this.props.fetchChannels(this.offset, 3, this.props.user_id)
-                .then(() => {
-                    this.offset += 3;
-                    let refactorPercentage = (this.defaultPercentage * this.scrollHeightOffset) / splashScrollHeight;
-                    this.scrollPercentage += (this.defaultPercentage * refactorPercentage);
-        
-                })
-                .fail(() => {
-                    document.removeEventListener('scroll', this.handleScroll);
-                })
+        if (!this.fetching) {
+            let splashScrollHeight = document.getElementById("main-content").scrollHeight;
+            if ($(document).scrollTop() > (splashScrollHeight * this.scrollPercentage)) {
+                this.fetching = true;
+                this.props.fetchChannels(this.offset, 3, this.props.user_id)
+                    .then(() => {
+                        this.offset += 3;
+                        let refactorPercentage = (this.defaultPercentage * this.scrollHeightOffset) / splashScrollHeight;
+                        this.scrollPercentage += (this.defaultPercentage * refactorPercentage);
+                        this.fetching = false;
+                    })
+                    .fail(() => {
+                        document.removeEventListener('scroll', this.handleScroll);
+                    })
+            }
         }
 
     }

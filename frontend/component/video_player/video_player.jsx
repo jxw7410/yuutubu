@@ -1,5 +1,6 @@
 import React from 'react';
 import ProgressBar from './progress_bar';
+import DefaultControlUI from './default_control_ui';
 
 const updateView = video_id => {
     return $.ajax({
@@ -18,8 +19,9 @@ class VideoPlayer extends React.Component {
             userStream: 0,
             bufferStream: 0,
             volumeValue: 1,
-            seekerValue: 0, 
             miniScreen: false,
+            currentTime: 0,
+            duration: 0,
         }
 
         this.minDuration = null;
@@ -38,8 +40,8 @@ class VideoPlayer extends React.Component {
         this.handlePlayStatus = this.handlePlayStatus.bind(this);
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
-        this.handleCanPlay = this.handleCanPlay.bind(this);
         this.handleMiniScreen = this.handleMiniScreen.bind(this);
+
 
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
@@ -53,7 +55,6 @@ class VideoPlayer extends React.Component {
     componentDidMount() {
         this.videoElement = document.getElementById("video-player");
         this.videoElement.muted = false;
-        this.prevVideoId =  this.props.video.id;
         this.seeker = document.getElementById("seeker-bar");
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
     }
@@ -74,32 +75,34 @@ class VideoPlayer extends React.Component {
         this.setState({bufferStream: 100});
     }
     
-    handleCanPlay(){
-    } 
-    
     handleMiniScreen(e){
        e.stopPropagation();
        this.setState({miniScreen: true});
        this.props.requestMiniPlayer();
-       this.props.history.push('/');
+       this.props.history.goBack();
+    }
+
+
+
+    handleProgress(e) {
+        e.preventDefault();
+        if (!this.state.duration)
+            this.setState({ duration: this.videoElement.duration })
+
+        if (e.target.buffered.length > 0)
+            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.duration) * 100 })
 
     }
 
-    handleSeeking(e){
+    handleSeeking(e) {
         e.preventDefault();
         e.stopPropagation();
         this.videoElement.pause();
         const time = this.videoElement.duration * (e.target.value / 100);
         this.videoElement.currentTime = time;
-
+        this.setState({videoStatus: 'PAUSE'})
     }
 
-    handleProgress(e) {
-        e.preventDefault();
-        if (e.target.buffered.length > 0)
-            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.duration) * 100 })
-
-    }
 
     handleTimeUpdate(e) {
         e.preventDefault();
@@ -110,8 +113,10 @@ class VideoPlayer extends React.Component {
             }
         }
 
-        const value = (this.videoElement.currentTime / this.videoElement.duration) * 100;
-        this.setState({ userStream: value, seekerValue: value })
+
+        const currentTime = this.videoElement.currentTime;
+        const value = ( currentTime / this.videoElement.duration) * 100;
+        this.setState({ userStream: value, currentTime  })
     }
 
 
@@ -191,7 +196,6 @@ class VideoPlayer extends React.Component {
     }
 
     render() {
-        const playButton = this.renderPlayStatusButtons();
         return (
             <>
                 <div onClick={this.handlePlay('screen')} 
@@ -208,7 +212,6 @@ class VideoPlayer extends React.Component {
                         onTimeUpdate={ this.handleTimeUpdate}
                         onEnded={this.handleEnded}
                         onProgress={this.handleProgress} 
-                        onCanPlay={this.handleCanPlay}
                         onCanPlayThrough={ this.handleCanPlayThrough  }
                         onPlay={this.handlePlayStatus}
                         onPause={this.handlePauseStatus}
@@ -222,49 +225,34 @@ class VideoPlayer extends React.Component {
                         <ProgressBar 
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
-                            seekerValue={this.state.seekerValue}
                             handleSeeking={this.handleSeeking}
                             videoElement={this.videoElement}
+                            currentTime={this.state.currentTime}
+                            duration={this.state.duration}
                         />
+                        
 
 
-                        <div id='video-control-ui'>
-                            <section>
-                                <div id='play-pause-hook'>
-                                    {playButton}
-                                </div>
-
-                                <div id='volume-control-div'>
-                                    <i 
-                                        onClick={e => e.stopPropagation()}
-                                        className="material-icons">volume_up</i>
-
-                                    <input id='volume-control' type="range" min="0" max="1" step="0.1" value={this.state.volumeValue}
-                                        onMouseDown={e => e.stopPropagation()}
-                                        onClick={e => e.stopPropagation()}
-                                        onChange={this.handleVolumeChange} />
-                                </div>
-                            </section>
-
-                            <section>
-                                <div  onClick={this.handleMiniScreen}>
-                                    <i className="material-icons">
-                                        branding_watermark</i>
-                                </div>
-                                {
-                                    this.state.fullScreen ?
-                                        <div onClick={this.normalScreen}>
-                                            <i className="material-icons">fullscreen_exit</i>
-                                        </div>
-                                        :
-                                        <div onClick={this.maximizeScreen}>
-                                            <i className="material-icons">fullscreen</i>
-                                        </div>
-                                }
-                            </section>
-                        </div>
+                        <DefaultControlUI  
+                            playButton={this.renderPlayStatusButtons()}
+                            volumeValue={this.state.volumeValue }
+                            handleVolumeChange={this.handleVolumeChange}
+                            handleMiniScreen={this.handleMiniScreen}
+                            isFullScreen={this.state.fullScreen}
+                            normalScreen={this.normalScreen}
+                            maximizeScreen={ this.maximizeScreen } 
+                            currentTime ={this.state.currentTime}
+                            duration = {this.state.duration }
+                        />
+            
                     </div>
                 </div>
+                {
+                    this.props.videoPlayer.type === 'MINI' ? 
+                    <div id='video-player-descriptions'>
+                        { this.props.videoPlayer.video.title}
+                    </div> : null
+                }
             </>
         )
     }

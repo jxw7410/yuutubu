@@ -20,6 +20,8 @@ class Channel extends React.Component {
 
     componentDidMount() {
         this.props.sideBarOne();
+        if (this.props.videoPlayer.type !== 'MINI')
+            this.props.removeVideoPlayer();
     }
 
 

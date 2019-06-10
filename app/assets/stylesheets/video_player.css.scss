@@ -37,6 +37,7 @@
     justify-content: flex-start;
     background: rgb(51, 51, 51);
 }
+
 #progress-bar:hover{
     height: 4px;
 }
@@ -63,17 +64,19 @@
     position: absolute;
     z-index: 3;
     height: 4px;
-    width: 100%;
+    width: 101%;
     padding: 0;
     margin: 0;
-    background: transparent;
     bottom: 0;
     opacity: 0;
     transition: opacity 0.3s linear;
 }
 
+
+
 #seeker-bar:hover{
     opacity: 1;
+    height: 100%;
     transition: opacity 0.3s linear;
 }
 
@@ -151,7 +154,6 @@
    #video-control-PLAY{
         opacity: 1;
     }
-    
 }
 
 
@@ -169,13 +171,34 @@
 #volume-control-div{
     display:flex;
     align-items: center;
-    width:60px;
+    width:auto;
+}
+
+#volume-control-div:hover{
+    #volume-control{
+        width: 50px;
+        visibility: visible;
+        transition: width 0.1s linear;
+    }
+
+    #volume-control::-webkit-slider-thumb{
+        visibility: visible;
+    }
+
 }
 
 #volume-control{
-   width: 50px;
-   color: gray; 
+   width: 0px;
+   visibility: hidden;
+   transition: width 0.1s linear;
 }
+
+#volume-control::-webkit-slider-thumb{
+     visibility: hidden;
+}
+
+
+
 
 #video-control-ui > section{
     padding: 0 3%;
@@ -184,6 +207,17 @@
 #video-control-ui > section:first-child{
     display:flex;
     align-items: center;
+    width: auto;
+}
+
+
+#video-control-ui > section:first-child > div{
+    margin: 0  5px;
+}
+
+#video-time{
+    color: white;
+    font-size: 12px;
 }
 
 #video-control-ui > section:last-child{
@@ -214,10 +248,10 @@
 
 #video-player-hook-fullscreen {
 
-    #video-control {
+    #video-control,  #video-control-PLAY, #video-control-PAUSE, #video-control-REPLAY{
         opacity: 1;
         width: 100%;
-        z-index: 2002;
+        z-index: 2003;
         bottom:0;
         position: absolute;
     }
@@ -235,6 +269,15 @@
         right:0;
         left:0;
     }
+
+    #video-dark-screen{
+        background: rgba(0,0,0,0.5);
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 2002;
+}
+
   
 }
 
