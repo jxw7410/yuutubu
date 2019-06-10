@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import VideoPlayer from './video_player';
-import { requestDefaultPlayer, requestMiniPlayer} from '../../actions/video_player';
+import { requestDefaultPlayer, requestMiniPlayer, removeVideoPlayer} from '../../actions/video_player';
 import { withRouter } from 'react-router-dom';
 
 //This works because the only time a video loads if its clicked meaning
@@ -29,7 +29,8 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         requestDefaultPlayer: () => dispatch(requestDefaultPlayer()),
-        requestMiniPlayer: () => dispatch(requestMiniPlayer())
+        requestMiniPlayer: () => dispatch(requestMiniPlayer()),
+        removeVideoPlayer: () => dispatch( removeVideoPlayer()),
     }
 }
 

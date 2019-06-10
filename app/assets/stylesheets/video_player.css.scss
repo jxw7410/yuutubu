@@ -128,7 +128,8 @@
     align-items: center;
     width: 100%;
     background: linear-gradient( 0deg, rgba(0,0,0, 0.5), rgba(0,0,0, 0));
-
+    justify-content: flex-end;
+    height:100%;
 }
 
 
@@ -140,7 +141,9 @@
     align-items: center;
     width: 100%;
     background: linear-gradient( 0deg, rgba(0,0,0, 0.5), rgba(0,0,0, 0));
-    opacity: 1;       
+    opacity: 1;    
+    justify-content: flex-end;
+    height:100%;  
 }
 
 
@@ -276,7 +279,7 @@
         height: 100%;
         width: 100%;
         z-index: 2002;
-}
+    }
 
   
 }
@@ -288,4 +291,66 @@
     height: 200px;
     bottom: 200px;
     right: 200px;
+}
+
+#video-player-descriptions{
+    display: flex;
+    height: 50px; //change later
+    justify-content: center;
+    align-items: center;
+}
+
+#mini-control-ui{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#mini-control-ui{
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.1s linear;
+    background: rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+#mini-control-ui:hover{
+    opacity: 1;
+    transition: opacity 0.1s linear;
+}
+
+
+#mini-control-ui, #mini-control-ui > div{
+    width: 100%;    
+}
+
+#mini-control-ui > div:first-child{
+    display:flex;
+    justify-content: flex-end;
+    color:white;
+}
+
+#mini-control-ui > div:first-child > * {
+        margin-right:12px;
+        margin-top:12px;
+}
+
+#mini-control-ui > div:nth-child(2){
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mini-control-ui > div:last-child{
+    display:flex;
+}   
+
+#mini-control-ui > div:last-child > * {
+    margin-left: 12px;
+    margin-bottom: 12px;
 }

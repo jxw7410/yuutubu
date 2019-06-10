@@ -20,7 +20,7 @@ const DefaultControlUI = props => {
                 </div>
 
                 <div id='video-time'>
-                    {convertDurationToTime(props.currentTime)} / {convertDurationToTime(props.duration)}
+                    <span>{convertDurationToTime(props.currentTime)} / {convertDurationToTime(props.duration)}</span>
                 </div>
             </section>
 

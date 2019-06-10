@@ -13,6 +13,7 @@ class Video extends React.Component {
 
     componentDidMount() {
         this.props.sideBarTwo();
+        //debugger
         this.props.requestDefaultPlayer();
         if (this.props.video.id !== this.props.videoPlayer.video.id)
             this.props.requestSetVideo(this.props.video);

@@ -1,6 +1,7 @@
 import React from 'react';
 import ProgressBar from './progress_bar';
 import DefaultControlUI from './default_control_ui';
+import MiniControlUI from './mini_control_ui';
 
 const updateView = video_id => {
     return $.ajax({
@@ -19,7 +20,6 @@ class VideoPlayer extends React.Component {
             userStream: 0,
             bufferStream: 0,
             volumeValue: 1,
-            miniScreen: false,
             currentTime: 0,
             duration: 0,
         }
@@ -36,7 +36,7 @@ class VideoPlayer extends React.Component {
         this.handleProgress = this.handleProgress.bind(this);
         this.handleVolumeChange = this.handleVolumeChange.bind(this);
         this.handleSeeking = this.handleSeeking.bind(this);
-        this.handleCanPlayThrough =this.handleCanPlayThrough.bind(this);
+        this.handleCanPlayThrough = this.handleCanPlayThrough.bind(this);
         this.handlePlayStatus = this.handlePlayStatus.bind(this);
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
@@ -59,27 +59,25 @@ class VideoPlayer extends React.Component {
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
     }
 
-
-    maximizeScreen(e){
+    maximizeScreen(e) {
         e.stopPropagation();
-        this.setState({fullScreen: true})
+        this.setState({ fullScreen: true })
     }
 
-    normalScreen(e){
+    normalScreen(e) {
         e.stopPropagation();
-        this.setState({fullScreen: false});
+        this.setState({ fullScreen: false });
     }
 
-    handleCanPlayThrough(e){
+    handleCanPlayThrough(e) {
         e.preventDefault();
-        this.setState({bufferStream: 100});
+        this.setState({ bufferStream: 100 });
     }
-    
-    handleMiniScreen(e){
-       e.stopPropagation();
-       this.setState({miniScreen: true});
-       this.props.requestMiniPlayer();
-       this.props.history.goBack();
+
+    handleMiniScreen(e) {
+        e.stopPropagation();
+        this.props.requestMiniPlayer();
+        this.props.history.goBack();
     }
 
 
@@ -100,7 +98,7 @@ class VideoPlayer extends React.Component {
         this.videoElement.pause();
         const time = this.videoElement.duration * (e.target.value / 100);
         this.videoElement.currentTime = time;
-        this.setState({videoStatus: 'PAUSE'})
+        this.setState({ videoStatus: 'PAUSE' })
     }
 
 
@@ -115,8 +113,8 @@ class VideoPlayer extends React.Component {
 
 
         const currentTime = this.videoElement.currentTime;
-        const value = ( currentTime / this.videoElement.duration) * 100;
-        this.setState({ userStream: value, currentTime  })
+        const value = (currentTime / this.videoElement.duration) * 100;
+        this.setState({ userStream: value, currentTime })
     }
 
 
@@ -130,11 +128,11 @@ class VideoPlayer extends React.Component {
     }
 
 
-    handleVolumeChange(e){
+    handleVolumeChange(e) {
         e.preventDefault();
         e.stopPropagation();
         this.videoElement.volume = e.target.value;
-        this.setState({volumeValue: e.target.value})
+        this.setState({ volumeValue: e.target.value })
     }
 
     handleReplay(e) {
@@ -147,82 +145,90 @@ class VideoPlayer extends React.Component {
 
     handlePlay(field) {
 
-        return (e)=>{
+        return (e) => {
             e.stopPropagation();
-            if(!field){
+            if (!field) {
                 this.videoElement.play();
-            }else{
-                if(this.state.videoStatus === 'PLAY')
+            } else {
+                if (this.state.videoStatus === 'PLAY')
                     this.videoElement.pause();
-                else if ( this.state.videoStatus === 'PAUSE')
-                    this.videoElement.play(); 
+                else if (this.state.videoStatus === 'PAUSE')
+                    this.videoElement.play();
 
             }
         }
     }
 
-    handlePause(e){
+    handlePause(e) {
         e.stopPropagation();
         this.videoElement.pause();
     }
 
-    handlePlayStatus(e){
-        if (!this.autoPlay){
+    handlePlayStatus(e) {
+        if (!this.autoPlay) {
             $(document).ready(() => e.currentTarget.muted = false);
             this.autoPlay = true;
         }
-        this.setState({videoStatus: 'PLAY'})
+        this.setState({ videoStatus: 'PLAY' })
     }
 
-    handlePauseStatus(e){
+    handlePauseStatus(e) {
         e.preventDefault();
-        this.setState({videoStatus: 'PAUSE'});
+        this.setState({ videoStatus: 'PAUSE' });
     }
 
 
 
 
-    renderPlayStatusButtons(){
-        switch(this.state.videoStatus){
+    renderPlayStatusButtons() {
+        switch (this.state.videoStatus) {
             case 'PLAY':
-                return <div id='pause-button' onClick={this.handlePause}> <i className="material-icons">pause</i></div> 
+                return <div id='pause-button' onClick={this.handlePause}> <i className="material-icons">pause</i></div>
             case 'REPLAY':
                 return <div id='replay-button' onClick={this.handleReplay}> <i className="material-icons"> replay </i></div>
             case 'PAUSE':
-                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div> 
+                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div>
             default:
-                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div> 
+                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div>
         }
     }
 
     render() {
         return (
             <>
-                <div onClick={this.handlePlay('screen')} 
+                <div onClick={this.handlePlay('screen')}
                     id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")
                     }>
 
                     {
                         this.state.videoStatus === 'REPLAY' ?
-                        <div id="video-dark-screen" /> : null
+                            <div id="video-dark-screen" /> : null
                     }
                     <video id="video-player"
                         muted
                         autoPlay
-                        onTimeUpdate={ this.handleTimeUpdate}
+                        onTimeUpdate={this.handleTimeUpdate}
                         onEnded={this.handleEnded}
-                        onProgress={this.handleProgress} 
-                        onCanPlayThrough={ this.handleCanPlayThrough  }
+                        onProgress={this.handleProgress}
+                        onCanPlayThrough={this.handleCanPlayThrough}
                         onPlay={this.handlePlayStatus}
                         onPause={this.handlePauseStatus}
-                        >
+                    >
                         <source src={this.props.video.videoUrl} type="video/mp4" />
                     </video>
 
-                    <div id={'video-control' + (this.state.videoStatus  ? `-${this.state.videoStatus}` : "")} >
+                    <div id={'video-control' + (this.state.videoStatus ? `-${this.state.videoStatus}` : "")} >
+                        {
+                            this.props.videoPlayer.type === 'MINI' ?
+                            <MiniControlUI 
+                                playButton={this.renderPlayStatusButtons()}
+                                currentTime={this.state.currentTime}
+                                duration={this.state.duration}
+                                closeButton={this.props.removeVideoPlayer}
+                            /> : null
+                        }
 
-
-                        <ProgressBar 
+                        <ProgressBar
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
                             handleSeeking={this.handleSeeking}
@@ -230,28 +236,30 @@ class VideoPlayer extends React.Component {
                             currentTime={this.state.currentTime}
                             duration={this.state.duration}
                         />
-                        
 
 
-                        <DefaultControlUI  
-                            playButton={this.renderPlayStatusButtons()}
-                            volumeValue={this.state.volumeValue }
-                            handleVolumeChange={this.handleVolumeChange}
-                            handleMiniScreen={this.handleMiniScreen}
-                            isFullScreen={this.state.fullScreen}
-                            normalScreen={this.normalScreen}
-                            maximizeScreen={ this.maximizeScreen } 
-                            currentTime ={this.state.currentTime}
-                            duration = {this.state.duration }
-                        />
-            
+                        {
+                            this.props.videoPlayer.type === 'MINI' ? null :
+                                <DefaultControlUI
+                                    playButton={this.renderPlayStatusButtons()}
+                                    volumeValue={this.state.volumeValue}
+                                    handleVolumeChange={this.handleVolumeChange}
+                                    handleMiniScreen={this.handleMiniScreen}
+                                    isFullScreen={this.state.fullScreen}
+                                    normalScreen={this.normalScreen}
+                                    maximizeScreen={this.maximizeScreen}
+                                    currentTime={this.state.currentTime}
+                                    duration={this.state.duration}
+                                />
+                        }
+
                     </div>
                 </div>
                 {
-                    this.props.videoPlayer.type === 'MINI' ? 
-                    <div id='video-player-descriptions'>
-                        { this.props.videoPlayer.video.title}
-                    </div> : null
+                    this.props.videoPlayer.type === 'MINI' ?
+                        <div id='video-player-descriptions'>
+                            {this.props.videoPlayer.video.title}
+                        </div> : null
                 }
             </>
         )

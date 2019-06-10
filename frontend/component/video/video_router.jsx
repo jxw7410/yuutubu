@@ -1,18 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect} from 'react-router-dom';
-import {fetchVideo} from '../../actions/video/video_action';
+import { Route, Redirect } from 'react-router-dom';
+import { fetchVideo } from '../../actions/video/video_action';
+import { requestDefaultPlayer } from '../../actions/video_player';
 import VideoContainer from './video_container';
+
 //This is really boiler plate to channel router, refactor when time is alloted
 class VideoRouter extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             isVideo: null,
-            request: false  
+            request: false
         }
     }
     componentDidMount() {
+        //debugger
         this.props.fetchVideo(this.props.match.params.video_id)
             .then(() => {
                 this.didUpdate = true;
@@ -25,8 +28,7 @@ class VideoRouter extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.match.url !== this.props.match.url){
-            debugger
+        if (prevProps.match.url !== this.props.match.url) {
             this.props.fetchVideo(this.props.match.params.video_id)
                 .then(() => {
                     this.didUpdate = true;
@@ -36,7 +38,7 @@ class VideoRouter extends React.Component {
                     this.didUpdate = true
                     this.setState({ isVideo: false })
                 })
-            }
+        }
         else
             this.didUpdate = true;
     }
@@ -69,7 +71,7 @@ class VideoRouter extends React.Component {
 const mdp = dispatch => {
     return {
         fetchVideo: video_id => dispatch(fetchVideo(video_id)),
-
+        requestDefaultPlayer: () => dispatch(requestDefaultPlayer())
     }
 }
 
