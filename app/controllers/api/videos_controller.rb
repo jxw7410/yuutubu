@@ -1,12 +1,13 @@
 class Api::VideosController < ApplicationController
     def index_partial   
-      
+        #debugger
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])
             .offset(params[:offset])
             .with_attached_thumbnail
+        #debugger
         if @videos
-            render :index_lite
+            render :index_partial
         else 
             render json: ["Videos not found"], status: 422
         end
@@ -19,7 +20,7 @@ class Api::VideosController < ApplicationController
 
         #debugger
         if @videos 
-            render :index_lite 
+            render :index_partial
         else 
             render json: ["Videos not found"], status: 422
         end 

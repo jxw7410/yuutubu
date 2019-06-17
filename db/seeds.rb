@@ -17,6 +17,7 @@ Video.destroy_all
 VideoPost.destroy_all
 VideoLike.destroy_all
 VideoDislike.destroy_all
+SearchHistory.destroy_all
 
 user1 = User.create(username: 'Master', email: 'master@gmail.com', password: 'password123');
 user2 = User.create(username: 'User1', email: 'User1@gmail.com', password: 'password123');
