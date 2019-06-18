@@ -205,10 +205,12 @@
 }
 
 .thumbnail-preview-video{
+    opacity: 0;
     position: absolute;
     width: 210px;
     height: 117.5px;
     z-index: -2;
+    transition: opacity 0.5s linear;
 }
 
 .channel-index-item-thumbnails > section {
@@ -231,7 +233,7 @@
     position: relative;
     z-index: 1;
     opacity: 1;
-    transition: opacity 0.5s linear;
+    //transition: opacity 0.5s linear;
 }
 
 

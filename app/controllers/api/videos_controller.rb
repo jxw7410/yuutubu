@@ -1,11 +1,9 @@
 class Api::VideosController < ApplicationController
     def index_partial   
-        #debugger
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])
             .offset(params[:offset])
             .with_attached_thumbnail
-        #debugger
         if @videos
             render :index_partial
         else 
@@ -18,7 +16,6 @@ class Api::VideosController < ApplicationController
             .not(id: params[:video_id])
             .limit(20)
 
-        #debugger
         if @videos 
             render :index_partial
         else 
