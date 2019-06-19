@@ -81,7 +81,6 @@ class VideoMainBody extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state.postBody);
         if (this.state.postBody.length > 0) {
             const post = {
                 user_id: this.props.currentUser.id,

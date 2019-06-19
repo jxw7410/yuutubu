@@ -25,7 +25,6 @@ class ChannelHeader extends React.Component {
     }
 
     componentDidUpdate(){
-        console.log(this.props.channel.name)
     }
 
     componentWillUnmount() {

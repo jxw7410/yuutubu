@@ -22,20 +22,7 @@ class Search extends React.Component{
 
     render() {
         return (
-            <div id='main-nav-div'>
-                <div id='splash-nav-bars'>
-                    <TopNavContainer handleToggled={this.handleToggled} />
-                    {
-                        this.state.toggledSideNav ? < Route component={MainSideNavContainer} />
-                            : null
-                    }
-
-                </div>
-                <div id='splash-main-content'>
-
-                </div>
-
-            </div>
+            <div></div>
         )
     }
 }

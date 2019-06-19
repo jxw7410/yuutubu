@@ -2,6 +2,7 @@ import React from 'react';
 import { closeModal } from '../../actions/modal_action';
 import { connect } from 'react-redux';
 import VideoUploadModal from './video_upload_modal';
+import SearchModal from './search_modal';
 
 
 function Modal({ modal, closeModal }) {
@@ -13,6 +14,9 @@ function Modal({ modal, closeModal }) {
     switch (modal) {
         case 'upload_vid':
             component = <VideoUploadModal />
+            break;
+        case 'search':
+            component = <SearchModal />
             break;
         default:
             return null;

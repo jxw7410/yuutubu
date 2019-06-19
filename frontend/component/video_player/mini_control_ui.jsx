@@ -1,5 +1,5 @@
 import React from 'react';
-import { convertDurationToTime } from '../../util/selector';
+import { convertDurationToTime } from '../../util/selectors';
 
 const MiniControlUI = props => {
     return (

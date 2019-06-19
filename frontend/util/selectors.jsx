@@ -40,3 +40,28 @@ export const sortByViews = arrayOfVids => {
     return sortByViews(leftSide).concat([pivot]).concat(sortByViews(rightSide))
 
 }
+
+
+export const getChannelVideos = (channel_id, arrayOfVids) => {
+    if (!channel_id) return [];
+
+    return arrayOfVids.filter(video => {
+        if (video.channel_id === channel_id)
+            return video
+    });
+}
+
+export const convertDurationToTime = duration => {
+    /*
+        373 -> 6:13
+     */
+    const hours = Math.floor(duration / 360);
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+
+    if (hours === 0) {
+        return `${minutes}:${seconds > 9 ? seconds : `0${seconds}`}`
+    } else {
+        return `${hours}:${minutes > 9 ? minutes : `0${minutes}`} : ${seconds > 9 ? seconds : `0${seconds}`}`
+    }
+}

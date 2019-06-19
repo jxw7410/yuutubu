@@ -1,5 +1,5 @@
 import React from 'react';
-import {convertDurationToTime} from '../../util/selector';
+import {convertDurationToTime} from '../../util/selectors';
 const DefaultControlUI = props => {
     return (
         <div id='video-control-ui'>

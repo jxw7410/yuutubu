@@ -89,6 +89,7 @@ class ChannelIndexItemThumbnail extends React.Component {
 
 
     render() {
+       debugger 
         return (
             <li onClick={this.props.handleClick}
                 className='channel-index-item-thumbnails'>
@@ -125,7 +126,7 @@ class ChannelIndexItemThumbnail extends React.Component {
                                 {this.props.video.channelName}
                             </section>
                             <section>
-                                {this.props.video.views} views
+                                <span>{this.props.video.views} views</span>
                             </section>
                         </div>
 
@@ -139,7 +140,7 @@ class ChannelIndexItemThumbnail extends React.Component {
                                     <span>{this.props.channel.name}</span> : null
                                 }
 
-                                <span>{this.props.video.views} views</span>
+                                <span>{this.props.video.views} views &middot; {this.props.video.created_at}</span>
                             </section>
                         </>
 

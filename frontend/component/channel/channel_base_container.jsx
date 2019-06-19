@@ -1,12 +1,12 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import ChannelBase from './channel_base';
 import {fetchChannelVideos, fetchVideo, clearChannelVideos} from '../../actions/video/video_action'
+import {getChannelVideos} from '../../util/selectors';
 
 
 const msp = (state, props) => {
     return {
-        videos: Object.values(state.entities.videos)
+        videos: getChannelVideos(parseInt(props.channelId), Object.values(state.entities.videos))
     }
 }
 
