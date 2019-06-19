@@ -233,7 +233,7 @@
     position: relative;
     z-index: 1;
     opacity: 1;
-    //transition: opacity 0.5s linear;
+    transition: opacity 0.2s linear;
 }
 
 
@@ -244,7 +244,7 @@
     height: 117.5px;
     z-index: 1;
     position: absolute;
-    transition: opacity 0.5s linear;
+    transition: opacity 0.3s linear;
 }
 
 

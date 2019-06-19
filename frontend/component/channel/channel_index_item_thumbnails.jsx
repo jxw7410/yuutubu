@@ -59,7 +59,11 @@ class ChannelIndexItemThumbnail extends React.Component {
     }
 
     setRender() {
-        this.setState({ renderVideo: false, dataLoaded: false })
+        this.setState({ dataLoaded: false })
+        setTimeout(()=>{ 
+            if (this._isMounted)
+                this.setState({receiveVideo: false})
+        }, 200);
     }
 
     setDataloaded(e) {
@@ -69,9 +73,11 @@ class ChannelIndexItemThumbnail extends React.Component {
 
     handleMouseLeave() {
         clearTimeout(this.throttledAjax)
-        this.mouseHover = false;
         if (this.state.renderVideo)
             this.setRender();
+        setTimeout(() => {
+            this.mouseHover = false;
+        }, 100);
     }
 
 
