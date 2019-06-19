@@ -210,7 +210,7 @@
     width: 210px;
     height: 117.5px;
     z-index: -2;
-    transition: opacity 0.5s linear;
+    transition: opacity 0.1s linear;
 }
 
 .channel-index-item-thumbnails > section {
@@ -233,7 +233,7 @@
     position: relative;
     z-index: 1;
     opacity: 1;
-    transition: opacity 0.2s linear;
+    transition: opacity 0.1s linear;
 }
 
 
@@ -251,13 +251,13 @@
 
 
 .ch-title{
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: bold;
     padding-bottom: 10px;
-    height: 30px;
 }
 
 .ch-msc{
-    font-size: 14px;
+    font-size: 13px;
     height: 30px;
     display:flex;
     flex-direction: column;

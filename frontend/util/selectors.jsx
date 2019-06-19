@@ -24,3 +24,19 @@ export const getVideosForChannel = (videos, keys = []) => {
     });
     return vidArray;
 }
+
+export const sortByViews = arrayOfVids => {
+    if (arrayOfVids.length <= 1) return arrayOfVids
+    
+    const pivot = arrayOfVids[0];
+    const leftSide = arrayOfVids.slice(1).filter( obj => {
+        if( obj.views > pivot.views) return obj
+    });
+
+    const rightSide = arrayOfVids.slice(1).filter(obj => {
+        if (obj.views <= pivot.views) return obj
+    });
+
+    return sortByViews(leftSide).concat([pivot]).concat(sortByViews(rightSide))
+
+}

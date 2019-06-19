@@ -50,7 +50,7 @@ class ChannelIndexItemThumbnail extends React.Component {
         } else {
             this.throttledAjax = setTimeout(() => {
                 this.setState({ renderVideo: true })
-            }, 250);
+            }, 200);
         }
     }
 
@@ -73,11 +73,18 @@ class ChannelIndexItemThumbnail extends React.Component {
 
     handleMouseLeave() {
         clearTimeout(this.throttledAjax)
-        if (this.state.renderVideo)
+        if (this.state.renderVideo){
             this.setRender();
-        setTimeout(() => {
+        
+        } 
+        if(this.state.dataLoaded){
+            setTimeout(()=>{
+                this.mouseHover = false;
+            }, 100)
+        }
+        else {
             this.mouseHover = false;
-        }, 100);
+        }
     }
 
 
@@ -115,7 +122,10 @@ class ChannelIndexItemThumbnail extends React.Component {
                                 {this.props.video.title}
                             </section>
                             <section>
-                                <span>{this.props.video.views} views</span>
+                                {this.props.video.channelName}
+                            </section>
+                            <section>
+                                {this.props.video.views} views
                             </section>
                         </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import ChannelIndexItem from './channel_index_item';
+import RecommendedVideos from './recommended_video';
 
 
 class ChannelIndex extends React.Component {
@@ -21,9 +22,9 @@ class ChannelIndex extends React.Component {
         if (this.props.videoPlayer.type !== 'MINI')
             this.props.removeVideoPlayer();
 
-        this.props.fetchChannels(this.offset, 6, this.props.user_id)
+        this.props.fetchChannels(this.offset, 4, this.props.user_id)
             .then(() => {
-                this.offset += 6;
+                this.offset += 4;
             })
             .then(() => {
                 document.addEventListener('scroll', this.handleScroll);
@@ -67,6 +68,7 @@ class ChannelIndex extends React.Component {
             <div id={'main-content-ctn' + (this.props.navBar.toggled ? "-toggled" : "")}>
                 <div id={'main-content'}>
                     <div id='main-content-section-1'>
+                        <RecommendedVideos />
                         <ul id={'channels-list'}>
                             {channelIndexItems}
                         </ul>

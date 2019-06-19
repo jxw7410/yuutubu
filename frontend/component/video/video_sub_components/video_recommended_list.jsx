@@ -4,6 +4,7 @@ import { fetchRecommendedVideos } from '../../../actions/video/video_action';
 import {removeVideoPlayer} from '../../../actions/video_player';
 import PreviewVideo from '../../channel/channel_index_item_thumbnails';
 import {withRouter} from 'react-router-dom';
+import {sortByViews} from '../../../util/selectors';
 
 class VideoRecommendedList extends React.Component {
     constructor(props) {
@@ -75,14 +76,14 @@ class VideoRecommendedList extends React.Component {
 const msp = state => {
     return {
         video: state.ui.videoPlayer.video,
-        otherVideos: Object.values(state.entities.videos)
+        otherVideos: sortByViews(Object.values(state.entities.videos))
     }
 }
 
 const mdp = dispatch => {
     return {
         fetchRecommendedVideos: video_id => dispatch(fetchRecommendedVideos(video_id)),
-        removeVideoPlayer: () => dispatch(removeVideoPlayer())
+        removeVideoPlayer: () => dispatch(removeVideoPlayer()),
     }
 }
 

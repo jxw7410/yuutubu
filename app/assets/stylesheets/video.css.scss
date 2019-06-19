@@ -221,14 +221,14 @@
 
 #preview-video-list .thumbnail-preview{
     opacity: 1;
-    transition: opacity 0.5s linear;
+    transition: opacity 0.1s linear;
 }
 
 #preview-video-list .thumbnail-preview-active{
     height: 95px;
     width: 170px;
     opacity: 0;
-    transition: opacity 0.5s linear;
+    transition: opacity 0.1s linear;
 }
 
 #videopage-thumbnail-preview{
@@ -238,15 +238,17 @@
 }
 
 #videopage-thumbnail-preview > section{
-    margin-bottom: 5px;
+    margin-bottom: 7px;
     margin-left: 5px;
+    height: auto;
 }
 
 #videopage-thumbnail-preview > section:first-child{
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
+    padding: 0;
+    font-family: sans-serif;
 }
-#videopage-thumbnail-preview > section:last-child{
+#videopage-thumbnail-preview > section:not(:first-child){
     color: rgb(134,134,134);
-    font-size: 12px;
+    font-size: 13px;
 }

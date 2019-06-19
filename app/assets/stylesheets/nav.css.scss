@@ -19,9 +19,9 @@
 
 
 #top-nav{
-    box-shadow: 0 8px 2px -4px rgb(240, 240, 240);
+    box-shadow: 0 8px 2px -4px rgb(243,243,243);
     display: grid;
-    grid-template-columns: 150px auto 250px;
+    grid-template-columns: 180px auto 250px;
     padding: 0 15px;
     height: inherit;
 }
@@ -55,7 +55,7 @@
 #top-nav-sec-1{
     grid-column: 1 / 2;
     display: flex;
-    width: 150px;
+    width: 140px;
     justify-content: space-between;
     align-items: center;
 }
@@ -89,7 +89,7 @@
 
 
 #search-bar-input{
-    width: 575px;
+    width: 555px;
     height: 30px;
     padding: 0 10px;
     font-size: 15px;

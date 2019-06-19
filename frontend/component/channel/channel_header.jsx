@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-//Div soup hell
 class ChannelHeader extends React.Component {
     constructor(props) {
         super(props);

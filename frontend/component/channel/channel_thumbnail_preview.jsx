@@ -18,7 +18,7 @@ class ThumbnailPreviewVideo extends React.Component {
 
     handleTimeUpdate(e) {
         e.preventDefault();
-        if (this.video.currentTime > 2){
+        if (this.video.currentTime > 3){
             this.video.pause();
             this.props.setRender();
         }

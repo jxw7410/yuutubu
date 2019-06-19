@@ -12,10 +12,16 @@ class Api::VideosController < ApplicationController
     end
 
     def index_recommended
-        @videos = Video.where
-            .not(id: params[:video_id])
-            .limit(20)
-
+        if params[:video_id]
+            @videos = Video.where
+                .not(id: params[:video_id])
+                .limit(18)
+                .includes(:channel)
+                .order(:views)
+        else 
+            @videos = Video.all.limit(18).includes(:channel).order(:views)
+        end 
+             
         if @videos 
             render :index_partial
         else 
