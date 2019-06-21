@@ -9,12 +9,14 @@ import UploadVideoContainer from '../component/video/video_upload_ctn';
 import MainNav from '../component/nav-bars/main_nav';
 import Modal from '../component/modals/modal';
 import VideoWrapperContainer from '../component/video/video_wrapper';
+import SearchContainer from './search/search_ctn';
 
 const App = () => (
     <>
         <MainNav />
         <Modal />
         <VideoWrapperContainer />
+        <Route path='/search/:query' component={SearchContainer}/>
         <Route exact path='/' component={ChannelIndexContainer}/>
         <Route path='/channel/:channel_id' component={ChannelRouter}/>
         <AuthRoute path="/signup" component={SignUpContainer}/>  

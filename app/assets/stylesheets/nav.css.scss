@@ -19,7 +19,7 @@
 
 
 #top-nav{
-    box-shadow: 0 8px 2px -4px rgb(243,243,243);
+    box-shadow: 0px 4px 8px -3px rgba(17, 17, 17, .06);
     display: grid;
     grid-template-columns: 180px auto 250px;
     padding: 0 15px;
@@ -87,6 +87,9 @@
     justify-content: center;
 }
 
+#search-bar-input-ctn{
+    position: relative;
+}
 
 #search-bar-input{
     width: 555px;
@@ -127,6 +130,61 @@
     background: rgb(233,233,233);
     border-style: solid;
 }
+
+#search-modal-active{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    background: white;
+    margin-top: 12px;
+    box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);
+    border: 1px solid rgb(204,204,204);
+    border-top: 4px solid rgba(190,190,190, 0.1);
+    transition: height 0.1s linear;
+}
+
+#search-modal{
+    position: absolute;
+    //width: 0px;
+    height: 0px;
+    display: none;
+    transition: height 0.1s linear;
+}
+
+
+
+#search-modal-list{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#search-modal-list > li{ 
+    padding: 4px 24px 4px 10px;   
+}
+
+#search-modal-list > li:last-child{
+    margin-bottom: 5px;
+} 
+
+#search-modal-list > li:hover{ 
+    cursor: pointer;
+
+}
+
+.sbsd_d{
+    background: rgb(204,204,204);
+}
+
+#search-modal-list > li > span:first-child{
+    font-size: 14px;
+}
+
+#search-modal-list > li > span:last-child{
+    font-size: 14px;
+    font-weight: bold;
+}
+
 
 
 #top-nav-sec-3{
@@ -208,17 +266,6 @@
     cursor: pointer;
 }
 
-
-// #main-nav-bars-ctn{
-//     display: grid;
-//     grid-template-rows: 60px auto;
-//     width: 100%;
-//     height: 100%;
-//     background: transparent;
-//     position: absolute;
-//     z-index: 105;
-//     margin-top: 60px;
-// }
 
 
 #main-side-nav-ctn{

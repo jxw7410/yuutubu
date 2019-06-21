@@ -1,4 +1,6 @@
 import React from 'react';
+import SearchModal from '../modals/search_modal';
+import { withRouter } from 'react-router-dom';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -6,57 +8,136 @@ class SearchBar extends React.Component {
         this.state = {
             inputText: "",
             fetching: false,
+            openModal: false,
+            selected: null,
+            sliceLength: 0,
         }
 
         this.handleFocus = this.handleFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.updateText = this.updateText.bind(this);
+        this.updateIndex = this.updateIndex.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    closeModal() {
+        this.setState({ openModal: false })
+    }
+
+    updateText(inputText) {
+        this.setState({ inputText })
+    }
+
+    updateIndex(index) {
+        this.setState({ selected: index })
     }
 
     handleFocus(e) {
         e.preventDefault();
-        if (!this.state.inputText)
-            console.log('fetching history');
-        else {
-            if (!this.state.fetching) {
-                this.state.fetching = true;
-                this.props.requestSearchQueries(this.state.inputText).then((response) => {
-                    this.setState({ fetching: false })
-                    this.props.openModal('search');
+        if (!this.state.fetching) {
+            this.state.fetching = true;
+            this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
+                this.setState({ fetching: false, openModal: true, selected: null })
+            }).fail(
+                () => {
+                    this.setState({ fetching: false, openModal: true, selected: null })
                 }
-                );
-            }
+            );
         }
+
     }
 
     handleChange(e) {
         e.preventDefault();
-        this.setState({ inputText: e.target.value })
+        this.setState({ inputText: e.target.value, sliceLength: e.target.value.length })
         setTimeout(() => {
             if (!this.state.fetching) {
                 this.state.fetching = true;
-                this.props.requestSearchQueries(this.state.inputText).then(() =>{
-                    this.setState({ fetching: false });
-                    this.props.openModal('search');
+                this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
+                    this.setState({ fetching: false, openModal: true, selected: null });
                 }
-                );
+                ).fail(
+                    () => {
+                        this.setState({ fetching: false, openModal: true, selected: null })
+                    });
             }
         }, 0)
     }
 
+
+    handleKeyPress(e) {
+        if (e.key === 'ArrowUp' || e.keyCode === 38) {
+            e.preventDefault();
+            if (this.state.selected === null) {
+                this.setState({ selected: this.props.searches.length - 1 })
+            }
+            else if (this.state.selected === 0) {
+                this.setState({ selected: null })
+            }
+            else {
+                this.setState({ selected: this.state.selected - 1 })
+            }
+
+
+        } else if (e.key === 'ArrowDown' || e.keyCode === 40) {
+            e.preventDefault();
+            if (this.state.selected === null)
+                this.setState({ selected: 0 })
+            else if (this.state.selected === this.props.searches.length - 1)
+                this.setState({ selected: null })
+            else
+                this.setState({ selected: this.state.selected + 1 })
+
+        }
+    }
+
+
+    handleBlur(e) {
+        e.preventDefault();
+        this.setState({ openModal: false })
+    }
+
+
+    handleSubmit(e){
+        e.preventDefault();
+        if (this.state.inputText.length > 0){
+            this.props.history.push(`/search/${this.state.inputText}`)
+        }
+    }
+
     render() {
         return (
-            <section id='search-bar'>
-                <input id='search-bar-input'
-                    type='text'
-                    placeholder='Search'
-                    value={this.state.inputText}
-                    onChange={this.handleChange}
-                    onFocus={this.handleFocus}
-                />
-                <button id='search-bar-button'> <i className="fas fa-search"></i> </button>
-            </section>
+            <form id='search-bar' onSubmit={this.handleSubmit}>
+                <div id='search-bar-input-ctn'>
+                    <input id='search-bar-input'
+                        type='text'
+                        placeholder='Search'
+                        autoComplete='off'
+                        onKeyDown={this.handleKeyPress}
+                        value={this.state.inputText}
+                        onChange={this.handleChange}
+                        onFocus={this.handleFocus}
+                        onSubmit={this.handleSubmit}
+                        onBlur={this.handleBlur}
+
+                    />
+                    <SearchModal
+                        inputTextLength={this.state.sliceLength}
+                        openModal={this.state.openModal}
+                        selected={this.state.selected}
+                        updateText={this.updateText}
+                        updateIndex={this.updateIndex}
+                    />
+                </div>
+                <button id='search-bar-button' 
+                    onClick={this.handleSubmit}
+                > <i className="fas fa-search"></i> </button>
+            </form>
         )
     }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);

@@ -27,7 +27,9 @@ const videoPlayerReducer = (state = defaultState, action) => {
             return merge({}, state, { type: 'DEFAULT'})
 
         case REQUEST_SET_VIDEO:
-            return merge({}, state, { video: action.video});
+            const newState = merge({}, state)
+            newState.video = action.video
+            return newState;
         case REMOVE_VIDEO_PLAYER: 
             return defaultState
         default:

@@ -61,6 +61,7 @@ class VideoPlayer extends React.Component {
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
     }
 
+
     maximizeScreen(e) {
         e.stopPropagation();
         this.setState({ fullScreen: true })

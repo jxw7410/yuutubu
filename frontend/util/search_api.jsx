@@ -3,3 +3,4 @@ export const fetchSearchBarQuery = text => {
         url: `./api/searches/search_bar/${text}`,
     });
 }
+

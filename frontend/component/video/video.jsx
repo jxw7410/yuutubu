@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoInfoHeader from './video_sub_components/video_info_header';
 import VideoMainBody from './video_main_body';
+import { throws } from 'assert';
 
 class Video extends React.Component {
     constructor(props) {
@@ -9,6 +10,8 @@ class Video extends React.Component {
             toggledSideNav: true,
             channel: {},
         }
+
+       this.mounted = true;
     }
 
     componentDidMount() {
@@ -16,6 +19,7 @@ class Video extends React.Component {
         this.props.requestDefaultPlayer();
         if (this.props.video.id !== this.props.videoPlayer.video.id)
             this.props.requestSetVideo(this.props.video);
+        
     
         const channel_id = this.props.video.channel_id;
         this.props.fetchChannel(channel_id)
@@ -24,6 +28,19 @@ class Video extends React.Component {
             });
     }
 
+    componentDidUpdate(prevProps){
+        //This really only ever runs if video was changed via URL, while, since there would be a double query,
+        //But it's unlikely anyone would switch via URL.
+        if (prevProps.match.params.video_id !== this.props.match.params.video_id){
+            this.props.fetchVideo(this.props.match.params.video_id).then(()=>{
+                this.props.requestSetVideo(this.props.video)
+              });
+        }
+    }
+
+    componentWillMount(){
+        this.mounted = false;
+    }
 
     render() {
         return (

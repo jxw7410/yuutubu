@@ -29,7 +29,9 @@ class UserModalItem extends React.Component {
 
     redirectEvent(e) {
         if (this.props.match.url !== `/channel/${this.props.user.channel_id}`)
-            this.props.history.push(`/channel/${this.props.user.channel_id}`)
+            this.props.history.push(`/channel/${this.props.user.channel_id}`)      
+        this.props.togglePopUp();
+        document.removeEventListener('click', this.handleClick);
     }
 
     render() {

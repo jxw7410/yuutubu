@@ -7,7 +7,7 @@ import { openModal } from "../../actions/modal_action";
 const msp = state => {
     return {
         isLogin: Boolean(state.session.id), 
-        //searches: Object.values(state.entities.searches),
+        searches: Object.values(state.entities.searches),
     }
 }
 

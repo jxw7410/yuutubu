@@ -89,7 +89,6 @@ class ChannelIndexItemThumbnail extends React.Component {
 
 
     render() {
-       debugger 
         return (
             <li onClick={this.props.handleClick}
                 className='channel-index-item-thumbnails'>
