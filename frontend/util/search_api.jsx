@@ -4,3 +4,10 @@ export const fetchSearchBarQuery = text => {
     });
 }
 
+export const updateSearchHistory = query => {
+    return $.ajax({
+        method: 'post',
+        url: './api/searches',
+        data: query,
+    })
+}

@@ -39,32 +39,32 @@ class SearchBar extends React.Component {
         e.preventDefault();
         if (!this.state.fetching) {
             this.state.fetching = true;
-            this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
+            setTimeout(() => this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
                 this.setState({ fetching: false, openModal: true, selected: null })
             }).fail(
                 () => {
-                    this.setState({ fetching: false, openModal: true, selected: null })
+                    this.setState({ fetching: false, openModal: false, selected: null })
                 }
-            );
+            ), 200);
         }
 
     }
 
     handleChange(e) {
         e.preventDefault();
-        this.setState({ inputText: e.target.value, sliceLength: e.target.value.length })
-        setTimeout(() => {
-            if (!this.state.fetching) {
+        this.setState({ inputText: e.target.value, sliceLength: e.target.value.length, selected: null })
+        if (!this.state.fetching) {
+            setTimeout(() => {
                 this.state.fetching = true;
                 this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
                     this.setState({ fetching: false, openModal: true, selected: null });
                 }
                 ).fail(
                     () => {
-                        this.setState({ fetching: false, openModal: true, selected: null })
+                        this.setState({ fetching: false, openModal: false, selected: null })
                     });
-            }
-        }, 0)
+            }, 200);
+        }
     }
 
 
@@ -101,9 +101,10 @@ class SearchBar extends React.Component {
     }
 
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
-        if (this.state.inputText.length > 0){
+        this.closeModal();
+        if (this.state.inputText.length > 0) {
             this.props.history.push(`/search/${this.state.inputText}`)
         }
     }
@@ -132,7 +133,7 @@ class SearchBar extends React.Component {
                         updateIndex={this.updateIndex}
                     />
                 </div>
-                <button id='search-bar-button' 
+                <button id='search-bar-button'
                     onClick={this.handleSubmit}
                 > <i className="fas fa-search"></i> </button>
             </form>

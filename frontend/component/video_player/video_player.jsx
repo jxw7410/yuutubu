@@ -24,6 +24,7 @@ class VideoPlayer extends React.Component {
             currentTime: 0,
             duration: 0,
             previousURL: "/",
+            channelName: null,
         }
 
         this.minDuration = null;
@@ -85,7 +86,9 @@ class VideoPlayer extends React.Component {
     handleMiniScreen(e) {
         e.stopPropagation();
         this.props.requestMiniPlayer();
-        this.setState({previousURL: `/video/${this.props.videoPlayer.video.id}`})
+        const previousURL = `/video/${this.props.videoPlayer.video.id}`;
+        const channelName = this.props.channels[0].name;
+        this.setState({previousURL, channelName});
         this.props.history.push('/');
     }
 
@@ -268,7 +271,8 @@ class VideoPlayer extends React.Component {
                 {
                     this.props.videoPlayer.type === 'MINI' ?
                         <div id='video-player-descriptions'>
-                            {this.props.videoPlayer.video.title}
+                            <span>{this.props.videoPlayer.video.title}</span>
+                            <span>{this.state.channelName}</span>
                         </div> : null
                 }
             </>

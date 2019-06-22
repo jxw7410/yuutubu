@@ -65,3 +65,21 @@ export const convertDurationToTime = duration => {
         return `${hours}:${minutes > 9 ? minutes : `0${minutes}`} : ${seconds > 9 ? seconds : `0${seconds}`}`
     }
 }
+
+export const filterSearchModalResults = (histories, searches) => {
+    const res = {};
+    const ref = {};
+    histories.forEach( history => {
+        res[history.context] = history;     
+        ref[history.context.replace(/([.,\/#!?$%\^&\*;:{}=\-_`~()\]\[])+$/g, "")] = 1;   
+    });
+    
+    searches.forEach( search => {
+        const word = search.title.toLowerCase().replace(/([.,\/#!?$%\^&\*;:{}=\-_`~()\]\[])+$/g, "");
+        //debugger
+        if (!ref[word])
+            res[word] = { "context" : word};
+    });
+
+    return Object.values(res);
+}

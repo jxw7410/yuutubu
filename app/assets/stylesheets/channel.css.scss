@@ -213,6 +213,10 @@
     transition: opacity 0.1s linear;
 }
 
+.channel-index-item-thumbnails:hover{
+    cursor: pointer;
+}
+
 .channel-index-item-thumbnails > section {
     position: relative;
     z-index: 1;

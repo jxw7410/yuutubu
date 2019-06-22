@@ -295,9 +295,24 @@
 
 #video-player-descriptions{
     display: flex;
-    height: 50px; //change later
-    justify-content: center;
-    align-items: center;
+    padding: 14px 16px 16px 16px;
+    height: 34px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+#video-player-descriptions > span{
+    
+}
+
+
+#video-player-descriptions > span:first-child{
+}
+
+#video-player-descriptions > span:last-child{
+    font-size: 12px;
+    color: gray;
 }
 
 #mini-control-ui{

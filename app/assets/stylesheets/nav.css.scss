@@ -145,9 +145,9 @@
 
 #search-modal{
     position: absolute;
-    //width: 0px;
+    overflow: hidden;
     height: 0px;
-    display: none;
+    display: hidden;
     transition: height 0.1s linear;
 }
 
@@ -175,6 +175,11 @@
 .sbsd_d{
     background: rgb(204,204,204);
 }
+
+.history{
+    color: #52188c;
+}
+
 
 #search-modal-list > li > span:first-child{
     font-size: 14px;

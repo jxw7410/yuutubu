@@ -104,7 +104,7 @@ class ChannelIndexItemThumbnail extends React.Component {
                                 setDataloaded={this.setDataloaded}
                                 video={this.props.video} />
 
-                            : <video className='thumbnail-preview-video' muted autoPlay> <source src={""} type="video/mp4" /> </video>
+                            : null
 
                     }
                     <img className={`thumbnail-preview` +
