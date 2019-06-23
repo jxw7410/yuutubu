@@ -45,7 +45,7 @@ class SearchBar extends React.Component {
                 () => {
                     this.setState({ fetching: false, openModal: false, selected: null })
                 }
-            ), 200);
+            ), 100);
         }
 
     }
@@ -63,7 +63,7 @@ class SearchBar extends React.Component {
                     () => {
                         this.setState({ fetching: false, openModal: false, selected: null })
                     });
-            }, 200);
+            }, 100);
         }
     }
 

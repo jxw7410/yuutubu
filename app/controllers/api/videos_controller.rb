@@ -1,4 +1,20 @@
 class Api::VideosController < ApplicationController
+
+    def index_search
+        query = params[:query].downcase
+        @videos = Video.where("lower(title) like ? or lower(title) like ? or lower(title) like ? or 
+            lower(description) like ? or lower(description) like ? or lower(description)like ?",
+            "#{query}%", "%#{query}%", "%#{query}",
+            "#{query}%", "%#{query}%", "%#{query}");
+
+
+        if @videos.length > 0 
+            render :index_partial
+        else  
+            render json: {}, status: 404 
+        end
+    end
+
     def index_partial   
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])

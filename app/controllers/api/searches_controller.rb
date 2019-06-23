@@ -2,7 +2,6 @@ class Api::SearchesController < ApplicationController
     before_action :ensure_login, only: [:index_history, :create]
     
     def index
-        #@videos = Video.where
     end 
 
     def index_history

@@ -13,16 +13,19 @@ Rails.application.routes.draw do
       resources :videos, only: [:show, :create]
       get '/videos/index_partial/:channel_id', to: 'videos#index_partial'
       get '/videos/index_recommended/:video_id', to: 'videos#index_recommended'
+      get '/videos/index_search/:query', to: 'videos#index_search'
       patch '/videos/:video_id/views', to: "videos#update_views"
 
       resources :video_posts, only: [:create, :destroy, :index]
       get '/video_posts/index_partial/:video_id', to: 'video_posts#index_partial'
 
 
-      resources :searches, only: [:create, :destroy, :index]
+      resources :searches, only: [:create, :destroy]
       get '/searches/search_bar/:query', to: 'searches#index_history_title'
       get '/searches/search_bar', to: 'searches#index_history'
 
+
+      #Can be fixed and reduced to 1 table represented as true/false, or not existent
       post '/video_likes/create_like', to: 'video_likes#create_like'
       delete '/video_likes/delete_like', to: 'video_likes#delete_like'
       post '/video_likes/create_dislike', to: 'video_likes#create_dislike'

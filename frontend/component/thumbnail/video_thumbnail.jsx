@@ -1,15 +1,17 @@
 import React from 'react';
 import { fetchVideo } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
-import ThumbnailPreviewVideo from './channel_thumbnail_preview';
+import ThumbnailPreviewVideo from './thumbnail_preview';
+import { VideoPageThumbnailInfo, IndexPageThumbnailInfo } from './thumbnail_info';
 
-class ChannelIndexItemThumbnail extends React.Component {
+class VideoThumbnail extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             renderVideo: false,
-            dataLoaded: false
+            dataLoaded: false,
+            infoComponent: null
         }
 
         this.receiveVideo = false;
@@ -22,16 +24,37 @@ class ChannelIndexItemThumbnail extends React.Component {
         this.didRequested = false;
         this.setDataloaded = this.setDataloaded.bind(this);
         this._isMounted = false; 
-    }
 
+    }
 
 
     componentDidMount(){
         this._isMounted = true;
+        this.selectInfo(this.props.type);
     }
 
     componentWillUnmount(){
         this._isMounted = false;
+        //this.selectInfo(this.props.type);
+    }
+
+    selectInfo(type){
+        let infoComponent;
+        switch(type){
+            case "video-page":
+                infoComponent = <VideoPageThumbnailInfo 
+                    video={this.props.video}/>
+                break;
+            case "search-page":
+                infoComponent = null;
+                break;
+            default:
+                infoComponent = <IndexPageThumbnailInfo 
+                    video={this.props.video}
+                    channel={this.props.channel}/>
+        }
+
+        this.setState({infoComponent})
     }
 
     handleMouseEnter() {
@@ -91,8 +114,8 @@ class ChannelIndexItemThumbnail extends React.Component {
     render() {
         return (
             <li onClick={this.props.handleClick}
-                className='channel-index-item-thumbnails'>
-                <div className="channel-index-item-media"
+                className='thumbnails'>
+                <div className="thumbnails-media"
                     onMouseEnter={this.handleMouseEnter}
                     onMouseOver={this.handleMouseOver}
                     onMouseLeave={this.handleMouseLeave}>
@@ -114,36 +137,7 @@ class ChannelIndexItemThumbnail extends React.Component {
 
 
 
-                {
-                    this.props.type ?
-
-                        <div id='videopage-thumbnail-preview'>
-                            <section className='ch-title'>
-                                {this.props.video.title}
-                            </section>
-                            <section>
-                                {this.props.video.channelName}
-                            </section>
-                            <section>
-                                <span>{this.props.video.views} views</span>
-                            </section>
-                        </div>
-
-                        :
-                        <>
-                            <section className='ch-title'>
-                                {this.props.video.title}
-                            </section>
-                            <section className='ch-msc'>
-                                {this.props.channel.name ?
-                                    <span>{this.props.channel.name}</span> : null
-                                }
-
-                                <span>{this.props.video.views} views &middot; {this.props.video.created_at}</span>
-                            </section>
-                        </>
-
-                }
+                {this.state.infoComponent}
 
             </li>
         )
@@ -162,4 +156,4 @@ const mdp = dispatch => {
     }
 }
 
-export default connect(msp, mdp)(ChannelIndexItemThumbnail);   
+export default connect(msp, mdp)(VideoThumbnail);   

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchChannelVideos, clearChannelVideos } from '../../actions/video/video_action';
-import ChannelIndexItemThumbnail from './channel_index_item_thumbnails';
+import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { getVideosForChannel} from '../../util/selectors';
 
 class ChannelIndexItem extends React.Component {
@@ -31,7 +31,7 @@ class ChannelIndexItem extends React.Component {
         let thumbnails = null;
         if (this.props.videos.length > 0){
             thumbnails = this.props.videos.map( video => {
-                return <ChannelIndexItemThumbnail key={video.id} 
+                return <VideoThumbnail key={video.id} 
                     video={video}
                     handleClick={this.redirectOnClick(video.id)}
                     channel={this.props.channel}

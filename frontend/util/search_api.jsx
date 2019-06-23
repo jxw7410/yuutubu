@@ -11,3 +11,10 @@ export const updateSearchHistory = query => {
         data: query,
     })
 }
+
+
+export const fetchSearchQuery = data => {
+    return $.ajax({
+        url: `./api/videos/index_search/${data.query}`,
+    })
+}

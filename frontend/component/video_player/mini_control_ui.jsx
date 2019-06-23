@@ -20,7 +20,7 @@ const MiniControlUI = props => {
                 </div>
             </div>
             <div id='video-time'>
-                <span>{convertDurationToTime(props.currentTime)} / {convertDurationToTime(props.duration)}</span>
+                <div>{convertDurationToTime(props.currentTime)} / {convertDurationToTime(props.duration)}</div>
             </div>
         </div>
     )

@@ -2,16 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { requestCreatePost, requestDeletePost, requestPosts, requestSomePosts } from '../../actions/video_post/video_posts_action';
 import { withRouter } from 'react-router-dom';
+import VideoPost from './video_sub_components/video_post';
+
 
 class VideoMainBody extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             postBody: "",
+            allText: [],
+            rows: 1,
             displayFormButton: false,
             border: false
         }
 
+        this.lineHeight = 16; // represent textarea line height
         this.scrollHook = null;
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -21,6 +26,7 @@ class VideoMainBody extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.handleKeyPressEvent = this.handleKeyPressEvent.bind(this);
     }
 
     componentDidMount() {
@@ -49,8 +55,15 @@ class VideoMainBody extends React.Component {
     handleTextChange(e) {
         e.preventDefault();
         const postBody = e.currentTarget.value
-        this.setState({ postBody })
+        const oldRows = e.target.rows;
+        e.target.rows = 1; //Doing this causes an overflow to happen
+        const newRows = Math.floor(e.target.scrollHeight / this.lineHeight);
+        if (newRows === oldRows) e.target.rows = newRows;
+        
+        this.setState({ rows: newRows, postBody });
+        
     }
+
 
     handleClick() {
         if (!this.props.isLogin) {
@@ -79,6 +92,13 @@ class VideoMainBody extends React.Component {
         }
     }
 
+    handleKeyPressEvent(e){
+        if (e.key ==='Enter'){ 
+            // const rows = this.state.rows + 1;
+            // this.setState({rows})
+        }
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.postBody.length > 0) {
@@ -89,7 +109,7 @@ class VideoMainBody extends React.Component {
             }
 
             this.props.createPost(post);
-            this.setState({ postBody: "" });
+            this.setState({ postBody: "", displayFormButton: false, rows: 1 });
         }
     }
 
@@ -98,35 +118,12 @@ class VideoMainBody extends React.Component {
     
         const posts = this.props.posts.map(post => {
             return (
-                <li key={post.id}>
-                    <div className='video-posts'>
-                        <div className='video-posts-row-1'>
-                            <div className='video-posts-row-1-col-1'>
-                                <i className="fas fa-user-circle"></i>
-                            </div>
-                            <div className='video-posts-row-1-col-2'>
-                                <div className='video-posts-row-1-col-2-header'>
-                                    <div className='video-posts-row-1-col-2-header-left'>
-                                        <span>{post.user}</span>
-                                        <span>{post.created_at}</span>
-                                    </div>
-                                    { 
-                                        parseInt(this.props.currentUser.id) === post.user_id ?
-                                            <button className="form-delete-button" 
-                                                onClick={this.handleDelete(post.id)}>Delete</button> : null
-                                    }
-                                </div>
-                                <div className='video-posts-row-1-col-2-body'>
-                                    <div>{post.description}</div>
-                                </div>
-                                <div className='video-posts-row-1-col-2-footer'> </div>
-                            </div>
-                        </div>
-                        <div className='video-posts-row-2'>
-
-                        </div>
-                    </div>
-                </li>
+                <VideoPost 
+                    key = {post.id}
+                    post = {post}
+                    currentUser = {this.props.currentUser}
+                    handleDelete={this.handleDelete}
+                />
             )
         })
 
@@ -136,12 +133,17 @@ class VideoMainBody extends React.Component {
                 <div id='user-post-form-ctn'>
                     <div id='user-form-profile-pic'> <i className="fas fa-user-circle"></i></div>
                     <form id='user-post-form'>
-                        <textarea
+
+                        <textarea rows={this.state.rows}
                             onFocus={this.handleFocus}
                             onClick={this.handleClick}
                             onChange={this.handleTextChange}
                             onBlur={this.handleUnfocus}
-                            placeholder='Add a public comment...' value={this.state.postBody} />
+                            onKeyPress={this.handleKeyPressEvent}
+                            placeholder={ this.state.allText.length > 0 ? "" : 'Add a public comment...'}
+                            value={this.state.postBody} 
+                            style={{lineHeight: `${this.lineHeight}px`}}
+                            />
                         <div id="textarea-border">
                             <div id={"expander" + (this.state.border ? "-active" : "")} />
                         </div>

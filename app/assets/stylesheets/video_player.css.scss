@@ -19,6 +19,7 @@
     max-height: 660px;
     outline: none;
     background: black;
+    object-fit: cover;
 }
 
 
@@ -149,9 +150,9 @@
 
 
 
-#video-control > *, #video-control-PLAY > * , #video-control-PAUSE > *, #video-control-REPLAY > *{
-    margin: 5px 0;
-}
+// #video-control > *, #video-control-PLAY > * , #video-control-PAUSE > *, #video-control-REPLAY > *{
+//     margin: 5px 0;
+// }
 
 #video-player-hook:hover{
    #video-control-PLAY{
@@ -166,6 +167,7 @@
 
 
 #video-control-ui{
+    margin: 8px 0;
     display:flex;
     width: 100%;
     align-items: center;
@@ -221,6 +223,13 @@
 #video-time{
     color: white;
     font-size: 12px;
+    width: 57px;
+    height: 12px;
+}
+#video-time div{
+    display:flex;
+    width: 100%;
+    height: 100%;
 }
 
 #video-control-ui > section:last-child{

@@ -2,7 +2,7 @@ import React from 'react';
 import {sortByViews} from '../../util/selectors';
 import {fetchChannelVideos} from '../../actions/video/video_action';
 import { connect } from 'react-redux';
-import ChannelIndexItemThumbnails from './channel_index_item_thumbnails';
+import VideoThumbnail from '../thumbnail/video_thumbnail';
 import {withRouter } from 'react-router-dom';
 
 
@@ -41,7 +41,7 @@ class RecommendedVideos extends React.Component{
         
         if (this.state.fetched){
             videos = this.props.videos.map(video => {
-                return <ChannelIndexItemThumbnails key={video.id}
+                return <VideoThumbnail key={video.id}
                 video={video}
                 handleClick={this.redirectOnClick(video.id)}
                 channel={ { id: video.channel_id, name: video.channelName }}/>

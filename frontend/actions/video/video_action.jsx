@@ -1,5 +1,4 @@
 import * as VideoAPI from '../../util/video_api';
-import Video from '../../component/video/video';
 
 export const RECEIVE_VIDEO = 'RECEIVE_VIDEO';
 export const RECEIVE_CHANNEL_VIDEOS = 'RECEIVE_CHANNEL_VIDEOS';

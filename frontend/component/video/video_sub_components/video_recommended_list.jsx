@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchRecommendedVideos } from '../../../actions/video/video_action';
 import {removeVideoPlayer} from '../../../actions/video_player';
-import PreviewVideo from '../../channel/channel_index_item_thumbnails';
+import PreviewVideo from '../../thumbnail/video_thumbnail';
 import {withRouter} from 'react-router-dom';
 import {sortByViews} from '../../../util/selectors';
 
@@ -51,7 +51,7 @@ class VideoRecommendedList extends React.Component {
                 return <PreviewVideo 
                             key={video.id} 
                             video={video} channel={{}} 
-                            type={'token'}
+                            type={'video-page'}
                             handleClick={this.handleClick(video.id)}
                             />
         })

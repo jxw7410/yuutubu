@@ -8,12 +8,16 @@ class Search extends React.Component{
 
 
     componentDidMount(){
-        this.props.updateSearchHistory(this.props.match.params)
+        this.props.updateSearchHistory(this.props.match.params).then(
+            this.props.requestSearchVideos(this.props.match.params)
+        )
     }
 
     componentDidUpdate(prevProps){  
         if (prevProps.match.params.query !== this.props.match.params.query){
-            this.props.updateSearchHistory(this.props.match.params)
+            this.props.updateSearchHistory(this.props.match.params).then(
+                this.props.requestSearchVideos(this.props.match.params)
+            )
         }
     }
 

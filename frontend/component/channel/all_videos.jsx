@@ -1,5 +1,5 @@
 import React from 'react';
-import ChannelIndexItemThumbnail from './channel_index_item_thumbnails';
+import VideoThumbnail from '../thumbnail/video_thumbnail';
 
 class AllVideos extends React.Component{
     constructor(props){
@@ -12,6 +12,7 @@ class AllVideos extends React.Component{
     }
 
     componentDidMount(){
+        this.props.clearChannelVideos();
         this.props.setActiveTab(2);
         this.props.fetchChannelVideos(this.props.channelId, 36, this.offset)
             .then( () => {
@@ -43,7 +44,7 @@ class AllVideos extends React.Component{
         let thumbnails = null;
         if (this.props.videos.length > 0) {
             thumbnails = this.props.videos.map(video => {
-                return <ChannelIndexItemThumbnail key={video.id}
+                return <VideoThumbnail key={video.id}
                     video={video}
                     handleClick={this.redirectOnClick(video.id)}
                     channel={{}}
