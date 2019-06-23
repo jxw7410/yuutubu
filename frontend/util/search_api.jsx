@@ -13,8 +13,9 @@ export const updateSearchHistory = query => {
 }
 
 
-export const fetchSearchQuery = data => {
+export const fetchSearchQuery = (data, limit, offset) => {
     return $.ajax({
         url: `./api/videos/index_search/${data.query}`,
+        data: {limit, offset}
     })
 }

@@ -3,7 +3,7 @@ import PreviewVideo from './preview_video';
 //shady tactc nooooo
 
 const VideoUploadForm = props => {
-    //debugger
+    //
     return (
         <form id='video-submit-form'>
             <div id='video-submit-form-col-1'>

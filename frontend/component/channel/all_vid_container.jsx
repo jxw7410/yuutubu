@@ -4,7 +4,7 @@ import AllVideos from './all_videos';
 import { fetchChannelVideos, clearChannelVideos } from '../../actions/video/video_action'
 
 const msp = ( state, props ) => {
-    //debugger
+    //
     return {
         channel: state.entities.channels[props.channelId],
         videos: Object.values(state.entities.videos)

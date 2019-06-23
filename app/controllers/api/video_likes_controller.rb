@@ -2,9 +2,9 @@ class Api::VideoLikesController < ApplicationController
     before_action :ensure_login
 
     def create_like   
-        #debugger
+        #
         @like = VideoLike.create(user_id: current_user.id, video_id: params[:video_id])
-        #debugger
+        #
         if @like
             render :like
         else 
@@ -24,7 +24,7 @@ class Api::VideoLikesController < ApplicationController
 
     def create_dislike
         @like = VideoDislike.create(user_id: current_user.id, video_id: params[:video_id])
-        #debugger
+        #
         if @like
             render :like
         else  
@@ -55,7 +55,7 @@ class Api::VideoLikesController < ApplicationController
     end 
 
     def create_dislike_destroy_like 
-        #debugger
+        #
          like = VideoLike.find_by(id: params[:like_id]).destroy!
         @like = VideoDislike.create(user_id: current_user.id, video_id: params[:video_id])        
 

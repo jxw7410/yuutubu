@@ -145,10 +145,9 @@
     margin-right: 4px;
 }
 
-.thumbnails:hover{
-    cursor: pointer;
+.thumbnails > div:last-child{
+    width: 100%;
 }
-
 
 .margin-top-shelf{
     margin-top: 24px;

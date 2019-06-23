@@ -19,7 +19,7 @@ class Api::VideoPostsController < ApplicationController
             .limit(params[:limit])
             .offset(params[:offset])
             .order("created_at DESC")
-        #debugger 
+        # 
         if @posts.length > 0
             render :index
         else

@@ -213,7 +213,7 @@
     transition: opacity 0.1s linear;
 }
 
-.thumbnails:hover{
+.thumbnails > div:hover{
     cursor: pointer;
 }
 

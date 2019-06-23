@@ -76,7 +76,7 @@ export const filterSearchModalResults = (histories, searches) => {
     
     searches.forEach( search => {
         const word = search.title.toLowerCase().replace(/([.,\/#!?$%\^&\*;:{}=\-_`~()\]\[])+$/g, "");
-        //debugger
+        //
         if (!ref[word])
             res[word] = { "context" : word};
     });

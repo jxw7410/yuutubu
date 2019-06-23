@@ -5,7 +5,9 @@ class Api::VideosController < ApplicationController
         @videos = Video.where("lower(title) like ? or lower(title) like ? or lower(title) like ? or 
             lower(description) like ? or lower(description) like ? or lower(description)like ?",
             "#{query}%", "%#{query}%", "%#{query}",
-            "#{query}%", "%#{query}%", "%#{query}");
+            "#{query}%", "%#{query}%", "%#{query}")
+            .limit(params[:limit])
+            .offset(params[:offset]);
 
 
         if @videos.length > 0 

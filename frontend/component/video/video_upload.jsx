@@ -70,7 +70,7 @@ class UploadVideo extends React.Component {
         const file = e.dataTransfer.files[0];
         const fileReader = new FileReader();
         fileReader.onloadend = () => {
-            //debugger
+            //
             this.setState({ file, fileUrl: fileReader.result })
         }
 

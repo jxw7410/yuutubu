@@ -2,7 +2,7 @@ import React from 'react';
 import { fetchVideo } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
 import ThumbnailPreviewVideo from './thumbnail_preview';
-import { VideoPageThumbnailInfo, IndexPageThumbnailInfo } from './thumbnail_info';
+import { VideoPageThumbnailInfo, IndexPageThumbnailInfo, SearchPageThumbnailInfo } from './thumbnail_info';
 
 class VideoThumbnail extends React.Component {
     constructor(props) {
@@ -43,15 +43,19 @@ class VideoThumbnail extends React.Component {
         switch(type){
             case "video-page":
                 infoComponent = <VideoPageThumbnailInfo 
-                    video={this.props.video}/>
+                    video={this.props.video}
+                    onClick={this.props.handleClick}/>
                 break;
             case "search-page":
-                infoComponent = null;
+                infoComponent = <SearchPageThumbnailInfo 
+                    video={this.props.video}
+                    onClick={this.props.handleClick}/>;
                 break;
             default:
                 infoComponent = <IndexPageThumbnailInfo 
                     video={this.props.video}
-                    channel={this.props.channel}/>
+                    channel={this.props.channel}
+                    onClick={this.props.handleClick}/>
         }
 
         this.setState({infoComponent})
@@ -113,22 +117,20 @@ class VideoThumbnail extends React.Component {
 
     render() {
         return (
-            <li onClick={this.props.handleClick}
-                className='thumbnails'>
+            <li  className='thumbnails'>
                 <div className="thumbnails-media"
                     onMouseEnter={this.handleMouseEnter}
                     onMouseOver={this.handleMouseOver}
-                    onMouseLeave={this.handleMouseLeave}>
+                    onMouseLeave={this.handleMouseLeave}
+                    onClick={this.props.handleClick}
+                    >
                     {
                         this.state.renderVideo && this.mouseHover ?
 
                             <ThumbnailPreviewVideo
                                 setRender={this.setRender}
                                 setDataloaded={this.setDataloaded}
-                                video={this.props.video} />
-
-                            : null
-
+                                video={this.props.video} /> : null
                     }
                     <img className={`thumbnail-preview` +
                         ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? "-active" : "")}

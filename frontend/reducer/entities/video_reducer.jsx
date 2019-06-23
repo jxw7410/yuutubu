@@ -10,7 +10,7 @@ const videosReducer = (state = {}, action) => {
         case RECEIVE_CHANNEL_VIDEOS:
             return merge({}, state, action.videos);
         case RECEIVE_SEARCH_VIDEOS:
-            return action.videos;
+            return merge({}, state, action.videos);
         case CLEAR_CHANNEL_VIDEOS:
             return {}
         default:

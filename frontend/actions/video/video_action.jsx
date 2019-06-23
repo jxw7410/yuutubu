@@ -38,7 +38,7 @@ export const fetchVideo = video_id => dispatch => {
     return VideoAPI.requestVideo(video_id)
         .then( video => 
             {
-                //debugger
+                //
                 dispatch(receiveVideo(video))
             });
 };

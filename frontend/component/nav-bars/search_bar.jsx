@@ -11,6 +11,7 @@ class SearchBar extends React.Component {
             openModal: false,
             selected: null,
             sliceLength: 0,
+            modalFocus: false,
         }
 
         this.handleFocus = this.handleFocus.bind(this);
@@ -21,10 +22,19 @@ class SearchBar extends React.Component {
         this.updateIndex = this.updateIndex.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateFocus = this.updateFocus.bind(this);
     }
 
     closeModal() {
-        this.setState({ openModal: false })
+        setTimeout( () => {
+            this.setState({ openModal: false , modalFocus: false})
+            document.getElementById('search-bar-input').blur()
+        }, 100)
+    }
+
+
+    updateFocus(modalFocus){
+        this.setState({modalFocus})
     }
 
     updateText(inputText) {
@@ -47,7 +57,6 @@ class SearchBar extends React.Component {
                 }
             ), 100);
         }
-
     }
 
     handleChange(e) {
@@ -96,8 +105,12 @@ class SearchBar extends React.Component {
 
 
     handleBlur(e) {
-        e.preventDefault();
-        this.setState({ openModal: false })
+        if (this.state.openModal){
+            if (!this.state.modalFocus)
+                this.setState({ openModal: false })
+            else 
+                e.target.focus();
+        }
     }
 
 
@@ -123,14 +136,16 @@ class SearchBar extends React.Component {
                         onFocus={this.handleFocus}
                         onSubmit={this.handleSubmit}
                         onBlur={this.handleBlur}
-
                     />
+
                     <SearchModal
                         inputTextLength={this.state.sliceLength}
                         openModal={this.state.openModal}
                         selected={this.state.selected}
                         updateText={this.updateText}
                         updateIndex={this.updateIndex}
+                        updateFocus={this.updateFocus}
+                        closeModal={this.closeModal}
                     />
                 </div>
                 <button id='search-bar-button'

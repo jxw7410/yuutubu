@@ -37,7 +37,7 @@ class TopNav extends React.Component {
 
     openModal(modal){
         return e =>{
-            //debugger
+            //
             e.preventDefault();
             this.props.openModal(modal);
             }

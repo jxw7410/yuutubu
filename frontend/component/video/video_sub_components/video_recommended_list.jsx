@@ -18,7 +18,7 @@ class VideoRecommendedList extends React.Component {
     }
 
     componentDidMount() {
-        //debugger
+        //
         if (this.props.video_id) {
             if (this.state.currentVideoId !== this.props.video.id) {
                 this.setState({ currentVideoId: this.props.video.id })
@@ -27,7 +27,7 @@ class VideoRecommendedList extends React.Component {
     }
 
     componentDidUpdate() {
-        //debugger
+        //
         if (this.props.video.id) {
             if (this.state.currentVideoId !== this.props.video.id) {
                 this.setState({ currentVideoId: this.props.video.id, fetched: true })
@@ -55,18 +55,13 @@ class VideoRecommendedList extends React.Component {
                             handleClick={this.handleClick(video.id)}
                             />
         })
-        //debugger
+        //
         return (
             <div id='video-main-right'>
                 {
                     this.state.fetched ?
-                        <ul id='preview-video-list'>
-                            { previews }
-                        </ul>
-                    : 
-                    null
+                        <ul id='preview-video-list'> { previews } </ul> : null
                 }
-
             </div>
         )
     }

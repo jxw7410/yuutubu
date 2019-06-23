@@ -7,7 +7,7 @@ import Channel from './channel';
 
 const msp = (state, props) => {
     const channel = state.entities.channels[props.match.params.channel_id] || {}
-    //debugger
+    //
     return {
         channel,
         userId: state.session.id,

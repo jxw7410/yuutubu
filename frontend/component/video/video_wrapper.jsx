@@ -6,22 +6,20 @@ import { Route } from 'react-router-dom';
 import VideoRouter from './video_router';
 import VideoRecommendedListContainer from './video_sub_components/video_recommended_list';
 
-//This is seemingly redundant. In terms of functionality, it really is,
-//But the true purpose of this is to hide the actual video player html from users
-//This way it seems like the videoplayer is global, but it is only so conditionally depending on the state
+/*
+This is seemingly redundant. In terms of functionality, it really is,
+But the true purpose of this is to hide the actual video player html from users
+This way it seems like the videoplayer isn't global.
+*/
 
 class FakeVideoRouter extends React.Component {
-
     componentDidMount() {   
-        console.log('token path');
         this.props.requestDefaultPlayer();
     }
 
     render() {
         return (
-            <div>
-                Oh Ho? You're approaching me?
-            </div>
+            <div> Token Path </div>
         )
     }
 }
@@ -36,9 +34,7 @@ const VideoWrapper = (props) => {
                 props.videoPlayer.type === null ?
                     <Route path='/video/:video_id' 
                         requestDefaultPlayer={props.requestDefaultPlayer}
-                        render={    
-                            () => (<FakeVideoRouter requestDefaultPlayer={props.requestDefaultPlayer}/>)
-                        } 
+                        render={ () => (<FakeVideoRouter requestDefaultPlayer={props.requestDefaultPlayer}/>)} 
                         />
                     :
                     <div id={'video-main-ctn' + (props.videoPlayer.type === 'MINI' ? "-mini" : "")}>
@@ -48,11 +44,7 @@ const VideoWrapper = (props) => {
                                     <VideoPlayerContainer />
                                     <Route path='/video/:video_id' component={VideoRouter} />
                                 </div>
-                                {
-                                    props.videoPlayer.type === 'MINI' ? null
-                                        : 
-                                        <VideoRecommendedListContainer />
-                                }
+                                { props.videoPlayer.type === 'MINI' ? null : <VideoRecommendedListContainer />}
                             </div>
                         }
                     </div>

@@ -15,7 +15,7 @@ export const requestChannelVideos = (channel_id, limit, offset) => {
 }
 
 export const requestRecommendedVideos = video_id => {
-    //debugger
+    //
     return $.ajax({
         url: `/api/videos/index_recommended/${video_id}`,
     })

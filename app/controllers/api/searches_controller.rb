@@ -20,8 +20,11 @@ class Api::SearchesController < ApplicationController
     def index_history_title
         if params[:query]
             limit = 8 
-            @histories = SearchHistory.where("user_id = ? and context LIKE ?", current_user.id, "#{params[:query].downcase}%")
-                .limit(limit)
+            
+            if login?
+                @histories = SearchHistory.where("user_id = ? and context LIKE ?", current_user.id, "#{params[:query].downcase}%")
+                    .limit(limit)
+            end
             
             @videos = Video.where("lower(title) LIKE ?", "#{params[:query].downcase}%")
                 .limit(limit)

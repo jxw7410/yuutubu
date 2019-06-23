@@ -38,8 +38,8 @@ export const updateSearchHistory = query => dispatch => {
 }
 
 
-export const requestSearchVideos = query => dispatch => {
-    return SearchAPI.fetchSearchQuery(query)
+export const requestSearchVideos = (query, limit, offset) => dispatch => {
+    return SearchAPI.fetchSearchQuery(query, limit, offset)
         .then( videos =>  dispatch(receiveSearchVideos(videos)));
 }
 

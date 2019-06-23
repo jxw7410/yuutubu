@@ -27,7 +27,7 @@ class ChannelIndexItem extends React.Component {
     }
 
     render() {
-        //debugger
+        //
         let thumbnails = null;
         if (this.props.videos.length > 0){
             thumbnails = this.props.videos.map( video => {
