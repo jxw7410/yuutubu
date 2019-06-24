@@ -39,7 +39,7 @@ class ChannelIndex extends React.Component {
         e.preventDefault();
         if (!this.fetching) {
             let scrollHeight = document.getElementById("main-content").scrollHeight;
-            if ($(document).scrollTop() > (scrollHeight * this.scrollPercentage)) {
+            if (document.querySelector('html').scrollTop > (scrollHeight * this.scrollPercentage)) {
                 this.fetching = true;
                 this.props.fetchChannels(this.offset, 3, this.props.user_id)
                     .then(() => {

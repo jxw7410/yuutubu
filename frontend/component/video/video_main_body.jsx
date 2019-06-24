@@ -40,7 +40,7 @@ class VideoMainBody extends React.Component {
     handleScroll(e){
         e.preventDefault();
         let currentScrollHeight = this.scrollHook.scrollHeight;
-        if ($(document).scrollTop() > (currentScrollHeight * 0.55)){
+        if (document.querySelector('html').scrollTop > (currentScrollHeight * 0.55)){
             this.props.fetchMorePosts(this.props.video.id, this.props.offset, 3)
                 .fail(() => {
                     document.removeEventListener('scroll', this.handleScroll);

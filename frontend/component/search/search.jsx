@@ -50,7 +50,7 @@ class Search extends React.Component {
         e.preventDefault();
         if (!this.fetching) {
             let scrollHeight = document.getElementById('search-video-list-ctn').scrollHeight;
-            if ($(document).scrollTop() > (scrollHeight * this.scrollPercentage)) {
+            if (document.querySelector('body').scrollTop > (scrollHeight * this.scrollPercentage)) {
                 this.fetching = true;
                 this.props.requestSearchVideos(this.props.match.params, this.limit, this.offset)
                     .then(() => {

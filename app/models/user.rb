@@ -23,7 +23,16 @@ class User < ApplicationRecord
         primary_key: :id,
         foreign_key: :user_id,
         class_name: :UserChannel 
-         
+    
+    has_many :subscriptions,
+        primary_key: :id,
+        foreign_key: :subscriber_id,
+        class_name: :Subscriptions 
+
+    has_many :subscribed,
+        through: :subscriptions,
+        source: :channel
+
     has_many :likes,
         primary_key: :id,
         foreign_key: :user_id,

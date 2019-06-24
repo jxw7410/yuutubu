@@ -3,10 +3,22 @@ import ReactCSSTransistionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom'
 import {isEmailValid} from './../../util/selectors';
 
-function EmailFormStuff(props) {
-    return (
-        <span> Have no account? Try out the <Link to='/'>demo account</Link></span>
-    )
+class EmailFormStuff extends React.Component {
+    constructor(props){
+        super(props)
+        this.handleOnClick = this.handleOnClick.bind(this);
+    }
+
+    handleOnClick(e){
+        e.preventDefault();
+        this.props.login({ email: "testuser@gmail.com", password: "password123"})
+    }
+
+    render(){
+        return (
+            <span> Have no account? Try out the <span onClick={this.handleOnClick} id='demo-account-link'>demo account</span></span>
+        )
+    }
 }
 
 class LoginFormItem extends React.Component {
@@ -131,7 +143,7 @@ class LoginFormItem extends React.Component {
 
 
 
-                    {field === 'email' ? <EmailFormStuff /> : null}
+                    {field === 'email' ? <EmailFormStuff login={this.props.login}/> : null}
 
                     <section>
                         <span>{field === 'email' ? <Link to='/signup' >Create Account</Link> : 'Forgot Password'}</span>

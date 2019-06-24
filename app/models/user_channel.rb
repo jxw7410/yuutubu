@@ -23,6 +23,14 @@ class UserChannel < ApplicationRecord
         foreign_key: :channel_id,
         class_name: :Video
 
+    has_many :subscriptions,
+        primary_key: :id,
+        foreign_key: :channel_id,
+        class_name: :Subscription
+
+    has_many :subscribed, 
+        source: :subscriptions,
+        through: :subscriber
 
 
     #To be replaced by an association later in the future.

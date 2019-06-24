@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       get '/searches/search_bar', to: 'searches#index_history'
 
 
+      resources :subscriptions, only: [:create, :destroy, :index]
+
       #Can be fixed and reduced to 1 table represented as true/false, or not existent
       post '/video_likes/create_like', to: 'video_likes#create_like'
       delete '/video_likes/delete_like', to: 'video_likes#delete_like'

@@ -6,24 +6,28 @@ class Api::UserChannelsController < ApplicationController
                 .limit(params[:limit])
                 .offset(params[:offset])
                 .includes(:videos)
+                .includes(:subscriptions)
         else
             @channels = UserChannel.all
                 .limit(params[:limit])
                 .offset(params[:offset])
                 .includes(:videos)
+                .includes(:subscriptions)
         end
 
 
-        if @channels.empty?
-            render json: ["Channels not found."], status: 404
-        else 
+        unless @channels.empty?
+            @current_user = current_user
             render :index
+        else 
+            render json: ["Channels not found."], status: 404
         end
     end
 
     def show
-        @channel = UserChannel.find_by(id: params[:id])
+        @channel = UserChannel.where(id: params[:id]).includes(:subscriptions).first
         if @channel 
+            @current_user = current_user
             render :show
         else 
             render json: ['Channel does not exist.'], status: 422 

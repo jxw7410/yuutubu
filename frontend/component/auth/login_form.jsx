@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 const LoginForm = (props) => {
-    
+
     return (
         <div id='login-container'>
 
@@ -37,25 +37,26 @@ const LoginForm = (props) => {
                                 type={'email'}
                                 className={'session'}
                                 action={props.fetchEmail}
-                                defaultAction={props.defaultAction} 
+                                defaultAction={props.defaultAction}
                                 raiseEmailError={props.raiseEmailError}
                                 removeNavBars={props.removeNavBars}
                                 removeVideoPlayer={props.removeVideoPlayer}
-                                    />
-                                :
+                                login={props.login}
+                            />
+                            :
                             <Login_Form_Item
                                 key={'password'}
                                 errors={props.errors}
                                 email={props.email}
                                 type={'password'}
                                 className={'session'}
-                                action={props.login} 
+                                action={props.login}
                                 defaultAction={props.defaultAction}
-                                clearEmail={props.clearEmail} 
+                                clearEmail={props.clearEmail}
                                 raiseEmailError={props.raiseEmailError}
                                 removeNavBars={props.removeNavBars}
                                 removeVideoPlayer={props.removeVideoPlayer}
-                                />
+                            />
                     }
 
                 </ReactCSSTransitionGroup>
