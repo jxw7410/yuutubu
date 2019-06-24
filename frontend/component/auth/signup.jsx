@@ -20,6 +20,7 @@ class SignUpForm extends React.Component {
         }
 
         this.didUpdate = false;
+        this.mounted = false;
         
         this.timeOut= {
             userNameFocus: null,
@@ -33,6 +34,7 @@ class SignUpForm extends React.Component {
             emailFocus: "Your Email Address"
         }
 
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.textChangeEvent = this.textChangeEvent.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
@@ -45,6 +47,7 @@ class SignUpForm extends React.Component {
         this.props.removeNavBars();
         this.props.removeVideoPlayer();
         document.getElementById('Username').focus();
+        this.mounted = true;
     }
     
     componentDidUpdate(){
@@ -64,6 +67,7 @@ class SignUpForm extends React.Component {
 
     componentWillUnmount(){
         this.props.defaultAction();
+        this.mounted = false;
     }
 
     textChangeEvent(field) {
@@ -85,7 +89,8 @@ class SignUpForm extends React.Component {
 
 
     changePlaceholder(placeholder, field) {
-        this.setState({[placeholder]: field})
+        if(this.mounted)
+            this.setState({[placeholder]: field})
     }
 
     handleFocus(focus, placeholder) {

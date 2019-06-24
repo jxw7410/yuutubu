@@ -1,19 +1,23 @@
 class Api::SearchesController < ApplicationController
-    before_action :ensure_login, only: [:index_history, :create]
+    before_action :ensure_login, only: [:create]
     
     def index
     end 
 
     def index_history
-        limit = 8
-        @histories = SearchHistory.where(user_id: current_user.id)
-            .limit(limit)
-            .order(updated_at: :desc)
-        
-         if @histories.length > 0
-                render :index_history_title
-        else  
-                render json: {}, status: 404
+        if login?
+            limit = 8
+            @histories = SearchHistory.where(user_id: current_user.id)
+                .limit(limit)
+                .order(updated_at: :desc)
+            
+            if @histories.length > 0
+                    render :index_history_title
+            else  
+                    render json: {}, status: 200
+            end
+        else 
+            render json: {}, status: 200
         end
     end
 
@@ -32,7 +36,7 @@ class Api::SearchesController < ApplicationController
             if @videos.length > 0
                 render :index_history_title
             else  
-                render json: {}, status: 404
+                render json: {}, status: 200
             end
         else 
             render json: {}, status: 404

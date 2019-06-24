@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 
 const VideoInfoBody = props => {
+    debugger
     return (
         <div id='video-info-body'>
             <section>
@@ -18,7 +19,7 @@ const VideoInfoBody = props => {
 
                     <div>
                         {   
-                            parseInt(props.user.id) === props.video.user_id ? null :
+                            props.channel.user_id === parseInt(props.video.id) ? null :
                                 <button id="subscribe-button"> SUBSCRIBE </button>
                         }
                     </div>

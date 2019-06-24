@@ -85,8 +85,11 @@ class LoginFormItem extends React.Component {
     }
 
     changePlaceholder(target, field) {
-        if (!this.state.focus)
-            document.getElementById(target).placeholder = field;
+        if (!this.state.focus) {
+            const htmlElement = document.getElementById(target);
+            if( htmlElement )
+                htmlElement.placeholder = field;
+        }
     }
 
     handleFocus(e) {
