@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 
 const VideoInfoBody = props => {
-    debugger
     return (
         <div id='video-info-body'>
             <section>
