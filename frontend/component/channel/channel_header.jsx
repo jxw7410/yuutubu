@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux';
 
 class ChannelHeader extends React.Component {
     constructor(props) {
@@ -40,13 +41,16 @@ class ChannelHeader extends React.Component {
                             <i className="fas fa-user-circle" />
                             <span id='channel-header-profile-info'>
                                 <span>{this.props.channel.name}</span>
-                                <span>0 subscribers</span>
+                                <span>{this.props.channel.subscriptionCount} subscribers</span>
                             </span>
                         </div>
                         <div id='channel-header-buttons'>
                             {
                                 this.props.channel.user_id !== parseInt(this.props.userId) ?
-                                    <button id="subscribe-button"> SUBSCRIBE </button> : null
+                                    this.props.channel.subbed ? 
+                                        <button id='subscribed-button'> UNSUBSCRIBE {this.props.channel.subscriptionCount}</button> :
+                                        <button id="subscribe-button"> SUBSCRIBE {this.props.channel.subscriptionCount}</button> 
+                                    : null
                             }
                         </div>
                     </div>
@@ -70,12 +74,6 @@ class ChannelHeader extends React.Component {
                                     className={this.props.active_tab === 2 ? 'channel_tab_active' : null}>
                                     VIDEOS
                                 </li>
-
-                                {/* 
-                                    <li > PLAYLISTS </li>
-                                    <li > CHANNELS </li>
-                                    <li > DISCUSSION </li> */}
-                                <li > ABOUT </li>
                             </ul>
                         </div>
                     </div>
@@ -87,4 +85,18 @@ class ChannelHeader extends React.Component {
     }
 }
 
-export default ChannelHeader
+
+const msp = (store, props) => {
+    return {
+
+    }
+}
+
+const mdp = dispatch => {
+    return {
+
+    }
+}
+
+
+export default connect(msp, mdp)(ChannelHeader)
