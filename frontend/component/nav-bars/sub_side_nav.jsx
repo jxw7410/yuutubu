@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 
-class SubSideNav extends React.Component{
-    
+class SubSideNav extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -13,12 +13,12 @@ class SubSideNav extends React.Component{
 
 
     toHomeEvent(e) {
-            this.props.history.push('/')
+        this.props.history.push('/')
     }
-    
 
-    render(){
-        return(
+
+    render() {
+        return (
             <div id='sub-side-nav-ctn'>
                 <nav id='sub-side-nav'>
                     <article id='sub-side-nav-content'>
@@ -26,19 +26,30 @@ class SubSideNav extends React.Component{
                             <li
                                 onClick={this.toHomeEvent}
                                 id='Home'
-                                className={this.props.match.url === '/' ? 'sub-side-icon-selected' : ""}>
+                                className={this.props.location.pathname === '/' ? 'sub-side-icon-selected' : ""}>
                                 <i className="fas fa-home" />
                                 <span>Home</span>
                             </li>
 
                             <li>
-                                <i className="fab fa-github"></i>
-                                <span>Git</span>
+                                <a href='https://github.com/jxw7410/yuutubu'>
+                                    <i className="fab fa-github"></i>
+                                    <span>Git</span>
+                                </a>
                             </li>
-                            
+
                             <li>
-                                <i className="fab fa-linkedin"></i>
-                                <span>Linkedin</span>
+                                <a href='https://www.linkedin.com/in/jian-hong-wu-b1535284/'>
+                                    <i className="fab fa-linkedin"></i>
+                                    <span>Linkedin</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href='https://angel.co/jian-wu-12?public_profile=1'>
+                                    <i className="fab fa-angellist"></i>
+                                    <span>AngelList</span>
+                                </a>
                             </li>
                         </ul>
                     </article>
@@ -50,13 +61,13 @@ class SubSideNav extends React.Component{
 
 
 const msp = state => {
-    return(
+    return (
         {}
     )
 }
 
 const mdp = dispatch => {
-    return (   
+    return (
         {}
     )
 }

@@ -1,4 +1,4 @@
-export const fetchSubscription = data => {
+export const fetchSubscriptions = data => {
     return $.ajax({
         url: 'api/subscriptions',
         data

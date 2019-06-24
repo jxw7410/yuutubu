@@ -60,15 +60,25 @@ class TopNav extends React.Component {
                     <ul id='nav-bar-right-ul'>
                         <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
                         
-                        
-                        <li><i className="fas fa-th"></i></li>
-                        <li><i className="fas fa-comment"></i></li>
 
-                        {
-                            this.props.isLoggedIn ?
-                            <li><i className="fas fa-bell"></i> </li> :
-                            <li><i className="fas fa-ellipsis-v"></i></li>
-                        }
+                        <li>
+                            <a href='https://www.linkedin.com/in/jian-hong-wu-b1535284/'>
+                                <i className="fab fa-linkedin"></i>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href='https://angel.co/jian-wu-12?public_profile=1'>
+                                <i className="fab fa-angellist"></i>
+                            </a>
+                        </li>
+        
+
+                        <li>
+                            <a href='https://github.com/jxw7410/yuutubu'>
+                                <i className="fab fa-github"></i>
+                            </a>
+                        </li>
                         
                         <li>{
                             this.props.isLoggedIn ? 

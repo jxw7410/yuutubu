@@ -6,7 +6,7 @@ export const RECEIVE_SUBSCRIPTION = 'RECEIVE_SUBSCRIPTION'
 
 const deleteSubscription = sub => ({
     type: DELETE_SUBSCRIPTION,
-    sub_id
+    sub
 });
 
 const receiveSubscription = sub => ({

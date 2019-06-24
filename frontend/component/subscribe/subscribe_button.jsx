@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 
 
 class SubscribeButton extends React.Component{
@@ -20,7 +21,19 @@ class SubscribeButton extends React.Component{
 }
 
 
+const msp = (store, props) => {
+    return{
+
+    }
+}
+
+const mdp = dispatch => {
+    return {
+        
+    }
+}
 
 
-export default SubscribeButton;
+
+export default connect()(SubscribeButton);
 

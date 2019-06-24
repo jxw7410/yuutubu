@@ -73,7 +73,7 @@ class VideoThumbnail extends React.Component {
                             this.setState({ renderVideo: true })
                         }
                     })
-            }, 300);
+            }, 200);
         } else {
             this.throttledAjax = setTimeout(() => {
                 this.setState({ renderVideo: true })

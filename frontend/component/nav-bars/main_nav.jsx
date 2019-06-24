@@ -17,7 +17,9 @@ function MainNav(props) {
                             { 
                                 props.navBar.toggled ? 
                                     < MainSideNavContainer /> : null
-                            }   <SubSideNav /></div> : null
+                            }   
+                                <SubSideNav />
+                            </div> : null
                         }
                     </>
                     : null

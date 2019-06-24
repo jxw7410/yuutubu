@@ -9,7 +9,6 @@ class MainSideNav extends React.Component {
         this.toHomeEvent = this.toHomeEvent.bind(this);
     }
 
-
     toHomeEvent(e){
         this.props.history.push('/')
     }
@@ -22,18 +21,30 @@ class MainSideNav extends React.Component {
                     <li 
                         onClick={this.toHomeEvent} 
                         id='Home' 
-                        className={this.props.match.url === '/' ? 'main-side-icon-selected' : ""}>
+                        className={this.props.location.pathname === '/' ? 'main-side-icon-selected' : ""}>
                         <i className="fas fa-home"/>
                         <span>Home</span>
                     </li>
-
                     <li id='Git'>
-                        <i className="fab fa-github"></i>
-                        <span>Git</span>
+                        <a href='https://github.com/jxw7410/yuutubu'>
+                            <i className="fab fa-github"></i>
+                            <span>Git</span>
+                        </a>
                     </li>
                     <li id='Linkedin'>
-                        <i className="fab fa-linkedin"></i>
-                        <span>Linkedin</span>
+                        <a href='https://www.linkedin.com/in/jian-hong-wu-b1535284/'>
+                            <i className="fab fa-linkedin"></i>
+                            <span>Linkedin</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li id='angellist'>
+                        <a href='https://angel.co/jian-wu-12?public_profile=1'>
+                            <i className="fab fa-angellist"></i>
+                            <span>AngelList</span>
+                        </a>
                     </li>
                 </ul>
             </div>
