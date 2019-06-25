@@ -2,6 +2,7 @@ import React from 'react';
 import SearchModal from '../modals/search_modal';
 import { withRouter } from 'react-router-dom';
 import { filterByWords } from '../../util/selectors'
+import { throws } from 'assert';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -24,8 +25,9 @@ class SearchBar extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateFocus = this.updateFocus.bind(this);
+        this.length = 0;
     }
-
+   
     closeModal() {
         setTimeout( () => {
             this.setState({ openModal: false , modalFocus: false})
@@ -51,6 +53,7 @@ class SearchBar extends React.Component {
         if (!this.state.fetching) {
             this.setState({fetching: true})
             setTimeout(() => this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
+                this.length = filterByWords(this.state.inputText, this.props.searches).length - 1;
                 this.setState({ fetching: false, openModal: true, selected: null })
             }).fail(
                 () => {
@@ -67,6 +70,7 @@ class SearchBar extends React.Component {
             this.setState({ fetching: true })
             setTimeout(() => {
                 this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
+                    this.length = filterByWords(this.state.inputText, this.props.searches).length - 1;
                     this.setState({ fetching: false, openModal: true, selected: null });
                 }
                 ).fail(
@@ -79,11 +83,11 @@ class SearchBar extends React.Component {
 
 
     handleKeyPress(e) {
-        const length = filterByWords(this.state.inputText, this.props.searches).length - 1;
+
         if (e.key === 'ArrowUp' || e.keyCode === 38) {
             e.preventDefault();
             if (this.state.selected === null) {
-                this.setState({ selected: length - 1 })
+                this.setState({ selected: this.length })
             }
             else if (this.state.selected === 0) {
                 this.setState({ selected: null })
@@ -97,7 +101,7 @@ class SearchBar extends React.Component {
             e.preventDefault();
             if (this.state.selected === null)
                 this.setState({ selected: 0 })
-            else if (this.state.selected === length - 1)
+            else if (this.state.selected === this.length)
                 this.setState({ selected: null })
             else
                 this.setState({ selected: this.state.selected + 1 })
