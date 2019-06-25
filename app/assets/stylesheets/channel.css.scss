@@ -327,16 +327,19 @@
 #featured-video-ctn{
     display: grid;
     grid-template-columns: 420px auto;
-    padding: 24px 0px;
+    margin: 24px 0px;
+    position: relative;
 }
 
 #featured-video-ctn > video {
+    grid-column: 1 / 2; 
     width: 420px;
     max-width: 420px;
     height: 235px;
     max-height: 235px;
     margin-right: 24px;
     object-fit: cover;
+    position: absolute;
 }
 
 #featured-video-title{
@@ -360,6 +363,7 @@
 }
 
 #featured-video-info{
+    grid-column: 2 / 3;
     margin-left: 24px;
     width: 100%;
     display: flex;
