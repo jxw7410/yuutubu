@@ -10,16 +10,22 @@ import SearchModalListItem from './search_modal_list_item';
 class SearchModal extends React.Component{
     constructor(props){
         super(props);
+        this.textDidChange = false;
         this.searchPhrase = "";
     }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.fetching === true && this.props.fetching === false){
+            this.textDidChange = true;
+        }
+    }
  
     render(){
         const extension = this.props.openModal && this.props.searches.length > 0 ? "-active" : "";
-        
-        if(!this.props.fetching) 
+        if(this.textDidChange && !this.props.fetching) {
+            this.textDidChange = false;
             this.searchPhrase = this.props.word;
-
+        }
         const searches = filterByWords(this.searchPhrase, this.props.searches);
         const listItems = searches.map( (obj, index) => {
             let initialString;

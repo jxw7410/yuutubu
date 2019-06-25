@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchModal from '../modals/search_modal';
 import { withRouter } from 'react-router-dom';
+import { filterByWords } from '../../util/selectors'
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class SearchBar extends React.Component {
                 () => {
                     this.setState({ fetching: false, openModal: false, selected: null })
                 }
-            ), 100);
+            ), 10);
         }
     }
 
@@ -72,16 +73,17 @@ class SearchBar extends React.Component {
                     () => {
                         this.setState({ fetching: false, openModal: false, selected: null })
                     });
-            }, 100);
+            }, 10);
         }
     }
 
 
     handleKeyPress(e) {
+        const length = filterByWords(this.state.inputText, this.props.searches).length - 1;
         if (e.key === 'ArrowUp' || e.keyCode === 38) {
             e.preventDefault();
             if (this.state.selected === null) {
-                this.setState({ selected: this.props.searches.length - 1 })
+                this.setState({ selected: length - 1 })
             }
             else if (this.state.selected === 0) {
                 this.setState({ selected: null })
@@ -95,7 +97,7 @@ class SearchBar extends React.Component {
             e.preventDefault();
             if (this.state.selected === null)
                 this.setState({ selected: 0 })
-            else if (this.state.selected === this.props.searches.length - 1)
+            else if (this.state.selected === length - 1)
                 this.setState({ selected: null })
             else
                 this.setState({ selected: this.state.selected + 1 })
