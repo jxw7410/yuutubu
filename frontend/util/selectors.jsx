@@ -72,19 +72,23 @@ export const filterSearchModalResults = (histories, searches) => {
     });
     
     searches.forEach( search => {
-        const word = search.title.toLowerCase().replace(/([.,\/#!?$%\^&\*;:{}=\-_`~()\]\[])+$/g, "");
-        //
-        if (!ref[word])
-            res[word] = { "context" : word};
+        const title = search.title.toLowerCase().replace(/([.,\/#!?$%\^&\*;:{}=\-_`~()\]\[])+$/g, "");
+        const name = search.name.toLowerCase();
+        if (!ref[title])
+            res[title] = { "context" : title};
+        
+        if(!ref[name])
+            res[name] = { "context" : name};
     });
 
     return Object.values(res);
 }
 
 export const filterByWords = (target, arrayOfWords) =>{
+    const newTarget = target.toLowerCase()
     const matchingWords = [];
     arrayOfWords.forEach( word => {
-        if( word.context.startsWith(target))
+        if( word.context.startsWith(newTarget))
             matchingWords.push(word)
     })
     return matchingWords;

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { subscribe, unsubscribe } from '../../actions/subscribe/subscribe_action';
 import { filterSubscriptions } from '../../util/selectors';
+import { withRouter } from 'react-router-dom';
 
 
 class SubscribeButton extends React.Component{
@@ -15,24 +16,30 @@ class SubscribeButton extends React.Component{
 
     unsubscribe(e){
         e.preventDefault()
-        if (this.props.login)
+        if (this.props.login){
             if(!this.updating){
                 this.updating = true;
                 this.props.unsubscribe(this.props.sub.sub_id).then(()=>{
                     this.updating = false;
-                })
+                }).fail(
+                    () => {this.updating = false;})
             }
+         }else 
+            this.props.history.push('/login');
     }
 
     subscribe(e){
         e.preventDefault();
-        if (this.props.login)
+        if (this.props.login){
             if(!this.updating){
                 this.updating = true;
                 this.props.subscribe(this.props.channel.id).then(()=>{
                     this.updating = false;
-                })
+                }).fail(
+                    () => { this.updating = false; })
             }
+        }else 
+            this.props.history.push('/login');
     }
 
     render(){
@@ -69,5 +76,5 @@ const mdp = dispatch => {
 
 
 
-export default connect(msp, mdp)(SubscribeButton);
+export default withRouter(connect(msp, mdp)(SubscribeButton));
 

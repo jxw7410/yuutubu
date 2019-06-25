@@ -10,7 +10,8 @@ import { toggleSideBar } from '../../actions/nav_bar_action';
 class MainNav extends React.Component {
 
     componentDidMount() {
-        this.props.fetchSubscriptions()
+        if(this.props.login)
+            this.props.fetchSubscriptions();
     }
 
     componentDidUpdate(prevProps) {

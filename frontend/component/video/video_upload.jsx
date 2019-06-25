@@ -1,7 +1,7 @@
 import React from 'react';
 import VideoUploadArea from './video_upload_sub/vid_upload_area';
 import VideoUploadForm from './video_upload_sub/video_upload_form';
-
+import {withRouter} from 'react-router-dom';
 
 class UploadVideo extends React.Component {
     constructor(props) {
@@ -84,7 +84,6 @@ class UploadVideo extends React.Component {
         const file = e.dataTransfer.files[0];
         const fileReader = new FileReader();
         fileReader.onloadend = () => {
-            //
             this.setState({ file, fileUrl: fileReader.result })
         }
 
@@ -105,16 +104,12 @@ class UploadVideo extends React.Component {
             formData.append('video[description]', this.state.description);
             formData.append('video[channel_id]', this.props.user.channel_id);
             this.props.createVideo(formData)
-                .then(() =>
-                    this.setState({
-                        doneUploading: true,
-                        uploading: false,
-                    }))
+                .then(() =>{
+                    this.props.history.push(`./channel/${this.props.user.channel_id}/videos`)
+                })
                 .fail(()=>{
-                    this.setState({
-                        doneUploading: true,
-                        uploading: false,
-                    })
+                    alert('Upload failed!')
+                    this.props.history.push('/');
                 });
 
             this.setState({ uploading: true })
@@ -155,4 +150,4 @@ class UploadVideo extends React.Component {
 
 
 
-export default UploadVideo;
+export default withRouter(UploadVideo);

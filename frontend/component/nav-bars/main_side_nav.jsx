@@ -62,7 +62,7 @@ class MainSideNav extends React.Component {
 
                 <ul>
                     <li>
-                        <a href='https://angel.co/jian-wu-12?public_profile=1'>
+                        <a target="_blank" href='https://angel.co/jian-wu-12?public_profile=1'>
                             <i className="fab fa-angellist"></i>
                             <span>AngelList</span>
                         </a>

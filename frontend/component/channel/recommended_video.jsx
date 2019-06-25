@@ -1,6 +1,6 @@
 import React from 'react';
 import {sortByViews} from '../../util/selectors';
-import {fetchChannelVideos} from '../../actions/video/video_action';
+import {fetchRecommendedVideos} from '../../actions/video/video_action';
 import { connect } from 'react-redux';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import {withRouter } from 'react-router-dom';
@@ -82,7 +82,7 @@ const msp = state => {
 
 const mdp = dispatch => {
     return {
-        fetchRecommendedVideos: () => dispatch(fetchChannelVideos()),
+        fetchRecommendedVideos: () => dispatch(fetchRecommendedVideos()),
     }
 }
 
