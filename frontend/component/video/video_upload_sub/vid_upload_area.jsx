@@ -9,7 +9,7 @@ const VideoUploadArea = (props) => {
             onDragLeave={e => e.preventDefault()}>
 
             <label id='upload-input'>
-                <input onChange={props.handleFile} type="file" />
+                <input onChange={props.handleFile} type="file" accept="video/mp4,video/x-m4v,video/*"/>
                 <i className="fas fa-arrow-up"></i>
                 <span>Upload file</span>
                 <span id='upload-area-text'>Or Drag and Drop</span>

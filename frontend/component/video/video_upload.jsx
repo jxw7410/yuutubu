@@ -26,6 +26,7 @@ class UploadVideo extends React.Component {
         this.handleDrop = this.handleDrop.bind(this);
         this.handleTypeEvent = this.handleTypeEvent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleThumbnailUpload = this.handleThumbnailUpload.bind(this);
     }
 
     componentDidMount(){
@@ -36,6 +37,8 @@ class UploadVideo extends React.Component {
     handleToggled(e) {
         e.preventDefault();
     }
+
+    
 
     handleThumbnail(thumbnail, thumbnailUrl, duration) {
         this.setState({ thumbnail, thumbnailUrl, duration });
@@ -49,6 +52,17 @@ class UploadVideo extends React.Component {
         }
     }
 
+
+    handleThumbnailUpload(e){
+        e.preventDefault();
+        const thumbnail = e.currentTarget.files[0];
+        const fileReader = new FileReader();
+        fileReader.onloadend = () =>
+            this.setState({ thumbnail, thumbnailUrl: fileReader.result })
+
+        if (thumbnail)
+            fileReader.readAsDataURL(thumbnail);
+    }
 
     handleFile(e) {
         e.preventDefault();
@@ -118,10 +132,13 @@ class UploadVideo extends React.Component {
                                 fileUrl={this.state.fileUrl}
                                 thumbnailUrl={this.state.thumbnailUrl}
                                 handleThumbnail={this.handleThumbnail}
+                                handleThumbnailUpload={this.handleThumbnailUpload}
                                 handleSubmit={this.handleSubmit}
                                 handleTypeEvent={this.handleTypeEvent}
                                 uploading={this.state.uploading}
                                 doneUploading={this.state.doneUploading}
+                                title={this.state.title}
+                                description={this.state.description}
                             />
                             :
                             <VideoUploadArea
