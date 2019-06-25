@@ -2,7 +2,7 @@ json.searches do
     if @videos 
         @videos.each do |video|
             json.set! video.id do 
-                json.extract! video, :title
+                json.extract! video, :title, :name
             end
         end
     else  

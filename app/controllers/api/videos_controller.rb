@@ -2,10 +2,13 @@ class Api::VideosController < ApplicationController
 
     def index_search
         query = params[:query].downcase
-        @videos = Video.where("lower(title) like ? or lower(title) like ? or lower(title) like ? or 
-            lower(description) like ? or lower(description) like ? or lower(description)like ?",
+        @videos = Video.joins(:channel).where("lower(title) like ? or lower(title) like ? or lower(title) like ? or 
+            lower(description) like ? or lower(description) like ? or lower(description)like ? or
+            lower(user_channels.name) like ? or lower(user_channels.name) like ?  or lower(user_channels.name) like ?",
+            "#{query}%", "%#{query}%", "%#{query}",
             "#{query}%", "%#{query}%", "%#{query}",
             "#{query}%", "%#{query}%", "%#{query}")
+            .order(:id)
             .limit(params[:limit])
             .offset(params[:offset]);
 
