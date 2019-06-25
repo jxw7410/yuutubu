@@ -1,7 +1,6 @@
-export const fetchSubscriptions = data => {
+export const fetchSubscriptions = () => {
     return $.ajax({
         url: 'api/subscriptions',
-        data
     })
 }
 
@@ -17,6 +16,6 @@ export const updateSubscription = channel_id => {
 export const deleteSubscription = id =>{
     return $.ajax({
         method: 'delete',
-        url: `api/subscription/${id}`
+        url: `api/subscriptions/${id}`
     })
 }

@@ -6,6 +6,7 @@ import likeReducer from './like_dislike_reducer';
 import videoPostReducer from './video_post_reducer';
 import searchReducer from './search_reducer';
 import searchHistory from './history_reducer';
+import subscriptions from './subscription_reducer';
 
 export default combineReducers({
     users: usersReducer,
@@ -15,6 +16,7 @@ export default combineReducers({
     video_posts: videoPostReducer,
     searches: searchReducer,
     history: searchHistory,
+    subscriptions
 });
 
 

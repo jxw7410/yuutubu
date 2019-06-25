@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-
+import SubscribeButton from '../../subscribe/subscribe_button';
+import {connect} from 'react-redux';
 
 const VideoInfoBody = props => {
     return (
@@ -19,7 +20,9 @@ const VideoInfoBody = props => {
                     <div>
                         {   
                             props.channel.user_id === parseInt(props.video.id) ? null :
-                                <button id="subscribe-button"> SUBSCRIBE </button>
+                                <SubscribeButton 
+                                    channel={props.channel}
+                                />
                         }
                     </div>
                 </div>
@@ -35,4 +38,11 @@ const VideoInfoBody = props => {
     )
 }
 
-export default VideoInfoBody;
+const msp = (state, props) => {
+    const channel = state.entities.channels[props.channel.id] || {}
+    return {
+        channel
+    }
+}
+
+export default connect(msp)(VideoInfoBody);

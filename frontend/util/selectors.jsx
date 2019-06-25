@@ -52,9 +52,6 @@ export const getChannelVideos = (channel_id, arrayOfVids) => {
 }
 
 export const convertDurationToTime = duration => {
-    /*
-        373 -> 6:13
-     */
     const hours = Math.floor(duration / 360);
     const minutes = Math.floor(duration / 60);
     const seconds = Math.floor(duration % 60);
@@ -82,4 +79,12 @@ export const filterSearchModalResults = (histories, searches) => {
     });
 
     return Object.values(res);
+}
+
+export const filterSubscriptions = (channel_id, subscriptions) => {
+    for(let i = 0; i < subscriptions.length; i++){
+        if(subscriptions[i].channel_id === channel_id)
+            return { sub_id: subscriptions[i].id }
+    }
+    return { sub_id: null}
 }

@@ -1,4 +1,4 @@
-json.set! @subscription.id do 
-    json.extract! @subscription, :id, :channel_id
-    json.channelName @subscription.channel.name
-end
+
+json.extract! @subscription, :id, :channel_id
+json.channelName @channel.name 
+json.subscriptionCount @channel.subscriptions.count

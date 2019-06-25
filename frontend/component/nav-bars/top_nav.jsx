@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import UserModal from '../modals/user_modal';
 import SearchBarContainer from './search_bar_container';
+import SideNavLinks from './side_nav_links';
 
 
 
@@ -61,24 +62,7 @@ class TopNav extends React.Component {
                         <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
                         
 
-                        <li>
-                            <a href='https://www.linkedin.com/in/jian-hong-wu-b1535284/'>
-                                <i className="fab fa-linkedin"></i>
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href='https://angel.co/jian-wu-12?public_profile=1'>
-                                <i className="fab fa-angellist"></i>
-                            </a>
-                        </li>
-        
-
-                        <li>
-                            <a href='https://github.com/jxw7410/yuutubu'>
-                                <i className="fab fa-github"></i>
-                            </a>
-                        </li>
+                        <SideNavLinks type='top' />
                         
                         <li>{
                             this.props.isLoggedIn ? 

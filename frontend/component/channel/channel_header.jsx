@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
+import SubscribeButton from '../subscribe/subscribe_button';
 
 class ChannelHeader extends React.Component {
     constructor(props) {
@@ -47,9 +48,9 @@ class ChannelHeader extends React.Component {
                         <div id='channel-header-buttons'>
                             {
                                 this.props.channel.user_id !== parseInt(this.props.userId) ?
-                                    this.props.channel.subbed ? 
-                                        <button id='subscribed-button'> UNSUBSCRIBE {this.props.channel.subscriptionCount}</button> :
-                                        <button id="subscribe-button"> SUBSCRIBE {this.props.channel.subscriptionCount}</button> 
+                                    <SubscribeButton
+                                        channel = {this.props.channel}
+                                    />
                                     : null
                             }
                         </div>

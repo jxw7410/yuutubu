@@ -3,8 +3,10 @@ import MainSideNav from './main_side_nav';
 
 
 
-const msp = (state, ownProps) => {
+const msp = (store, ownProps) => {
     return{
+        login: Boolean(store.session.id),
+        subscriptions: Object.values(store.entities.subscriptions),
     };
 };
 

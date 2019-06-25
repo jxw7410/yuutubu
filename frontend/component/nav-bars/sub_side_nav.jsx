@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import SideNavLinks from './side_nav_links';
 
 
 class SubSideNav extends React.Component {
@@ -31,26 +32,7 @@ class SubSideNav extends React.Component {
                                 <span>Home</span>
                             </li>
 
-                            <li>
-                                <a href='https://github.com/jxw7410/yuutubu'>
-                                    <i className="fab fa-github"></i>
-                                    <span>Git</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href='https://www.linkedin.com/in/jian-hong-wu-b1535284/'>
-                                    <i className="fab fa-linkedin"></i>
-                                    <span>Linkedin</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href='https://angel.co/jian-wu-12?public_profile=1'>
-                                    <i className="fab fa-angellist"></i>
-                                    <span>AngelList</span>
-                                </a>
-                            </li>
+                            <SideNavLinks />
                         </ul>
                     </article>
                 </nav>

@@ -93,6 +93,7 @@
     color: white;
     font-size: 14px;
     position: relative;
+    border: none;
 }
 
 #subscribe-button:active {
@@ -103,6 +104,28 @@
 }
 
 #subscribe-button:hover{
+    cursor: pointer;
+}
+
+#subscribed-button {
+    height: 35px;
+    width: 150px;
+    background: rgb(225,225, 225);
+    border-radius: 3px;
+    color: rgb(96,96,96);
+    font-size: 14px;
+    position: relative;
+    border: none;
+}
+
+#subscribed-button:active {
+    outline: none;
+}
+#subscribed-button:focus{
+    outline: none;
+}
+
+#subscribed-button:hover{
     cursor: pointer;
 }
 
@@ -312,6 +335,7 @@
     height: 235px;
     max-height: 235px;
     margin-right: 24px;
+    object-fit: cover;
 }
 
 #featured-video-title{

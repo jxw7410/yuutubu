@@ -18,6 +18,9 @@ function Modal({ modal, closeModal }) {
         case 'search':
             component = <SearchModal />
             break;
+        case 'unsubscribe':
+            component = null;
+            break;
         default:
             return null;
     }

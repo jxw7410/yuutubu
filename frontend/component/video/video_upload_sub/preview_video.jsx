@@ -17,7 +17,6 @@ class PreviewVideo extends React.Component {
             this.capture(canvas, video)
         }, 1500);
 
-       //this.setState({canvasHeight: video.videoHeight, canvasWidth: video.videoWidth})
 
     }
 

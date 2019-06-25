@@ -150,9 +150,11 @@
 
 #video-info-header-utils{
     width: 360px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 #vid-like-dislike-icons{
@@ -161,6 +163,31 @@
     justify-content: space-between;
     align-items: center;
     color: rgb(144,144,144);
+    height: calc(100% - 2px)
+}
+
+#like-dislike-bar{
+    width: 150px;
+    height: 2px;
+    background-color: rgb(204,204,204);
+    margin-left: 10px;
+    border-radius: 2px;
+}
+
+#like-ratio-bar{
+    background: rgb(114,114,114);
+    height: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    transition: width 0.3s linear;
+}
+
+#like-ratio-bar-voted{
+    background: rgb(36, 97, 205);
+    height: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    transition: width 0.3s linear;
 }
 
 #vid-like-dislike-icons  i {
@@ -184,7 +211,7 @@
 }
 
 .voted{
-    color: blue;
+    color: rgb(36, 97, 205);
 }
 
 

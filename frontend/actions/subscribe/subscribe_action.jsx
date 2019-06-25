@@ -1,7 +1,8 @@
 import * as SubscriptionAPI from '../../util/susbscribe_api';
 
-export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION'
-export const RECEIVE_SUBSCRIPTION = 'RECEIVE_SUBSCRIPTION'
+export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION';
+export const RECEIVE_SUBSCRIPTION = 'RECEIVE_SUBSCRIPTION';
+export const RECEIVE_SUBSCRIPTIONS = 'RECEIVE_SUBSCRIPTIONS';
 
 
 const deleteSubscription = sub => ({
@@ -14,6 +15,10 @@ const receiveSubscription = sub => ({
     sub
 });
 
+const receiveSubscriptions = subs => ({
+    type: RECEIVE_SUBSCRIPTIONS,
+    subs
+})
 
 
 export const subscribe = channel_id => dispatch =>{
@@ -27,6 +32,10 @@ export const unsubscribe = sub_id => dispatch => {
         .then( sub => dispatch(deleteSubscription(sub)));
 }
 
+export const fetchSubscriptions = () => dispatch => {
+    return SubscriptionAPI.fetchSubscriptions()
+        .then( (subs) => dispatch( receiveSubscriptions(subs)));
+}
 
 
 

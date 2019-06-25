@@ -330,6 +330,12 @@
     grid-template-columns: 70px auto;
 }
 
+#subscription-list > li{
+    display: grid;
+    grid-template-columns: 70px auto;
+}
+
+
 
 #main-side-nav > ul > li > a {
     display: grid;
@@ -341,20 +347,33 @@
 }
 
 #main-side-nav > ul > li span {
-    font-size: 15px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: black;
+    color: rgb(50,50,50);
 }
 
 
-#main-side-nav > ul > li  i {
+#main-side-nav > ul > li i {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#main-side-nav-ul > li  i {
     font-size: 18px;
 }
+
+#main-side-nav > ul > li .fa-user-circle{
+   color: rgb(45, 87, 146);
+}
+
+#subscription-list > li >  i {
+    font-size: 22px;
+    color: black;
+}
+
 
 #main-side-nav > ul > li:hover{
     background: lightgray;
@@ -437,4 +456,17 @@
 
 .sub-side-icon-selected  i, .sub-side-icon-selected span{
     color: red;
+}
+
+#subscription-tag{
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .007px;
+    margin: 16px 24px 8px 24px;
+    color: rgb(96,96,96);
+}
+
+#main-side-nav > ul > li #chev{
+    font-size: 14px;
+    color: rgb(144,144,144);
 }
