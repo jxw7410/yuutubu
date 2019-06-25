@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchChannelVideos, clearChannelVideos } from '../../actions/video/video_action';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { getVideosForChannel} from '../../util/selectors';
+import SubscribeButton from '../subscribe/subscribe_button';
 
 class ChannelIndexItem extends React.Component {
     constructor(props){
@@ -48,6 +49,10 @@ class ChannelIndexItem extends React.Component {
                             className="channel_index_items_channel_links" >
                             <i className="fas fa-user-circle"></i>
                             <span>{this.props.channel.name}</span></Link> Recommended channel for you</span>
+                    
+                    <SubscribeButton 
+                    channel = {this.props.channel}
+                    />
                 </section>
                 <section id="channel-index-items-body">
                     <ul>
