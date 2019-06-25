@@ -48,7 +48,7 @@ class SearchBar extends React.Component {
     handleFocus(e) {
         e.preventDefault();
         if (!this.state.fetching) {
-            this.state.fetching = true;
+            this.setState({fetching: true})
             setTimeout(() => this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
                 this.setState({ fetching: false, openModal: true, selected: null })
             }).fail(
@@ -63,8 +63,8 @@ class SearchBar extends React.Component {
         e.preventDefault();
         this.setState({ inputText: e.target.value, sliceLength: e.target.value.length, selected: null })
         if (!this.state.fetching) {
+            this.setState({ fetching: true })
             setTimeout(() => {
-                this.state.fetching = true;
                 this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
                     this.setState({ fetching: false, openModal: true, selected: null });
                 }
@@ -139,6 +139,8 @@ class SearchBar extends React.Component {
                     />
 
                     <SearchModal
+                        word={this.state.inputText}
+                        fetching={this.state.fetching}
                         inputTextLength={this.state.sliceLength}
                         openModal={this.state.openModal}
                         selected={this.state.selected}

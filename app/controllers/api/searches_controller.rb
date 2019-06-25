@@ -33,9 +33,7 @@ class Api::SearchesController < ApplicationController
             @videos = Video.joins(:channel).where("lower(title) LIKE ? or lower(user_channels.name) LIKE ?", "#{params[:query].downcase}%", "#{params[:query].downcase}%")
                 .limit(limit)
                 .select(:title, :name)
-            
-            #debugger
-            if @videos.length > 0
+            if @videos.length > 0 || @histories.length > 0
                 render :index_history_title
             else  
                 render json: {}, status: 200

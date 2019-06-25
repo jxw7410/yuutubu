@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { closeModal } from '../../actions/modal_action';
 import { sortBy} from 'lodash'
-import { filterSearchModalResults } from '../../util/selectors';
+import { filterSearchModalResults, filterByWords } from '../../util/selectors';
 import SearchModalListItem from './search_modal_list_item';
 
 
@@ -10,12 +10,18 @@ import SearchModalListItem from './search_modal_list_item';
 class SearchModal extends React.Component{
     constructor(props){
         super(props);
+        this.searchPhrase = "";
     }
 
  
     render(){
         const extension = this.props.openModal && this.props.searches.length > 0 ? "-active" : "";
-        const listItems = this.props.searches.map( (obj, index) => {
+        
+        if(!this.props.fetching) 
+            this.searchPhrase = this.props.word;
+
+        const searches = filterByWords(this.searchPhrase, this.props.searches);
+        const listItems = searches.map( (obj, index) => {
             let initialString;
             let remenantString;
             //
@@ -61,10 +67,10 @@ class SearchModal extends React.Component{
 
 
 
-const msp = state => {
+const msp = (state, props) => {
     const historyArray = sortBy(Object.values(state.entities.history), 'updated_at').reverse();
     return {
-        searches: filterSearchModalResults(historyArray, Object.values(state.entities.searches))
+        searches: filterSearchModalResults(historyArray, Object.values(state.entities.searches)),
     }
 }
 

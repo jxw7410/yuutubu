@@ -81,6 +81,18 @@ export const filterSearchModalResults = (histories, searches) => {
     return Object.values(res);
 }
 
+export const filterByWords = (target, arrayOfWords) =>{
+    const matchingWords = [];
+    arrayOfWords.forEach( word => {
+        if( word.context.startsWith(target))
+            matchingWords.push(word)
+    })
+    return matchingWords;
+}
+
+
+
+
 export const filterSubscriptions = (channel_id, subscriptions) => {
     for(let i = 0; i < subscriptions.length; i++){
         if(subscriptions[i].channel_id === channel_id)
