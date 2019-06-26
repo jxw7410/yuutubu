@@ -3,9 +3,8 @@ import {convertDurationToTime} from '../../util/selectors';
 const DefaultControlUI = props => {
     let volumeButton;
     
-    if (parseFloat(props.volumeValue) === 0 ){
+    if (parseFloat(props.volumeValue) === 0 )
         volumeButton = <i onClick={props.handleMute} className="material-icons">volume_off</i>
-    }
     else if (props.volumeValue > 0.5)
         volumeButton = <i onClick={props.handleMute} className="material-icons">volume_up</i>
     else   

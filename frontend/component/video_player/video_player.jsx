@@ -156,6 +156,10 @@ class VideoPlayer extends React.Component {
     handleVolumeChange(e) {
         e.preventDefault();
         e.stopPropagation();
+        
+        if (this.videoElement.muted)
+            this.videoElement.muted = false
+        
         this.videoElement.volume = e.target.value;
         this.setState({ volumeValue: e.target.value })
     }

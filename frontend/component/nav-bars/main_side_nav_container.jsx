@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import MainSideNav from './main_side_nav';
-
+import { toggleSideBar } from '../../actions/nav_bar_action';
 
 
 const msp = (store, ownProps) => {
@@ -13,7 +13,7 @@ const msp = (store, ownProps) => {
 
 const mdp = dispatch => {
     return {
-
+        toggleSideBar: () => { dispatch(toggleSideBar()) }
     }
 }
 

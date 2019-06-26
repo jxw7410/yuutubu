@@ -4,13 +4,12 @@ import SubSideNav from './sub_side_nav';
 import MainSideNavContainer from './main_side_nav_container';
 import { connect } from 'react-redux';
 import { fetchSubscriptions } from '../../actions/subscribe/subscribe_action';
-import MainSideNavType2 from './main_side_nav_type2_ctn';
 import { toggleSideBar } from '../../actions/nav_bar_action';
 
 class MainNav extends React.Component {
 
     componentDidMount() {
-        if(this.props.login)
+        if (this.props.login)
             this.props.fetchSubscriptions();
     }
 
@@ -20,11 +19,11 @@ class MainNav extends React.Component {
         }
 
 
-        if(prevProps.navBar.type === 2 && this.props.navBar.type === 1){
+        if (prevProps.navBar.type === 2 && this.props.navBar.type === 1) {
             if (!prevProps.navBar.toggled) this.props.toggleSideBar();
         }
 
-        else if (prevProps.navBar.type === 1 && this.props.navBar.type === 2){
+        else if (prevProps.navBar.type === 1 && this.props.navBar.type === 2) {
             if (!prevProps.navBar.toggled) this.props.toggleSideBar();
         }
     }
@@ -40,8 +39,14 @@ class MainNav extends React.Component {
                 )
             case 2:
                 return (
-                    <MainSideNavType2 
-                        toggled={this.props.navBar.toggled}/>
+                    <>
+                        <div id={'main-side-nav-ctn-type-2' + (this.props.navBar.toggled ? "" : "-toggled")}>
+                            <MainSideNavContainer
+                                type="typeTwo" />
+                        </div>
+                        <div id={'main-side-nav-ctn-screen' + (this.props.navBar.toggled ? "" : "-toggled")}
+                            onClick={this.props.toggleSideBar} />
+                    </>
                 )
             default:
                 return null
@@ -57,7 +62,7 @@ class MainNav extends React.Component {
                     this.props.navBar.active ?
                         <>
                             <div id='top-nav-ctn'> <TopNavContainer /> </div>
-                            { sideNav }
+                            {sideNav}
                         </>
                         : null
                 }
@@ -76,7 +81,7 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         fetchSubscriptions: () => dispatch(fetchSubscriptions()),
-        toggleSideBar: () => { dispatch(toggleSideBar() )}
+        toggleSideBar: () => { dispatch(toggleSideBar()) }
     }
 }
 
