@@ -18,22 +18,26 @@ VideoPost.destroy_all
 VideoLike.destroy_all
 VideoDislike.destroy_all
 SearchHistory.destroy_all
+Subscription.destroy_all
 
-user1 = User.create(username: 'Master', email: 'master@gmail.com', password: 'password123');
-user2 = User.create(username: 'User1', email: 'User1@gmail.com', password: 'password123');
-user3 = User.create(username: 'User2', email: 'User2@gmail.com', password: 'password123');
-user4 = User.create(username: 'User3', email: 'User3@gmail.com', password: 'password123');
-user5 = User.create(username: 'User4', email: 'User4@gmail.com', password: 'password123');
-user6 = User.create(username: 'User5', email: 'User5@gmail.com', password: 'password123');
-user7 = User.create(username: 'User6', email: 'User6@gmail.com', password: 'password123');
-user8 = User.create(username: 'User7', email: 'User7@gmail.com', password: 'password123');
-user9 = User.create(username: 'User8', email: 'User8@gmail.com', password: 'password123');
-user10 = User.create(username: 'User9', email: 'User9@gmail.com', password: 'password123');
+demouser = User.create(username: 'demouser', email: 'demouser@gmail.com', password: 'password123');
+UserChannel.create(name: demouser.username, user: demouser)
+
+user1 = User.create(username: 'MonHuntGuy', email: 'master@gmail.com', password: 'password123');
+user2 = User.create(username: 'GameGuy', email: 'gameguy@gmail.com', password: 'password123');
+user3 = User.create(username: 'AC1', email: 'ac1@gmail.com', password: 'password123');
+user4 = User.create(username: 'AC2', email: 'ac2@gmail.com', password: 'password123');
+user5 = User.create(username: 'AC3', email: 'ac3@gmail.com', password: 'password123');
+user6 = User.create(username: 'AC4', email: 'ac4@gmail.com', password: 'password123');
+user7 = User.create(username: 'AC5', email: 'ac5@gmail.com', password: 'password123');
+user8 = User.create(username: 'AC6', email: 'ac6@gmail.com', password: 'password123');
+user9 = User.create(username: 'AC7', email: 'ac7@gmail.com', password: 'password123');
+user10 = User.create(username: 'AC8', email: 'ac8@gmail.com', password: 'password123');
 
 
 
-channel1 = UserChannel.create(name: user1.username, user: user1)
-channel2 = UserChannel.create(name: user2.username, user: user2)
+channel1 =UserChannel.create(name: user1.username, user: user1)
+channel2 =UserChannel.create(name: user2.username, user: user2)
 channel3 =UserChannel.create(name: user3.username, user: user3)
 channel4 =UserChannel.create(name: user4.username, user: user4)
 channel5 =UserChannel.create(name: user5.username, user: user5)
@@ -44,249 +48,264 @@ channel9 =UserChannel.create(name: user9.username, user: user9)
 channel10 =UserChannel.create(name: user10.username, user: user10)
 
 
-video1 = Video.create(
-    title: 'Battlefield Hornet takeoff', 
-    description: "Hornet take off in Battlefield",
+video = Video.create(
+    title: 'Nergigante Part I', 
+    description: "Part I of an elder dragon hunt with a lance",
     user_id: user1.id,
     channel_id: channel1.id,
-    duration: 26.00
+    duration: 57.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/battlefieldhornet.png')
-video1.thumbnail.attach(io: file, filename: 'hornettakeoff.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/hornetgame.mp4')
-video1.video_content.attach(io: file, filename: 'battlefieldhornet.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante.png')
+video.thumbnail.attach(io: file, filename: 'nergigante.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante.mp4')
+video.video_content.attach(io: file, filename: 'nergigante.mp4')
 
-video2 = Video.create(
-    title: "Get Cobra'd!", 
-    description: "Dumping flares with no missile lock, and not using mg when at someone's 6, hmm...",
+
+video = Video.create(
+    title: "Nergigante Part II", 
+    description: "Part II of an elder dragon hunt with a lance",
     user_id: user1.id,
     channel_id: channel1.id,
-    duration: 16.00
+    duration: 73.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/battlefieldcobra.png')
-video2.thumbnail.attach(io: file, filename: 'hornetgetcobora.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/cobragame.mp4')
-video2.video_content.attach(io: file, filename: 'battlefieldcobra.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante2.png')
+video.thumbnail.attach(io: file, filename: 'nergigante2.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante2.mp4')
+video.video_content.attach(io: file, filename: 'nergigante2.mp4')
 
 
-video3 = Video.create(
-    title: "Real hornet take off.", 
-    description: "A real hornet taking off an aircraft carrier.",
+video = Video.create(
+    title: "Nergigante Part III", 
+    description: "Part III of an elder dragon hunt with a lance.",
     user_id: user1.id,
     channel_id: channel1.id,
-    duration: 19.00
+    duration: 63.00
 )
 
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/hornetpilot.png')
-video3.thumbnail.attach(io: file, filename: "hornetpilot.png")
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/hornetreallife.mp4')
-video3.video_content.attach(io: file, filename: "realhornet.mp4")
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante3.png')
+video.thumbnail.attach(io: file, filename: 'nergigante3.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante3.mp4')
+video.video_content.attach(io: file, filename: 'nergigante3.mp4')
 
-video4 = Video.create(
-    title: "Cobra maneuver in real life.", 
-    description: "A plane using it's own body as a speed brake is surreal. Only in Russia.",
+video = Video.create(
+    title: "Nergigante Part IV", 
+    description: "Part IV of an elder dragon hunt with a lance.",
     user_id: user1.id,
     channel_id: channel1.id,
-    duration: 6.00
+    duration: 56.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/hornetpilot.png')
-video4.thumbnail.attach(io: file, filename: 'hornetpilot1.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/cobra.mp4')
-video4.video_content.attach(io:file, filename: 'su35cobra.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante4.png')
+video.thumbnail.attach(io: file, filename: 'nergigante4.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante4.mp4')
+video.video_content.attach(io: file, filename: 'nergigante4.mp4')
 
-video5 = Video.create(
-    title: 'Kulbit maneuver', 
-    description: "America doesn't believe in low energy dogfights, but the F-22 have the ability to do so.",
+video = Video.create(
+    title: "Nergigante Part V", 
+    description: "Part V of an elder dragon hunt with a lance.",
     user_id: user1.id,
     channel_id: channel1.id,
-    duration: 11.00
+    duration: 59.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/f22.png')
-video5.thumbnail.attach(io: file, filename: 'f22.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kulbit.mp4')
-video5.video_content.attach(io: file, filename: 'kulbit.mp4')
 
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante5.png')
+video.thumbnail.attach(io: file, filename: 'nergigante5.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante5.mp4')
+video.video_content.attach(io: file, filename: 'nergigante5.mp4')
 
-video6 = Video.create(
-    title: 'Repost!', 
-    description: "F-22 is pretty cool, and I am too tired to write all these seed classes.",
+video = Video.create(
+    title: "Nergigante Part VI", 
+    description: "Part VI of an elder dragon hunt with a lance.",
     user_id: user1.id,
     channel_id: channel1.id,
-    duration: 11.00
+    duration: 102.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/f22.png')
-video6.thumbnail.attach(io: file, filename: 'f22_again.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kulbit.mp4')
-video6.video_content.attach(io: file, filename: 'kulbit_again.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante6.png')
+video.thumbnail.attach(io: file, filename: 'nergigante6.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante6.mp4')
+video.video_content.attach(io: file, filename: 'nergigante6.mp4')
 
 
-video7 = Video.create(
-    title: 'S stands for...?', 
-    description: "SMILE SWEET SISTER SADISTIC SURPRISE SERVICE S-",
+video = Video.create(
+    title: 'Defeating Aqua', 
+    description: "The irony of the fight...",
     user_id: user2.id,
     channel_id: channel2.id,
-    duration: 15.00
+    duration: 20.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sblend.png')
-video7.thumbnail.attach(io: file, filename: 's_blend.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/s_standsfor.mp4')
-video7.video_content.attach(io: file, filename: 's_blend.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kh3.png')
+video.thumbnail.attach(io: file, filename: 'kh3.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kh3_aqua.mp4')
+video.video_content.attach(io: file, filename: 'kh3_aqua.mp4')
 
-video8 = Video.create(
-    title: '100% pure f***ing muscles', 
-    description: "You ready to see this?",
+video = Video.create(
+    title: 'X02-Wyvern', 
+    description: "X02-Wyvern vs Arsenal Bird",
     user_id: user2.id,
     channel_id: channel2.id,
-    duration: 15.00
+    duration: 214.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/fattythumb.png')
-video8.thumbnail.attach(io: file, filename: 'vrchat_fatguy.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/puremuscles.mp4')
-video8.video_content.attach(io: file, filename: 'vrchat_fatguy.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/lighthouse.png')
+video.thumbnail.attach(io: file, filename: 'lighthouse.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/lighthouse.mp4')
+video.video_content.attach(io: file, filename: 'lighthouse.mp4')
 
 
-video9= Video.create(
-    title: 'No Swearing in my anime server.', 
-    description: "Only waifus allowed.",
+video = Video.create(
+    title: 'MHW: Insect Glaive Part I', 
+    description: "Hunting a Rathian",
     user_id: user2.id,
     channel_id: channel2.id,
-    duration: 7.00
+    duration: 61.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/birdguy.png')
-video9.thumbnail.attach(io: file, filename: 'birdguy.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/birdguy.mp4')
-video9.video_content.attach(io: file, filename: 'birdguy.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rathian.png')
+video.thumbnail.attach(io: file, filename: 'rathian.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rathian.mp4')
+video.video_content.attach(io: file, filename: 'rathian.mp4')
 
-
-video10= Video.create(
-    title: 'This guy sings better than you', 
-    description: "His beat is on point!",
+video = Video.create(
+    title: 'MHW: Insect Glaive Part II', 
+    description: "Part II of a Rathian Hunt",
     user_id: user2.id,
     channel_id: channel2.id,
-    duration: 12.00
+    duration: 56.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rapstartthumb.png')
-video10.thumbnail.attach(io: file, filename: 'abcguy.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/beatonpoint.mp4')
-video10.video_content.attach(io: file, filename: 'abcguy.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rathian2.png')
+video.thumbnail.attach(io: file, filename: 'rathian2.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rathian2.mp4')
+video.video_content.attach(io: file, filename: 'rathian2.mp4')
 
 
 
-video11 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: 'MHW: Insect Glaive Part III', 
+    description: "Part III of a Rathian Hunt",
+    user_id: user2.id,
+    channel_id: channel2.id,
+    duration: 58.00
+)
+
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rathian3.png')
+video.thumbnail.attach(io: file, filename: 'rathian3.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/rathian3.mp4')
+video.video_content.attach(io: file, filename: 'rathian3.mp4')
+
+
+
+video = Video.create(
+    title: "AC7: Siren's Song P1",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user3.id,
     channel_id: channel3.id,
-    duration: 4.00
+    duration: 120.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video11.thumbnail.attach(io: file, filename: 'kenshiro_1.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video11.video_content.attach(io: file, filename: 'kenshiro_1.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song.mp4')
 
-video12 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P2",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user4.id,
     channel_id: channel4.id,
-    duration: 4.00
+    duration: 119.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video12.thumbnail.attach(io: file, filename: 'kenshiro_2.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video12.video_content.attach(io: file, filename: 'kenshiro_2.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song2.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song2.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song2.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song2.mp4')
 
 
-video13 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P3",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user5.id,
     channel_id: channel5.id,
-    duration: 4.00
+    duration: 120.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video13.thumbnail.attach(io: file, filename: 'kenshiro_3.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video13.video_content.attach(io: file, filename: 'kenshiro_3.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song3.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song3.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song3.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song3.mp4')
 
 
-video14 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P4",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user6.id,
     channel_id: channel6.id,
-    duration: 4.00
+    duration: 119.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video14.thumbnail.attach(io: file, filename: 'kenshiro_4.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video14.video_content.attach(io: file, filename: 'kenshiro_4.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song4.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song4.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song4.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song4.mp4')
 
-video15 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P5",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user7.id,
     channel_id: channel7.id,
-    duration: 4.00
+    duration: 118.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video15.thumbnail.attach(io: file, filename: 'kenshiro_5.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video15.video_content.attach(io: file, filename: 'kenshiro_5.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song5.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song5.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song5.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song5.mp4')
 
 
-video16 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P6",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user8.id,
     channel_id: channel8.id,
-    duration: 4.00
+    duration: 119.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video16.thumbnail.attach(io: file, filename: 'kenshiro_6.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video16.video_content.attach(io: file, filename: 'kenshiro_6.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song6.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song6.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song6.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song6.mp4')
 
 
-video17 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P7",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user9.id,
     channel_id: channel9.id,
-    duration: 4.00
+    duration: 118.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video17.thumbnail.attach(io: file, filename: 'kenshiro_7.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video17.video_content.attach(io: file, filename: 'kenshiro_7.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song7.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song7.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song7.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song7.mp4')
 
 
-video18 = Video.create(
-    title: 'Omae wo mou shindeiru',
-    description: "Nani?!",
+video = Video.create(
+    title: "AC7: Siren's Song P8",
+    description: "Featuring a SU-57 with Pulse Laser",
     user_id: user10.id,
     channel_id: channel10.id,
-    duration: 4.00
+    duration: 44.00
 )
 
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/kenshiro.png')
-video18.thumbnail.attach(io: file, filename: 'kenshiro_8.png')
-file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/shinderu.mp4')
-video18.video_content.attach(io: file, filename: 'kenshiro_8.mp4')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song8.png')
+video.thumbnail.attach(io: file, filename: 'sirens_song8.png')
+file = open('https://yuutubu-seed-bucket.s3.amazonaws.com/sirens_song8.mp4')
+video.video_content.attach(io: file, filename: 'sirens_song8.mp4')

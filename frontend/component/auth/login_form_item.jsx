@@ -11,7 +11,7 @@ class EmailFormStuff extends React.Component {
 
     handleOnClick(e){
         e.preventDefault();
-        this.props.login({ email: "testuser@gmail.com", password: "password123"})
+        this.props.login({ email: "demouser@gmail.com", password: "password123"})
     }
 
     render(){

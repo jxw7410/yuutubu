@@ -27,7 +27,6 @@ const VideoPost = props => {
                     </div>
                 </div>
                 <div className='video-posts-row-2'>
-
                 </div>
             </div>
         </li>
