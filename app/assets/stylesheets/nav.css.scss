@@ -283,6 +283,16 @@
     z-index: 101;
 }
 
+
+#main-side-nav::-webkit-scrollbar{
+    width: 8px;
+}
+
+#main-side-nav::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 5px solid slategrey;
+}
+
 #main-side-nav #angellist{
     display: block;
     width: 100%;
@@ -299,8 +309,9 @@
 
 
 #main-side-nav-ctn:hover{
-    overflow-y: scroll;
+    overflow-y: hidden;
  }
+
 
 #main-side-fixed-hook{
     position: fixed;
