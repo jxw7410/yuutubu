@@ -1,17 +1,23 @@
 import React from 'react';
 import {convertDurationToTime} from '../../util/selectors';
 const DefaultControlUI = props => {
-    return (
+    let volumeButton;
+    
+    if (parseFloat(props.volumeValue) === 0 ){
+        volumeButton = <i onClick={props.handleMute} className="material-icons">volume_off</i>
+    }
+    else if (props.volumeValue > 0.5)
+        volumeButton = <i onClick={props.handleMute} className="material-icons">volume_up</i>
+    else   
+        volumeButton = <i onClick={props.handleMute} className="material-icons">volume_down</i>
+
+    return (    
         <div id='video-control-ui'>
             <section id='left-control-ui'>
-                <div id='play-pause-hook'>
-                    {props.playButton}
-                </div>
+                <div id='play-pause-hook'> {props.playButton} </div>
 
                 <div id='volume-control-div'>
-                    <i
-                        onClick={e => e.stopPropagation()}
-                        className="material-icons">volume_up</i>
+                    {volumeButton}
 
                     <input id='volume-control' type="range" min="0" max="1" step="0.1" value={props.volumeValue}
                         onMouseDown={e => e.stopPropagation()}
@@ -25,10 +31,7 @@ const DefaultControlUI = props => {
             </section>
 
             <section>
-                <div onClick={props.handleMiniScreen}>
-                    <i className="material-icons">
-                        branding_watermark</i>
-                </div>
+                <div onClick={props.handleMiniScreen}> <i className="material-icons"> branding_watermark</i></div>
                 {
                      props.isFullScreen ?
                         <div onClick={props.normalScreen}>

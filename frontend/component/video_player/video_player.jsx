@@ -53,6 +53,7 @@ class VideoPlayer extends React.Component {
 
         this.maximizeScreen = this.maximizeScreen.bind(this);
         this.normalScreen = this.normalScreen.bind(this);
+        this.handleMute = this.handleMute.bind(this);
     }
 
     componentDidMount() {
@@ -92,7 +93,19 @@ class VideoPlayer extends React.Component {
         this.props.history.push('/');
     }
 
-
+    handleMute(e){
+        e.stopPropagation();
+        if (this.videoElement.muted){
+            this.videoElement.muted = false;
+            this.setState({volumeValue: 1})
+        } else if (parseFloat(this.state.volumeValue) === 0){
+            this.videoElement.volume = 1;
+            this.setState({ volumeValue: 1 })
+        } else {
+            this.videoElement.muted = true;
+            this.setState({ volumeValue: 0 })
+        }
+    }
 
     handleProgress(e) {
         e.preventDefault();
@@ -263,6 +276,7 @@ class VideoPlayer extends React.Component {
                                     maximizeScreen={this.maximizeScreen}
                                     currentTime={this.state.currentTime}
                                     duration={this.state.duration}
+                                    handleMute={this.handleMute}
                                 />
                         }
 
