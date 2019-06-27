@@ -8,7 +8,8 @@ const ProgressBar = props => {
             <div id='buffer-streamed' style={{ width: props.bufferStream + "%" }} />
 
             <input ref={props.seeker} id='seeker-bar' type='range' value={width}
-                onMouseDown={e => e.stopPropagation()}
+                onMouseDown={props.handleSeekingClick}
+                onMouseUp={props.handleSeekingClick}
                 onClick={e => e.stopPropagation()}
                 onChange={props.handleSeeking}
                 step={0.02}

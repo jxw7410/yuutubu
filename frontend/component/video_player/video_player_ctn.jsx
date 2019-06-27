@@ -4,8 +4,7 @@ import VideoPlayer from './video_player';
 import { requestDefaultPlayer, requestMiniPlayer, removeVideoPlayer} from '../../actions/video_player';
 import { withRouter } from 'react-router-dom';
 
-//This works because the only time a video loads if its clicked meaning
-//There should exist only 1 video inside videos
+
 
 const VideoPlayerWrapper = (props) => {
     
@@ -19,6 +18,8 @@ const VideoPlayerWrapper = (props) => {
     )
 }
 
+//This works because the only time a video loads if its clicked meaning
+//There should exist only 1 video inside videos
 const msp = state => {
     return {
         channels: Object.values(state.entities.channels),

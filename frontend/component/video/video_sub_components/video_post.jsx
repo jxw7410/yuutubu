@@ -26,8 +26,7 @@ const VideoPost = props => {
                         <div className='video-posts-row-1-col-2-footer'> </div>
                     </div>
                 </div>
-                <div className='video-posts-row-2'>
-                </div>
+                <div className='video-posts-row-2'></div>
             </div>
         </li>
     )

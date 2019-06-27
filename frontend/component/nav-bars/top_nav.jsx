@@ -38,12 +38,22 @@ class TopNav extends React.Component {
 
     openModal(modal){
         return e =>{
-            //
             e.preventDefault();
             this.props.openModal(modal);
-            }
+        }
     }
 
+    topRightIcon(){
+        return (
+            this.props.isLoggedIn ?
+                <UserModal logOut={this.handleLogout} /> 
+                :
+                <button className='signin-button' onClick={this.handleSignIn} >
+                    <i className="fas fa-user-circle"></i>
+                    SIGN IN 
+                </button> 
+        )
+    }
 
     render() {
         return (
@@ -53,26 +63,15 @@ class TopNav extends React.Component {
                     <span id='nav-bar-icon'><Link to={'/'}><i className="fab fa-youtube"></i><h1>YuuTubu</h1></Link></span>
                 </div>
 
-                <div id="top-nav-sec-2">
-                    <SearchBarContainer />
-                </div>
+                <div id="top-nav-sec-2"> <SearchBarContainer /> </div>
 
                 <div id="top-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
                         <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
-                        
 
                         <SideNavLinks type='top' />
                         
-                        <li>{
-                            this.props.isLoggedIn ? 
-                                <UserModal 
-                                    logOut={this.handleLogout}/>: 
-                            <button className='signin-button' onClick={this.handleSignIn} > 
-                                    <i className="fas fa-user-circle"></i>
-                                    SIGN IN
-                            </button> 
-                        }</li>
+                        <li>{ this.topRightIcon() }</li>
                     </ul>
                 </div>
             </div>

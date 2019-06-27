@@ -18,9 +18,7 @@ const SideNavLinks = (props) => {
             </li>
 
             {
-                props.type === 'main' ?
-                    null
-                    :
+                props.type === 'main' ? null :
                     <li>
                         <a target="_blank" href='https://angel.co/jian-wu-12?public_profile=1'>
                             <i className="fab fa-angellist"></i>

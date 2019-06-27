@@ -32,6 +32,7 @@ class VideoPlayer extends React.Component {
         this.startTime = 0;
         this.videoElement = React.createRef();
         this.seeker = React.createRef();
+        this.seeking = false;
         this.autoPlay = false;
 
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
@@ -44,13 +45,11 @@ class VideoPlayer extends React.Component {
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
         this.handleMiniScreen = this.handleMiniScreen.bind(this);
-    
-
+        this.handleSeekingClick= this.handleSeekingClick.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
         this.handleReplay = this.handleReplay.bind(this);
         this.handleGoBack = this.handleGoBack.bind(this);
-
         this.maximizeScreen = this.maximizeScreen.bind(this);
         this.normalScreen = this.normalScreen.bind(this);
         this.handleMute = this.handleMute.bind(this);
@@ -79,7 +78,8 @@ class VideoPlayer extends React.Component {
 
     handleCanPlayThrough(e) {
         e.preventDefault();
-        this.setState({ bufferStream: 100 });
+        if(!this.seeking)
+            this.setState({ bufferStream: 100 });
     }
 
     handleMiniScreen(e) {
@@ -107,12 +107,13 @@ class VideoPlayer extends React.Component {
 
     handleProgress(e) {
         e.preventDefault();
-
         if (!this.state.duration)
             this.setState({ duration: this.videoElement.current.duration })
 
-        if (e.target.buffered.length > 0)
-            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.current.duration) * 100 })
+        if (e.target.buffered.length > 0){
+            if (!this.seeking)
+                this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.current.duration) * 100 })
+        }
 
     }
 
@@ -233,8 +234,13 @@ class VideoPlayer extends React.Component {
         )
     }
 
+    handleSeekingClick(e){
+        e.stopPropagation();
+        this.seeking = this.seeking ? false : true;
+    }
+
     render() {
-        const miniDescription = this.miniDescription();
+
         return (
             <>
                 <div onClick={this.handlePlay('screen')}
@@ -273,6 +279,7 @@ class VideoPlayer extends React.Component {
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
                             handleSeeking={this.handleSeeking}
+                            handleSeekingClick={this.handleSeekingClick}
                             videoElement={this.videoElement.current}
                             currentTime={this.state.currentTime}
                             duration={this.state.duration}
@@ -297,7 +304,7 @@ class VideoPlayer extends React.Component {
 
                     </div>
                 </div>
-                {miniDescription}
+                {this.miniDescription()}
             </>
         )
     }

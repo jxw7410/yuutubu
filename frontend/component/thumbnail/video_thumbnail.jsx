@@ -35,7 +35,6 @@ class VideoThumbnail extends React.Component {
 
     componentWillUnmount(){
         this._isMounted = false;
-        //this.selectInfo(this.props.type);
     }
 
     selectInfo(type){

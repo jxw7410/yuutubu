@@ -34,8 +34,7 @@ const VideoWrapper = (props) => {
                 props.videoPlayer.type === null ?
                     <Route path='/video/:video_id' 
                         requestDefaultPlayer={props.requestDefaultPlayer}
-                        render={ () => (<FakeVideoRouter requestDefaultPlayer={props.requestDefaultPlayer}/>)} 
-                        />
+                        render={ () => (<FakeVideoRouter requestDefaultPlayer={props.requestDefaultPlayer}/>)} />
                     :
                     <div id={'video-main-ctn' + (props.videoPlayer.type === 'MINI' ? "-mini" : "")}>
                         {

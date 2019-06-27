@@ -84,15 +84,23 @@ class MainSideNav extends React.Component {
                 : null
     }
 
+    getSubscriptions(){
+        return (
+            this.props.login ?
+                <>
+                    <div id='subscription-tag'> SUBSCRIPTIONS </div>
+                    <ul id='subscription-list'>
+                        {this.getSubs()}
+                        {this.getReadMore()}
+                    </ul>
+                </> : null
+        )
+    }
 
     render() {
-        const subs = this.getSubs();
-        const typeTwo = this.getTypeTwo();
-        const readMore = this.getReadMore();
-
         return (
             <>
-                {typeTwo}
+                {this.getTypeTwo()}
                 <div id='main-side-nav'>
                     <ul id='main-side-nav-ul'>
                         <li
@@ -114,16 +122,7 @@ class MainSideNav extends React.Component {
                         </li>
                     </ul>
 
-                    {
-                        this.props.login ?
-                            <>
-                                <div id='subscription-tag'> SUBSCRIPTIONS </div>
-                                <ul id='subscription-list'>
-                                    {subs}
-                                    {readMore}
-                                </ul>
-                            </> : null
-                    }
+                    {this.getSubscriptions()}
                 </div>
             </>
 

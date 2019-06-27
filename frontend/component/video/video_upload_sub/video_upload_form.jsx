@@ -1,6 +1,5 @@
 import React from 'react';
 import PreviewVideo from './preview_video';
-//shady tactc nooooo
 
 class VideoUploadForm extends React.Component {
     constructor(props) {
@@ -46,51 +45,92 @@ class VideoUploadForm extends React.Component {
         }
     }
 
-    render() {
+    previewVideo() {
         const previewUI = this.getPreviewUi();
+        return (
+            this.props.fileUrl ?
+                <div id='uploaded-vid-container'>
+                    <video id='uploaded-vid-preview'
+                        ref={this.vid}
+                        onEnded={this.handleEnded}>
+                        <source src={this.props.fileUrl} type='video/mp4' />
+                    </video>
+                    {previewUI}
+                </div>
+                : <div id='loading-video'><div className='spinner'/> </div>
+        )
+    }
 
+    publishButton() {
+        if (this.props.uploading)
+            return <div id='uploading-spinner'> <div className='spinner' /></div>
+        else
+            if (this.props.doneUploading)
+                return <h1>Video Upload Successful!</h1>
+            else {
+                return this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description ?
+                    <button id='submit-button-enabled' onClick={this.props.handleSubmit}>
+                        Publish</button>
+                    :
+                    <button id='submit-button-disabled' disabled>Publish</button>
+
+            }
+    }
+
+    videoThumbnail() {
+        if (this.props.fileUrl)
+            return (
+                this.props.thumbnailUrl ?
+                    <div id='thumbnail-img'>  <img src={this.props.thumbnailUrl} /></div>
+                    :
+                    <>
+                        <PreviewVideo
+                            fileUrl={this.props.fileUrl}
+                            handleThumbnail={this.props.handleThumbnail}/>
+                        <div id='loading-thumbnail'> <div className='spinner' /> </div>
+                    </>
+            )
+        else
+            return <div id='loading-thumbnail'> <div className='spinner'></div></div>
+    }
+
+    uploadButton(){
+        return (
+            this.props.fileUrl && this.props.thumbnailUrl ?
+                <label id='label-upload-btn'>
+                    <input onChange={this.props.handleThumbnailUpload} 
+                    type='file' 
+                    accept="image/*" />Upload Own Thumbnail
+                </label> 
+                :
+                <label id='label-upload-btn-disabled'>
+                    <input disabled type='file' />Upload Own Thumbnail
+                </label>
+        )
+    }
+
+    statusSpan(){
+        return (
+            this.props.fileUrl && this.props.thumbnailUrl ?
+                <span style={{ color: 'green' }}>Ready</span> 
+                :
+                <span style={{ color: 'red' }}>Pending</span>
+        )
+    }
+
+
+    render() {
         return (
             <form id='video-submit-form'>
                 <div id='video-submit-form-col-1'>
-                    <div>{
-                        this.props.fileUrl ?
-                            <div id='uploaded-vid-container'>
-                                <video id='uploaded-vid-preview'
-                                    ref={this.vid}
-                                    onEnded={this.handleEnded}>
-                                    <source src={this.props.fileUrl} type='video/mp4' /></video>
-                                {previewUI}
-                            </div>
-                            : <div id='loading-video'><div className='spinner' /> </div>
-                    }
-
-                        <span>
-                            Video Status: {
-                                this.props.fileUrl && this.props.thumbnailUrl ?
-                                    <span style={{ color: 'green' }}>Ready</span> : <span style={{ color: 'red' }}>Pending</span>
-                            }
-                        </span>
+                    <div>
+                        {this.previewVideo()}
+                        <span> Video Status: {this.statusSpan()} </span>
                     </div>
                 </div>
 
                 <div id='video-submit-form-col-2'>
-                    <div id='video-submit-button-ctn'>
-
-                        {
-                            this.props.uploading ?
-                                <div id='uploading-spinner'> <div className='spinner' /></div>
-                                :
-
-                                this.props.doneUploading ?
-                                    <h1>Video Upload Successful!</h1>
-                                    :
-                                    this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description ?
-                                        <button id='submit-button-enabled'
-                                            onClick={this.props.handleSubmit}>Publish</button>
-                                        :
-                                        <button id='submit-button-disabled' disabled>Publish</button>
-                        }</div>
-
+                    <div id='video-submit-button-ctn'> {this.publishButton()}</div>
                     <div id='video-submit-form-lower-section'>
                         <input onChange={this.props.handleTypeEvent('title')} type='text' placeholder='Title (required)' />
 
@@ -101,30 +141,8 @@ class VideoUploadForm extends React.Component {
                             style={{ resize: "none" }} />
 
                         <div id='thumbnail-section'>
-                            <div>
-                                Video Thumbnail:{
-                                    this.props.fileUrl ?
-                                        this.props.thumbnailUrl ?
-                                            <div id='thumbnail-img'>  <img src={this.props.thumbnailUrl} /></div>
-                                            :
-                                            <>
-                                                <PreviewVideo
-                                                    fileUrl={this.props.fileUrl}
-                                                    handleThumbnail={this.props.handleThumbnail}
-                                                />
-                                                <div id='loading-thumbnail'> <div className='spinner' /> </div>
-                                            </> :
-                                        <div id='loading-thumbnail'> <div className='spinner'></div></div>
-                                }
-                            </div>
-
-                            <div id='upload-thumbnail-ctn'>
-                                {
-                                    this.props.fileUrl && this.props.thumbnailUrl ?
-                                        <label id='label-upload-btn'><input onChange={this.props.handleThumbnailUpload} type='file' accept="image/*" />Upload Own Thumbnail</label>:
-                                        <label id='label-upload-btn-disabled'><input disabled type='file' />Upload Own Thumbnail</label>
-                                }
-                            </div>
+                            <div> Video Thumbnail:{this.videoThumbnail()} </div>
+                            <div id='upload-thumbnail-ctn'> {this.uploadButton()}</div>
                         </div>
                     </div>
                 </div>

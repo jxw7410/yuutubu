@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { closeModal } from '../../actions/modal_action';
 import { sortBy } from 'lodash'
 import { filterSearchModalResults, filterByWords } from '../../util/selectors';
 import SearchModalListItem from './search_modal_list_item';

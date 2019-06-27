@@ -20,9 +20,7 @@ const VideoInfoBody = props => {
                     <div>
                         {   
                             props.channel.user_id === parseInt(props.video.id) ? null :
-                                <SubscribeButton 
-                                    channel={props.channel}
-                                />
+                                <SubscribeButton channel={props.channel} />
                         }
                     </div>
                 </div>
@@ -30,9 +28,7 @@ const VideoInfoBody = props => {
 
             <section>
                 <div></div>
-                <div id="video-description">
-                    {props.video.description}
-                </div>
+                <div id="video-description"> {props.video.description} </div>
             </section>
         </div>
     )
