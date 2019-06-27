@@ -30,6 +30,7 @@ class LoginFormItem extends React.Component {
             focus: false,
         }
 
+        this.authElement = React.createRef();
         this.timeOut;
         this.didUpdate = false;
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,10 +44,10 @@ class LoginFormItem extends React.Component {
         this.didUpdate = false; 
         this.props.removeNavBars();
         this.props.removeVideoPlayer();
-        document.getElementById('auth-input-element-' + this.props.type).placeholder = 
+        this.authElement.current.placeholder = 
             this.props.type === 'email' ? 'Email' : 'Enter Your password';
             
-        document.getElementById('auth-input-element-'+ this.props.type).focus();
+        this.authElement.current.focus();
     }
 
     componentWillUnmount(){
@@ -59,7 +60,7 @@ class LoginFormItem extends React.Component {
         if (!this.didUpdate) {
             if (this.props.errors.length > 0) {
                 this.didUpdate = true;
-                document.getElementById('auth-input-element-'+this.props.type).focus();
+                this.authElement.current.focus();
             }
         }
     }
@@ -133,6 +134,7 @@ class LoginFormItem extends React.Component {
 
                         <input
                             id={"auth-input-element-"+field}
+                            ref={this.authElement}
                             onBlur={this.handleUnfocus(field === 'email' ? 'Email' : 'Enter Your password')}
                             onFocus={this.handleFocus}
                             onChange={this.textChangeEvent(field)}

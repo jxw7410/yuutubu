@@ -10,22 +10,22 @@ class VideoUploadForm extends React.Component {
             videoStatus: 'PAUSE',
         }
 
+        this.vid = React.createRef();
         this.handlePlay = this.handlePlay.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
     }
 
     handlePlay(e) {
         e.preventDefault();
-        const vid = document.getElementById('uploaded-vid-preview');
         if (this.state.videoStatus === 'PAUSE') {
-            vid.play();
+            this.vid.current.play();
             this.setState({ videoStatus: 'PLAY' })
         } else if (this.state.videoStatus === 'PLAY') {
-            vid.pause();
+            this.vid.current.pause();
             this.setState({ videoStatus: 'PAUSE' })
         } else if (this.state.videoStatus === 'END') {
-            vid.currentTime = 0;
-            vid.play();
+            this.vid.current.currentTime = 0;
+            this.vid.current.play();
             this.setState({ videoStatus: 'PLAY' })
         }
     }
@@ -56,6 +56,7 @@ class VideoUploadForm extends React.Component {
                         this.props.fileUrl ?
                             <div id='uploaded-vid-container'>
                                 <video id='uploaded-vid-preview'
+                                    ref={this.vid}
                                     onEnded={this.handleEnded}>
                                     <source src={this.props.fileUrl} type='video/mp4' /></video>
                                 {previewUI}

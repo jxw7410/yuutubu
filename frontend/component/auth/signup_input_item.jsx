@@ -40,7 +40,7 @@ const SignUpInputItem = props => {
 
 
     return (
-        <label className={inputLabelName}>
+        <label ref={props.reference} className={inputLabelName}>
             <AnimatePlaceHolderText
                 field={field}
                 value={value}

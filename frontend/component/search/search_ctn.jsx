@@ -6,10 +6,11 @@ import { removeVideoPlayer } from '../../actions/video_player';
 import { sideBarOne } from '../../actions/nav_bar_action';
 
 
-const msp = (store,props) => {
+const msp = (state,props) => {
     return {
-        videos: Object.values(store.entities.videos),
-        sideNav: store.ui.navBars
+        videos: Object.values(state.entities.videos),
+        sideNav: state.ui.navBars,
+        videoPlayer: state.ui.videoPlayer
     }
 } 
 

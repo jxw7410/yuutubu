@@ -5,29 +5,27 @@ class PreviewVideo extends React.Component {
     constructor(props) {
         super(props)
         this.capture = this.capture.bind(this)
-
+        this.canvas = React.createRef();
+        this.video = React.createRef();
     }
 
 
     componentDidMount() {
-        const canvas = document.getElementById('capture-canvas');
-        const video = document.getElementById('preview-video');
-        
         setTimeout(() => {
-            this.capture(canvas, video)
+            this.capture()
         }, 1500);
-
 
     }
 
 
-    capture(canvas, video) {
-        const duration = video.duration;
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    capture() {
+        const duration = this.video.current.duration;
+        this.canvas.current.width = this.video.current.videoWidth;
+        this.canvas.current.height = this.video.current.videoHeight;
+        this.canvas.current.getContext('2d')
+            .drawImage(this.video.current, 0, 0, this.video.current.videoWidth, this.video.current.videoHeight);
 
-        canvas.toBlob(blob => {
+        this.canvas.current.toBlob(blob => {
             const fileReader = new FileReader();
             fileReader.onloadend = () => {
                 this.props.handleThumbnail(blob, fileReader.result, duration)
@@ -41,10 +39,10 @@ class PreviewVideo extends React.Component {
     render() {
         return (
             <>
-                <video id='preview-video' muted >
+                <video ref={this.video} id='preview-video' muted >
                     <source src={this.props.fileUrl} type="video/mp4" />
                 </video>
-                <canvas id="capture-canvas" />
+                <canvas  ref={this.canvas} id="capture-canvas" />
             </>
         )
     }

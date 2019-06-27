@@ -94,8 +94,6 @@ class VideoMainBody extends React.Component {
 
     handleKeyPressEvent(e){
         if (e.key ==='Enter'){ 
-            // const rows = this.state.rows + 1;
-            // this.setState({rows})
         }
     }
 
@@ -113,21 +111,34 @@ class VideoMainBody extends React.Component {
         }
     }
 
-    render() {
-        //
-    
+    posts(){
         const posts = this.props.posts.map(post => {
             return (
-                <VideoPost 
-                    key = {post.id}
-                    post = {post}
-                    currentUser = {this.props.currentUser}
+                <VideoPost
+                    key={post.id}
+                    post={post}
+                    currentUser={this.props.currentUser}
                     handleDelete={this.handleDelete}
                 />
             )
         })
+        return posts
+    }
 
+    displayButtons(){
+        return (
+            this.state.displayFormButton ?
+                <div id='user-post-form-buttons'>
+                    <button onClick={this.handleCancel}>Cancel</button>
+                    <button onClick={this.handleSubmit}
+                        className={this.state.postBody.length > 0 ? null : 'button-disabled'}
+                        disabled={this.state.postBody.length > 0 ? null : 'disabled'}
+                    >Comment</button>
+                </div> : null
+        )
+    }
 
+    render() {
         return (
             <div id='video-post-body'>
                 <div id='user-post-form-ctn'>
@@ -147,22 +158,11 @@ class VideoMainBody extends React.Component {
                         <div id="textarea-border">
                             <div id={"expander" + (this.state.border ? "-active" : "")} />
                         </div>
-                        {
-                            this.state.displayFormButton ?
-                                <div id='user-post-form-buttons'>
-                                    <button onClick={this.handleCancel}>Cancel</button>
-                                    <button onClick={this.handleSubmit}
-                                        className={this.state.postBody.length > 0 ? null : 'button-disabled'}
-                                        disabled={this.state.postBody.length > 0 ? null : 'disabled'}
-                                        >Comment</button>
-                                </div> : null
-
-                        }
-
+                        {this.displayButtons()}
                     </form>
                 </div>
                 <ul className='list-of-posts'>
-                    {posts}
+                    {this.posts()}
                 </ul>
             </div>
         )

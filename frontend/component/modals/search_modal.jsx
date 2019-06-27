@@ -1,37 +1,32 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_action';
-import { sortBy} from 'lodash'
+import { sortBy } from 'lodash'
 import { filterSearchModalResults, filterByWords } from '../../util/selectors';
 import SearchModalListItem from './search_modal_list_item';
 
 
 
-class SearchModal extends React.Component{
-    constructor(props){
+class SearchModal extends React.Component {
+    constructor(props) {
         super(props);
         this.textDidChange = false;
         this.searchPhrase = "";
     }
 
-    componentDidUpdate(prevProps){
-        if (prevProps.fetching === true && this.props.fetching === false){
+    componentDidUpdate(prevProps) {
+        if (prevProps.fetching === true && this.props.fetching === false) {
             this.textDidChange = true;
         }
     }
- 
-    render(){
-        const extension = this.props.openModal && this.props.searches.length > 0 ? "-active" : "";
-        if(this.textDidChange && !this.props.fetching) {
-            this.textDidChange = false;
-            this.searchPhrase = this.props.word;
-        }
+
+
+    searches() {
         const searches = filterByWords(this.searchPhrase, this.props.searches);
-        const listItems = searches.map( (obj, index) => {
+        const listItems = searches.map((obj, index) => {
             let initialString;
             let remenantString;
-            //
-            if (obj.category){
+            if (obj.category) {
                 initialString = obj.context.slice(0, this.props.inputTextLength);
                 remenantString = obj.context.slice(this.props.inputTextLength);
             } else {
@@ -47,25 +42,37 @@ class SearchModal extends React.Component{
                 initialString={initialString}
                 remenantString={remenantString}
                 selected={this.props.selected}
-                _class = {_class1 + _class2}
+                _class={_class1 + _class2}
                 updateIndex={this.props.updateIndex}
                 updateText={this.props.updateText}
                 closeModal={this.props.closeModal}
             />
 
         });
+
+        return listItems;
+    }
+
+    render() {
+        const extension = this.props.openModal && this.props.searches.length > 0 ? "-active" : "";
+        if (this.textDidChange && !this.props.fetching) {
+            this.textDidChange = false;
+            this.searchPhrase = this.props.word;
+        }
+
+        const listItems = this.searches();
+
         return (
             <>
-            {
-                <div id= {'search-modal' + extension}
-                    onMouseEnter={ e => this.props.updateFocus(true)}
-                    onMouseLeave={ e => this.props.updateFocus(false)}
-                >
-                    <ul id='search-modal-list'>
-                        { listItems }
-                    </ul>
-                </div> 
-            }
+                {
+                    listItems.length > 0 ? 
+                    <div id={'search-modal' + extension}
+                        onMouseEnter={e => this.props.updateFocus(true)}
+                        onMouseLeave={e => this.props.updateFocus(false)}>
+                        
+                            <ul id='search-modal-list'> {listItems} </ul>
+                    </div > : null
+                }
             </>
         )
     }

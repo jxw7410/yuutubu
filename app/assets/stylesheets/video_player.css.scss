@@ -28,7 +28,7 @@
 }
 
 #progress-bar{
-    width: 96%;
+    width: 97.5%;
     height: 3px;
     background: transparent;
     position: relative;
@@ -40,7 +40,7 @@
 }
 
 #progress-bar:hover{
-    height: 4px;
+    height: 5px;
 }
 
 
@@ -87,16 +87,17 @@
     appearance: none;
     color: red;
     background:red;
-    height: 12px;
-    width: 12px;
+    height: 14px;
+    width: 14px;
     border-radius: 50%;
+    margin-left: -2px;
 }
 
 #seeker-bar::-moz-range-thumb{
     color: red;
     background: red;
-    height:12px;
-    width: 12px;
+    height:14px;
+    width: 14px;
     border-radius: 50%;
 }
 
@@ -222,10 +223,8 @@
 }
 
 
-
-
 #video-control-ui > section{
-    padding: 0 3%;
+    padding: 0 2%;
 }
 
 #video-control-ui > section:first-child{

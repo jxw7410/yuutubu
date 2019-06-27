@@ -5,6 +5,7 @@ import VideoThumbnail from '../thumbnail/video_thumbnail';
 class Search extends React.Component {
     constructor(props) {
         super(props);
+        this.searchVideoListCtn = React.createRef();
         this.offset = 0;
         this.limit = 10;
         this.scrollPercentage = 0;
@@ -16,7 +17,9 @@ class Search extends React.Component {
 
     componentDidMount() {
         this.props.clearVideos();
-        this.props.removeVideoPlayer();
+        if (this.props.videoPlayer.type !== 'MINI')
+            this.props.removeVideoPlayer();
+
         this.props.fetchSideBarOne();
         this.props.updateSearchHistory(this.props.match.params).then(
             this.props.requestSearchVideos(this.props.match.params, this.limit, this.offset)
@@ -50,7 +53,7 @@ class Search extends React.Component {
     handleScroll(e) {
         e.preventDefault();
         if (!this.fetching) {
-            let scrollHeight = document.getElementById('search-video-list-ctn').scrollHeight;
+            let scrollHeight = this.searchVideoListCtn.current.scrollHeight;
             if (document.querySelector('html').scrollTop > (scrollHeight * this.scrollPercentage)) {
                 this.fetching = true;
                 this.props.requestSearchVideos(this.props.match.params, this.limit, this.offset)
@@ -88,7 +91,7 @@ class Search extends React.Component {
 
         return (
             <div id={`main-content-ctn${this.props.sideNav.toggled ? "-toggled" : ""}`}>
-                <div id='search-video-list-ctn'>
+                <div id='search-video-list-ctn' ref={this.searchVideoListCtn}>
                     <ul id='search-video-list'>
                         {videos}
                     </ul>

@@ -7,7 +7,7 @@ const ProgressBar = props => {
             <div id='user-streamed' style={{ width: width + '%'}} />
             <div id='buffer-streamed' style={{ width: props.bufferStream + "%" }} />
 
-            <input id='seeker-bar' type='range' value={width}
+            <input ref={props.seeker} id='seeker-bar' type='range' value={width}
                 onMouseDown={e => e.stopPropagation()}
                 onClick={e => e.stopPropagation()}
                 onChange={props.handleSeeking}

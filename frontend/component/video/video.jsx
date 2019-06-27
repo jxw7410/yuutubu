@@ -1,7 +1,6 @@
 import React from 'react';
 import VideoInfoHeader from './video_sub_components/video_info_header';
 import VideoMainBody from './video_main_body';
-import { throws } from 'assert';
 
 class Video extends React.Component {
     constructor(props) {

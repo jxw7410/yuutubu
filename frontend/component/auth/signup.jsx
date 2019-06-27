@@ -34,6 +34,9 @@ class SignUpForm extends React.Component {
             emailFocus: "Your Email Address"
         }
 
+        this.userName = React.createRef();
+        this.email = React.createRef();
+        this.password = React.createRef();
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.textChangeEvent = this.textChangeEvent.bind(this);
@@ -46,7 +49,7 @@ class SignUpForm extends React.Component {
     componentDidMount() {
         this.props.removeNavBars();
         this.props.removeVideoPlayer();
-        document.getElementById('Username').focus();
+        this.userName.current.focus();
         this.mounted = true;
     }
 
@@ -55,11 +58,11 @@ class SignUpForm extends React.Component {
             if (!isEmpty(this.props.errors)) {
                 this.didUpdate = true;
                 if (this.props.errors.Username) {
-                    document.getElementById('Username').focus();
+                    this.userName.current.focus();
                 } else if (this.props.errors.Email) {
-                    document.getElementById('Email').focus();
+                    this.email.current.focus();
                 } else if (this.props.errors.Password) {
-                    document.getElementById('Password').focus();
+                    this.password.current.focus();
                 }
             }
         }
@@ -133,6 +136,7 @@ class SignUpForm extends React.Component {
 
                             <SignUpInputitem
                                 id="Username"
+                                reference={this.userName}
                                 field={this.map.userNameFocus}
                                 value={this.state.username}
                                 focus={this.state.userNameFocus}
@@ -149,6 +153,7 @@ class SignUpForm extends React.Component {
 
                             <SignUpInputitem
                                 id={"Email"}
+                                reference={this.email}
                                 field={this.map.emailFocus}
                                 value={this.state.email}
                                 focus={this.state.emailFocus}
@@ -164,6 +169,7 @@ class SignUpForm extends React.Component {
 
                             <SignUpInputitem
                                 id={"Password"}
+                                reference={this.password}
                                 field={this.map.passwordFocus}
                                 value={this.state.password}
                                 focus={this.state.passwordFocus}

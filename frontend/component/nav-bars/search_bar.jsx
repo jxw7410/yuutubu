@@ -2,7 +2,6 @@ import React from 'react';
 import SearchModal from '../modals/search_modal';
 import { withRouter } from 'react-router-dom';
 import { filterByWords } from '../../util/selectors'
-import { throws } from 'assert';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -16,6 +15,8 @@ class SearchBar extends React.Component {
             modalFocus: false,
         }
 
+    
+        this.searchBar = React.createRef();
         this.handleFocus = this.handleFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -31,7 +32,7 @@ class SearchBar extends React.Component {
     closeModal() {
         setTimeout( () => {
             this.setState({ openModal: false , modalFocus: false})
-            document.getElementById('search-bar-input').blur()
+            this.searchBar.current.blur()
         }, 100)
     }
 
@@ -117,6 +118,9 @@ class SearchBar extends React.Component {
             else 
                 e.target.focus();
         }
+
+        if(!this.state.inputText.trim())
+            this.setState({ inputText: ""})
     }
 
 
@@ -133,6 +137,7 @@ class SearchBar extends React.Component {
             <form id='search-bar' onSubmit={this.handleSubmit}>
                 <div id='search-bar-input-ctn'>
                     <input id='search-bar-input'
+                        ref={this.searchBar}
                         type='text'
                         placeholder='Search'
                         autoComplete='off'

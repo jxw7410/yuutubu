@@ -30,8 +30,8 @@ class VideoPlayer extends React.Component {
         this.minDuration = null;
         this.viewUpdated = false;
         this.startTime = 0;
-        this.videoElement = null;
-        this.seeker = null;
+        this.videoElement = React.createRef();
+        this.seeker = React.createRef();
         this.autoPlay = false;
 
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
@@ -56,10 +56,8 @@ class VideoPlayer extends React.Component {
         this.handleMute = this.handleMute.bind(this);
     }
 
-    componentDidMount() {
-        this.videoElement = document.getElementById("video-player");
-        this.videoElement.muted = false;
-        this.seeker = document.getElementById("seeker-bar");
+    componentDidMount() {  
+        this.videoElement.current.muted = false;
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
     }
 
@@ -95,34 +93,35 @@ class VideoPlayer extends React.Component {
 
     handleMute(e){
         e.stopPropagation();
-        if (this.videoElement.muted){
-            this.videoElement.muted = false;
+        if (this.videoElement.current.muted){
+            this.videoElement.current.muted = false;
             this.setState({volumeValue: 1})
         } else if (parseFloat(this.state.volumeValue) === 0){
-            this.videoElement.volume = 1;
+            this.videoElement.current.volume = 1;
             this.setState({ volumeValue: 1 })
         } else {
-            this.videoElement.muted = true;
+            this.videoElement.current.muted = true;
             this.setState({ volumeValue: 0 })
         }
     }
 
     handleProgress(e) {
         e.preventDefault();
+
         if (!this.state.duration)
-            this.setState({ duration: this.videoElement.duration })
+            this.setState({ duration: this.videoElement.current.duration })
 
         if (e.target.buffered.length > 0)
-            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.duration) * 100 })
+            this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.current.duration) * 100 })
 
     }
 
     handleSeeking(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.videoElement.pause();
-        const time = this.videoElement.duration * (e.target.value / 100);
-        this.videoElement.currentTime = time;
+        this.videoElement.current.pause();
+        const time = this.videoElement.current.duration * (e.target.value / 100);
+        this.videoElement.current.currentTime = time;
         this.setState({ videoStatus: 'PAUSE' })
     }
 
@@ -130,16 +129,19 @@ class VideoPlayer extends React.Component {
     handleTimeUpdate(e) {
         e.preventDefault();
         if (!this.viewUpdated) {
-            if ((this.videoElement.currentTime - this.startTime) > this.startTime) {
+            if ((this.videoElement.current.currentTime - this.startTime) > this.startTime) {
                 this.viewUpdated = true;
                 updateView(this.props.video.id);
             }
         }
 
 
-        const currentTime = this.videoElement.currentTime;
-        const value = (currentTime / this.videoElement.duration) * 100;
-        this.setState({ userStream: value, currentTime })
+        const currentTime = this.videoElement.current.currentTime;
+        const value = (currentTime / this.videoElement.current.duration) * 100;
+        if (!this.state.duration)
+            this.setState({ duration: this.videoElement.current.duration, userStream: value, currentTime })
+        else 
+            this.setState({ userStream: value, currentTime })
     }
 
 
@@ -157,32 +159,31 @@ class VideoPlayer extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         
-        if (this.videoElement.muted)
-            this.videoElement.muted = false
+        if (this.videoElement.current.muted)
+            this.videoElement.current.muted = false
         
-        this.videoElement.volume = e.target.value;
+        this.videoElement.current.volume = e.target.value;
         this.setState({ volumeValue: e.target.value })
     }
 
     handleReplay(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.videoElement.currentTime = 0;
-        this.videoElement.play();
+        this.videoElement.current.currentTime = 0;
+        this.videoElement.current.play();
     }
 
 
     handlePlay(field) {
-
         return (e) => {
             e.stopPropagation();
             if (!field) {
-                this.videoElement.play();
+                this.videoElement.current.play();
             } else {
                 if (this.state.videoStatus === 'PLAY')
-                    this.videoElement.pause();
+                    this.videoElement.current.pause();
                 else if (this.state.videoStatus === 'PAUSE')
-                    this.videoElement.play();
+                    this.videoElement.current.play();
 
             }
         }
@@ -190,12 +191,12 @@ class VideoPlayer extends React.Component {
 
     handlePause(e) {
         e.stopPropagation();
-        this.videoElement.pause();
+        this.videoElement.current.pause();
     }
 
     handlePlayStatus(e) {
         if (!this.autoPlay) {
-            $(document).ready(() => e.currentTarget.muted = false);
+            e.currentTarget.muted = false
             this.autoPlay = true;
         }
         this.setState({ videoStatus: 'PLAY' })
@@ -222,18 +223,27 @@ class VideoPlayer extends React.Component {
         }
     }
 
+    miniDescription(){
+        return (
+            this.props.videoPlayer.type === 'MINI' ?
+                <div id='video-player-descriptions'>
+                    <span>{this.props.videoPlayer.video.title}</span>
+                    <span>{this.state.channelName}</span>
+                </div> : null
+        )
+    }
+
     render() {
+        const miniDescription = this.miniDescription();
         return (
             <>
                 <div onClick={this.handlePlay('screen')}
-                    id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")
-                    }>
+                    id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
 
-                    {
-                        this.state.videoStatus === 'REPLAY' ?
-                            <div id="video-dark-screen" /> : null
-                    }
+                    { this.state.videoStatus === 'REPLAY' ?  <div id="video-dark-screen" /> : null}
+
                     <video id="video-player"
+                        ref={this.videoElement}
                         muted
                         autoPlay
                         onTimeUpdate={this.handleTimeUpdate}
@@ -259,10 +269,11 @@ class VideoPlayer extends React.Component {
                         }
 
                         <ProgressBar
+                            seeker = {this.seeker}
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
                             handleSeeking={this.handleSeeking}
-                            videoElement={this.videoElement}
+                            videoElement={this.videoElement.current}
                             currentTime={this.state.currentTime}
                             duration={this.state.duration}
                         />
@@ -286,13 +297,7 @@ class VideoPlayer extends React.Component {
 
                     </div>
                 </div>
-                {
-                    this.props.videoPlayer.type === 'MINI' ?
-                        <div id='video-player-descriptions'>
-                            <span>{this.props.videoPlayer.video.title}</span>
-                            <span>{this.state.channelName}</span>
-                        </div> : null
-                }
+                {miniDescription}
             </>
         )
     }
