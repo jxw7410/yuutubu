@@ -34,6 +34,11 @@ class UploadVideo extends React.Component {
         this.props.removeVideoPlayer();
     }
 
+
+    componentWillUnmount(){
+        this.props.updatePrevPath(this.props.match.path);
+    }
+    
     handleToggled(e) {
         e.preventDefault();
     }

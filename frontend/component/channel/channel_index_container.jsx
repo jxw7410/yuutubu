@@ -3,6 +3,8 @@ import ChannelIndex from './channel_index';
 import { fetchChannels, clearChannels } from '../../actions/channel/channel_action';
 import { sideBarOne } from '../../actions/nav_bar_action';
 import { removeVideoPlayer } from '../../actions/video_player';
+import { requestUpdatePrevPath } from '../../actions/prev_path_action';
+
 const msp = state => {
     return {
         channels: Object.values(state.entities.channels),
@@ -18,7 +20,8 @@ const mdp = dispatch => {
         fetchChannels: (offset, num, user_id) => dispatch( fetchChannels(offset, num, user_id)),
         clearChannels: () => dispatch( clearChannels() ),
         sideBarOne: () => dispatch( sideBarOne() ),
-        removeVideoPlayer: () => dispatch( removeVideoPlayer() ),
+        removeVideoPlayer: () => dispatch( removeVideoPlayer()),
+        updatePrevPath: path => dispatch( requestUpdatePrevPath(path))
     }
 }
 

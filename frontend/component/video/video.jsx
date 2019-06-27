@@ -41,6 +41,10 @@ class Video extends React.Component {
         this.mounted = false;
     }
 
+    componentWillUnmount(){
+        this.props.updatePrevPath(this.props.match.path)
+    }
+
     render() {
         return (
             <>

@@ -24,6 +24,9 @@ class Channel extends React.Component {
             this.props.removeVideoPlayer();
     }
 
+    componentWillUnmount(){
+        this.props.updatePrevPath(this.props.match.path)
+    }
 
 
     componentDidUpdate() {

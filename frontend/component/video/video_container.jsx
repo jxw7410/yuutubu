@@ -4,6 +4,7 @@ import {fetchChannel} from '../../actions/channel/channel_action'
 import { sideBarTwo } from '../../actions/nav_bar_action';
 import { requestDefaultPlayer, requestSetVideo } from '../../actions/video_player';
 import { fetchVideo } from '../../actions/video/video_action';
+import { requestUpdatePrevPath } from '../../actions/prev_path_action';
 
 
 const msp = (state, props) => {
@@ -21,7 +22,8 @@ const mdp = dispatch => {
         fetchChannel: channel_id => dispatch(fetchChannel(channel_id)),
         sideBarTwo: () => dispatch(sideBarTwo()),
         requestDefaultPlayer: () => dispatch(requestDefaultPlayer()),
-        requestSetVideo: video => dispatch( requestSetVideo(video) )
+        requestSetVideo: video => dispatch( requestSetVideo(video) ),
+        updatePrevPath: path => dispatch( requestUpdatePrevPath(path)),
     }
 }
 

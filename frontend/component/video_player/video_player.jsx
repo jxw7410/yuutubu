@@ -87,8 +87,11 @@ class VideoPlayer extends React.Component {
         this.props.requestMiniPlayer();
         const previousURL = `/video/${this.props.videoPlayer.video.id}`;
         const channelName = this.props.channels[0].name;
-        this.setState({previousURL, channelName});
-        this.props.history.push('/');
+        this.setState({previousURL, channelName, fullScreen: false});
+        if (!this.props.prevPath || this.props.prevPath === '/video/:video_id')
+            this.props.history.push('/');
+        else 
+            this.props.history.goBack();
     }
 
     handleMute(e){

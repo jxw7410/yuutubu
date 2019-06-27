@@ -3,6 +3,7 @@ import { sideBarOne } from '../../actions/nav_bar_action';
 import { removeVideoPlayer } from '../../actions/video_player';
 
 import Channel from './channel';
+import { requestUpdatePrevPath } from '../../actions/prev_path_action';
 
 
 const msp = (state, props) => {
@@ -20,7 +21,8 @@ const msp = (state, props) => {
 const mdp = dispatch => {
     return {
         sideBarOne: () => dispatch(sideBarOne()),
-        removeVideoPlayer: () => dispatch( removeVideoPlayer())
+        removeVideoPlayer: () => dispatch( removeVideoPlayer()),
+        updatePrevPath: path => dispatch(requestUpdatePrevPath(path))
     }
 }
 

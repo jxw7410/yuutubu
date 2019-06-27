@@ -24,7 +24,8 @@ const msp = state => {
     return {
         channels: Object.values(state.entities.channels),
         video: state.ui.videoPlayer.video,
-        videoPlayer: state.ui.videoPlayer
+        videoPlayer: state.ui.videoPlayer,
+        prevPath: state.ui.prevPath.path,
     }
 }
 

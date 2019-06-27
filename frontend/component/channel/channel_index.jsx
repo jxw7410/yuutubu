@@ -34,6 +34,7 @@ class ChannelIndex extends React.Component {
 
     componentWillUnmount() {
         document.removeEventListener('scroll', this.handleScroll);
+        this.props.updatePrevPath(this.props.match.path);
     }
 
     handleScroll(e) {

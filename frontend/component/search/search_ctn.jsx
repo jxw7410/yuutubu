@@ -4,6 +4,7 @@ import { updateSearchHistory, requestSearchVideos } from '../../actions/search/s
 import { clearChannelVideos } from '../../actions/video/video_action';
 import { removeVideoPlayer } from '../../actions/video_player';
 import { sideBarOne } from '../../actions/nav_bar_action';
+import { requestUpdatePrevPath } from '../../actions/prev_path_action';
 
 
 const msp = (state,props) => {
@@ -22,6 +23,7 @@ const mdp = dispatch => {
         clearVideos: () => dispatch(clearChannelVideos()),
         fetchSideBarOne: () => dispatch(sideBarOne()),
         removeVideoPlayer: () => dispatch( removeVideoPlayer()),
+        updatePrevPath: path => dispatch(requestUpdatePrevPath(path))
     }
 }
 

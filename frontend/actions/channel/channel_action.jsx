@@ -22,16 +22,12 @@ export const clearChannels = () => ({
 
 export const fetchChannel = channel_id => dispatch => {
     return ChannelAPI.requestChannel(channel_id)
-        .then(  channel => dispatch(receiveChannel(channel)),
-                () => { console.log( "Channel does not exist.")}
-        );
+        .then(  channel => dispatch(receiveChannel(channel)));
 };
 
 export const fetchChannels = (offset, limit, user_id) => dispatch => {
     return ChannelAPI.requestChannels(offset, limit, user_id)
-        .then( channels => {
-            dispatch(receiveChannels(channels)
-        )});
+        .then( channels => dispatch(receiveChannels(channels)));
 }
 
 
