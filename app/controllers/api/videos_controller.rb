@@ -25,6 +25,7 @@ class Api::VideosController < ApplicationController
             .limit(params[:limit])
             .offset(params[:offset])
             .with_attached_thumbnail
+            
         if @videos
             render :index_partial
         else 

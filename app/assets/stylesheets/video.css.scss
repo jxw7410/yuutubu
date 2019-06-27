@@ -249,7 +249,7 @@
 
 #preview-video-list .thumbnail-preview{
     opacity: 1;
-    transition: opacity 0.1s linear;
+    transition: opacity 0.25s linear;
 }
 
 #preview-video-list .thumbnail-preview-active{
@@ -257,7 +257,7 @@
     width: 170px;
     opacity: 0;
     position: relative;
-    transition: opacity 0.1s linear;
+    transition: opacity 0.5s ease-in;
 }
 
 #preview-video-list > li:first-child{

@@ -19,7 +19,7 @@ class ChannelHeader extends React.Component {
     fixedNavBar(e) {
         e.preventDefault();
         let scrollBarPos = document.querySelector('html').scrollTop;
-        if (scrollBarPos > 90) {
+        if (scrollBarPos > 95) {
             this.setState({ navBarFixed: true });
         } else {
             this.setState({ navBarFixed: false });

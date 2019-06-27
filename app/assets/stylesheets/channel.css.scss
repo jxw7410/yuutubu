@@ -22,7 +22,7 @@
 }
 
 #channel-main-content-wrapper{
-    grid-template-rows: 60px 95px 45px auto;
+    grid-template-rows: 55px 95px 45px auto;
     display:grid;
     height: 100%;
 }
@@ -261,7 +261,7 @@
     position: relative;
     z-index: 1;
     opacity: 1;
-    transition: opacity 0.1s linear;
+    transition: opacity 0.25s linear;
 }
 
 
@@ -272,7 +272,7 @@
     height: 117.5px;
     z-index: 1;
     position: absolute;
-    transition: opacity 0.3s linear;
+    transition: opacity 0.5s ease-in;
 }
 
 
