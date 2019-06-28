@@ -27,8 +27,13 @@ const VideoInfoBody = props => {
             </section>
 
             <section>
+                <div/>
+                <div id="video-description"> <span>{props.video.description} </span> </div>
+            </section>
+
+            <section>
+                <div/>
                 <div></div>
-                <div id="video-description"> {props.video.description} </div>
             </section>
         </div>
     )

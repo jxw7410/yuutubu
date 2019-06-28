@@ -132,8 +132,7 @@ class VideoMainBody extends React.Component {
                     <button onClick={this.handleCancel}>Cancel</button>
                     <button onClick={this.handleSubmit}
                         className={this.state.postBody.length > 0 ? null : 'button-disabled'}
-                        disabled={this.state.postBody.length > 0 ? null : 'disabled'}
-                    >Comment</button>
+                        disabled={this.state.postBody.length > 0 ? null : 'disabled'}>Comment</button>
                 </div> : null
         )
     }

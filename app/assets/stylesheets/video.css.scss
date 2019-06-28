@@ -80,15 +80,19 @@
 
 #video-info-body{
     grid-row: 3 / 4;
-    height: 185px;
+    min-height: 185px;
+    height: auto;
     border-bottom: 1px solid rgb(229, 229, 299);
+}
+
+#video-info-body > section{
+    display: grid;
+    grid-template-columns: 65px auto;
 }
 
 #video-info-body > section:first-child{
     padding: 15px 0;
     height: 50px;
-    display: grid;
-    grid-template-columns: 65px auto;
 }
 
 #channel-user-profile-pic{
@@ -119,8 +123,7 @@
 
 
 #video-info-body > section:last-child{
-    display: grid;
-    grid-template-columns: 65px auto;
+    height: 20px;
 }
 
 
@@ -137,6 +140,10 @@
 #video-description{
     grid-column: 2 / 3;
     font-size: 14px;
+    word-break: break-word;
+    max-height: 84px;
+    overflow: hidden;
+    width: 95%;
 }
 
 
