@@ -28,16 +28,18 @@ class ChannelIndexItem extends React.Component {
     }
 
     render() {
-        //
-        let thumbnails = null;
+        let thumbnails = [];
         if (this.props.videos.length > 0){
-            thumbnails = this.props.videos.map( video => {
-                return <VideoThumbnail key={video.id} 
+           
+            for(let i = 0; i < this.props.videos.length && i < 6;  i++){
+                const video = this.props.videos[i];
+                thumbnails.push(<VideoThumbnail key={video.id} 
                     video={video}
                     handleClick={this.redirectOnClick(video.id)}
                     channel={this.props.channel}
-                />
-            })
+                />)
+            }
+    
         }
 
         return (
