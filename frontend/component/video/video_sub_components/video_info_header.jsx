@@ -3,12 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import {
-    createDislike,
-    createLike,
-    createDislikeDestroyLike,
-    createLikeDestroyDislike,
-    deleteDislike,
-    deleteLike
+    createLikeDislike,
+    updateLikeDislike,
+    deleteLikeDislike
 } from '../../../actions/like/like_dislike_action';
 
 import VideoInfoBody from './video_info_body';
@@ -22,8 +19,8 @@ class VideoInfoHeader extends React.Component {
             dislikeCount: 0,
         }
 
-        this.dislike = 'DISLIKES';
-        this.like = "LIKES";
+        this.dislike = false;
+        this.like = true;
         this.fetching = false;
 
         this.handleClick = this.handleClick.bind(this);
@@ -43,49 +40,53 @@ class VideoInfoHeader extends React.Component {
             if (this.props.isLogin) {
                 if (!this.fetching) {
                     this.fetching = true;
-                    switch (this.props.like_dislike.category) {
+                    switch(field){
                         case this.like:
-                            if (this.like === field)
-                                this.props.deleteLike(this.props.like_dislike.id).then(() => {
-                                    this.fetching = false;
-                                    this.setState({ likeCount: this.state.likeCount - 1 })
-                                });
-                            else
-                                this.props.createDislikeDestroyLike(this.props.like_dislike.id, this.props.video.id).then(() => {
-                                    this.fetching = false;
-                                    this.setState({
-                                        dislikeCount: this.state.dislikeCount + 1,
-                                        likeCount: this.state.likeCount - 1
-                                    });
-                                });
-                            break
+                            if ( this.props.like_dislike.category === this.like)
+                                this.props.deleteLikeDislike(this.props.like_dislike.id)
+                                    .then(()=> {
+                                        this.fetching = false
+                                        this.setState({likeCount: this.state.likeCount - 1})
+                                    })
+                                    .fail(() => this.fetching = false)
+                            else if (this.props.like_dislike.category === this.dislike)
+                                this.props.updateLikeDislike(this.props.like_dislike.id, true)
+                                    .then(() => {
+                                        this.fetching = false
+                                        this.setState({likeCount: this.state.likeCount + 1, dislikeCount: this.state.dislikeCount - 1})
+                                    })
+                                    .fail(() => this.fetching = false)
+                            else 
+                                this.props.createLikeDislike(this.props.video.id, true)
+                                    .then(() => {
+                                        this.fetching = false
+                                        this.setState({likeCount: this.state.likeCount + 1})
+                                    })
+                                    .fail(() => this.fetching = false)
+                            break;
                         case this.dislike:
-                            if (this.dislike === field)
-                                this.props.deleteDislike(this.props.like_dislike.id).then(() => {
-                                    this.fetching = false;
-                                    this.setState({ dislikeCount: this.state.dislikeCount - 1 })
-                                });
-                            else
-                                this.props.createLikeDestroyDislike(this.props.like_dislike.id, this.props.video.id)
+                            if (this.props.like_dislike.category === this.dislike)
+                                this.props.deleteLikeDislike(this.props.like_dislike.id)
+                                    .then(() => {
+                                        this.fetching = false
+                                        this.setState({dislikeCount: this.state.dislikeCount - 1})
+                                    })
+                                    .fail(() => this.fetching = false)
+                            else if(this.props.like_dislike.category === this.like)
+                                this.props.updateLikeDislike(this.props.like_dislike.id, false)
                                     .then(() => {
                                         this.fetching = false;
-                                        this.setState({
-                                            dislikeCount: this.state.dislikeCount - 1,
-                                            likeCount: this.state.likeCount + 1
-                                        });
-                                    });
-                            break
-                        default:
-                            if (field === this.like)
-                                this.props.createLike(this.props.video.id).then(() => {
-                                    this.fetching = false;
-                                    this.setState({ likeCount: this.state.likeCount + 1 });
-                                });
-                            else
-                                this.props.createDislike(this.props.video.id).then(() => {
-                                    this.fetching = false;
-                                    this.setState({ dislikeCount: this.state.dislikeCount + 1 });
-                                });
+                                        this.setState({ likeCount: this.state.likeCount - 1, dislikeCount: this.state.dislikeCount + 1 })
+                                    })
+                                    .fail(() => this.fetching = false)
+                            else 
+                                this.props.createLikeDislike(this.props.video.id, false)
+                                    .then(() => {
+                                        this.fetching = false
+                                        this.setState({dislikeCount: this.state.dislikeCount + 1})
+                                    })
+                                    .fail(() => this.fetching = false)
+                            break;
                     }
                 }
 
@@ -132,7 +133,7 @@ class VideoInfoHeader extends React.Component {
                                 </span>
                             </section>
                             <div id="like-dislike-bar">
-                                <div id={"like-ratio-bar" + (this.props.like_dislike.category ? "-voted" : "")}
+                                <div id={"like-ratio-bar" + (this.props.like_dislike.category === undefined ? "" :  "-voted")}
                                     style={{ width: `${likeRatio * 100}%` }} />
                             </div>
                         </div>
@@ -155,15 +156,11 @@ const msp = state => {
 
 const mdp = dispatch => {
     return {
-        createLike: video_id => dispatch(createLike(video_id)),
-        createDislike: video_id => dispatch(createDislike(video_id)),
-        deleteLike: id => dispatch(deleteLike(id)),
-        deleteDislike: id => dispatch(deleteDislike(id)),
-        createDislikeDestroyLike: (id, video_id) => dispatch(createDislikeDestroyLike(id, video_id)),
-        createLikeDestroyDislike: (id, video_id) => dispatch(createLikeDestroyDislike(id, video_id))
+       createLikeDislike: (video_id, bool) => dispatch(createLikeDislike(video_id,bool)),
+       updateLikeDislike: (id, bool) => dispatch(updateLikeDislike(id, bool)),
+       deleteLikeDislike: id => dispatch(deleteLikeDislike(id))
     }
 }
-
 
 
 

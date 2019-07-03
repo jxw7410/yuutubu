@@ -1,54 +1,23 @@
-export const createLike = video_id => {
+export const createLikeDislike = (video_id, bool) => {
     return $.ajax({
         method: 'post',
-        url: '/api/video_likes/create_like',
-        data: { video_id }
-    });
-}
-
-export const destroyLike = like_id => {
-    return $.ajax({
-        method: 'delete',
-        url: '/api/video_likes/delete_like',
-        data: { like_id }
-    });
-}
-
-export const createDislike = video_id => {
-    return $.ajax({
-        method: 'post',
-        url: '/api/video_likes/create_dislike',
-        data: { video_id }
-    });
-}
-
-export const destroyDislike = dislike_id => {
-    return $.ajax({
-        method: 'delete',
-        url: '/api/video_likes/delete_dislike',
-        data: { dislike_id }
-    });
-}
-
-export const createLikeDestroyDislike = (dislike_id, video_id) => {
-    return $.ajax({
-        method: 'post',
-        url: '/api/video_likes/create_like_destroy_dislike',
-        data: { 
-            dislike_id,
-            video_id,
-        }
+        url: '/api/video_like_dislikes',
+        data: { 'video_like_dislike': {video_id, bool}}
     })
 }
 
-export const createDislikeDestroyLike = (like_id, video_id) => {
+
+export const updateLikeDislike = (id, bool) => {
     return $.ajax({
-        method: 'post',
-        url: '/api/video_likes/create_dislike_destroy_like',
-        data: { 
-            like_id,
-            video_id,
-        }
+        method: 'patch',
+        url: `/api/video_like_dislikes/${id}`,
+        data: {bool}
     })
 }
 
+export const deleteLikeDislike = id => {
+    return $.ajax({
+        method: 'delete',
+        url: `/api/video_like_dislikes/${id}`,
+    })
+}

@@ -12,34 +12,21 @@ const receiveLikeDislike= likeDislike => {
 
 
 
-export const createLike = video_id => dispatch => {
-   return LikeDislikeAPI.createLike(video_id)
+export const createLikeDislike = (video_id, bool) => dispatch => {
+   return LikeDislikeAPI.createLikeDislike(video_id, bool)
     .then( response => dispatch(receiveLikeDislike(response)));
 }
 
 
-export const createDislike = video_id => dispatch => {
-    return LikeDislikeAPI.createDislike(video_id)
+export const updateLikeDislike = (id, bool) => dispatch => {
+    return LikeDislikeAPI.updateLikeDislike(id, bool)
         .then(response => dispatch(receiveLikeDislike(response)));
 }
 
-export const deleteLike = id => dispatch => {
-    return LikeDislikeAPI.destroyLike(id)
+export const deleteLikeDislike = id => dispatch => {
+    return LikeDislikeAPI.deleteLikeDislike(id)
         .then(response => dispatch(receiveLikeDislike(response)));
 }
 
-export const deleteDislike = id => dispatch => {
-    return LikeDislikeAPI.destroyDislike(id)
-        .then(response => dispatch(receiveLikeDislike(response)));
-}
 
-export const createLikeDestroyDislike = (id, video_id) => dispatch => {
-    return LikeDislikeAPI.createLikeDestroyDislike(id, video_id)
-        .then(response => dispatch(receiveLikeDislike(response)));
-}
-
-export const createDislikeDestroyLike = (id, video_id) => dispatch => {
-    return LikeDislikeAPI.createDislikeDestroyLike(id, video_id)
-        .then(response => dispatch(receiveLikeDislike(response)));
-}
 

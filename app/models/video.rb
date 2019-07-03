@@ -31,24 +31,14 @@ class Video < ApplicationRecord
         foreign_key: :channel_id,
         class_name: :UserChannel
     
-    has_many :likes,
+    has_many :like_dislikes,
         primary_key: :id,
         foreign_key: :video_id,
-        class_name: :VideoLike
-
-    has_many :dislikes,
-        primary_key: :id,
-        foreign_key: :video_id,
-        class_name: :VideoDislike
-
-    has_many :like_by_users,
-        through: :likes,
+        class_name: :VideoLikeDislike
+    
+    has_many :like_dislikes_users,
+        through: :like_dislikes,
         source: :user
-
-    has_many :dislike_by_users,
-        through: :dislikes,
-        source: :user
-
 
     has_many :video_posts,
         primary_key: :id,

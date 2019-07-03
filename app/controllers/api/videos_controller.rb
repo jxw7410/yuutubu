@@ -84,14 +84,12 @@ class Api::VideosController < ApplicationController
 
     def show
         @video = Video.where(id: params[:id])
-            .includes(:likes)
-            .includes(:dislikes)
+            .includes(:like_dislikes)
             .first
             
         if @video
             if current_user  
-                @like_dislike = @video.likes.where(user_id: current_user.id).first ||
-                    @video.dislikes.where(user_id: current_user.id).first
+                @like_dislike = @video.like_dislikes.where(user_id: current_user.id).first
             else 
                 @like_dislike = nil;
             end

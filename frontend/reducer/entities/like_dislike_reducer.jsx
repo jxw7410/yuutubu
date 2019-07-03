@@ -12,7 +12,7 @@ const likeReducer = (state = {}, action)=>{
             else 
                 return {}
         case RECEIVE_LIKE_DISLIKE:
-            return action.likeDislike
+            return action.likeDislike;
         default:
             return state;
     }

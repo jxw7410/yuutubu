@@ -1,0 +1,1 @@
+json.extract! @like_dislike, :id, :category
