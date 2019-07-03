@@ -16,9 +16,6 @@ class ChannelIndexItem extends React.Component {
         this.props.fetchChannelVideos(this.props.channel.id, 6, 0)
     }
 
-    componentWillUnmount() {
-        this.props.clearChannelVideos();
-    }
 
     redirectOnClick(video_id) {
         return e => {
@@ -30,7 +27,6 @@ class ChannelIndexItem extends React.Component {
     getThumbnails() {
         let thumbnails = [];
         if (this.props.videos.length > 0) {
-
             for (let i = 0; i < this.props.videos.length && i < 6; i++) {
                 const video = this.props.videos[i];
                 thumbnails.push(<VideoThumbnail key={video.id}
@@ -39,10 +35,13 @@ class ChannelIndexItem extends React.Component {
                     channel={this.props.channel} />)
             }
         }
+        return thumbnails;
     }
 
     render() {
-        const thumbnails = this.getThumbnails()
+        const thumbnails = null;
+        //Uncomment for production
+        //const thumbnails = this.getThumbnails()
         return (
             <li className="channel_index_items">
                 <section className="channel_index_items_header">
@@ -52,14 +51,10 @@ class ChannelIndexItem extends React.Component {
                             <i className="fas fa-user-circle"></i>
                             <span>{this.props.channel.name}</span></Link> Recommended channel for you</span>
 
-                    <SubscribeButton
-                        channel={this.props.channel}
-                    />
+                    <SubscribeButton channel={this.props.channel}/>
                 </section>
                 <section id="channel-index-items-body">
-                    <ul>
-                        {thumbnails}
-                    </ul>
+                    <ul> {thumbnails} </ul>
                 </section>
             </li>
         )
@@ -80,7 +75,6 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
     return {
         fetchChannelVideos: (channel_id, limit, offset) => dispatch(fetchChannelVideos(channel_id, limit, offset)),
-        clearChannelVideos: () => dispatch(clearChannelVideos())
     }
 }
 

@@ -36,11 +36,7 @@ export const clearChannelVideos = () => {
 
 export const fetchVideo = video_id => dispatch => {
     return VideoAPI.requestVideo(video_id)
-        .then( video => 
-            {
-                //
-                dispatch(receiveVideo(video))
-            });
+        .then( video => dispatch(receiveVideo(video)));
 };
 
 

@@ -18,20 +18,22 @@ class VideoRecommendedList extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.video_id) {
-            if (this.state.currentVideoId !== this.props.video.id) {
-                this.setState({ currentVideoId: this.props.video.id })
-            }
-        }
+        //Uncomment for production
+        // if (this.props.video_id) {
+        //     if (this.state.currentVideoId !== this.props.video.id) {
+        //         this.setState({ currentVideoId: this.props.video.id })
+        //     }
+        // }
     }
 
     componentDidUpdate() {
-        if (this.props.video.id) {
-            if (this.state.currentVideoId !== this.props.video.id) {
-                this.setState({ currentVideoId: this.props.video.id, fetched: true })
-                this.props.fetchRecommendedVideos(this.props.video.id)
-            }
-        }
+        //Uncomment for production
+        // if (this.props.video.id) {
+        //     if (this.state.currentVideoId !== this.props.video.id) {
+        //         this.setState({ currentVideoId: this.props.video.id, fetched: true })
+        //         this.props.fetchRecommendedVideos(this.props.video.id)
+        //     }
+        // }
     }
 
     handleClick(video_id){
@@ -52,7 +54,6 @@ class VideoRecommendedList extends React.Component {
                             handleClick={this.handleClick(video.id)}
                             />
         })
-        //
         return (
             <div id='video-main-right'>
                 {

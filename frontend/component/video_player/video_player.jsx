@@ -21,6 +21,7 @@ class VideoPlayer extends React.Component {
             userStream: 0,
             bufferStream: 0,
             volumeValue: 1,
+            volumeTrackLength: 50,
             currentTime: 0,
             duration: 0,
             previousURL: "/",
@@ -167,7 +168,7 @@ class VideoPlayer extends React.Component {
             this.videoElement.current.muted = false
         
         this.videoElement.current.volume = e.target.value;
-        this.setState({ volumeValue: e.target.value })
+        this.setState({ volumeValue: e.target.value, volumeTrackLength: 50 * e.target.value })
     }
 
     handleReplay(e) {
@@ -294,6 +295,7 @@ class VideoPlayer extends React.Component {
                                 <DefaultControlUI
                                     playButton={this.renderPlayStatusButtons()}
                                     volumeValue={this.state.volumeValue}
+                                    volumeTrackLength={this.state.volumeTrackLength}
                                     handleVolumeChange={this.handleVolumeChange}
                                     handleMiniScreen={this.handleMiniScreen}
                                     isFullScreen={this.state.fullScreen}

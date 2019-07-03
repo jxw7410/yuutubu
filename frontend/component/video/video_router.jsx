@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { fetchVideo } from '../../actions/video/video_action';
 import { requestDefaultPlayer } from '../../actions/video_player';
 import VideoContainer from './video_container';
+import { videoLikeDislike } from '../../actions/like/like_dislike_action';
 
 //This is really boiler plate to channel router, refactor when time is alloted
 class VideoRouter extends React.Component {
@@ -20,9 +21,10 @@ class VideoRouter extends React.Component {
     componentDidMount() {
         //Perhaps instead of having like dislike listen for video, maybe this sets it?
         this.props.fetchVideo(this.props.match.params.video_id)
-            .then(() => {
+            .then(resp=> {
                 this.didUpdate = true;
-                this.setState({ isVideo: true })
+                this.props.videoLikeDislike(resp.video.like_dislike);
+                this.setState({ isVideo: true });
             })
             .fail(() => {
                 this.didUpdate = true
@@ -33,9 +35,10 @@ class VideoRouter extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.match.url !== this.props.match.url) {
             this.props.fetchVideo(this.props.match.params.video_id)
-                .then(() => {
+                .then(resp => {
                     this.didUpdate = true;
-                    this.setState({ isVideo: true })
+                    this.props.videoLikeDislike(resp.video.like_dislike);
+                    this.setState({ isVideo: true });
                 })
                 .fail(() => {
                     this.didUpdate = true
@@ -72,11 +75,11 @@ class VideoRouter extends React.Component {
 }
 
 
-
 const mdp = dispatch => {
     return {
         fetchVideo: video_id => dispatch(fetchVideo(video_id)),
-        requestDefaultPlayer: () => dispatch(requestDefaultPlayer())
+        requestDefaultPlayer: () => dispatch(requestDefaultPlayer()),
+        videoLikeDislike: video_like_dislike => dispatch(videoLikeDislike(video_like_dislike))
     }
 }
 
