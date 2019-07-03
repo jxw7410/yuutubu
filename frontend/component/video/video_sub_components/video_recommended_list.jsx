@@ -19,21 +19,21 @@ class VideoRecommendedList extends React.Component {
 
     componentDidMount() {
         //Uncomment for production
-        // if (this.props.video_id) {
-        //     if (this.state.currentVideoId !== this.props.video.id) {
-        //         this.setState({ currentVideoId: this.props.video.id })
-        //     }
-        // }
+        if (this.props.video_id) {
+            if (this.state.currentVideoId !== this.props.video.id) {
+                this.setState({ currentVideoId: this.props.video.id })
+            }
+        }
     }
 
     componentDidUpdate() {
         //Uncomment for production
-        // if (this.props.video.id) {
-        //     if (this.state.currentVideoId !== this.props.video.id) {
-        //         this.setState({ currentVideoId: this.props.video.id, fetched: true })
-        //         this.props.fetchRecommendedVideos(this.props.video.id)
-        //     }
-        // }
+        if (this.props.video.id) {
+            if (this.state.currentVideoId !== this.props.video.id) {
+                this.setState({ currentVideoId: this.props.video.id, fetched: true })
+                this.props.fetchRecommendedVideos(this.props.video.id)
+            }
+        }
     }
 
     handleClick(video_id){
