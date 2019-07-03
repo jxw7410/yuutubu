@@ -38,9 +38,8 @@ class VideoRecommendedList extends React.Component {
         return (e) => {
             e.preventDefault();
             this.props.removeVideoPlayer();
-            setTimeout(() => {
-                this.props.history.push(`/video/${video_id}`)}, 0)
-        }
+            this.props.history.push(`/video/${video_id}`)}
+        
     }
 
     render() {

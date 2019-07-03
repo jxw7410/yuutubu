@@ -29,15 +29,6 @@ Rails.application.routes.draw do
 
 
       resources :video_like_dislikes, only: [:create, :destroy, :update]
-
-      #Can be fixed and reduced to 1 table represented as true/false, or not existent
-      # post '/video_likes/create_like', to: 'video_likes#create_like'
-      # delete '/video_likes/delete_like', to: 'video_likes#delete_like'
-      # post '/video_likes/create_dislike', to: 'video_likes#create_dislike'
-      # delete '/video_likes/delete_dislike', to: 'video_likes#delete_dislike'
-      # post '/video_likes/create_like_destroy_dislike', to: 'video_likes#create_like_destroy_dislike'
-      # post '/video_likes/create_dislike_destroy_like', to: 'video_likes#create_dislike_destroy_like'  
-
       
   end
 

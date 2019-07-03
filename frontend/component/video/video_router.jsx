@@ -18,6 +18,7 @@ class VideoRouter extends React.Component {
     }
 
     componentDidMount() {
+        //Perhaps instead of having like dislike listen for video, maybe this sets it?
         this.props.fetchVideo(this.props.match.params.video_id)
             .then(() => {
                 this.didUpdate = true;
