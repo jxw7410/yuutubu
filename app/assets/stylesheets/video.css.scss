@@ -123,7 +123,12 @@
 
 
 #video-info-body > section:last-child{
-    height: 20px;
+    height: 30px;
+}
+
+#video-info-body-footer{
+    display: flex;
+    align-items: center;
 }
 
 
@@ -137,15 +142,19 @@
 }
 
 
-#video-description{
+.video-description{
     grid-column: 2 / 3;
     font-size: 14px;
     word-break: break-word;
-    max-height: 84px;
+    max-height: 90px;
     overflow: hidden;
+    line-height: 18px;
     width: 95%;
 }
 
+.post-description{
+    white-space: pre-wrap;
+}
 
 #video-main-right{
     grid-column: 3 / 4;

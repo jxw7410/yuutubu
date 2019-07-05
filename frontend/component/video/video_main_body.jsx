@@ -16,7 +16,7 @@ class VideoMainBody extends React.Component {
             border: false
         }
 
-        this.lineHeight = 16; // represent textarea line height
+        this.lineHeight = 18; // represent textarea line height
         this.scrollHook = null;
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -26,7 +26,6 @@ class VideoMainBody extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
-        this.handleKeyPressEvent = this.handleKeyPressEvent.bind(this);
     }
 
     componentDidMount() {
@@ -56,7 +55,7 @@ class VideoMainBody extends React.Component {
         e.preventDefault();
         const postBody = e.currentTarget.value
         const oldRows = e.target.rows;
-        e.target.rows = 1; //Doing this causes an overflow to happen
+        e.target.rows = 1;
         const newRows = Math.floor(e.target.scrollHeight / this.lineHeight);
         if (newRows === oldRows) e.target.rows = newRows;
         
@@ -74,7 +73,7 @@ class VideoMainBody extends React.Component {
     }
 
     handleCancel(){
-        this.setState({displayFormButton: false, postBody: ""})
+        this.setState({displayFormButton: false, postBody: "", rows: 1})
     }
 
     handleUnfocus() {
@@ -92,18 +91,13 @@ class VideoMainBody extends React.Component {
         }
     }
 
-    handleKeyPressEvent(e){
-        if (e.key ==='Enter'){ 
-        }
-    }
-
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.postBody.length > 0) {
             const post = {
                 user_id: this.props.currentUser.id,
                 video_id: this.props.video.id,
-                description: this.state.postBody
+                description: this.state.postBody.trim()
             }
 
             this.props.createPost(post);
@@ -131,8 +125,8 @@ class VideoMainBody extends React.Component {
                 <div id='user-post-form-buttons'>
                     <button onClick={this.handleCancel}>Cancel</button>
                     <button onClick={this.handleSubmit}
-                        className={this.state.postBody.length > 0 ? null : 'button-disabled'}
-                        disabled={this.state.postBody.length > 0 ? null : 'disabled'}>Comment</button>
+                        className={this.state.postBody.trim().length > 0 ? null : 'button-disabled'}
+                        disabled={this.state.postBody.trim().length > 0 ? null : 'disabled'}>Comment</button>
                 </div> : null
         )
     }
@@ -149,7 +143,6 @@ class VideoMainBody extends React.Component {
                             onClick={this.handleClick}
                             onChange={this.handleTextChange}
                             onBlur={this.handleUnfocus}
-                            onKeyPress={this.handleKeyPressEvent}
                             placeholder={ this.state.allText.length > 0 ? "" : 'Add a public comment...'}
                             value={this.state.postBody} 
                             style={{lineHeight: `${this.lineHeight}px`}}
@@ -160,9 +153,7 @@ class VideoMainBody extends React.Component {
                         {this.displayButtons()}
                     </form>
                 </div>
-                <ul className='list-of-posts'>
-                    {this.posts()}
-                </ul>
+                <ul className='list-of-posts'>{this.posts()}</ul>
             </div>
         )
     }

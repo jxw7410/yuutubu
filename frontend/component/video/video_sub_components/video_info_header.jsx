@@ -107,15 +107,25 @@ class VideoInfoHeader extends React.Component {
 
     }
 
+    likeDislikeRatio(){
+        if (this.state.likeCount === 0 && this.state.dislikeCount === 0) 
+            return 0.5;
+        else 
+            return this.state.likeCount / (this.state.likeCount + this.state.dislikeCount)
+    }
+
+
+    likeDislikeButton(field, count, icon){
+        let classExtension = this.props.like_dislike.category === field ? " voted" : "";
+        return (
+            <span onClick={this.handleClick(field)}>
+                <i className={"material-icons" + classExtension}>{icon}</i>
+                <span className='like-counts'>{count}</span>
+            </span>
+        )
+    }
+
     render() {
-        let likeRatio;
-
-        if (this.state.likeCount === 0 && this.state.dislikeCount === 0) {
-            likeRatio = 0.5;
-        } else {
-            likeRatio = this.state.likeCount / (this.state.likeCount + this.state.dislikeCount)
-        }
-
         return (
             <>
                 <div id='video-info-header'>
@@ -124,27 +134,12 @@ class VideoInfoHeader extends React.Component {
                         <span>{this.props.video.views} views</span>
                         <div id='video-info-header-utils'>
                             <section id='vid-like-dislike-icons'>
-                                <span onClick={this.handleClick(this.like)}>
-                                    <i className={"material-icons"
-                                        + (this.props.like_dislike.category === this.like ? " voted" : "")
-                                    }>thumb_up</i>
-                                    <span className='like-counts'>
-                                        {this.state.likeCount}
-                                    </span>
-                                </span>
-
-                                <span onClick={this.handleClick(this.dislike)}>
-                                    <i className={"material-icons"
-                                        + (this.props.like_dislike.category === this.dislike ? " voted" : "")
-                                    }>thumb_down</i>
-                                    <span className='like-counts'>
-                                        {this.state.dislikeCount}
-                                    </span>
-                                </span>
+                                {this.likeDislikeButton(this.like, this.state.likeCount, 'thumb_up')}
+                                {this.likeDislikeButton(this.dislike, this.state.dislikeCount, 'thumb_down')}
                             </section>
                             <div id="like-dislike-bar">
                                 <div id={"like-ratio-bar" + (this.props.like_dislike.category === undefined ? "" : "-voted")}
-                                    style={{ width: `${likeRatio * 100}%` }} />
+                                    style={{ width: `${this.likeDislikeRatio() * 100}%` }} />
                             </div>
                         </div>
                     </section>

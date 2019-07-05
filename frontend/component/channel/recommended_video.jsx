@@ -50,9 +50,7 @@ class RecommendedVideos extends React.Component{
 
         return (    
             <div id='index-recommended-videos-ctn' >
-                <div className="margin-top-shelf">
-                    Recommended
-                </div>
+                <div className="margin-top-shelf"> Recommended </div>
                 <ul id='index-recommended-videos' className={"margin-top-shelf" + (this.state.readMore ? " show-more-active" : " show-more-inactive")}>
                     {videos}
                 </ul>
