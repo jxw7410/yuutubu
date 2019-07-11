@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux';
 import SubscribeButton from '../subscribe/subscribe_button';
 
 class ChannelHeader extends React.Component {
@@ -8,7 +7,8 @@ class ChannelHeader extends React.Component {
         this.state = {
             navBarFixed: false,
         }
-
+        
+        this.fixedPostion = 95;
         this.fixedNavBar = this.fixedNavBar.bind(this);
     }
 
@@ -19,14 +19,11 @@ class ChannelHeader extends React.Component {
     fixedNavBar(e) {
         e.preventDefault();
         let scrollBarPos = document.querySelector('html').scrollTop;
-        if (scrollBarPos > 95) {
+        if (scrollBarPos > this.fixedPostion) {
             this.setState({ navBarFixed: true });
         } else {
             this.setState({ navBarFixed: false });
         }
-    }
-
-    componentDidUpdate(){
     }
 
     componentWillUnmount() {
@@ -87,17 +84,5 @@ class ChannelHeader extends React.Component {
 }
 
 
-const msp = (store, props) => {
-    return {
 
-    }
-}
-
-const mdp = dispatch => {
-    return {
-
-    }
-}
-
-
-export default connect(msp, mdp)(ChannelHeader)
+export default ChannelHeader;

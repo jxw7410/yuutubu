@@ -16,7 +16,7 @@ class VideoPlayer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            videoStatus: null,
+            videoStatus: 'LOAD',
             fullScreen: false,
             userStream: 0,
             bufferStream: 0,
@@ -27,7 +27,7 @@ class VideoPlayer extends React.Component {
             previousURL: "/",
             channelName: null,
         }
-
+        
         this.minDuration = null;
         this.viewUpdated = false;
         this.startTime = 0;
@@ -54,6 +54,7 @@ class VideoPlayer extends React.Component {
         this.maximizeScreen = this.maximizeScreen.bind(this);
         this.normalScreen = this.normalScreen.bind(this);
         this.handleMute = this.handleMute.bind(this);
+        this.handleLoadedData = this.handleLoadedData.bind(this);
     }
 
     componentDidMount() {  
@@ -140,7 +141,6 @@ class VideoPlayer extends React.Component {
             }
         }
 
-
         const currentTime = this.videoElement.current.currentTime;
         const value = (currentTime / this.videoElement.current.duration) * 100;
         if (!this.state.duration)
@@ -183,7 +183,8 @@ class VideoPlayer extends React.Component {
         return (e) => {
             e.stopPropagation();
             if (!field) {
-                this.videoElement.current.play();
+                if (this.state.videoStatus !== 'LOAD')
+                    this.videoElement.current.play();
             } else {
                 if (this.state.videoStatus === 'PLAY')
                     this.videoElement.current.pause();
@@ -192,6 +193,12 @@ class VideoPlayer extends React.Component {
 
             }
         }
+    }
+
+    handleLoadedData(e){
+        e.preventDefault();
+        if(this.state.videoStatus === 'LOAD')
+            this.setState({videoStatus: null})
     }
 
     handlePause(e) {
@@ -213,19 +220,42 @@ class VideoPlayer extends React.Component {
     }
 
 
-
-
     renderPlayStatusButtons() {
+        let button, buttonIcon, eventHandler, iconMessage;
+    
         switch (this.state.videoStatus) {
             case 'PLAY':
-                return <div id='pause-button' onClick={this.handlePause}> <i className="material-icons">pause</i></div>
+                button = 'pause-button';
+                buttonIcon = 'pause';
+                eventHandler = this.handlePause;
+                iconMessage = 'Pause'
+                break;
             case 'REPLAY':
-                return <div id='replay-button' onClick={this.handleReplay}> <i className="material-icons"> replay </i></div>
+                button = 'replay-button';
+                buttonIcon = 'replay';
+                eventHandler = this.handleReplay;
+                iconMessage = 'Replay'
+                break;
             case 'PAUSE':
-                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div>
+                button = 'play-button';
+                buttonIcon = 'play_arrow';
+                eventHandler=this.handlePlay();
+                iconMessage='Play';
+                break;
             default:
-                return <div id='play-button' onClick={this.handlePlay()}><i className="material-icons">play_arrow</i></div>
+                button = 'play-button';
+                buttonIcon = 'play_arrow';
+                eventHandler = this.handlePlay();
+                iconMessage = 'Play';
+                break;
         }
+
+        return (
+            <div id={button} className='icon-wrapper' onClick={eventHandler}>
+                <i className="material-icons-enlarged">{buttonIcon}</i>
+                <div className='icon-message'>{iconMessage}</div>
+            </div>
+        )
     }
 
     miniDescription(){
@@ -251,6 +281,7 @@ class VideoPlayer extends React.Component {
                     id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
 
                     { this.state.videoStatus === 'REPLAY' ?  <div id="video-dark-screen" /> : null}
+                    { this.state.videoStatus === 'LOAD' ? <div id='video-loader'><div className='spinner'/></div> : null}
 
                     <video id="video-player"
                         ref={this.videoElement}
@@ -262,6 +293,7 @@ class VideoPlayer extends React.Component {
                         onCanPlayThrough={this.handleCanPlayThrough}
                         onPlay={this.handlePlayStatus}
                         onPause={this.handlePauseStatus}
+                        onLoadedData={this.handleLoadedData}
                     >
                         <source src={this.props.video.videoUrl} type="video/mp4" />
                     </video>

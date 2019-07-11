@@ -34,13 +34,15 @@
     border-radius: 50%;
     width: 120px;
     height: 120px;
-    animation: spin 2s linear infinite;
+    animation: spin 1s linear infinite;
  }
 
  @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
 
 .material-icons {
   font-family: 'Material Icons';
@@ -65,8 +67,33 @@
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+
 }
 
+.material-icons-enlarged{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 27px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 
 i:hover{
   cursor: pointer;

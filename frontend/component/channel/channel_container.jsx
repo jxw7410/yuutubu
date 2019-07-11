@@ -8,7 +8,6 @@ import { requestUpdatePrevPath } from '../../actions/prev_path_action';
 
 const msp = (state, props) => {
     const channel = state.entities.channels[props.match.params.channel_id] || {}
-    //
     return {
         channel,
         userId: state.session.id,

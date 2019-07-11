@@ -19,8 +19,8 @@ class RecommendedVideos extends React.Component{
     }
     
     componentDidMount(){
-        this.props.fetchRecommendedVideos()
-        .then( () => this.setState({fetched : true}));
+        // this.props.fetchRecommendedVideos()
+        // .then( () => this.setState({fetched : true}));
     }
 
 

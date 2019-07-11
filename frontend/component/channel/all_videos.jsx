@@ -40,7 +40,8 @@ class AllVideos extends React.Component{
         }
     }
 
-    render(){
+
+    getThumbnails(){
         let thumbnails = null;
         if (this.props.videos.length > 0) {
             thumbnails = this.props.videos.map(video => {
@@ -51,12 +52,16 @@ class AllVideos extends React.Component{
                 />
             })
         }
+        return thumbnails
+    }
 
+
+    render(){
         return(
             <div id={'channel-video-content-lower' }>
                 <div id={'ch-vid-ctn-nav' + (this.props.toggledSideNav ? "" : "-toggled")}> Uploads </div>
                     <ul id={"user-all-videos-list" + (this.props.toggledSideNav ? "" : "-toggled")}>
-                        { thumbnails }
+                        { this.getThumbnails() }
                     </ul>
             </div>
         )

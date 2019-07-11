@@ -5,15 +5,18 @@ import {convertDurationToTime} from '../../util/selectors';
 class DefaultControlUI extends React.Component {
 
     getVolumeButton(){
-        let volumeButton;
+        let volumeType;
         if (parseFloat(this.props.volumeValue) === 0)
-            volumeButton = <i onClick={this.props.handleMute} className="material-icons">volume_off</i>
+            volumeType = 'volume_off';
         else if (this.props.volumeValue > 0.5)
-            volumeButton = <i onClick={this.props.handleMute} className="material-icons">volume_up</i>
+            volumeType = 'volume_up';
         else
-            volumeButton = <i onClick={this.props.handleMute} className="material-icons">volume_down</i>
+            volumeType = 'volume_down';
         
-        return volumeButton;
+        return <div className='icon-wrapper'>
+                <i onClick={this.props.handleMute} className="material-icons volume-icon">{volumeType}</i>
+                <div className='icon-message'>{volumeType === 'volume_off' ? 'Unmute' : 'Mute'}</div>
+            </div>
     }
 
     getVolumeControl(){
@@ -31,12 +34,14 @@ class DefaultControlUI extends React.Component {
     getFullScreen(){
         return (
             this.props.isFullScreen ?
-                <div onClick={this.props.normalScreen}>
-                    <i className="material-icons">fullscreen_exit</i>
+                <div className="icon-wrapper" onClick={this.props.normalScreen}>
+                    <i className="material-icons-enlarged">fullscreen_exit</i>
+                    <div className='icon-message'>Exit Full Screen</div>
                 </div>
                 :
-                <div onClick={this.props.maximizeScreen}>
-                    <i className="material-icons">fullscreen</i>
+                <div className="icon-wrapper" onClick={this.props.maximizeScreen}>
+                    <i className="material-icons-enlarged">fullscreen</i>
+                    <div className='icon-message'>Full Screen</div>
                 </div>
         )
     }
@@ -58,7 +63,10 @@ class DefaultControlUI extends React.Component {
                 </section>
 
                 <section>
-                    <div onClick={this.props.handleMiniScreen}> <i className="material-icons"> branding_watermark</i></div>
+                    <div onClick={this.props.handleMiniScreen} className='icon-wrapper'> 
+                        <i className="material-icons">picture_in_picture_alt</i>
+                        <div className='icon-message'>Mini-player</div>
+                    </div>
                     { this.getFullScreen()}
                 </section>
             </div>

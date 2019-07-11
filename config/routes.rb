@@ -26,8 +26,6 @@ Rails.application.routes.draw do
 
 
       resources :subscriptions, only: [:create, :destroy, :index]
-
-
       resources :video_like_dislikes, only: [:create, :destroy, :update]
       
   end

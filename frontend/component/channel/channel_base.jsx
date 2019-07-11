@@ -8,8 +8,7 @@ class ChannelBase extends React.Component {
         this.state = {
             video: null,
         }
-
-
+        
         this.didFetchedFeatured = false;
     }
 

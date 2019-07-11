@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 
 const ChannelBaseVideoPlayer = (props) => {
-    //
     return(
         <div id='featured-video-ctn'>
             <video controls>

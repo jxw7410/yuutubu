@@ -14,6 +14,7 @@ class TopNav extends React.Component {
         }
         
         this.previousModal = null;
+        this.typeTop = 'top'
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
         this.openModal = this.openModal.bind(this);
@@ -68,9 +69,7 @@ class TopNav extends React.Component {
                 <div id="top-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
                         <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
-
-                        <SideNavLinks type='top' />
-                        
+                        <SideNavLinks type={this.typeTop} />
                         <li>{ this.topRightIcon() }</li>
                     </ul>
                 </div>

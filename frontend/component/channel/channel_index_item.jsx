@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchChannelVideos, clearChannelVideos } from '../../actions/video/video_action';
+import { fetchChannelVideos } from '../../actions/video/video_action';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { getVideosForChannel } from '../../util/selectors';
 import SubscribeButton from '../subscribe/subscribe_button';
@@ -39,9 +39,9 @@ class ChannelIndexItem extends React.Component {
     }
 
     render() {
-        //const thumbnails = null;
+        const thumbnails = null;
         //Uncomment for production
-        const thumbnails = this.getThumbnails()
+        //const thumbnails = this.getThumbnails()
         return (
             <li className="channel_index_items">
                 <section className="channel_index_items_header">
