@@ -32,3 +32,10 @@ export const uploadVideo = video => {
     })
 }
 
+
+export const updateView = video_id => {
+    return $.ajax({
+        method: 'patch',
+        url: `/api/videos/${video_id}/views`
+    })
+}

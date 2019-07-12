@@ -11,6 +11,7 @@
 
 class Subscription < ApplicationRecord
     validates :channel_id, :subscriber_id, presence: true
+    validate :prevent_self_subscription, on: :create
 
     belongs_to :subscriber,
         primary_key: :id,
@@ -21,4 +22,14 @@ class Subscription < ApplicationRecord
         primary_key: :id,
         foreign_key: :channel_id,
         class_name: :UserChannel
+
+    
+    private
+    #Custom validation to eliminate subscription to one's self (how)?
+    def prevent_self_subscription
+        channel = UserChannel.where(user_id: subscriber_id).first
+        if channel.id == channel_id 
+            errors.add(:subscriber_id, "Cannot subscribe to your own channel")
+        end
+    end
 end

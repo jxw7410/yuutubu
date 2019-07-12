@@ -35,13 +35,9 @@ class Api::VideosController < ApplicationController
 
     def index_recommended
         if params[:video_id]
-            @videos = Video.where
-                .not(id: params[:video_id])
-                .limit(18)
-                .includes(:channel)
-                .order(:views)
+            @videos = recommended_video_query(params[:video_id])
         else 
-            @videos = Video.all.limit(18).includes(:channel).order(:views)
+            @videos = recommended_video_query(nil)
         end 
              
         if @videos 
@@ -53,7 +49,7 @@ class Api::VideosController < ApplicationController
 
     def update_views
         begin
-            Video.find_by(:id => params[:video_id]).increment!(:views)
+            Video.find_by(id: params[:video_id]).increment!(:views)
             render json: {}, status: 200
         rescue
             return
@@ -105,6 +101,33 @@ class Api::VideosController < ApplicationController
 
     def video_params 
         params.require(:video).permit(:title, :description, :channel_id, :duration, :file, :thumbnail)
+    end
+
+    def recommended_video_query(video_id)
+        limit = 18
+        if video_id
+            if login?
+                videos = Video.where
+                    .not(id: video_id, user_id: current_user.id)
+                    .limit(limit)
+                    .includes(:channel)
+                    .order(:views)
+            else 
+                videos = Video.where
+                    .not(id: video_id)
+                    .limit(limit)
+                    .includes(:channel)
+                    .order(:views)
+            end 
+        else 
+            if login? 
+                videos = Video.all.limit(limit).not(user_id: current_user.id).includes(:channel).order(:views)
+            else
+                videos = Video.all.limit(limit).includes(:channel).order(:views)
+            end
+        end
+        
+        videos
     end
 end
 

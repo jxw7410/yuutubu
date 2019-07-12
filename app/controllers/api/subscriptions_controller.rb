@@ -15,7 +15,7 @@ class Api::SubscriptionsController < ApplicationController
 
     def create 
         @subscription = Subscription.create(subscriber_id: current_user.id, channel_id: params[:channel_id])
-        if @subscription
+        if @subscription.valid?
             @channel = UserChannel.where(id: params[:channel_id]).includes(:subscriptions).first
             render :show
         else 

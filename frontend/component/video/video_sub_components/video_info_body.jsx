@@ -41,7 +41,7 @@ const subscribeButton = props => {
     return (
         < div >
             {
-                props.channel.user_id === parseInt(props.video.id) ? null :
+                props.channel.id === parseInt(props.user.channel_id) ? null :
                     <SubscribeButton channel={props.channel} />
             }
         </div >
@@ -72,7 +72,8 @@ const VideoInfoBody = props => {
 const msp = (state, props) => {
     const channel = state.entities.channels[props.channel.id] || {}
     return {
-        channel
+        channel,
+        user: state.session
     }
 }
 

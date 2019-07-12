@@ -3,13 +3,7 @@ import ProgressBar from './progress_bar';
 import DefaultControlUI from './default_control_ui';
 import MiniControlUI from './mini_control_ui';
 import { withRouter } from 'react-router-dom';
-
-const updateView = video_id => {
-    return $.ajax({
-        method: 'patch',
-        url: `/api/videos/${video_id}/views`
-    })
-}
+import {updateView} from '../../util/video_api';
 
 
 class VideoPlayer extends React.Component {
@@ -318,8 +312,8 @@ class VideoPlayer extends React.Component {
                         onCanPlayThrough={this.handleCanPlayThrough}
                         onPlay={this.handlePlayStatus}
                         onPause={this.handlePauseStatus}
-                        onLoadedData={this.handleLoadedData}
-                    >
+                        onLoadedData={this.handleLoadedData}>
+
                         <source src={this.props.video.videoUrl} type="video/mp4" />
                     </video>
 
@@ -331,8 +325,7 @@ class VideoPlayer extends React.Component {
                                     currentTime={this.state.currentTime}
                                     duration={this.state.duration}
                                     closeButton={this.props.removeVideoPlayer}
-                                    handleGoBack={this.handleGoBack}
-                                /> : null
+                                    handleGoBack={this.handleGoBack}/> : null
                         }
 
                         <ProgressBar
@@ -347,8 +340,7 @@ class VideoPlayer extends React.Component {
                             currentTime={this.state.currentTime}
                             hoverBarLength={this.state.hoverBarLength}
                             maxHoverBarLength={this.state.maxHoverBarLength}
-                            duration={this.state.duration}
-                        />
+                            duration={this.state.duration}/>
 
 
                         {
@@ -364,8 +356,7 @@ class VideoPlayer extends React.Component {
                                     maximizeScreen={this.maximizeScreen}
                                     currentTime={this.state.currentTime}
                                     duration={this.state.duration}
-                                    handleMute={this.handleMute}
-                                />
+                                    handleMute={this.handleMute}/>
                         }
 
                     </div>

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :user_channels, only: [:create, :index, :show]
       
       resources :videos, only: [:show, :create]
+      #Do I really need these API endpoints?
       get '/videos/index_partial/:channel_id', to: 'videos#index_partial'
       get '/videos/index_recommended/:video_id', to: 'videos#index_recommended'
       get '/videos/index_search/:query', to: 'videos#index_search'
