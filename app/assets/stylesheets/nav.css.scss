@@ -543,3 +543,26 @@
     margin-top: -1px;
     background: white;
 }
+
+
+.icon-message-nav{
+    position: absolute;
+    opacity: 0;
+    top:55px;
+    transition: opacity 0.25s linear;
+    font-size: 14px;
+    padding: 10px 10px;
+    background: rgb(75, 75, 75);
+    color: white;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.nav-icon-links:hover + .icon-message-nav{
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+
+
+
+

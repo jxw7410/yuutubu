@@ -68,7 +68,10 @@ class TopNav extends React.Component {
 
                 <div id="top-nav-sec-3">  
                     <ul id='nav-bar-right-ul'>
-                        <li onClick={this.openModal('upload_vid')} ><i className="fas fa-video"></i> </li>
+                        <li className='icon-wrapper' onClick={this.openModal('upload_vid')} >
+                            <i className="fas fa-video nav-icon-links"></i> 
+                            <div className='icon-message-nav'>Upload Video</div>
+                        </li>
                         <SideNavLinks type={this.typeTop} />
                         <li>{ this.topRightIcon() }</li>
                     </ul>
