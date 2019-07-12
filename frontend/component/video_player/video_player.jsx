@@ -2,7 +2,7 @@ import React from 'react';
 import ProgressBar from './progress_bar';
 import DefaultControlUI from './default_control_ui';
 import MiniControlUI from './mini_control_ui';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const updateView = video_id => {
     return $.ajax({
@@ -22,12 +22,14 @@ class VideoPlayer extends React.Component {
             bufferStream: 0,
             volumeValue: 1,
             volumeTrackLength: 50,
+            hoverBarLength: 0,
+            maxHoverBarLength: 0, //Needs to be fixed
             currentTime: 0,
             duration: 0,
             previousURL: "/",
             channelName: null,
         }
-        
+
         this.minDuration = null;
         this.viewUpdated = false;
         this.startTime = 0;
@@ -35,6 +37,7 @@ class VideoPlayer extends React.Component {
         this.seeker = React.createRef();
         this.seeking = false;
         this.autoPlay = false;
+        this.prevVolume = 1;
 
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
@@ -46,7 +49,7 @@ class VideoPlayer extends React.Component {
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
         this.renderPlayStatusButtons = this.renderPlayStatusButtons.bind(this);
         this.handleMiniScreen = this.handleMiniScreen.bind(this);
-        this.handleSeekingClick= this.handleSeekingClick.bind(this);
+        this.handleSeekingClick = this.handleSeekingClick.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
         this.handleReplay = this.handleReplay.bind(this);
@@ -55,9 +58,12 @@ class VideoPlayer extends React.Component {
         this.normalScreen = this.normalScreen.bind(this);
         this.handleMute = this.handleMute.bind(this);
         this.handleLoadedData = this.handleLoadedData.bind(this);
+
+        this.hoverProgressBar = this.hoverProgressBar.bind(this);
+        this.leaveProgressBar = this.leaveProgressBar.bind(this);
     }
 
-    componentDidMount() {  
+    componentDidMount() {
         this.videoElement.current.muted = false;
         this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
     }
@@ -68,7 +74,7 @@ class VideoPlayer extends React.Component {
         this.setState({ fullScreen: true })
     }
 
-    handleGoBack(e){
+    handleGoBack(e) {
         e.stopPropagation();
         this.props.history.push(this.state.previousURL);
     }
@@ -80,7 +86,7 @@ class VideoPlayer extends React.Component {
 
     handleCanPlayThrough(e) {
         e.preventDefault();
-        if(!this.seeking)
+        if (!this.seeking)
             this.setState({ bufferStream: 100 });
     }
 
@@ -89,24 +95,25 @@ class VideoPlayer extends React.Component {
         this.props.requestMiniPlayer();
         const previousURL = `/video/${this.props.videoPlayer.video.id}`;
         const channelName = this.props.channels[0].name;
-        this.setState({previousURL, channelName, fullScreen: false});
+        this.setState({ previousURL, channelName, fullScreen: false });
         if (!this.props.prevPath || this.props.prevPath === '/video/:video_id')
             this.props.history.push('/');
-        else 
+        else
             this.props.history.goBack();
     }
 
-    handleMute(e){
+    handleMute(e) {
         e.stopPropagation();
-        if (this.videoElement.current.muted){
+        if (this.videoElement.current.muted) {
             this.videoElement.current.muted = false;
-            this.setState({volumeValue: 1})
-        } else if (parseFloat(this.state.volumeValue) === 0){
+            this.setState({ volumeValue: this.prevVolume, volumeTrackLength: Math.floor(50 * this.prevVolume) })
+        } else if (parseFloat(this.state.volumeValue) === 0) {
             this.videoElement.current.volume = 1;
-            this.setState({ volumeValue: 1 })
+            this.setState({ volumeValue: 1, volumeTrackLength: 50 })
         } else {
+            this.prevVolume = this.videoElement.current.volume;
             this.videoElement.current.muted = true;
-            this.setState({ volumeValue: 0 })
+            this.setState({ volumeValue: 0, volumeTrackLength: 0 })
         }
     }
 
@@ -115,7 +122,7 @@ class VideoPlayer extends React.Component {
         if (!this.state.duration)
             this.setState({ duration: this.videoElement.current.duration })
 
-        if (e.target.buffered.length > 0){
+        if (e.target.buffered.length > 0) {
             if (!this.seeking)
                 this.setState({ bufferStream: ((e.target.buffered.end(0) - e.target.buffered.start(0)) / this.videoElement.current.duration) * 100 })
         }
@@ -145,7 +152,7 @@ class VideoPlayer extends React.Component {
         const value = (currentTime / this.videoElement.current.duration) * 100;
         if (!this.state.duration)
             this.setState({ duration: this.videoElement.current.duration, userStream: value, currentTime })
-        else 
+        else
             this.setState({ userStream: value, currentTime })
     }
 
@@ -163,10 +170,10 @@ class VideoPlayer extends React.Component {
     handleVolumeChange(e) {
         e.preventDefault();
         e.stopPropagation();
-        
+
         if (this.videoElement.current.muted)
             this.videoElement.current.muted = false
-        
+
         this.videoElement.current.volume = e.target.value;
         this.setState({ volumeValue: e.target.value, volumeTrackLength: 50 * e.target.value })
     }
@@ -195,10 +202,10 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    handleLoadedData(e){
+    handleLoadedData(e) {
         e.preventDefault();
-        if(this.state.videoStatus === 'LOAD')
-            this.setState({videoStatus: null})
+        if (this.state.videoStatus === 'LOAD')
+            this.setState({ videoStatus: null })
     }
 
     handlePause(e) {
@@ -219,10 +226,28 @@ class VideoPlayer extends React.Component {
         this.setState({ videoStatus: 'PAUSE' });
     }
 
+    hoverProgressBar(e) {
+        e.preventDefault();
+        let { x, width } = e.currentTarget.getBoundingClientRect();
+
+        if (width !== this.state.maxHoverBarLength)
+            this.setState({
+                hoverBarLength: e.clientX - x,
+                maxHoverBarLength: width
+            });
+        else
+            this.setState({ hoverBarLength: e.clientX - x});
+            
+    }
+
+    leaveProgressBar(e) {
+        e.preventDefault();
+        this.setState({ hoverBarLength: 0 })
+    }
 
     renderPlayStatusButtons() {
         let button, buttonIcon, eventHandler, iconMessage;
-    
+
         switch (this.state.videoStatus) {
             case 'PLAY':
                 button = 'pause-button';
@@ -239,8 +264,8 @@ class VideoPlayer extends React.Component {
             case 'PAUSE':
                 button = 'play-button';
                 buttonIcon = 'play_arrow';
-                eventHandler=this.handlePlay();
-                iconMessage='Play';
+                eventHandler = this.handlePlay();
+                iconMessage = 'Play';
                 break;
             default:
                 button = 'play-button';
@@ -253,12 +278,12 @@ class VideoPlayer extends React.Component {
         return (
             <div id={button} className='icon-wrapper' onClick={eventHandler}>
                 <i className="material-icons-enlarged">{buttonIcon}</i>
-                <div className='icon-message'>{iconMessage}</div>
+                <div className='icon-message icon-position-left'>{iconMessage}</div>
             </div>
         )
     }
 
-    miniDescription(){
+    miniDescription() {
         return (
             this.props.videoPlayer.type === 'MINI' ?
                 <div id='video-player-descriptions'>
@@ -268,7 +293,7 @@ class VideoPlayer extends React.Component {
         )
     }
 
-    handleSeekingClick(e){
+    handleSeekingClick(e) {
         e.stopPropagation();
         this.seeking = this.seeking ? false : true;
     }
@@ -280,8 +305,8 @@ class VideoPlayer extends React.Component {
                 <div onClick={this.handlePlay('screen')}
                     id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
 
-                    { this.state.videoStatus === 'REPLAY' ?  <div id="video-dark-screen" /> : null}
-                    { this.state.videoStatus === 'LOAD' ? <div id='video-loader'><div className='spinner'/></div> : null}
+                    {this.state.videoStatus === 'REPLAY' ? <div id="video-dark-screen" /> : null}
+                    {this.state.videoStatus === 'LOAD' ? <div id='video-loader'><div className='spinner' /></div> : null}
 
                     <video id="video-player"
                         ref={this.videoElement}
@@ -301,23 +326,27 @@ class VideoPlayer extends React.Component {
                     <div id={'video-control' + (this.state.videoStatus ? `-${this.state.videoStatus}` : "")} >
                         {
                             this.props.videoPlayer.type === 'MINI' ?
-                            <MiniControlUI 
-                                playButton={this.renderPlayStatusButtons()}
-                                currentTime={this.state.currentTime}
-                                duration={this.state.duration}
-                                closeButton={this.props.removeVideoPlayer}
-                                handleGoBack={this.handleGoBack}
-                            /> : null
+                                <MiniControlUI
+                                    playButton={this.renderPlayStatusButtons()}
+                                    currentTime={this.state.currentTime}
+                                    duration={this.state.duration}
+                                    closeButton={this.props.removeVideoPlayer}
+                                    handleGoBack={this.handleGoBack}
+                                /> : null
                         }
 
                         <ProgressBar
-                            seeker = {this.seeker}
+                            seeker={this.seeker}
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
                             handleSeeking={this.handleSeeking}
                             handleSeekingClick={this.handleSeekingClick}
+                            hoverProgressBar={this.hoverProgressBar}
+                            leaveProgressBar={this.leaveProgressBar}
                             videoElement={this.videoElement.current}
                             currentTime={this.state.currentTime}
+                            hoverBarLength={this.state.hoverBarLength}
+                            maxHoverBarLength={this.state.maxHoverBarLength}
                             duration={this.state.duration}
                         />
 

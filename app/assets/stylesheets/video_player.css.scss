@@ -56,15 +56,13 @@
 #progress-bar{
     width: 97.5%;
     height: 3px;
-    background: transparent;
     position: relative;
     border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     background: rgba(124,124,124,0.6);
-    transition: height 0.15s linear;
-    
+    transition: height 0.15s linear;   
 }
 
 #progress-bar:hover{
@@ -86,6 +84,13 @@
     height: 100%;
     color: red;
     background:red;
+}
+
+#hover-bar{
+    position: absolute;
+    z-index: 1;
+    background: rgba(220,220,220,0.5);
+    height: 100%;
 }
 
 #seeker-bar{
@@ -204,12 +209,19 @@
 .icon-message{
     display: none;
     position: absolute;
-    background: rgb(15,15,15);
+    background: rgb(25,25,25);
     color: white;
     font-size: 12px;
-    padding:5px;
+    padding:5px 10px;
     white-space: nowrap;
-    top: -20px;
+    top: -24px;
+}
+
+.icon-position-left{
+    left: -10px;
+}
+.icon-position-right{
+    right: -15px;
 }
 
 #video-control-ui i:hover{
@@ -238,7 +250,7 @@
     width: 101%;
     position: absolute;
     z-index: 2;
-    margin-top: -6px;
+    margin-top: -5px;
     margin-left: 1px;
 }
 
@@ -246,8 +258,8 @@
 #volume-control::-webkit-slider-thumb{
     -webkit-appearance: none;
     background: white;
-    height: 13px;
-    width: 13px;
+    height: 12px;
+    width: 12px;
     border-radius: 50%;
     margin-top: 1.5px;
 }
@@ -279,29 +291,44 @@
     background-color: transparent;
 }
 
+.volume-control-bar-wrapper{
+    margin-left: 8px;
+    width: 0px;
+    transition: width 0.2s linear;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
 #volume-control-bar{
     width: 0px;
     background: rgba(75,75,75, 0.9);
-    visibility: hidden;
     transition: width 0.1s linear;
     height: 3px;
 }
 
 #volume-control-track{
     height: 3px;
-    visibility: hidden;
     background: white;
     position: absolute;
     z-index: 1;
 }
 
 
+
 #volume-control-div:hover{
+
+    .volume-control-bar-wrapper{
+        width: 52px;
+        transition: width 0.2s linear;
+    }
 
     #volume-control-bar{
         width: 50px;
         visibility: visible;
-        transition: width 0.1s linear;
+        transition: width 0.2s linear;
     }
 
     #volume-control-track{
@@ -314,23 +341,8 @@
         transition: width 0.1s linear;
         cursor: pointer;
     }
-
-    #volume-control::-webkit-slider-thumb{
-        visibility: visible;
-    }
-
-
 }
 
-#volume-control{
-   width: 0px;
-   visibility: hidden;
-   transition: width 0.1s linear;
-}
-
-#volume-control::-webkit-slider-thumb{
-     visibility: hidden;
-}
 
 
 #video-control-ui > section{
@@ -364,6 +376,10 @@
 #video-control-ui > section:last-child{
     display:flex;
     align-items: center;
+}
+
+#video-control-ui > section:last-child i {
+    margin: 0 5px;
 }
 
 
