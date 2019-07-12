@@ -9,12 +9,13 @@ const ProgressBar = props => {
             <div id='user-streamed' style={{ width: width + '%'}} />
             <div id='buffer-streamed' style={{ width: props.bufferStream + "%" }} />
             <div id='hover-bar' style={{width: props.hoverBarLength, maxWidth: props.maxHoverBarLength}} />
-            <input ref={props.seeker} id='seeker-bar' type='range' value={width}
+            <input ref={props.seeker} id='seeker-bar' type='range' value={width} min="0" max="100"
                 onMouseDown={props.handleSeekingClick}
                 onMouseUp={props.handleSeekingClick}    
                 onClick={e => e.stopPropagation()}
+                onInput={props.handleSeeking}
                 onChange={props.handleSeeking}
-                step={0.02}
+                step={1}
             />
         </div>
 

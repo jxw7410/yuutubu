@@ -39,8 +39,6 @@ class ChannelIndexItem extends React.Component {
     }
 
     render() {
-        //const thumbnails = null;
-        //Uncomment for production
         const thumbnails = this.getThumbnails()
         return (
             <li className="channel_index_items">

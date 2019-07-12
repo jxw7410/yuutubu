@@ -20,6 +20,7 @@ class VideoPlayer extends React.Component {
             maxHoverBarLength: 0, //Needs to be fixed
             currentTime: 0,
             duration: 0,
+            stepper: 1,
             previousURL: "/",
             channelName: null,
         }
@@ -199,7 +200,7 @@ class VideoPlayer extends React.Component {
     handleLoadedData(e) {
         e.preventDefault();
         if (this.state.videoStatus === 'LOAD')
-            this.setState({ videoStatus: null })
+            this.setState({ videoStatus: null,  stepper: 100 / this.videoElement.current.duration })
     }
 
     handlePause(e) {
@@ -221,7 +222,6 @@ class VideoPlayer extends React.Component {
     }
 
     hoverProgressBar(e) {
-        e.preventDefault();
         let { x, width } = e.currentTarget.getBoundingClientRect();
 
         if (width !== this.state.maxHoverBarLength)
@@ -340,7 +340,8 @@ class VideoPlayer extends React.Component {
                             currentTime={this.state.currentTime}
                             hoverBarLength={this.state.hoverBarLength}
                             maxHoverBarLength={this.state.maxHoverBarLength}
-                            duration={this.state.duration}/>
+                            duration={this.state.duration}
+                            stepper={this.state.stepper}/>
 
 
                         {
