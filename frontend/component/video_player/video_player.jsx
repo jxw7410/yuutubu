@@ -25,11 +25,13 @@ class VideoPlayer extends React.Component {
             channelName: null,
         }
 
+        this.videoElement = React.createRef();
+        this.seeker = React.createRef();
+        this.streamBar = React.createRef();
+
         this.minDuration = null;
         this.viewUpdated = false;
         this.startTime = 0;
-        this.videoElement = React.createRef();
-        this.seeker = React.createRef();
         this.seeking = false;
         this.autoPlay = false;
         this.prevVolume = 1;
@@ -127,10 +129,19 @@ class VideoPlayer extends React.Component {
     handleSeeking(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.videoElement.current.pause();
-        const time = this.videoElement.current.duration * (e.target.value / 100);
-        this.videoElement.current.currentTime = time;
-        this.setState({ videoStatus: 'PAUSE' })
+
+        if(this.state.videoStatus !== 'PAUSE') {
+            this.videoElement.current.pause();
+            this.setState({ videoStatus: 'PAUSE' })
+        }
+
+        let duration = this.videoElement.current.duration;
+        let currentTime = duration * (e.target.value / 100);
+
+        this.videoElement.current.currentTime = currentTime
+        const value = ((currentTime / duration ) * 100).toFixed(4);
+        this.seeker.current.value = value;
+        this.streamBar.current.style.width = value + '%';
     }
 
 
@@ -144,9 +155,14 @@ class VideoPlayer extends React.Component {
         }
 
         const currentTime = this.videoElement.current.currentTime;
-        const value = (currentTime / this.videoElement.current.duration) * 100;
+        const duration = this.videoElement.current.duration;
+
+        const value = ((currentTime / duration) * 100).toFixed(4);
+        this.seeker.current.value = value;
+        this.streamBar.current.style.width = value + '%';
+        
         if (!this.state.duration)
-            this.setState({ duration: this.videoElement.current.duration, userStream: value, currentTime })
+            this.setState({ duration, userStream: value, currentTime })
         else
             this.setState({ userStream: value, currentTime })
     }
@@ -330,6 +346,7 @@ class VideoPlayer extends React.Component {
 
                         <ProgressBar
                             seeker={this.seeker}
+                            streamBar={this.streamBar}
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
                             handleSeeking={this.handleSeeking}
