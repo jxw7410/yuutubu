@@ -15,7 +15,7 @@ const ProgressBar = props => {
                 onClick={e => e.stopPropagation()}
                 onInput={props.handleSeeking}
                 onChange={props.handleSeeking}
-                step={1}
+                step={0.05}
             />
         </div>
 
