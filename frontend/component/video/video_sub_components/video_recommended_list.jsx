@@ -18,6 +18,7 @@ class VideoRecommendedList extends React.Component {
     }
 
     componentDidMount() {
+        // remove_for_production
         if (this.props.video_id) {
             if (this.state.currentVideoId !== this.props.video.id) {
                 this.setState({ currentVideoId: this.props.video.id })

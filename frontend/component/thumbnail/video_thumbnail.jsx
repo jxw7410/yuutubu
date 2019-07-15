@@ -18,6 +18,7 @@ class VideoThumbnail extends React.Component {
         this.receiveVideo = false;
         this.throttledAjax = null;
         this.mouseHover = false;
+        this.clock = false;
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -83,6 +84,7 @@ class VideoThumbnail extends React.Component {
 
     handleMouseOver() {
         this.mouseHover = true;
+        this.clock = true;
     }
 
     setRender() {
@@ -100,18 +102,17 @@ class VideoThumbnail extends React.Component {
 
     handleMouseLeave() {
         clearTimeout(this.throttledAjax)
-        if (this.state.renderVideo){
+        this.clock = false;
+
+        if (this.state.renderVideo) 
             this.setRender();
-        
-        } 
-        if(this.state.dataLoaded){
+
+        if(this.state.dataLoaded)
             setTimeout(()=>{
                 this.mouseHover = false;
-            }, 100)
-        }
-        else {
+            }, 100);
+        else 
             this.mouseHover = false;
-        }
     }
 
 
@@ -133,19 +134,23 @@ class VideoThumbnail extends React.Component {
                                 video={this.props.video} /> : null
                     }
 
+
+                    {
+                        this.clock ?
+                        <div className='thumbnail-clock'> 
+                            <i className="material-icons clock">watch_later</i>
+                        </div> : null
+                    }
+
                     <div className={`thumbnail-preview-wrapper` +
                         ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? " thumbnail-active" : "")}>
                         <img className={`thumbnail-preview`}
                             src={this.props.video.thumbnail} />
-
                         <div className='video-time'>{convertDurationToTime(this.props.video.duration)}</div>
                     </div>
                 </div>
 
-
-
                 {this.state.infoComponent}
-
             </li>
         )
     }
