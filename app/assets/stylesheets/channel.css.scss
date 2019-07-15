@@ -227,6 +227,8 @@
     z-index: 1;
 }
 
+
+
 .thumbnail-preview-video{
     opacity: 0;
     position: absolute;
@@ -254,25 +256,36 @@
     object-fit: cover;
 }
 
-
-.thumbnail-preview {
-    width: 210px;
-    height: 117.5px;
+.thumbnail-preview-wrapper{
     position: relative;
     z-index: 1;
     opacity: 1;
     transition: opacity 0.15s linear;
 }
 
-
-
-.thumbnail-preview-active{
+.thumbnail-active{
     opacity: 0;
-    width: 210px;
-    height: 117.5px;
-    z-index: 1;
     position: absolute;
     transition: opacity 0.5s ease-in;
+}
+
+
+.thumbnail-preview {
+    width: 210px;
+    height: 117.5px;
+    position: relative;
+}
+
+
+
+.video-time{
+    background:rgba(0, 0, 0, 0.8);
+    color:white;
+    font-size: 12px;
+    position: absolute;
+    padding: 2px 4px;
+    bottom:8px;
+    right:5px;
 }
 
 

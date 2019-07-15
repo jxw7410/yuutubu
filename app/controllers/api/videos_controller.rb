@@ -104,7 +104,7 @@ class Api::VideosController < ApplicationController
     end
 
     def recommended_video_query(video_id)
-        limit = 18
+        limit = 2
         if video_id
             if login?
                 videos = Video.where

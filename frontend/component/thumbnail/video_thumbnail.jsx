@@ -3,6 +3,7 @@ import { fetchVideo } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
 import ThumbnailPreviewVideo from './thumbnail_preview';
 import { VideoPageThumbnailInfo, IndexPageThumbnailInfo, SearchPageThumbnailInfo } from './thumbnail_info';
+import { convertDurationToTime } from '../../util/selectors';
 
 class VideoThumbnail extends React.Component {
     constructor(props) {
@@ -131,9 +132,14 @@ class VideoThumbnail extends React.Component {
                                 setDataloaded={this.setDataloaded}
                                 video={this.props.video} /> : null
                     }
-                    <img className={`thumbnail-preview` +
-                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? "-active" : "")}
-                        src={this.props.video.thumbnail} />
+
+                    <div className={`thumbnail-preview-wrapper` +
+                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? " thumbnail-active" : "")}>
+                        <img className={`thumbnail-preview`}
+                            src={this.props.video.thumbnail} />
+
+                        <div className='video-time'>{convertDurationToTime(this.props.video.duration)}</div>
+                    </div>
                 </div>
 
 

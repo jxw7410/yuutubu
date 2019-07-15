@@ -13,7 +13,7 @@ class ChannelIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchChannelVideos(this.props.channel.id, 6, 0)
+        //this.props.fetchChannelVideos(this.props.channel.id, 6, 0)
     }
 
 

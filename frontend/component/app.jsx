@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/auth_route'
 import SignUpContainer  from '../component/auth/signup_container'
 import LoginContainer from '../component/auth/login_container'
@@ -16,12 +16,14 @@ const App = () => (
         <MainNav />
         <Modal />
         <VideoWrapperContainer />
-        <Route path='/search/:query' component={SearchContainer}/>
-        <Route exact path='/' component={ChannelIndexContainer}/>
-        <Route path='/channel/:channel_id' component={ChannelRouter}/>
-        <AuthRoute path="/signup" component={SignUpContainer}/>  
-        <AuthRoute path="/login" component={LoginContainer}/>  
-        <ProtectedRoute path='/upload' component={UploadVideoContainer} />
+        <Switch>
+            <Route exact path='/' component={ChannelIndexContainer} />
+            <Route path='/search/:query' component={SearchContainer}/>
+            <Route path='/channel/:channel_id' component={ChannelRouter}/>
+            <AuthRoute path="/signup" component={SignUpContainer}/>  
+            <AuthRoute path="/login" component={LoginContainer}/>  
+            <ProtectedRoute path='/upload' component={UploadVideoContainer} />
+        </Switch>
     </>
 )
 
