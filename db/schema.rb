@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_03_030848) do
+ActiveRecord::Schema.define(version: 2019_07_17_022823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 2019_07_03_030848) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.boolean "is_liked", null: false
+    t.string "likeable_type"
+    t.bigint "likeable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["user_id", "likeable_id", "likeable_type"], name: "index_likes_on_user_id_and_likeable_id_and_likeable_type", unique: true
   end
 
   create_table "search_histories", force: :cascade do |t|
@@ -71,17 +82,6 @@ ActiveRecord::Schema.define(version: 2019_07_03_030848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-  end
-
-  create_table "video_like_dislikes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "video_id", null: false
-    t.boolean "category", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "video_id"], name: "index_video_like_dislikes_on_user_id_and_video_id", unique: true
-    t.index ["user_id"], name: "index_video_like_dislikes_on_user_id"
-    t.index ["video_id"], name: "index_video_like_dislikes_on_video_id"
   end
 
   create_table "video_posts", force: :cascade do |t|

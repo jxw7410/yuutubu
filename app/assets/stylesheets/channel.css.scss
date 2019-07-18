@@ -261,7 +261,9 @@
     z-index: 1;
     opacity: 1;
     transition: opacity 0.15s linear;
+    height: inherit;
 }
+
 
 .thumbnail-active{
     opacity: 0;
@@ -274,9 +276,23 @@
     width: 210px;
     height: 117.5px;
     position: relative;
+    visibility: hidden;
 }
 
 
+.loaded{
+    visibility: visible;
+}
+
+.not-loaded{
+    animation: color-shift 2s infinite
+}
+
+@keyframes color-shift{
+    0% {background: rgb(230,230,230)}
+    50% {background: rgb(210,210,210)}
+    100% {background: rgb(230,230,230)}
+}
 
 .video-time{
     background:rgba(0, 0, 0, 0.8);

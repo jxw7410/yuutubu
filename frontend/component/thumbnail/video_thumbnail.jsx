@@ -12,6 +12,7 @@ class VideoThumbnail extends React.Component {
         this.state = {
             renderVideo: false,
             dataLoaded: false,
+            imgLoaded: false,
             infoComponent: null
         }
 
@@ -25,6 +26,7 @@ class VideoThumbnail extends React.Component {
         this.setRender = this.setRender.bind(this);
         this.didRequested = false;
         this.setDataloaded = this.setDataloaded.bind(this);
+        this.handleLoadImg = this.handleLoadImg.bind(this);
         this._isMounted = false; 
 
     }
@@ -115,6 +117,9 @@ class VideoThumbnail extends React.Component {
             this.mouseHover = false;
     }
 
+    handleLoadImg(){
+        this.setState({imgLoaded: true})
+    }
 
     render() {
         return (
@@ -123,8 +128,7 @@ class VideoThumbnail extends React.Component {
                     onMouseEnter={this.handleMouseEnter}
                     onMouseOver={this.handleMouseOver}
                     onMouseLeave={this.handleMouseLeave}
-                    onClick={this.props.handleClick}
-                    >
+                    onClick={this.props.handleClick}>
                     {
                         this.state.renderVideo && this.mouseHover ?
 
@@ -143,8 +147,12 @@ class VideoThumbnail extends React.Component {
                     }
 
                     <div className={`thumbnail-preview-wrapper` +
-                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? " thumbnail-active" : "")}>
-                        <img className={`thumbnail-preview`}
+                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? " thumbnail-active" : "")
+                         +
+                         ((this.state.imgLoaded ? "" : " not-loaded"))
+                        }>
+                        
+                        <img onLoad={this.handleLoadImg} className={`thumbnail-preview ${this.state.imgLoaded ? "loaded" : ""}`}
                             src={this.props.video.thumbnail} />
                         <div className='video-time'>{convertDurationToTime(this.props.video.duration)}</div>
                     </div>

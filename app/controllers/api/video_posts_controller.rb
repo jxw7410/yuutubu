@@ -1,5 +1,6 @@
 class Api::VideoPostsController < ApplicationController 
     before_action :ensure_login, only: [:create, :destroy]
+    
     def index
         @posts = VideoPost.all.where(video_id: params[:video_id])
             .includes(:user)
@@ -19,7 +20,7 @@ class Api::VideoPostsController < ApplicationController
             .limit(params[:limit])
             .offset(params[:offset])
             .order("created_at DESC")
-        # 
+            
         if @posts.length > 0
             render :index
         else

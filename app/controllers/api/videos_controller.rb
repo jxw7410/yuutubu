@@ -13,7 +13,7 @@ class Api::VideosController < ApplicationController
             .offset(params[:offset]);
 
 
-        if @videos.length > 0 
+        if !@videos.empty?
             render :index_partial
         else  
             render json: {}, status: 404 
@@ -80,12 +80,14 @@ class Api::VideosController < ApplicationController
 
     def show
         @video = Video.where(id: params[:id])
-            .includes(:like_dislikes)
+            .includes(:likes)
             .first
             
         if @video
             if current_user  
-                @like_dislike = @video.like_dislikes.where(user_id: current_user.id).first
+                @like_dislike = @video.likes
+                    .where(user_id: current_user.id)
+                    .first
             else 
                 @like_dislike = nil;
             end
@@ -105,7 +107,7 @@ class Api::VideosController < ApplicationController
 
     def recommended_video_query(video_id)
         # remove_for_production
-        limit = 18
+        limit = 12
         if video_id
             if login?
                 videos = Video.where

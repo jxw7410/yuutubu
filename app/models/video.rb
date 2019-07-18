@@ -14,6 +14,7 @@
 #
 
 class Video < ApplicationRecord
+    include Likeable
     validates :title, :description, :user_id, :channel_id, :duration, presence: true
 
 
@@ -30,15 +31,7 @@ class Video < ApplicationRecord
         primary_key: :id,
         foreign_key: :channel_id,
         class_name: :UserChannel
-    
-    has_many :like_dislikes,
-        primary_key: :id,
-        foreign_key: :video_id,
-        class_name: :VideoLikeDislike
-    
-    has_many :like_dislikes_users,
-        through: :like_dislikes,
-        source: :user
+
 
     has_many :video_posts,
         primary_key: :id,

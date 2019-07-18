@@ -38,14 +38,14 @@ class VideoInfoHeader extends React.Component {
     }
 
     handleLike() {
-        if (this.props.like_dislike.category === this.like)
+        if (this.props.like_dislike.is_liked === this.like)
             this.props.deleteLikeDislike(this.props.like_dislike.id)
                 .then(() => {
                     this.fetching = false
                     this.setState({ likeCount: this.state.likeCount - 1 })
                 })
                 .fail(() => this.fetching = false)
-        else if (this.props.like_dislike.category === this.dislike)
+        else if (this.props.like_dislike.is_liked === this.dislike)
             this.props.updateLikeDislike(this.props.like_dislike.id, true)
                 .then(() => {
                     this.fetching = false
@@ -62,14 +62,14 @@ class VideoInfoHeader extends React.Component {
     }
 
     handleDislike() {
-        if (this.props.like_dislike.category === this.dislike)
+        if (this.props.like_dislike.is_liked === this.dislike)
             this.props.deleteLikeDislike(this.props.like_dislike.id)
                 .then(() => {
                     this.fetching = false
                     this.setState({ dislikeCount: this.state.dislikeCount - 1 })
                 })
                 .fail(() => this.fetching = false)
-        else if (this.props.like_dislike.category === this.like)
+        else if (this.props.like_dislike.is_liked === this.like)
             this.props.updateLikeDislike(this.props.like_dislike.id, false)
                 .then(() => {
                     this.fetching = false;
@@ -116,7 +116,7 @@ class VideoInfoHeader extends React.Component {
 
 
     likeDislikeButton(field, count, icon){
-        let classExtension = this.props.like_dislike.category === field ? " voted" : "";
+        let classExtension = this.props.like_dislike.is_liked === field ? " voted" : "";
         return (
             <span onClick={this.handleClick(field)}>
                 <i className={"material-icons" + classExtension}>{icon}</i>
@@ -138,7 +138,7 @@ class VideoInfoHeader extends React.Component {
                                 {this.likeDislikeButton(this.dislike, this.state.dislikeCount, 'thumb_down')}
                             </section>
                             <div id="like-dislike-bar">
-                                <div id={"like-ratio-bar" + (this.props.like_dislike.category === undefined ? "" : "-voted")}
+                                <div id={"like-ratio-bar" + (this.props.like_dislike.is_liked === undefined ? "" : "-voted")}
                                     style={{ width: `${this.likeDislikeRatio() * 100}%` }} />
                             </div>
                         </div>

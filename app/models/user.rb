@@ -33,14 +33,15 @@ class User < ApplicationRecord
         through: :subscriptions,
         source: :channel
 
-    has_many :videos_like_dislikes,
+    has_many :video_likes_dislikes,
         primary_key: :id,
         foreign_key: :user_id,
-        class_name: :VideoLikeDislike
+        class_name: :Like
 
     has_many :liked_disliked_videos,
-        through: :videos_like_dislikes,
-        source: :video
+        through: :video_likes_dislikes,
+        source_type: "Video",
+        source: :likeable
 
 
     has_many :video_posts,

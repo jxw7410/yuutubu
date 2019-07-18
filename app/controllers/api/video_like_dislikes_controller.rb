@@ -1,6 +1,11 @@
 class Api::VideoLikeDislikesController < ApplicationController
     def create
-        @like_dislike =  VideoLikeDislike.create(user_id: current_user.id, video_id: s_params[:video_id], category: bool(s_params[:bool]))
+        @like_dislike =  Like.create(
+            user_id: current_user.id, 
+            likeable_id: s_params[:video_id], 
+            is_liked: bool(s_params[:bool]),
+            likeable_type: Video.to_s)
+
         if @like_dislike
             render :show
         else 
@@ -9,9 +14,9 @@ class Api::VideoLikeDislikesController < ApplicationController
     end 
 
     def update
-        @like_dislike = VideoLikeDislike.find_by_id(params[:id])
+        @like_dislike = Like.find_by_id(params[:id])
         
-        if @like_dislike.update(category: params[:bool])
+        if @like_dislike.update(is_liked: params[:bool])
             render :show 
         else  
             render json: ['Error'], status: 422
@@ -19,7 +24,7 @@ class Api::VideoLikeDislikesController < ApplicationController
     end
 
     def destroy
-        @like_dislike = VideoLikeDislike.find_by_id(params[:id])
+        @like_dislike = Like.find_by_id(params[:id])
         @like_dislike.destroy!
         render json: {}, status: 200       
     end
