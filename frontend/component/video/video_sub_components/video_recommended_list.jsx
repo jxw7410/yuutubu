@@ -27,7 +27,7 @@ class VideoRecommendedList extends React.Component {
     }
 
     componentDidUpdate() {
-        // if (this.props.video.id) {
+        if (this.props.video.id) {
             if (this.state.currentVideoId !== this.props.video.id) {
                 this.setState({ currentVideoId: this.props.video.id, fetched: true })
                 this.props.fetchRecommendedVideos(this.props.video.id)
