@@ -1,5 +1,4 @@
 class Api::VideosController < ApplicationController
-
     def index_search
         query = params[:query].downcase
         @videos = Video.joins(:channel).where("lower(title) like ? or lower(title) like ? or lower(title) like ? or 
@@ -104,7 +103,7 @@ class Api::VideosController < ApplicationController
 
     def recommended_video_query(video_id)
         # remove_for_production
-        limit = 18
+        limit = 12
         if video_id
             videos = login? ? Video.where.not(id: video_id, user_id: current_user.id)
                 .limit(limit)
