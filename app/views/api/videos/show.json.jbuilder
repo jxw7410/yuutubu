@@ -7,7 +7,7 @@ end
 json.likeCount @video.get_total_likes
 json.dislikeCount @video.get_total_dislikes
 
-if @like_dislike 
+if @like_dislike
     json.like_dislike do 
         json.extract! @like_dislike, :id, :is_liked
     end

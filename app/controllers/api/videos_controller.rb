@@ -12,11 +12,10 @@ class Api::VideosController < ApplicationController
             .limit(params[:limit])
             .offset(params[:offset]);
 
-
         if !@videos.empty?
             render :index_partial
         else  
-            render json: {}, status: 404 
+            render json: {}, status: 404
         end
     end
 
@@ -79,12 +78,10 @@ class Api::VideosController < ApplicationController
     end
 
     def show
-        @video = Video.where(id: params[:id])
-            .includes(:likes)
-            .first
+        @video = Video.where(id: params[:id]).includes(:likes).first
             
         if @video
-            if current_user  
+           if login?
                 @like_dislike = @video.likes
                     .where(user_id: current_user.id)
                     .first
@@ -107,27 +104,25 @@ class Api::VideosController < ApplicationController
 
     def recommended_video_query(video_id)
         # remove_for_production
-        limit = 12
+        limit = 18
         if video_id
-            if login?
-                videos = Video.where
-                    .not(id: video_id, user_id: current_user.id)
-                    .limit(limit)
-                    .includes(:channel)
-                    .order(:views)
-            else 
-                videos = Video.where
-                    .not(id: video_id)
-                    .limit(limit)
-                    .includes(:channel)
-                    .order(:views)
-            end 
+            videos = login? ? Video.where.not(id: video_id, user_id: current_user.id)
+                .limit(limit)
+                .includes(:channel)
+                .order(:views) 
+                : 
+                Video.where.not(id: video_id)
+                .limit(limit)
+                .includes(:channel)
+                .order(:views)
         else 
-            if login? 
-                videos = Video.all.limit(limit).not(user_id: current_user.id).includes(:channel).order(:views)
-            else
-                videos = Video.all.limit(limit).includes(:channel).order(:views)
-            end
+            videos = login? ? Video.all.limit(limit).not(user_id: current_user.id)
+                .includes(:channel)
+                .order(:views) 
+                : 
+                Video.all.limit(limit)
+                .includes(:channel)
+                .order(:views)
         end
         
         videos

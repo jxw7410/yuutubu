@@ -9,10 +9,10 @@ module Likeable
     end
 
     def get_total_likes
-        self.likes.where(is_liked: true).count 
+        self.likes.where(is_liked: true).size
     end
 
     def get_total_dislikes
-        self.likes.where(is_liked: false).count
+        self.likes.where(is_liked: false).size
     end
 end
