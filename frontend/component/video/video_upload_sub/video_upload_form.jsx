@@ -73,7 +73,16 @@ class VideoUploadForm extends React.Component {
         const ready = this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description
 
         if (this.props.uploading)
-            return <div id='uploading-spinner'> <div className='spinner' /></div>
+            return <div className='upload-bar'> 
+            <div 
+                style={{ 
+                        background: 'green',
+                        width: `${this.props.uploadPercentage}%`,
+                        height: '100%',
+                        transition: 'width 0.1s linear'
+                    }}
+            />
+            </div>
         else
             if (this.props.doneUploading)
                 return <h1>Video Upload Successful!</h1>

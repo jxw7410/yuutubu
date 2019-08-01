@@ -14,10 +14,14 @@ class UploadVideo extends React.Component {
             duration: null,
             title: "",
             description: "",
+            uploadPercentage: 0,
             uploadForm: false,
             uploading: false,
             doneUploading: false,
         }
+
+        this.currentProgress = 0;
+        this.totalProgress = 1;
 
         this.handleFile = this.handleFile.bind(this);
         this.handleThumbnail = this.handleThumbnail.bind(this);
@@ -25,6 +29,7 @@ class UploadVideo extends React.Component {
         this.handleTypeEvent = this.handleTypeEvent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleThumbnailUpload = this.handleThumbnailUpload.bind(this);
+        this.uploadProgress = this.uploadProgress.bind(this);
     }
 
     componentDidMount(){
@@ -89,45 +94,74 @@ class UploadVideo extends React.Component {
 
     }
 
+    uploadProgress(){
+        const xhr = new XMLHttpRequest();
+        let previousProgress = 0
+        xhr.upload.addEventListener('progress', e =>{
+            if (e.lengthComputable){
+                this.currentProgress += (e.loaded - previousProgress)
+                previousProgress = e.loaded;
+                this.setState({ uploadPercentage: 
+                    parseInt( this.currentProgress * 100 / this.totalProgress)})
+            }
+        })
+        return xhr
+    }
+
+    requestUpload(blob, data, contentType){
+        return $.ajax({
+            xhr: this.uploadProgress,
+            url: blob.direct_upload.url,
+            type: 'PUT',
+            headers: blob.direct_upload.headers,
+            contentType,
+            data,
+            cache: false,
+            processData: false
+        })
+    }
+
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.file && this.state.thumbnail && this.state.title.length > 0 && this.state.description.length > 0) {
+        if (this.state.file && this.state.thumbnail && this.state.title.length && this.state.description.length) {
             const formData = new FormData();
-            //formData.append('video[thumbnail]', this.state.thumbnail);
-            //formData.append('video[file]', this.state.file);
-            // formData.append('video[duration]', this.state.duration);
-            // formData.append('video[title]', this.state.title);
-            // formData.append('video[description]', this.state.description); 
-            // formData.append('video[channel_id]', this.props.user.channel_id);
             formData.append('video[file]', this.state.file);
+            formData.append('video[thumbnail]', this.state.thumbnail);
             this.props.requestDirectUpload(formData)
                 .then((blob) =>{
-                    // Will require special XHR to display progress
-                    $.ajax({
-                        url: blob.direct_upload.url,
-                        type: 'PUT',
-                        data: this.state.file.slice(),
-                        cache: false,
-                        headers: blob.direct_upload.headers,
-                        contentType: this.state.file.type,
-                        processData: false
-                    }).then((blob) => {
-                        debugger
+                    
+                    this.totalProgress = this.state.file.size + this.state.thumbnail.size
+                    
+                    new Promise((resolve, reject)=>{
+                        let image_uploaded, vid_uploaded = false;
+                        this.requestUpload(blob[0], this.state.thumbnail, this.state.thumbnail.type)
+                            .then(() => {
+                                image_uploaded = true
+                                if (image_uploaded && vid_uploaded)
+                                    resolve()
+                            }).fail( ()=> reject('Upload Failed'))
 
+                        this.requestUpload(blob[1], this.state.file.slice(), this.state.file.type)
+                            .then(() => {
+                                vid_uploaded = true
+                                if (image_uploaded && vid_uploaded)
+                                    resolve()
+                            }).fail(()=> reject('Upload failed'))
+                    }).then(()=>{
                         this.props.createVideo({
-                            'title': this.state.title,
-                            'duration' : this.state.duration,
-                            'description' : this.state.description,
-                            'blob_id' : blob.id
-                        });
-                    })
-                    .fail(()=>{
-                        alert('Upload Failed!')
+                            "video" : {
+                                "title": this.state.title,
+                                "description": this.state.description,
+                                "channel_id" : this.state.channel_id,
+                                "duration": this.state.duration,
+                                "video_id": blob[1].id,
+                                "thumbnail_id": blob[0].id 
+                            }
+                        }).then( ()=> alert('success'))
                     })
 
-                })
-                .fail(()=>{
+                }).fail(()=>{
                     alert('Upload Failed!')
                     //this.props.history.push('/');
                 });
@@ -155,6 +189,7 @@ class UploadVideo extends React.Component {
                                 uploading={this.state.uploading}
                                 doneUploading={this.state.doneUploading}
                                 title={this.state.title}
+                                uploadPercentage={this.state.uploadPercentage}
                                 description={this.state.description}
                             />
                             :

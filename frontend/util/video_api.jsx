@@ -22,14 +22,10 @@ export const requestRecommendedVideos = video_id => {
 }
 
 export const uploadVideo = video => {
-    debugger
     return $.ajax({
         method: 'post',
         url: '/api/videos',
-        data: video,
-        contentType: false,
-        processData: false,
-
+        data: video
     })
 }
 

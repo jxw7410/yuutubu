@@ -1,17 +1,24 @@
-class DirectUploadsController < ApplicationController
+class Api::DirectUploadsController < ApplicationController
     before_action :ensure_login
 
-
     def create 
-        blob = ActiveStorage::Blob.create_before_direct_upload!(
-            filename: video_params[:file].original_filename,
-            content_type: video_params[:file].content_type,
-            byte_size: video_params[:file].size,
-            checksum: Digest::MD5.base64digest(File.read(video_params[:file].tempfile)),
+        image_blob = ActiveStorage::Blob.create_before_direct_upload!(
+            filename: valid_params[:thumbnail].original_filename,
+            content_type: valid_params[:thumbnail].content_type,
+            byte_size: valid_params[:thumbnail].size, 
+            checksum: Digest::MD5.base64digest(File.read(valid_params[:thumbnail].tempfile)),
             metadata: {"identified"=>true, "analyzed"=>true}
         )
         
-        render json: direct_upload_json(blob), status: 200
+        video_blob = ActiveStorage::Blob.create_before_direct_upload!(
+            filename: valid_params[:file].original_filename,
+            content_type: valid_params[:file].content_type,
+            byte_size: valid_params[:file].size,
+            checksum: Digest::MD5.base64digest(File.read(valid_params[:file].tempfile)),
+            metadata: {"identified"=>true, "analyzed"=>true}
+        )
+        
+        render json: [direct_upload_json(image_blob), direct_upload_json(video_blob)], status: 200
     end 
 
 
@@ -26,5 +33,10 @@ class DirectUploadsController < ApplicationController
             .merge(direct_upload: {
             url: blob.service_url_for_direct_upload,
             headers: blob.service_headers_for_direct_upload})
+    end
+
+
+    def valid_params
+        params.require(:video).permit(:file, :thumbnail)
     end
 end

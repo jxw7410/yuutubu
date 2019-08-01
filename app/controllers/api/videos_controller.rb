@@ -50,20 +50,37 @@ class Api::VideosController < ApplicationController
     end
 
     def create
-        channel = current_user.user_channels.where(id: video_params[:channel_id]).first
-        @video = Video.create(user_id: current_user.id, 
-                title: video_params[:title],
-                channel_id: channel.id,
-                description: video_params[:description],
-                duration: video_params[:duration])
+        channel = current_user.user_channels.first
 
-        temp = ActiveStorage::Attachment.create(
+        @video = Video.create(
+            user_id: current_user.id, 
+            title: video_params[:title],
+            channel_id: channel.id,
+            description: video_params[:description],
+            duration: video_params[:duration]
+        )
+
+
+        @video_attachment = ActiveStorage::Attachment.create(
             name: 'video_content',
             record_type: 'Video',
-            record_id: Video.last.id,
-            blob_id: params[:blob_id]
+            record_id: @video.id,
+            blob_id: video_params[:video_id]
         )
-    
+
+        @thumbnail_attachment = ActiveStorage::Attachment.create(
+            name: 'thumbnail',
+            record_type: 'Video',
+            record_id: @video.id,
+            blob_id: video_params[:thumbnail_id]
+        )
+        
+        if @video && @video_attachment && @thumbnail_attachment
+            render json: {}, status: 200
+        else 
+            render json: ['Upload failed!'], status: 422 
+        end
+
     end
 
 
@@ -89,7 +106,14 @@ class Api::VideosController < ApplicationController
     private 
 
     def video_params 
-        params.require(:video).permit(:title, :description, :channel_id, :duration, :file, :thumbnail)
+        params.require(:video).permit(
+            :title, 
+            :description, 
+            :channel_id, 
+            :duration, 
+            :video_id,
+            :thumbnail_id
+        )
     end
 
 
