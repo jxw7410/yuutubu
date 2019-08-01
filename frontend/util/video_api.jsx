@@ -22,6 +22,7 @@ export const requestRecommendedVideos = video_id => {
 }
 
 export const uploadVideo = video => {
+    debugger
     return $.ajax({
         method: 'post',
         url: '/api/videos',
@@ -32,6 +33,16 @@ export const uploadVideo = video => {
     })
 }
 
+
+export const requestDirectUpload = file => {
+    return $.ajax({
+        method: 'post',
+        url: '/api/direct_upload',
+        data: file,
+        contentType: false,
+        processData: false,
+    })
+}
 
 export const updateView = video_id => {
     return $.ajax({

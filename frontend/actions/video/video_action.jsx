@@ -3,7 +3,6 @@ import * as VideoAPI from '../../util/video_api';
 export const RECEIVE_VIDEO = 'RECEIVE_VIDEO';
 export const RECEIVE_CHANNEL_VIDEOS = 'RECEIVE_CHANNEL_VIDEOS';
 export const CLEAR_CHANNEL_VIDEOS = "CLEAR_CHANNEL_VIDEOS";
-export const CREATE_VIDEO = 'CREATE_VIDEO';
 
 const receiveVideo = video => {
     return {
@@ -21,12 +20,6 @@ const receiveChannelVideos = videos => {
 }
 
 
-//Token Action, does nothing, because create returns nothing.
-const createdVideo = () => {
-    return {
-        type: CREATE_VIDEO
-    }
-}
 
 export const clearChannelVideos = () => {
     return {
@@ -58,7 +51,8 @@ export const fetchRecommendedVideos = video_id => dispatch => {
 
 export const createVideo = videoPayload => dispatch =>{
     return VideoAPI.uploadVideo(videoPayload)
-        .then( ()=>{
-            dispatch(createdVideo())
-        });
+}
+
+export const requestDirectUpload = file => dispatch =>{
+    return VideoAPI.requestDirectUpload(file)
 }

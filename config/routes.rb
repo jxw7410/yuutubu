@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :user_channels, only: [:create, :index, :show]
       
       resources :videos, only: [:show, :create]
+
       #Do I really need these API endpoints?
       get '/videos/index_partial/:channel_id', to: 'videos#index_partial'
       get '/videos/index_recommended/:video_id', to: 'videos#index_recommended'
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
 
       resources :subscriptions, only: [:create, :destroy, :index]
       resources :video_like_dislikes, only: [:create, :destroy, :update]
+      resource :direct_upload, only: [:create, :delete]
       
   end
 

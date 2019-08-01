@@ -37,11 +37,17 @@ class VideoUploadForm extends React.Component {
     getPreviewUi() {
         switch (this.state.videoStatus) {
             case 'PAUSE':
-                return <div id='preview-ui-play' onClick={this.handlePlay} > <i className="fas fa-play-circle"></i></div>
+                return <div id='preview-ui-play' 
+                    className='preview-ui flex-hzntal-ctr-all'
+                    onClick={this.handlePlay} > <i className="fas fa-play-circle"></i></div>
             case 'PLAY':
-                return <div id='preview-ui-pause' onClick={this.handlePlay} > <i className="fas fa-pause-circle"></i></div>
+                return <div id='preview-ui-pause' 
+                    className='preview-ui flex-hzntal-ctr-all'
+                onClick={this.handlePlay} > <i className="fas fa-pause-circle"></i></div>
             case 'END':
-                return <div id='preview-ui-end' onClick={this.handlePlay} > <i className="fas fa-undo-alt"></i></div>
+                return <div id='preview-ui-end' 
+                className='preview-ui flex-hzntal-ctr-all'
+                onClick={this.handlePlay} > <i className="fas fa-undo-alt"></i></div>
         }
     }
 
@@ -57,25 +63,27 @@ class VideoUploadForm extends React.Component {
                     </video>
                     {previewUI}
                 </div>
-                : <div id='loading-video'><div className='spinner'/> </div>
+                : <div id='loading-video'
+                    className='flex-vert-ctr-all'
+                ><div className='spinner'/> </div>
         )
     }
 
     publishButton() {
+        const ready = this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description
+
         if (this.props.uploading)
             return <div id='uploading-spinner'> <div className='spinner' /></div>
         else
             if (this.props.doneUploading)
                 return <h1>Video Upload Successful!</h1>
-            else {
-                return this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description ?
-                    <button id='submit-button-enabled' onClick={this.props.handleSubmit}>
-                        Publish</button>
-                    :
-                    <button id='submit-button-disabled' disabled>Publish</button>
+            else 
+                return <button 
+                        className={`submit-button${ ready ? "" : " disabled"}`}
+                        onClick={this.props.handleSubmit}>Publish</button>
+            
+        }
 
-            }
-    }
 
     videoThumbnail() {
         if (this.props.fileUrl)
@@ -95,18 +103,16 @@ class VideoUploadForm extends React.Component {
     }
 
     uploadButton(){
-        return (
-            this.props.fileUrl && this.props.thumbnailUrl ?
-                <label id='label-upload-btn'>
+        const state = this.props.fileUrl && this.props.thumbnailUrl;
+
+        return  <label id='label-upload-btn'
+                    className={`flex-hzntal-ctr-all${state ? ' enabled' : ' disabled'}`}>
                     <input onChange={this.props.handleThumbnailUpload} 
                     type='file' 
+                    disabled = {!state}
                     accept="image/*" />Upload Own Thumbnail
                 </label> 
-                :
-                <label id='label-upload-btn-disabled'>
-                    <input disabled type='file' />Upload Own Thumbnail
-                </label>
-        )
+        
     }
 
     statusSpan(){
@@ -122,19 +128,25 @@ class VideoUploadForm extends React.Component {
     render() {
         return (
             <form id='video-submit-form'>
-                <div id='video-submit-form-col-1'>
-                    <div>
+                <div id='vsf-col-1'>
+                    <div className='flex-vert'>
                         {this.previewVideo()}
                         <span> Video Status: {this.statusSpan()} </span>
                     </div>
                 </div>
+            
+                <div id='vsf-col-2'>
+                    <div className= 'flex-hzntal-ctr-all'> {this.publishButton()}</div>
 
-                <div id='video-submit-form-col-2'>
-                    <div id='video-submit-button-ctn'> {this.publishButton()}</div>
-                    <div id='video-submit-form-lower-section'>
-                        <input onChange={this.props.handleTypeEvent('title')} type='text' placeholder='Title (required)' />
+                    <div id='vsf-lower-section'>
+                        <input 
+                            className='input-style-1'
+                            onChange={this.props.handleTypeEvent('title')} 
+                            type='text' 
+                            placeholder='Title (required)' />
 
                         <textarea
+                            className='input-style-1'
                             onChange={this.props.handleTypeEvent('description')}
                             placeholder="Description (required)"
                             rows='10'

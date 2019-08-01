@@ -1,6 +1,4 @@
 #upload-body{
-    display: flex;
-    justify-content: center;
     background: rgb(241,241,241);
     height: 100%;
     width: 100%;
@@ -13,19 +11,12 @@
     height: 390px;
     width: 745px;
     border: 1px solid rgb(241,241,241);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     background:white;
 }
 
 
 #upload-input{
     height: 40%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -65,15 +56,9 @@
 
 
 
-#video-submit-form-col-1{
+#vsf-col-1{
     grid-column: 1 / 2;
     padding: 10px;
-}
-#video-submit-form-col-1 > div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
 }
 
 
@@ -84,28 +69,20 @@
     padding: 10px 0px;
 }
 
-#preview-ui-play, #preview-ui-end{
-    background: rgba(0, 0, 0, 0.5);
+.preview-ui{
     width: 100%;
     height: 100px;
     position: absolute;
     z-index: 401;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+#preview-ui-play, #preview-ui-end{
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #preview-ui-pause{
     background: rgba(0, 0, 0, 0);
-    width: 100%;
-    height: 100px;
-    position: absolute;
-    z-index: 401;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: background 0.2s linear;
-
     i {
         opacity: 0;
         transition: opacity 0.2s linear;
@@ -139,14 +116,11 @@
 #loading-video{
     width: 195px;
     height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: lightgray;
     padding: 10px 0px;
 }
 
-#loading-video .spinner{
+#loading-video > .spinner{
     border: 3px solid #f3f3f3; /* Light grey */
     border-top: 3px solid lightgray;
     border-radius: 50%;
@@ -155,22 +129,14 @@
 }
 
 
-#video-submit-form-col-2{
+#vsf-col-2{
     grid-column: 2 / 3;
     display: grid;
     grid-template-rows: 110px auto;
 }
 
 
-#video-submit-button-ctn{
-    grid-row: 1 / 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-#video-submit-button-ctn > #submit-button-enabled {
+.submit-button{
     height: 50px;
     width: 60%;
     background: rgb(54, 122, 192);
@@ -179,16 +145,12 @@
     border-radius: 5px;
 }
 
-#video-submit-button-ctn > #submit-button-disabled{
-    height: 50px;
-    width: 60%;
+.disabled{
     background: lightgray;
     font-size: 24px;
-    color: white;
-     border-radius: 5px;
 }
 
-#video-submit-form-lower-section{
+#vsf-lower-section{
     grid-row: 2 / 3;
     display: flex;
     flex-direction: column;
@@ -197,13 +159,13 @@
     padding-right: 20px;
 }
 
-#video-submit-form-lower-section > input {
+#vsf-lower-section > input {
     width: 100%;
     margin-bottom: 20px;
     font-size: 16px;
 }
 
-#video-submit-form-lower-section > textarea{
+#vsf-lower-section > textarea{
     width: 100%;
     font-size: 16px;
 }
@@ -286,29 +248,24 @@
     border-radius: 5px;
     height: 50px;
     width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(54, 122, 192);
     color: white;
+    font-size: 14px;
 }
+
+#upload-thumbnail-ctn .enabled{
+    background-color: rgb(54, 122, 192);
+}
+
+#upload-thumbnail-ctn .enabled:active{
+    background-color: rgb(110, 168, 226);
+}
+
+#upload-thumbnail-ctn .disabled{
+    background-color: lightgray;
+}
+
 
 #label-upload-btn:hover{
     cursor: pointer;
 }
 
-#label-upload-btn:active{
-    background-color: rgb(110, 168, 226);
-}
-
-#label-upload-btn-disabled{
-    margin-left: 24px;
-    border-radius: 5px;
-    height: 50px;
-    width: 200px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: lightgray;
-}

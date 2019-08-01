@@ -40,5 +40,23 @@ class Video < ApplicationRecord
     has_many :video_post_posters,
         through: :video_posts,
         source: :user
+
+
+    def self.query_by_string(query, limit = nil, offset = nil)
+        self.joins(:channel).where("lower(title) like ? 
+            or lower(title) like ? 
+            or lower(title) like ? 
+            or lower(description) like ? 
+            or lower(description) like ? 
+            or lower(description)like ? 
+            or lower(user_channels.name) like ? 
+            or lower(user_channels.name) like ?  
+            or lower(user_channels.name) like ?",
+            "#{query}%", "%#{query}%", "%#{query}",
+            "#{query}%", "%#{query}%", "%#{query}",
+            "#{query}%", "%#{query}%", "%#{query}")
+            .limit(limit)
+            .offset(offset);
+    end
 end
 

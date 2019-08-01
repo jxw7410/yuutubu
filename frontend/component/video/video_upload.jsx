@@ -19,8 +19,6 @@ class UploadVideo extends React.Component {
             doneUploading: false,
         }
 
-
-        this.handleToggled = this.handleToggled.bind(this)
         this.handleFile = this.handleFile.bind(this);
         this.handleThumbnail = this.handleThumbnail.bind(this);
         this.handleDrop = this.handleDrop.bind(this);
@@ -38,16 +36,6 @@ class UploadVideo extends React.Component {
     componentWillUnmount(){
         this.props.updatePrevPath(this.props.match.path);
     }
-    
-    handleToggled(e) {
-        e.preventDefault();
-    }
-
-    
-
-    handleThumbnail(thumbnail, thumbnailUrl, duration) {
-        this.setState({ thumbnail, thumbnailUrl, duration });
-    }
 
     handleTypeEvent(field) {
         return e => {
@@ -55,6 +43,10 @@ class UploadVideo extends React.Component {
             const text = e.target.value;
             this.setState({ [field]: text })
         }
+    }
+
+    handleThumbnail(thumbnail, thumbnailUrl, duration) {
+        this.setState({ thumbnail, thumbnailUrl, duration });
     }
 
 
@@ -102,19 +94,42 @@ class UploadVideo extends React.Component {
         e.preventDefault();
         if (this.state.file && this.state.thumbnail && this.state.title.length > 0 && this.state.description.length > 0) {
             const formData = new FormData();
-            formData.append('video[thumbnail]', this.state.thumbnail);
+            //formData.append('video[thumbnail]', this.state.thumbnail);
+            //formData.append('video[file]', this.state.file);
+            // formData.append('video[duration]', this.state.duration);
+            // formData.append('video[title]', this.state.title);
+            // formData.append('video[description]', this.state.description); 
+            // formData.append('video[channel_id]', this.props.user.channel_id);
             formData.append('video[file]', this.state.file);
-            formData.append('video[duration]', this.state.duration);
-            formData.append('video[title]', this.state.title);
-            formData.append('video[description]', this.state.description);
-            formData.append('video[channel_id]', this.props.user.channel_id);
-            this.props.createVideo(formData)
-                .then(() =>{
-                    this.props.history.push(`./channel/${this.props.user.channel_id}/videos`)
+            this.props.requestDirectUpload(formData)
+                .then((blob) =>{
+                    // Will require special XHR to display progress
+                    $.ajax({
+                        url: blob.direct_upload.url,
+                        type: 'PUT',
+                        data: this.state.file.slice(),
+                        cache: false,
+                        headers: blob.direct_upload.headers,
+                        contentType: this.state.file.type,
+                        processData: false
+                    }).then((blob) => {
+                        debugger
+
+                        this.props.createVideo({
+                            'title': this.state.title,
+                            'duration' : this.state.duration,
+                            'description' : this.state.description,
+                            'blob_id' : blob.id
+                        });
+                    })
+                    .fail(()=>{
+                        alert('Upload Failed!')
+                    })
+
                 })
                 .fail(()=>{
-                    alert('Upload failed!')
-                    this.props.history.push('/');
+                    alert('Upload Failed!')
+                    //this.props.history.push('/');
                 });
 
             this.setState({ uploading: true })
@@ -126,7 +141,9 @@ class UploadVideo extends React.Component {
     render() {
         return (
             <>
-                    <div id='upload-body'>{
+                    <div id='upload-body'
+                        className ='flex-vert-ctr-2'>
+                    {
                         this.state.uploadForm ?
                             <VideoUploadForm
                                 fileUrl={this.state.fileUrl}
@@ -150,8 +167,6 @@ class UploadVideo extends React.Component {
         )
     }
 }
-
-
 
 
 

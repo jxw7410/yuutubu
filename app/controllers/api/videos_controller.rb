@@ -1,15 +1,10 @@
 class Api::VideosController < ApplicationController
     def index_search
-        query = params[:query].downcase
-        @videos = Video.joins(:channel).where("lower(title) like ? or lower(title) like ? or lower(title) like ? or 
-            lower(description) like ? or lower(description) like ? or lower(description)like ? or
-            lower(user_channels.name) like ? or lower(user_channels.name) like ?  or lower(user_channels.name) like ?",
-            "#{query}%", "%#{query}%", "%#{query}",
-            "#{query}%", "%#{query}%", "%#{query}",
-            "#{query}%", "%#{query}%", "%#{query}")
-            .order(:id)
-            .limit(params[:limit])
-            .offset(params[:offset]);
+        @videos = Video.query_by_string(
+            params[:query].downcase, 
+            params[:limit],
+            params[:offset]
+        )
 
         if !@videos.empty?
             render :index_partial
@@ -57,24 +52,20 @@ class Api::VideosController < ApplicationController
     def create
         channel = current_user.user_channels.where(id: video_params[:channel_id]).first
         @video = Video.create(user_id: current_user.id, 
-            title: video_params[:title],
-            channel_id: channel.id,
-            description: video_params[:description],
-            duration: video_params[:duration])
+                title: video_params[:title],
+                channel_id: channel.id,
+                description: video_params[:description],
+                duration: video_params[:duration])
 
-        if @video
-            begin
-                @video.thumbnail.attach(video_params[:thumbnail])
-                @video.video_content.attach(video_params[:file])
-                render json: ['Video uploaded'], status: 200
-            rescue
-                @video.destroy
-                render json: ['Video cannot be uploaded'], status: 422
-            end            
-        else 
-            render json: ['Video cannot be uploaded'], status: 422
-        end
+        temp = ActiveStorage::Attachment.create(
+            name: 'video_content',
+            record_type: 'Video',
+            record_id: Video.last.id,
+            blob_id: params[:blob_id]
+        )
+    
     end
+
 
     def show
         @video = Video.where(id: params[:id]).includes(:likes).first
@@ -101,9 +92,10 @@ class Api::VideosController < ApplicationController
         params.require(:video).permit(:title, :description, :channel_id, :duration, :file, :thumbnail)
     end
 
+
     def recommended_video_query(video_id)
         # remove_for_production
-        limit = 12
+        limit = 2
         if video_id
             videos = login? ? Video.where.not(id: video_id, user_id: current_user.id)
                 .limit(limit)

@@ -1,8 +1,7 @@
 class Api::SearchesController < ApplicationController
     before_action :ensure_login, only: [:create]
     
-    def index
-    end 
+    def index;end 
 
     def index_history
         if login?

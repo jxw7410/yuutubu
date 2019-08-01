@@ -15,7 +15,7 @@ User.destroy_all
 UserChannel.destroy_all
 Video.destroy_all
 VideoPost.destroy_all
-VideoLikeDislike.destroy_all
+Like.destroy_all
 SearchHistory.destroy_all
 Subscription.destroy_all
 
