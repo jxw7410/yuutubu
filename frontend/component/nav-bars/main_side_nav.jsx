@@ -58,10 +58,10 @@ class MainSideNav extends React.Component {
     getTypeTwo() {
         return this.props.type === 'typeTwo' ?
             <div id='top-nav-sec-1-ctn'>
-                <div id="top-nav-sec-1">
+                <div id="top-nav-sec-1" className='flex-hzntal-ctr-2'>
                     <i onClick={this.toggleSideBar} className="fas fa-bars"></i>
                     <span id="nav-bar-icon">
-                        <a href="#/"><i className="fab fa-youtube"></i><h1>YuuTubu</h1>
+                        <a href="#/" className="flex-hzntal-ctr-2"><i className="fab fa-youtube"></i><h1>YuuTubu</h1>
                         </a>
                     </span>
                 </div>
@@ -102,13 +102,13 @@ class MainSideNav extends React.Component {
             <>
                 {this.getTypeTwo()}
                 <div id='main-side-nav'>
-                    <ul id='main-side-nav-ul'>
+                    <ul id='main-side-nav-ul' className='flex-vert-ctr-all'>
                         <li
                             onClick={this.toHomeEvent}
                             id='Home'
                             className={this.props.location.pathname === '/' ? 'main-side-icon-selected' : ""}>
                             <i className="fas fa-home" />
-                            <span>Home</span>
+                            <span className='flex-hzntal-ctr-2'>Home</span>
                         </li>
                         <SideNavLinks type='main' />
                     </ul>
@@ -117,7 +117,7 @@ class MainSideNav extends React.Component {
                         <li>
                             <a target="_blank" href='https://angel.co/jian-wu-12?public_profile=1'>
                                 <i className="fab fa-angellist"></i>
-                                <span>AngelList</span>
+                                <span className='flex-hzntal-ctr-2'>AngelList</span>
                             </a>
                         </li>
                     </ul>

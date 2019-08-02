@@ -134,7 +134,9 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <form id='search-bar' onSubmit={this.handleSubmit}>
+            <form id='search-bar' 
+                className='flex-hzntal-ctr-all'
+                onSubmit={this.handleSubmit}>
                 <div id='search-bar-input-ctn'>
                     <input id='search-bar-input'
                         ref={this.searchBar}

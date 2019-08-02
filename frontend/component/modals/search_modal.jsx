@@ -53,7 +53,7 @@ class SearchModal extends React.Component {
     }
 
     render() {
-        const extension = this.props.openModal && this.props.searches.length > 0 ? "-active" : "";
+        const extension = this.props.openModal && this.props.searches.length  ? "-active" : "";
         if (this.textDidChange && !this.props.fetching) {
             this.textDidChange = false;
             this.searchPhrase = this.props.word;
@@ -64,12 +64,12 @@ class SearchModal extends React.Component {
         return (
             <>
                 {
-                    listItems.length > 0 ? 
+                    listItems.length ? 
                     <div id={'search-modal' + extension}
                         onMouseEnter={e => this.props.updateFocus(true)}
                         onMouseLeave={e => this.props.updateFocus(false)}>
                         
-                            <ul id='search-modal-list'> {listItems} </ul>
+                            <ul id='search-modal-list' className='flex-vert'> {listItems} </ul>
                     </div > : null
                 }
             </>

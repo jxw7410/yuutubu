@@ -22,8 +22,8 @@ class SubSideNav extends React.Component {
         return (
             <div id='sub-side-nav-ctn'>
                 <nav id='sub-side-nav'>
-                    <article id='sub-side-nav-content'>
-                        <ul>
+                    <article id='sub-side-nav-content' className='flex-hzntal-ctr-1'>
+                        <ul className='flex-vert-ctr-all'>
                             <li
                                 onClick={this.toHomeEvent}
                                 id='Home'
@@ -42,16 +42,4 @@ class SubSideNav extends React.Component {
 }
 
 
-const msp = state => {
-    return (
-        {}
-    )
-}
-
-const mdp = dispatch => {
-    return (
-        {}
-    )
-}
-
-export default withRouter(connect(msp, mdp)(SubSideNav));
+export default withRouter(SubSideNav);
