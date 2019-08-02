@@ -30,7 +30,9 @@ class UploadVideo extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleThumbnailUpload = this.handleThumbnailUpload.bind(this);
         this.uploadProgress = this.uploadProgress.bind(this);
+        this.submit = false;
         this.willUnmount = false;
+
     }
 
     componentDidMount(){
@@ -153,10 +155,16 @@ class UploadVideo extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.file && this.state.thumbnail && this.state.title.length && this.state.description.length) {
+        if (!this.submit && 
+            this.state.file &&
+            this.state.thumbnail &&
+            this.state.title.length &&
+            this.state.description.length
+        ) {
             const formData = new FormData();
             formData.append('video[file]', this.state.file);
             formData.append('video[thumbnail]', this.state.thumbnail);
+            this.submit = true;
             this.props.requestDirectUpload(formData)
                 .then((blob) =>{
                     const { image_blob, video_blob } = blob

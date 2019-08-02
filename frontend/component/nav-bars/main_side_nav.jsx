@@ -48,7 +48,7 @@ class MainSideNav extends React.Component {
             subs.push(<li key={sub.id}
                 onClick={this.redirectToChannel(sub.channel_id)}>
                 <i className="fas fa-user-circle"></i>
-                <span>{sub.channelName}</span>
+                <span className='flex-hzntal-ctr-2'>{sub.channelName}</span>
             </li>)
         }
         return subs;
@@ -78,7 +78,7 @@ class MainSideNav extends React.Component {
                         :
                         <li onClick={this.toggleRead} id='read-more'>
                             <i id='chev' className="fas fa-chevron-down"></i> 
-                            <span>Show {this.props.subscriptions.length - this.limit} More</span>
+                            <span className='flex-hzntal-ctr-2'>Show {this.props.subscriptions.length - this.limit} More</span>
                         </li>
 
                 : null

@@ -242,16 +242,25 @@
 }   
 
 .upload-bar{
-    width: 300px;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid lightgray;
+    height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 .upload-bar-progress{
     height: 100%;
     background: #06b91e;
     transition: width 0.1s linear;
+}
+
+#upload_button{
+    position: relative;
+    overflow:hidden;
+    padding: 0;
+}
+
+#upload_button:focus{
+    outline: none;
 }
 
 
