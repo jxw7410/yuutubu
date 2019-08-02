@@ -122,6 +122,27 @@ class UploadVideo extends React.Component {
     }
 
 
+    uploadPromise(image_blob, video_blob){
+        let image_uploaded, vid_uploaded = false;
+        
+        return new Promise((resolve, reject)=> {
+            this.requestUpload(image_blob, this.state.thumbnail, this.state.thumbnail.type)
+                .then(() => {
+                    image_uploaded = true
+                    if (image_uploaded && vid_uploaded)
+                        resolve()
+                }).fail(() => reject('Upload Failed'))
+
+            this.requestUpload(video_blob, this.state.file.slice(), this.state.file.type)
+                .then(() => {
+                    vid_uploaded = true
+                    if (image_uploaded && vid_uploaded)
+                        resolve()
+                }).fail(() => reject('Upload failed'))
+        })
+    }
+ 
+
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.file && this.state.thumbnail && this.state.title.length && this.state.description.length) {
@@ -130,40 +151,26 @@ class UploadVideo extends React.Component {
             formData.append('video[thumbnail]', this.state.thumbnail);
             this.props.requestDirectUpload(formData)
                 .then((blob) =>{
-                    
+                    const { image_blob, video_blob } = blob
                     this.totalProgress = this.state.file.size + this.state.thumbnail.size
-                    
-                    new Promise((resolve, reject)=>{
-                        let image_uploaded, vid_uploaded = false;
-                        this.requestUpload(blob[0], this.state.thumbnail, this.state.thumbnail.type)
-                            .then(() => {
-                                image_uploaded = true
-                                if (image_uploaded && vid_uploaded)
-                                    resolve()
-                            }).fail( ()=> reject('Upload Failed'))
 
-                        this.requestUpload(blob[1], this.state.file.slice(), this.state.file.type)
-                            .then(() => {
-                                vid_uploaded = true
-                                if (image_uploaded && vid_uploaded)
-                                    resolve()
-                            }).fail(()=> reject('Upload failed'))
-                    }).then(()=>{
+                    this.uploadPromise(image_blob, video_blob).then(()=>{
                         this.props.createVideo({
                             "video" : {
                                 "title": this.state.title,
                                 "description": this.state.description,
                                 "channel_id" : this.state.channel_id,
                                 "duration": this.state.duration,
-                                "video_id": blob[1].id,
-                                "thumbnail_id": blob[0].id 
+                                "video_id": video_blob.id,
+                                "thumbnail_id": image_blob.id 
                             }
-                        }).then( ()=> alert('success'))
+                        }).then( () =>{ setTimeout(() => alert('success'), 100) })
+                    }).catch((error)=>{
+                        
                     })
 
                 }).fail(()=>{
                     alert('Upload Failed!')
-                    //this.props.history.push('/');
                 });
 
             this.setState({ uploading: true })

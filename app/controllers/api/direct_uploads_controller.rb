@@ -18,7 +18,7 @@ class Api::DirectUploadsController < ApplicationController
             metadata: {"identified"=>true, "analyzed"=>true}
         )
         
-        render json: [direct_upload_json(image_blob), direct_upload_json(video_blob)], status: 200
+        render json: { image_blob: direct_upload_json(image_blob), video_blob: direct_upload_json(video_blob)}, status: 200
     end 
 
 

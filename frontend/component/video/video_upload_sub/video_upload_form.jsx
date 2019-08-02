@@ -64,8 +64,9 @@ class VideoUploadForm extends React.Component {
                     {previewUI}
                 </div>
                 : <div id='loading-video'
-                    className='flex-vert-ctr-all'
-                ><div className='spinner'/> </div>
+                    className='flex-vert-ctr-all'>
+                        <div className='spinner'/> 
+                    </div>
         )
     }
 
@@ -74,13 +75,8 @@ class VideoUploadForm extends React.Component {
 
         if (this.props.uploading)
             return <div className='upload-bar'> 
-            <div 
-                style={{ 
-                        background: 'green',
-                        width: `${this.props.uploadPercentage}%`,
-                        height: '100%',
-                        transition: 'width 0.1s linear'
-                    }}
+            <div  className='upload-bar-progress'
+                style={{ width: `${this.props.uploadPercentage}%` }}
             />
             </div>
         else
@@ -158,8 +154,7 @@ class VideoUploadForm extends React.Component {
                             className='input-style-1'
                             onChange={this.props.handleTypeEvent('description')}
                             placeholder="Description (required)"
-                            rows='10'
-                            style={{ resize: "none" }} />
+                            rows='10' />
 
                         <div id='thumbnail-section'>
                             <div> Video Thumbnail:{this.videoThumbnail()} </div>

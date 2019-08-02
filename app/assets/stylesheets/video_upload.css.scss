@@ -1,6 +1,6 @@
 #upload-body{
     background: rgb(241,241,241);
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     position: absolute;
 }
@@ -44,14 +44,14 @@
 
 
 #video-submit-form{
-    height: 600px;
+    min-height: 600px;
     width: 800px;
-    top: 70px;
     position: relative;
     border: 1px solid lightgray;
     display: grid;
     grid-template-columns: 230px auto;
     background: white;
+    margin-top: 70px;
 }
 
 
@@ -166,8 +166,10 @@
 }
 
 #vsf-lower-section > textarea{
+    min-height: 250px;
     width: 100%;
     font-size: 16px;
+    resize: vertical;
 }
 
 #thumbnail-section{
@@ -275,3 +277,15 @@
     border-radius: 5px;
     border: 1px solid lightgray;
 }
+
+.upload-bar-progress{
+    height: 100%;
+    background: #0d80b1;
+    transition: width 0.1s linear;
+
+}
+
+
+
+
+
