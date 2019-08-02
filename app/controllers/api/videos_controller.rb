@@ -119,7 +119,7 @@ class Api::VideosController < ApplicationController
 
     def recommended_video_query(video_id)
         # remove_for_production
-        limit = 2
+        limit = 12
         if video_id
             videos = login? ? Video.where.not(id: video_id, user_id: current_user.id)
                 .limit(limit)

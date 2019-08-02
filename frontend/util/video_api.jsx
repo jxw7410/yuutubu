@@ -40,6 +40,14 @@ export const requestDirectUpload = file => {
     })
 }
 
+export const deleteDirectUpload = blob_ids => {
+    return $.ajax({
+        method: 'delete',
+        url: '/api/direct_upload',
+        data: blob_ids,
+    })
+}
+
 export const updateView = video_id => {
     return $.ajax({
         method: 'patch',

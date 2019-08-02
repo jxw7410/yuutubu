@@ -30,6 +30,7 @@ class UploadVideo extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleThumbnailUpload = this.handleThumbnailUpload.bind(this);
         this.uploadProgress = this.uploadProgress.bind(this);
+        this.willUnmount = false;
     }
 
     componentDidMount(){
@@ -39,6 +40,7 @@ class UploadVideo extends React.Component {
 
 
     componentWillUnmount(){
+        this.willUnmount = true;
         this.props.updatePrevPath(this.props.match.path);
     }
 
@@ -101,8 +103,10 @@ class UploadVideo extends React.Component {
             if (e.lengthComputable){
                 this.currentProgress += (e.loaded - previousProgress)
                 previousProgress = e.loaded;
-                this.setState({ uploadPercentage: 
-                    parseInt( this.currentProgress * 100 / this.totalProgress)})
+                
+                if (!this.willUnmount)
+                    this.setState({ uploadPercentage: 
+                        parseInt( this.currentProgress * 100 / this.totalProgress)})
             }
         })
         return xhr
@@ -141,7 +145,11 @@ class UploadVideo extends React.Component {
                 }).fail(() => reject('Upload failed'))
         })
     }
- 
+    
+    redirectOnFail(){
+        alert('Upload Failed!')
+        this.props.history.push('/');
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -164,14 +172,22 @@ class UploadVideo extends React.Component {
                                 "video_id": video_blob.id,
                                 "thumbnail_id": image_blob.id 
                             }
-                        }).then( () =>{ setTimeout(() => alert('success'), 100) })
-                    }).catch((error)=>{
-                        
-                    })
-
-                }).fail(()=>{
-                    alert('Upload Failed!')
-                });
+                        }).then( () =>{ 
+                            setTimeout(() => {
+                                alert('Upload Successful!');
+                                this.props.history.push(`./channel/${this.props.user.channel_id}/videos`);
+                                }, 110)
+                            })
+                    }, () => {
+                        this.props.deleteDirectUpload({
+                            'blob_ids': {
+                                'image_blob_id': image_blob.id,
+                                'video_blob_id': video_blob.id
+                                }
+                            }).then(() => this.redirectOnFail())
+                        }
+                    )
+                }).fail(() => this.redirectOnFail());
 
             this.setState({ uploading: true })
         }

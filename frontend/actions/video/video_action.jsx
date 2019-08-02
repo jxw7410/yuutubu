@@ -56,3 +56,7 @@ export const createVideo = videoPayload => dispatch =>{
 export const requestDirectUpload = file => dispatch =>{
     return VideoAPI.requestDirectUpload(file)
 }
+
+export const deleteDirectUpload = blob_ids => dispatch => {
+    return VideoAPI.deleteDirectUpload( blob_ids )
+}

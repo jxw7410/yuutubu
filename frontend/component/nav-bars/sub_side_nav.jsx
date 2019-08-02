@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SideNavLinks from './side_nav_links';
 
@@ -8,10 +7,8 @@ class SubSideNav extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.toHomeEvent = this.toHomeEvent.bind(this);
     }
-
 
     toHomeEvent(e) {
         this.props.history.push('/')

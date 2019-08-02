@@ -18,13 +18,24 @@ class Api::DirectUploadsController < ApplicationController
             metadata: {"identified"=>true, "analyzed"=>true}
         )
         
-        render json: { image_blob: direct_upload_json(image_blob), video_blob: direct_upload_json(video_blob)}, status: 200
+        if image_blob && video_blob
+            render json: { image_blob: direct_upload_json(image_blob), video_blob: direct_upload_json(video_blob)}, status: 200
+        else 
+            image_blob.destroy if image_blob 
+            video_blob.destroy if video_blob 
+            render json: ['Request to Upload failed'], status: 422
+        end
     end 
 
 
-    def delete 
-
-    end
+    def destroy
+        video_blob = ActiveStorage::Blob.find_by(id: params[:blob_ids][:video_blob_id])
+        image_blob = ActiveStorage::Blob.find_by(id: params[:blob_ids][:image_blob_id])
+        video_blob.destroy 
+        image_blob.destroy 
+        
+        render json: {}, status: 200
+    end 
 
 
     private 
@@ -37,6 +48,6 @@ class Api::DirectUploadsController < ApplicationController
 
 
     def valid_params
-        params.require(:video).permit(:file, :thumbnail)
+        params.require(:video).permit(:file, :thumbnail, :blob_ids)
     end
 end
