@@ -44,7 +44,7 @@
 
 
 #video-submit-form{
-    min-height: 600px;
+    min-height: 450px;
     width: 800px;
     position: relative;
     border: 1px solid lightgray;
@@ -61,9 +61,9 @@
 
 #uploaded-vid-container {
     position: relative;
-    width: 195px;
+    width: 200px;
     height: 100px;
-    padding: 10px 0px;
+    padding: 5px 0px;
 }
 
 .preview-ui{
@@ -103,7 +103,7 @@
 
 
 #uploaded-vid-container > video {
-    width: 195px;
+    width: 200px;
     height: 100px;
     object-fit: cover;
     position: absolute;
@@ -138,19 +138,18 @@
 
 
 .submit-button{
-    height: 50px;
-    width: 60%;
+    height: 35px;
+    width: 90%;
     font-size: 24px;
     color: white;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 
 .label-upload-btn{
-    margin-left: 24px;
     border-radius: 5px;
-    height: 50px;
-    width: 200px;
+    height: 30px;
+    width: 150px;
     color: white;
     font-size: 14px;
 }
@@ -177,29 +176,15 @@
 }
 
 #vsf-lower-section{
-    grid-row: 2 / 3;
-    padding: 10px 0px;
-    padding-right: 20px;
 }
 
-#vsf-lower-section > input {
-    width: 100%;
-    margin-bottom: 20px;
-    font-size: 16px;
-}
-
-#vsf-lower-section > textarea{
+#vid-upload-desc{
     min-height: 250px;
-    width: 100%;
-    font-size: 16px;
     resize: vertical;
 }
 
-#thumbnail-section{
-    grid-row: 3 / 4;
-    height: 100%;
-    width: 100%;
-    min-height: 166px;
+#thumbnail-ctn{
+  margin-top: 50px;
 }
 
 #thumbnail-img{
@@ -207,6 +192,7 @@
     height: 100px;
     background-size: 100%;
     border: 1px solid lightgray;
+    margin: 5px 0px;
 }
 
 #thumbnail-img > img{
@@ -218,6 +204,7 @@
     width: 200px;
     height: 100px;
     background: lightgray;
+    margin: 5px 0px;
 }
 
 #loading-thumbnail .spinner{
@@ -249,7 +236,7 @@
 
 .upload-bar-progress{
     height: 100%;
-    background: #06b91e;
+    background: rgb(54, 122, 192);
     transition: width 0.1s linear;
 }
 
@@ -263,7 +250,26 @@
     outline: none;
 }
 
+.adfx{
+    position: relative;
+    width: 90%;
+    margin-bottom: 27px;
+}
 
+.label{
+    position: absolute;
+    top: 7px;
+    margin-left: 5px;
+    transition: top 0.1s linear, margin-left 0.1s linear;
+    color: rgb(143, 142, 142);
+}
 
+.inputFocused{
+    top: -18px;
+    margin-left: 0px;
+    color: rgb(54, 122, 192);
+}
 
-
+.inputFocused::after{
+    content: "*";
+}

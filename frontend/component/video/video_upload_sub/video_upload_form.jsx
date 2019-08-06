@@ -7,6 +7,8 @@ class VideoUploadForm extends React.Component {
 
         this.state = {
             videoStatus: 'PAUSE',
+            titleFocus: false,
+            descriptionFocus: false,
         }
 
         this.vid = React.createRef();
@@ -72,7 +74,7 @@ class VideoUploadForm extends React.Component {
 
     publishButton() {
         const ready = this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description
-        return <button id='upload_button' 
+        return <button id='upload_button'
             className={`submit-button flex-hzntal-ctr-2${(ready && !this.props.uploading) ? " enabled" : " disabled"}`}
             onClick={this.props.handleSubmit}>
             <span className='flex-hzntal-ctr-all'
@@ -80,8 +82,9 @@ class VideoUploadForm extends React.Component {
                     position: 'absolute',
                     height: '100%',
                     width: '100%',
+                    fontSize: '16px',
                     zIndex: '1',
-                }}>{this.props.uploading ? 'Uploading' : 'Upload' }</span>
+                }}>{this.props.uploading ? 'Uploading' : 'Upload'}</span>
             {
                 this.props.uploading ?
                     <div className='upload-bar'>
@@ -132,45 +135,76 @@ class VideoUploadForm extends React.Component {
     statusSpan() {
         return (
             this.props.fileUrl && this.props.thumbnailUrl ?
-                <span style={{ color: 'green' }}>Ready</span>
+                <span style={{ color: 'green' }}> Ready</span>
                 :
-                <span style={{ color: 'red' }}>Pending</span>
+                <span style={{ color: 'red' }}> Pending</span>
         )
+    }
+
+    toggleFocus(field) {
+        return e => {
+            const bool = this.state[field]
+            this.setState({ [field]: !bool })
+        }
     }
 
 
     render() {
         return (
             <form id='video-submit-form'>
-                <div id='vsf-col-1'>
-                    <div className='flex-vert'>
+                <div id='vsf-col-1' className='flex-vert-ctr-2'>
+                    <div className='flex-vert-start-1' style={{ marginTop: '8px' }}>
+                        <span className='tag-14 dark' style={{ fontSize: '14px' }}>Preview</span>
                         {this.previewVideo()}
-                        <span> Video Status: {this.statusSpan()} </span>
+                        <span style={{ fontSize: '14px' }}> 
+                            <span className='tag-14 dark' >Video Status</span>
+                            {this.statusSpan()}
+                        </span> 
+                    </div>
+
+                    <div id='thumbnail-ctn' className='flex-vert-ctr-2'>
+                        <div className='flex-vert-start-1'>
+                            <span className='tag-14 dark' style={{ fontSize: '14px' }}>Video Thumbnail</span>
+                            {this.videoThumbnail()}
+                        </div>
+                        <div id='upload-thumbnail-ctn' className='flex-vert'>
+                            {this.uploadButton()}
+                        </div>
                     </div>
                 </div>
 
                 <div id='vsf-col-2'>
                     <div className='flex-hzntal-ctr-all'> {this.publishButton()}</div>
 
-                    <div id='vsf-lower-section' className='flex-vert'>
-                        <input
-                            className='input-style-1'
-                            onChange={this.props.handleTypeEvent('title')}
-                            type='text'
-                            placeholder='Title (required)' />
+                    <div id='vsf-lower-section' className='flex-vert-ctr-2'>
 
-                        <textarea
-                            className='input-style-1'
-                            onChange={this.props.handleTypeEvent('description')}
-                            placeholder="Description (required)"
-                            rows='10' />
+                        <label className='adfx'>
+                            <span className={`label ${(this.state.titleFocus || this.props.title.length) ? ' inputFocused' : ""}`}>
+                                Title
+                            </span>
+                            <input
+                                className='input-style-1'
+                                onFocus={this.toggleFocus("titleFocus")}
+                                onBlur={this.toggleFocus("titleFocus")}
+                                onChange={this.props.handleTypeEvent('title')}
+                                style={{ fontSize: '16px', height: '20px', width: 'calc(100% - 11px)' }}
+                                type='text'
+                                value={this.state.title} />
+                        </label>
 
-                        <div id='thumbnail-section' className='flex-hzntal-ctr-2'>
-                            <div className='flex-vert'> Video Thumbnail:{this.videoThumbnail()} </div>
-                            <div id='upload-thumbnail-ctn' className='flex-vert'>
-                                {this.uploadButton()}
-                            </div>
-                        </div>
+                        <label className='adfx'>
+                            <span className={`label ${(this.state.descriptionFocus || this.props.description.length) ? ' inputFocused' : ""}`}>
+                                Description
+                            </span>
+                            <textarea
+                                id='vid-upload-desc'
+                                className='input-style-1'
+                                onFocus={this.toggleFocus("descriptionFocus")}
+                                onBlur={this.toggleFocus("descriptionFocus")}
+                                onChange={this.props.handleTypeEvent('description')}
+                                style={{ fontSize: '16px', height: '100%', width: 'calc(100% - 11px)' }}
+                                rows='10' />
+                        </label>
                     </div>
                 </div>
             </form>

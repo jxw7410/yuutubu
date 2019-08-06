@@ -100,7 +100,7 @@ class UploadVideo extends React.Component {
 
     uploadProgress(){
         const xhr = new XMLHttpRequest();
-        let previousProgress = 0
+        let previousProgress = 0;
         xhr.upload.addEventListener('progress', e =>{
             if (e.lengthComputable){
                 this.currentProgress += (e.loaded - previousProgress)
