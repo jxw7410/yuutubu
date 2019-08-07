@@ -13,14 +13,14 @@ const SignUpInputItem = props => {
         focusEvent, 
         changeEvent,
         type,
-        placeholder,
+        errors,
         message } = props;
 
 
     return (
         <label ref={props.reference} className={inputLabelName}>
             <span className={`createform-input-tag ${(focus || value) ? "c-i-t-focused" : ""}`}
-                style={ (message && (focus || value)) ? {color: 'red'} : null }>
+                style={ (errors && (focus || value)) ? {color: 'red'} : null }>
                 {field}
             </span>
 

@@ -146,7 +146,7 @@ class SignUpForm extends React.Component {
                                 focusEvent={this.handleFocus("userNameFocus", "userNamePlaceholder")}
                                 changeEvent={this.textChangeEvent('username')}
                                 type={'text'}
-                                placeholder={this.state.userNameFocus ? null : this.state.userNamePlaceholder}
+                                errors={errors.Username ? true : false}
                                 message={errors.Username ? errors.Username : ""}
                             />
 
@@ -163,7 +163,7 @@ class SignUpForm extends React.Component {
                                 focusEvent={this.handleFocus("emailFocus", "emailPlaceholder")}
                                 changeEvent={this.textChangeEvent('email')}
                                 type={'text'}
-                                placeholder={this.state.emailFocus ? null : this.state.emailPlaceholder}
+                                errors={errors.Email ? true : false }
                                 message={errors.Email ? errors.Email : "Please enter a valid email."}
                             />
 
@@ -179,7 +179,7 @@ class SignUpForm extends React.Component {
                                 focusEvent={this.handleFocus("passwordFocus", "passwordPlaceholder")}
                                 changeEvent={this.textChangeEvent('password')}
                                 type={'password'}
-                                placeholder={this.state.passwordFocus ? null : this.state.passwordPlaceholder}
+                                errors={errors.Password ? true : false }
                                 message={errors.Password ? errors.Password : "Password should be at least 6 characters long"}
                             />
 
