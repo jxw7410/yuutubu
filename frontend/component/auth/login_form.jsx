@@ -13,7 +13,11 @@ const LoginForm = (props) => {
                     props.email ?
                         <>
                             <h2>Welcome</h2>
-                            <h3>{props.email}</h3>
+                            <h3 style={{
+                                padding: "3px 8px",
+                                border: "1px solid rgb(192, 194, 197)",
+                                borderRadius: "12px"
+                            }}>{props.email}</h3>
                         </> :
                         <>
                             <h2>Sign In</h2>
