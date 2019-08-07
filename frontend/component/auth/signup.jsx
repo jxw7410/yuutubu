@@ -128,8 +128,8 @@ class SignUpForm extends React.Component {
                     <div id='create-form-container'>
                         <div id='create-form-header'>
                             <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"YuuTubu"}</h1></span>
-                            <h1>"Create your YuuTubu Account"</h1>
-                            <h2>"to continue to YuuTubu"</h2>
+                            <h1>Create your YuuTubu Account</h1>
+                            <h2>to continue to YuuTubu</h2>
                         </div>
 
                         <form id='create-form'>

@@ -138,6 +138,7 @@
 #channel-header-nav-toggled{
     grid-row: 3 / 4;
     background: rgb(250, 250, 250);
+    min-width: 580px;
 }
 
 
@@ -146,17 +147,19 @@
     position: fixed;
     background: rgb(250, 250, 250);
     top: 56px;
+    min-width: 580px;
     width: calc(100% - 240px);
-    z-index: 2;
+    z-index: 99;
 }
 
 #channel-header-nav-fixed{
     grid-row: 3 / 4;
     position: fixed;
     background: rgb(250, 250, 250);
-    top: 60px;
+    top: 56px;
+    min-width: 580px;
     width: calc(100% - 70px);
-    z-index: 1;
+    z-index: 99;
 
 }
 
@@ -185,6 +188,7 @@
 #channel-header-nav-list{
     display: flex;
     align-items: center;
+    width: inherit;
 }
 
 

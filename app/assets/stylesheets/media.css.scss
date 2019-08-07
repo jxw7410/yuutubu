@@ -1,0 +1,260 @@
+@media screen and (max-width: 1530px){
+
+    #channels-list{
+        width: 1070px;
+        padding-top: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .channel_index_items_header{
+        width: 1070px;
+    }
+
+    #index-recommended-videos{
+        display:flex;
+        flex-wrap:wrap;
+        width: 1070px;
+    }
+}
+
+@media screen and (max-width: 1502px){
+
+
+    #channel-header-wrap{
+        width: 1000px;
+        transition: width 0.2s linear;
+    }
+
+    #channel-header-nav-wrapper > div{
+        width: 1000px;
+        grid-template-columns: 813px 187px;
+        transition: width 0.2s linear;
+    }
+
+    #channel-header-nav-wrapper-fixed > div{
+        grid-template-columns:  813px 187px;
+        transition: grid-template-columns 0.2s linear;
+    }
+
+    #ch-main-content-lower-grid-hook {
+        grid-template-columns: 767px 187px;
+        width: 1000px;
+        transition: width 0.2s linear;
+    }
+
+}
+
+
+
+@media screen and (max-width: 1305px){
+
+    #channels-list{
+        width: 856px;
+        padding-top: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .channel_index_items_header{
+        width: 856px;
+    }
+
+     #index-recommended-videos{
+        display:flex;
+        flex-wrap:wrap;
+        width: 856px;
+    }
+
+    #search-bar-input {
+        width: 541px;
+        transition: width 0.2s linear;
+    }
+}
+
+
+@media screen and (max-width: 1256px){
+    
+    #channel-header-wrap{
+        width: 754px;
+        transition: width 0.2s linear;
+    }
+
+    #channel-header-nav-wrapper > div{
+        width: 754px;
+        transition: width 0.2s linear;
+    }
+
+     #channel-header-nav-wrapper-fixed > div{
+        grid-template-columns:  567px 187px;
+        transition: grid-template-columns 0.2s linear;
+    }
+
+    #ch-main-content-lower-grid-hook {
+        width: 754px;
+        grid-template-columns: 567px 187px;
+        transition: width 0.2s linear;
+    }
+
+
+}
+
+
+@media screen and (max-width: 1170px){
+
+    #search-bar-input {
+        width: 375px;
+        transition: width 0.2s linear;
+    }
+}
+
+
+
+@media screen and (max-width: 1090px){
+    #main-content-ctn-toggled, #channel-main-content-grid-toggled{
+        grid-template-columns: 70px auto;
+    }
+
+    #ch-vid-ctn-nav-toggled, #user-all-videos-list-toggled{
+        width: 88.5%;
+    }
+
+    #channel-header-nav-fixed-toggled{
+        width: calc(100% - 70px);
+    }
+
+    #channels-list{
+        width: 642px;
+        padding-top: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .channel_index_items_header{
+        width: 642px;
+    }
+
+    #index-recommended-videos{
+        display:flex;
+        flex-wrap:wrap;
+        width: 642px;
+    }
+
+
+     .show-more-inactive{
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 910px){
+    #search-bar-input {
+        width: 300px;
+        transition: width 0.2s linear;
+    }
+}
+
+@media screen and (max-width: 850px){
+     #channel-header-wrap{
+        width: 650px;
+        transition: width 0.2s linear;
+     }
+
+    #channel-header-nav-wrapper > div{
+        width: 650px;
+        transition: width 0.2s linear;
+    }
+
+    #channel-header-nav-wrapper-fixed > div{
+        grid-template-columns:  463px 187px;
+        transition: grid-template-columns 0.2s linear;
+    }
+
+    #ch-main-content-lower-grid-hook {
+        grid-template-columns: 463px 187px;
+        width: 650px;
+        transition: width 0.2s linear;
+    }
+
+    #search-bar-input {
+        width: 200px;
+        transition: width 0.2s linear;
+    }
+
+}
+
+
+
+@media screen and (max-width: 750px){
+
+    #sub-side-nav{
+        display: none;
+        width: 0px;
+    }
+
+    #main-content-ctn, #main-content-ctn-toggled, #channel-main-content-grid-toggled, #channel-main-content-grid{
+        grid-template-columns: 0px auto;
+    }
+
+    #channel-header-nav-fixed, #channel-header-nav-fixed-toggled{
+        width: 100%;
+    }
+
+    #main-side-nav-ctn{
+        width: 0px;
+    }
+
+}
+
+
+
+@media screen and (max-width: 720px){
+
+    #channels-list{
+        width: 428px;
+        padding-top: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .channel_index_items_header{
+        width: 428px;
+    }
+
+    #index-recommended-videos{
+        display:flex;
+        flex-wrap:wrap;
+        width: 428px;
+    }
+
+    .show-more-inactive{
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 660px){
+
+    .show-more-inactive{
+        height: 400px;
+    }
+
+     #channel-header-wrap{
+        width: 500px;
+        transition: width 0.2s linear;
+     }
+
+    #channel-header-nav-wrapper > div{
+        width: 500px;
+        transition: width 0.2s linear;
+    }
+
+    #channel-header-nav-wrapper-fixed > div{
+        grid-template-columns:  313px 187px;
+        transition: grid-template-columns 0.2s linear;
+    }
+
+    #ch-main-content-lower-grid-hook {
+        grid-template-columns: 313px 187px;
+        width: 500px;
+        transition: width 0.2s linear;
+    }
+}

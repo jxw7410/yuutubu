@@ -7,11 +7,26 @@ import { fetchSubscriptions } from '../../actions/subscribe/subscribe_action';
 import { toggleSideBar } from '../../actions/nav_bar_action';
 
 class MainNav extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            inverseNavBar: false,
+        }
+
+        this.handleResize = this.handleResize.bind(this);
+    }
 
     componentDidMount() {
         if (this.props.login)
             this.props.fetchSubscriptions();
+
+        if (window.innerWidth < 1090)
+            this.setState({inverseNavBar: true})
+
+        window.addEventListener('resize', this.handleResize);
     }
+
 
     componentDidUpdate(prevProps) {
         if (!prevProps.login && this.props.login) {
@@ -28,29 +43,69 @@ class MainNav extends React.Component {
         }
     }
 
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.handleResize)
+    }
+
+    handleResize(e){
+        e.preventDefault()
+      
+        if( window.innerWidth < 1090){
+            if (!this.state.inverseNavBar){
+                this.setState({ inverseNavBar: true })
+                
+                if (!this.props.navBar.toggled)
+                    this.props.toggleSideBar()
+            }
+        } else {
+            if (this.state.inverseNavBar){
+                this.setState({inverseNavBar: false})
+                
+                if(!this.props.navBar.toggled)
+                    this.props.toggleSideBar()
+            }
+        }
+    }
+
     getNavbar() {
         switch (this.props.navBar.type) {
             case 1:
                 return (
-                    <div id='main-side-nav-ctn'>
-                        {this.props.navBar.toggled ? < MainSideNavContainer /> : null}
-                        <SubSideNav />
-                    </div>
-                )
-            case 2:
-                return (
                     <>
-                        <div id={'main-side-nav-ctn-type-2' + (this.props.navBar.toggled ? "" : "-toggled")}>
-                            <MainSideNavContainer
-                                type="typeTwo" />
+                    {  
+                        this.state.inverseNavBar ? 
+                        <>
+                            {this.typeTwoNavBar()}
+                            <div style={{marginTop: '56px', height: '100%', position: 'fixed'}}>
+                                <SubSideNav />
+                            </div>
+                        </>
+                        :
+                        <div id='main-side-nav-ctn'>
+                            {this.props.navBar.toggled ? < MainSideNavContainer /> : null}
+                            <SubSideNav />
                         </div>
-                        <div id={'main-side-nav-ctn-screen' + (this.props.navBar.toggled ? "" : "-toggled")}
-                            onClick={this.props.toggleSideBar} />
+                    }
                     </>
                 )
+            case 2:
+                return this.typeTwoNavBar()
             default:
                 return null
         }
+    }
+
+    typeTwoNavBar(){
+        return(
+            <>
+                <div id={'main-side-nav-ctn-type-2' + (this.props.navBar.toggled ? "" : "-toggled")}>
+                    <MainSideNavContainer
+                        type="typeTwo" />
+                </div>
+                <div id={'main-side-nav-ctn-screen' + (this.props.navBar.toggled ? "" : "-toggled")}
+                    onClick={this.props.toggleSideBar} />
+            </>
+        )
     }
 
     render() {
