@@ -81,54 +81,33 @@
 
 .createform-input-tag{
     position: absolute;
+    font-size: 20px;
+    left: 15px;
+    top: 6px;
+    outline: none;
+    color: gray;
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
+}
+
+.c-i-t-focused{
     padding: 3px;
     background: white;
     font-size: 12px;
     left: 8px;
-    top: -5px;
+    top: -10px;
     color: gray;
-    outline: none;
+    padding-top: 0px;
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
 }
 
 .createform-input-tag:focus{
     outline: none;
 }
 
-.createform-input-placeholder-enter{
-    font-size: 20px;
-    left: 11px;
-    top: 20px;
-}
-
-.createform-input-placeholder-enter.createform-input-placeholder-enter-active{
-    font-size: 12px;
-    padding: 3px;
-    background: white;
-    position: absolute;
-    color: gray;
-    left: 8px;
-    top: -5px;
-    transition: font-size 150ms ease-in, top 150ms ease-in, left 150ms ease-in;
-}
-
-.createform-input-placeholder-leave{
-    font-size: 12px;
-    left: 8px;
-    top: -5px;
-    padding: 3px;
-    background: white;
-}
-
-.createform-input-placeholder-leave.createform-input-placeholder-leave-active{ 
-    padding: 3px;
-    background: white;
-    position: absolute;
-    color: gray;
-    font-size: 20px;
-    left: 12px;
-    top: 20px;
-    transition: font-size 150ms ease-in, top 150ms ease-in, left 150ms ease-in;
-}
 
 #create-form > section {
     display: flex;

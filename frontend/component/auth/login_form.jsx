@@ -58,7 +58,6 @@ const LoginForm = (props) => {
                                     removeVideoPlayer={props.removeVideoPlayer}
                                 />
                         }
-
                     </ReactCSSTransitionGroup>
 
 

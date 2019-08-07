@@ -6,7 +6,6 @@
     align-items: center;
 }
 
-
 #login-container{
     display:flex;
     flex-direction: column;
@@ -85,7 +84,6 @@
     padding-top: 5px;
 }
 
-
 .auth-form > section {
     display: flex;
     width: 350px;
@@ -111,55 +109,29 @@
     transition: transform 300ms ease-in;
 }
 
-
 .input-tag{
     position: absolute;
-    font-size: 12px;
-    left: 8px;
-    top: -5px;
-    color: rgb(117,117,177);
-    background: white;
-    padding: 3px;
-}
-
-
-.auth-input-placeholder-enter{
     font-size: 20px;
-    left: 10px;
-    top: 20px;
+    left: 15px;
+    top: 19px; 
+    color: rgb(117,117,117);
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
+        
 }
 
-.auth-input-placeholder-enter.auth-input-placeholder-enter-active{
-    font-size: 12px;
-    padding: 3px;
-    background: white;
-    position: absolute;
-    color: rgb(117,117,177);
-    left: 8px;
-    top: -5px;
-    transition: font-size 150ms ease-in, top 150ms ease-in, left 150ms ease-in;
-}
-
-
-
-.auth-input-placeholder-leave{
+.input-tag-focused{
     font-size: 12px;
     left: 8px;
-    top: -5px;
-    padding: 3px;
+    top: -10px;
     background: white;
-}
-
-
-.auth-input-placeholder-leave.auth-input-placeholder-leave-active{
-    font-size: 20px;
-    position: absolute;
+    padding: 3px;
     color: rgb(117,117,177);
-    left: 12px;
-    top: 20px;
-    transition: font-size 150ms ease-in, top 150ms ease-in, left 150ms ease-in;
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
 }
-
 
 .auth-input {
     width: 318px;
@@ -168,7 +140,6 @@
     padding: 15px;
     border: 1px solid lightgray;
 }
-
 
 .auth-input-errors {
     width: 318px;
@@ -181,13 +152,6 @@
     border: 2px solid red;
     outline-color: red; 
 }
-
-
-.auth-label-errors  span{
-    color: red;
-}
-
-
 
 .auth-logo{
     display:flex;  

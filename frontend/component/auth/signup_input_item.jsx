@@ -1,26 +1,4 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
-
-
-const AnimatePlaceHolderText = (props) => {
-    return (
-        <ReactCSSTransitionGroup
-            transitionName='createform-input-placeholder'
-            transitionEnterTimeout={150}
-            transitionLeaveTimeout={150}>
-            {
-                props.focus || props.value ?
-
-                    <h5 key={props.field} 
-                        className='createform-input-tag'>
-                        {props.field}
-                    </h5> : null
-            }
-        </ReactCSSTransitionGroup>
-    )
-}
-
 
 
 const SignUpInputItem = props => {
@@ -41,11 +19,10 @@ const SignUpInputItem = props => {
 
     return (
         <label ref={props.reference} className={inputLabelName}>
-            <AnimatePlaceHolderText
-                field={field}
-                value={value}
-                focus={focus}
-            />
+            <span className={`createform-input-tag ${(focus || value) ? "c-i-t-focused" : ""}`}
+                style={ (message && (focus || value)) ? {color: 'red'} : null }>
+                {field}
+            </span>
 
             <input
                 id={id}
@@ -55,7 +32,6 @@ const SignUpInputItem = props => {
                 onChange={changeEvent}
                 type={type}
                 value={value}
-                placeholder={placeholder}
             />
 
             <span>{message}</span>

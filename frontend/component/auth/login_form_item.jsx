@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactCSSTransistionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom'
 import {isEmailValid} from './../../util/selectors';
 
@@ -31,7 +30,6 @@ class LoginFormItem extends React.Component {
         }
 
         this.authElement = React.createRef();
-        this.timeOut;
         this.didUpdate = false;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.textChangeEvent = this.textChangeEvent.bind(this);
@@ -44,9 +42,6 @@ class LoginFormItem extends React.Component {
         this.didUpdate = false; 
         this.props.removeNavBars();
         this.props.removeVideoPlayer();
-        this.authElement.current.placeholder = 
-            this.props.type === 'email' ? 'Email' : 'Enter Your password';
-            
         this.authElement.current.focus();
     }
 
@@ -95,55 +90,46 @@ class LoginFormItem extends React.Component {
 
     handleFocus(e) {
         e.preventDefault();
-        this.changePlaceholder(e.target.id, "")
         this.setState({ focus: true })
     }
 
-    handleUnfocus(field){
-        return e => {
-            e.preventDefault();
-            const target = e.target.id;
-            clearTimeout(this.timeOut);
-            this.timeOut = setTimeout(()=>{
-                this.changePlaceholder(target, field)
-            }, 140);
-            this.setState({focus: false })
-        }
+    handleUnfocus(e){
+        e.preventDefault();
+        this.setState({focus: false })
     }   
 
     render() {
         const field = this.props.type;
-        const inputClassName = 'auth-input' + (this.props.errors.length === 0 ? "" : '-errors');
+        const inputClassName = 'auth-input' + (this.props.errors.length ? "-errors" : '');
+        const inputFocused = this.state.focus || this.state[field].length
 
         return (
             <div className='auth-form-ctn'>
                 <form className={"auth-form"}>
-                    <label className={this.props.errors.length === 0 ? "" : 'auth-label-errors'}>
-                        <ReactCSSTransistionGroup
-                            transitionName='auth-input-placeholder'
-                            transitionEnterTimeout={150}
-                            transitionLeaveTimeout={150}>
-                            {
-                                this.state.focus || this.state.password || this.state.email ?
-                                    <h5 className='input-tag'>
-                                        {field === 'email' ? 'Email' : 'Enter Your password'}
-                                    </h5> : null
-                            }
-                        </ReactCSSTransistionGroup>
+                    <label className={this.props.errors.length  ?  'auth-label-errors' : ""}>
+                        
+
+                        <span className={`input-tag ${ inputFocused ? 'input-tag-focused ' : ''}`}
+                            style={ (this.props.errors.length && inputFocused) ? { color: 'red' } : null}> 
+                            {field === 'email' ? 'Email' : 'Enter Your password'} 
+                        </span>
+
 
 
                         <input
                             id={"auth-input-element-"+field}
                             ref={this.authElement}
-                            onBlur={this.handleUnfocus(field === 'email' ? 'Email' : 'Enter Your password')}
+                            onBlur={this.handleUnfocus}
                             onFocus={this.handleFocus}
                             onChange={this.textChangeEvent(field)}
-                            type={field === 'email' ? 'email' : 'password'}
+                            type={field}
                             className={inputClassName}
                             value={this.setState[field]}
                             />
 
-                        <span>{this.props.errors ? this.props.errors : null}</span>
+                        <span style={ this.props.errors.length ? {color:'red'} : null }>
+                            {this.props.errors ? this.props.errors : null}
+                        </span>
                     </label>
 
 
