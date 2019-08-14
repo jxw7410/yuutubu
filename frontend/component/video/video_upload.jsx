@@ -164,6 +164,7 @@ class UploadVideo extends React.Component {
             const formData = new FormData();
             formData.append('video[file]', this.state.file);
             formData.append('video[thumbnail]', this.state.thumbnail);
+            debugger
             this.submit = true;
             this.props.requestDirectUpload(formData)
                 .then((blob) =>{
@@ -207,7 +208,7 @@ class UploadVideo extends React.Component {
         return (
             <>
                     <div id='upload-body'
-                        className ='flex-vert-ctr-2'>
+                        className ='flexv-3'>
                     {
                         this.state.uploadForm ?
                             <VideoUploadForm

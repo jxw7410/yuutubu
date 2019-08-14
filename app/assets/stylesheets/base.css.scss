@@ -12,8 +12,6 @@ body{
     position: relative;
 }
 
-
-
 body::-webkit-scrollbar-thumb
 {
     border-radius: 10px;
@@ -33,48 +31,54 @@ body::-webkit-scrollbar-thumb
     padding: 5px;
 }
 
-.flex-hzntal-ctr-all{
+.flexh-1{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.flex-hzntal-ctr-1{
+.flexh-2{
     display: flex;
     justify-content: center;
 }
 
-.flex-hzntal-ctr-2{
+.flexh-3{
     display: flex;
     align-items: center;
 }
 
+.flexh-4{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
-.flex-vert-ctr-all{
+
+.flexv-1{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.flex-vert-ctr-1{
+.flexv-2{
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.flex-vert-ctr-2{
+.flexv-3{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.flex-vert{
+.flexv-4{
     display: flex;
     flex-direction: column;
 }
 
-.flex-vert-start-1{
+.flexv-5{
     display: flex;
     flex-direction: column;
     align-items: flex-start;

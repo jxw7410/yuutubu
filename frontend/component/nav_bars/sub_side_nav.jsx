@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import SideNavLinks from './side_nav_links';
 
 
+
+//Change this to React Func Component
 class SubSideNav extends React.Component {
 
     constructor(props) {
@@ -17,21 +19,21 @@ class SubSideNav extends React.Component {
 
     render() {
         return (
-            <div id='sub-side-nav-ctn'>
-                <nav id='sub-side-nav'>
-                    <article id='sub-side-nav-content' className='flex-hzntal-ctr-1'>
-                        <ul className='flex-vert-ctr-all'>
+            <div className='ssn-ctn'>
+                <nav id='ssn'>
+                    <div className='ssn-content flexh-2'>
+                        <ul className='flexv-1'>
                             <li
                                 onClick={this.toHomeEvent}
                                 id='Home'
-                                className={this.props.location.pathname === '/' ? 'sub-side-icon-selected' : ""}>
+                                className={this.props.location.pathname === '/' ? 'ssi-select' : ""}>
                                 <i className="fas fa-home" />
                                 <span>Home</span>
                             </li>
 
                             <SideNavLinks />
                         </ul>
-                    </article>
+                    </div>
                 </nav>
             </div>
         )

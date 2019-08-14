@@ -66,7 +66,7 @@
         width: 856px;
     }
 
-    #search-bar-input {
+    .sbi {
         width: 541px;
         transition: width 0.2s linear;
     }
@@ -102,7 +102,7 @@
 
 @media screen and (max-width: 1170px){
 
-    #search-bar-input {
+    .sbi {
         width: 375px;
         transition: width 0.2s linear;
     }
@@ -147,7 +147,7 @@
 }
 
 @media screen and (max-width: 910px){
-    #search-bar-input {
+    .sbi {
         width: 300px;
         transition: width 0.2s linear;
     }
@@ -175,7 +175,7 @@
         transition: width 0.2s linear;
     }
 
-    #search-bar-input {
+    .sbi {
         width: 200px;
         transition: width 0.2s linear;
     }
@@ -186,7 +186,7 @@
 
 @media screen and (max-width: 750px){
 
-    #sub-side-nav{
+    #ssn{
         display: none;
         width: 0px;
     }
@@ -199,7 +199,7 @@
         width: 100%;
     }
 
-    #main-side-nav-ctn{
+    .msn-ctn{
         width: 0px;
     }
 

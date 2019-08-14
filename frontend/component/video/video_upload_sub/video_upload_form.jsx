@@ -40,15 +40,15 @@ class VideoUploadForm extends React.Component {
         switch (this.state.videoStatus) {
             case 'PAUSE':
                 return <div id='preview-ui-play'
-                    className='preview-ui flex-hzntal-ctr-all'
+                    className='preview-ui flexh-1'
                     onClick={this.handlePlay} > <i className="fas fa-play-circle"></i></div>
             case 'PLAY':
                 return <div id='preview-ui-pause'
-                    className='preview-ui flex-hzntal-ctr-all'
+                    className='preview-ui flexh-1'
                     onClick={this.handlePlay} > <i className="fas fa-pause-circle"></i></div>
             case 'END':
                 return <div id='preview-ui-end'
-                    className='preview-ui flex-hzntal-ctr-all'
+                    className='preview-ui flexh-1'
                     onClick={this.handlePlay} > <i className="fas fa-undo-alt"></i></div>
         }
     }
@@ -66,7 +66,7 @@ class VideoUploadForm extends React.Component {
                     {previewUI}
                 </div>
                 : <div id='loading-video'
-                    className='flex-vert-ctr-all'>
+                    className='flexv-1'>
                     <div className='spinner' />
                 </div>
         )
@@ -75,9 +75,9 @@ class VideoUploadForm extends React.Component {
     publishButton() {
         const ready = this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description
         return <button id='upload_button'
-            className={`submit-button flex-hzntal-ctr-2${(ready && !this.props.uploading) ? " enabled" : " disabled"}`}
+            className={`submit-button flexh-3${(ready && !this.props.uploading) ? " enabled" : " disabled"}`}
             onClick={this.props.handleSubmit}>
-            <span className='flex-hzntal-ctr-all'
+            <span className='flexh-1'
                 style={{
                     position: 'absolute',
                     height: '100%',
@@ -100,7 +100,7 @@ class VideoUploadForm extends React.Component {
         if (this.props.fileUrl)
             return (
                 this.props.thumbnailUrl ?
-                    <div id='thumbnail-img' className='flex-hzntal-ctr-all'>
+                    <div id='thumbnail-img' className='flexh-1'>
                         <img src={this.props.thumbnailUrl} />
                     </div>
                     :
@@ -108,13 +108,13 @@ class VideoUploadForm extends React.Component {
                         <PreviewVideo
                             fileUrl={this.props.fileUrl}
                             handleThumbnail={this.props.handleThumbnail} />
-                        <div id='loading-thumbnail' className='flex-hzntal-ctr-all'>
+                        <div id='loading-thumbnail' className='flexh-1'>
                             <div className='spinner' />
                         </div>
                     </>
             )
         else
-            return <div id='loading-thumbnail' className='flex-hzntal-ctr-all'>
+            return <div id='loading-thumbnail' className='flexh-1'>
                 <div className='spinner' />
             </div>
     }
@@ -123,7 +123,7 @@ class VideoUploadForm extends React.Component {
         const state = this.props.fileUrl && this.props.thumbnailUrl;
 
         return <label
-            className={`label-upload-btn flex-hzntal-ctr-all${state ? ' enabled' : ' disabled'}`}>
+            className={`label-upload-btn flexh-1${state ? ' enabled' : ' disabled'}`}>
             <input onChange={this.props.handleThumbnailUpload}
                 type='file'
                 disabled={!state}
@@ -152,8 +152,8 @@ class VideoUploadForm extends React.Component {
     render() {
         return (
             <form id='video-submit-form'>
-                <div id='vsf-col-1' className='flex-vert-ctr-2'>
-                    <div className='flex-vert-start-1' style={{ marginTop: '8px' }}>
+                <div id='vsf-col-1' className='flexv-3'>
+                    <div className='flexv-5' style={{ marginTop: '8px' }}>
                         <span className='tag-14 dark' style={{ fontSize: '14px' }}>Preview</span>
                         {this.previewVideo()}
                         <span style={{ fontSize: '14px' }}> 
@@ -162,21 +162,21 @@ class VideoUploadForm extends React.Component {
                         </span> 
                     </div>
 
-                    <div id='thumbnail-ctn' className='flex-vert-ctr-2'>
-                        <div className='flex-vert-start-1'>
+                    <div id='thumbnail-ctn' className='flexv-3'>
+                        <div className='flexv-5'>
                             <span className='tag-14 dark' style={{ fontSize: '14px' }}>Video Thumbnail</span>
                             {this.videoThumbnail()}
                         </div>
-                        <div id='upload-thumbnail-ctn' className='flex-vert'>
+                        <div id='upload-thumbnail-ctn' className='flexv-4'>
                             {this.uploadButton()}
                         </div>
                     </div>
                 </div>
 
                 <div id='vsf-col-2'>
-                    <div className='flex-hzntal-ctr-all'> {this.publishButton()}</div>
+                    <div className='flexh-1'> {this.publishButton()}</div>
 
-                    <div id='vsf-lower-section' className='flex-vert-ctr-2'>
+                    <div id='vsf-lower-section' className='flexv-3'>
 
                         <label className='adfx'>
                             <span className={`label ${(this.state.titleFocus || this.props.title.length) ? ' inputFocused' : ""}`}>

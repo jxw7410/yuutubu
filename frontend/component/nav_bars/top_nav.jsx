@@ -1,10 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import UserModal from '../modals/user_modal';
-import SearchBarContainer from './search_bar_container';
+import SearchBarContainer from './search_bar_ctn';
 import SideNavLinks from './side_nav_links';
-
-
 
 class TopNav extends React.Component {
     constructor(props){
@@ -49,7 +47,7 @@ class TopNav extends React.Component {
             this.props.isLoggedIn ?
                 <UserModal logOut={this.handleLogout} /> 
                 :
-                <button className='signin-button flex-hzntal-ctr-2' onClick={this.handleSignIn} >
+                <button className='signin-btn flexh-3' onClick={this.handleSignIn} >
                     <i className="fas fa-user-circle"></i>
                     SIGN IN 
                 </button> 
@@ -58,23 +56,22 @@ class TopNav extends React.Component {
 
     render() {
         return (
-            <div id='top-nav'>
-                <div id="top-nav-sec-1" className='flex-hzntal-ctr-2'>
-                    <i onClick={this.handleToggle} className="fas fa-bars" ></i>
-                    <span id='nav-bar-icon' className='flex-hzntal-ctr-2'>
-                        <NavLink exact className='flex-hzntal-ctr-2' to={'/'}>
+            <div className='top-nav'>
+                <div className='tns-1 flexh-3'>
+                    <i onClick={this.handleToggle} className="fas fa-bars" />
+                    <span id='nb-i' className='flexh-3'>
+                        <NavLink exact className='flexh-3' to={'/'}>
                             <i className="fab fa-youtube"></i><h1>YuuTubu</h1>
                         </NavLink>
                     </span>
                 </div>
 
-                <div id="top-nav-sec-2"> <SearchBarContainer /> </div>
-
-                <div id="top-nav-sec-3" className='flex-hzntal-ctr-2'>  
-                    <ul id='nav-bar-right-ul' className='flex-hzntal-ctr-2'>
-                        <li className='icon-wrapper' onClick={this.openModal('upload_vid')} >
-                            <i className="fas fa-video nav-icon-links"></i> 
-                            <div className='icon-message-nav'>Upload Video</div>
+                <div className='tns-2'> <SearchBarContainer /> </div>
+                <div className='tns-3 flexh-3'>  
+                    <ul className='nbr-ul flexh-4'>
+                        <li className='i-wrap' onClick={this.openModal('upload_vid')} >
+                            <i className="fas fa-video nav-i-link" />
+                            <div className='i-msg'>Upload Video</div>
                         </li>
                         <SideNavLinks type={this.typeTop} />
                         <li>{ this.topRightIcon() }</li>

@@ -286,7 +286,7 @@ class VideoPlayer extends React.Component {
         }
 
         return (
-            <div id={button} className='icon-wrapper' onClick={eventHandler}>
+            <div id={button} className='i-wrap' onClick={eventHandler}>
                 <i className="material-icons-enlarged">{buttonIcon}</i>
                 <div className='icon-message icon-position-left'>{iconMessage}</div>
             </div>

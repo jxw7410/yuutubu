@@ -1,6 +1,8 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
 
+
+//Change this to a React Hook
 class SearchModalListItem extends React.Component {
 
     constructor(props) {

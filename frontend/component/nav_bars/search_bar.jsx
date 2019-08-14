@@ -134,12 +134,10 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <form id='search-bar' 
-                className='flex-hzntal-ctr-all'
-                onSubmit={this.handleSubmit}>
-                <div id='search-bar-input-ctn'>
-                    <input id='search-bar-input'
-                        ref={this.searchBar}
+            <form className='flexh-1' style={{width: '100%'}} onSubmit={this.handleSubmit}>
+                <div style={{position: 'relative'}}>
+                    <input ref={this.searchBar}
+                        className='sbi'
                         type='text'
                         placeholder='Search'
                         autoComplete='off'
@@ -163,7 +161,7 @@ class SearchBar extends React.Component {
                         closeModal={this.closeModal}
                     />
                 </div>
-                <button id='search-bar-button'
+                <button className='sbb'
                     onClick={this.handleSubmit}
                 > <i className="fas fa-search"></i> </button>
             </form>

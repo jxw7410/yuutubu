@@ -6,7 +6,7 @@ import LoginContainer from '../component/auth/login_container'
 import ChannelIndexContainer from '../component/channel/channel_index_container';
 import ChannelRouter from '../component/channel/channel_router';
 import UploadVideoContainer from '../component/video/video_upload_ctn';
-import MainNav from '../component/nav-bars/main_nav';
+import MainNav from './nav_bars/main_nav_ctn';
 import Modal from '../component/modals/modal';
 import VideoWrapperContainer from '../component/video/video_wrapper';
 import SearchContainer from './search/search_ctn';

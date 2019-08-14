@@ -1,10 +1,7 @@
 import React from 'react';
-import TopNavContainer from './top_nav_container';
+import TopNavContainer from './top_nav_ctn';
 import SubSideNav from './sub_side_nav';
-import MainSideNavContainer from './main_side_nav_container';
-import { connect } from 'react-redux';
-import { fetchSubscriptions } from '../../actions/subscribe/subscribe_action';
-import { toggleSideBar } from '../../actions/nav_bar_action';
+import MainSideNavContainer from './main_side_nav_ctn';
 
 class MainNav extends React.Component {
     constructor(props){
@@ -71,22 +68,22 @@ class MainNav extends React.Component {
         switch (this.props.navBar.type) {
             case 1:
                 return (
-                    <>
+                    <React.Fragment>
                     {  
                         this.state.inverseNavBar ? 
-                        <>
-                            {this.typeTwoNavBar()}
+                        <React.Fragment>
+                            { this.typeTwoNavBar() }
                             <div style={{marginTop: '56px', height: '100%', position: 'fixed'}}>
                                 <SubSideNav />
                             </div>
-                        </>
+                        </React.Fragment>
                         :
-                        <div id='main-side-nav-ctn'>
+                        <div className='msn-ctn'>
                             {this.props.navBar.toggled ? < MainSideNavContainer /> : null}
                             <SubSideNav />
                         </div>
                     }
-                    </>
+                    </React.Fragment>
                 )
             case 2:
                 return this.typeTwoNavBar()
@@ -97,49 +94,34 @@ class MainNav extends React.Component {
 
     typeTwoNavBar(){
         return(
-            <>
-                <div id={'main-side-nav-ctn-type-2' + (this.props.navBar.toggled ? "" : "-toggled")}>
-                    <MainSideNavContainer
-                        type="typeTwo" />
+            <React.Fragment>
+                <div className={`msn-ctn-2 ${this.props.navBar.toggled ? "" : 'mc2-toggled'}`}>
+                    <MainSideNavContainer type="typeTwo" />
                 </div>
-                <div id={'main-side-nav-ctn-screen' + (this.props.navBar.toggled ? "" : "-toggled")}
+                <div className={`msn-ctn-cvr ${this.props.navBar.toggled ? "" : "mcc-toggled"}`}
                     onClick={this.props.toggleSideBar} />
-            </>
+            </React.Fragment>
         )
     }
 
     render() {
-
-        const sideNav = this.getNavbar()
         return (
-            <>
+            <React.Fragment>
                 {
                     this.props.navBar.active ?
-                        <>
+                        <React.Fragment>
                             <div id='top-nav-ctn'> <TopNavContainer /> </div>
-                            {sideNav}
-                        </>
+                            {this.getNavbar()}
+                        </React.Fragment>
                         : null
                 }
-            </>
+            </React.Fragment>
         )
     }
 }
 
-const msp = state => {
-    return {
-        login: Boolean(state.session.id),
-        navBar: state.ui.navBars
-    }
-}
+export default MainNav;
 
-const mdp = dispatch => {
-    return {
-        fetchSubscriptions: () => dispatch(fetchSubscriptions()),
-        toggleSideBar: () => { dispatch(toggleSideBar()) }
-    }
-}
 
-export default connect(msp, mdp)(MainNav);
 
 

@@ -48,7 +48,7 @@ class MainSideNav extends React.Component {
             subs.push(<li key={sub.id}
                 onClick={this.redirectToChannel(sub.channel_id)}>
                 <i className="fas fa-user-circle"></i>
-                <span className='flex-hzntal-ctr-2'>{sub.channelName}</span>
+                <span className='flexh-3'>{sub.channelName}</span>
             </li>)
         }
         return subs;
@@ -57,11 +57,11 @@ class MainSideNav extends React.Component {
 
     getTypeTwo() {
         return this.props.type === 'typeTwo' ?
-            <div id='top-nav-sec-1-ctn'>
-                <div id="top-nav-sec-1" className='flex-hzntal-ctr-2'>
+            <div className='tns-1-ctn flexh-3'>
+                <div className='tns-1 flexh-3'>
                     <i onClick={this.toggleSideBar} className="fas fa-bars"></i>
-                    <span id="nav-bar-icon">
-                        <a href="#/" className="flex-hzntal-ctr-2"><i className="fab fa-youtube"></i><h1>YuuTubu</h1>
+                    <span id="nb-i">
+                        <a href="#/" className="flexh-3"><i className="fab fa-youtube"></i><h1>YuuTubu</h1>
                         </a>
                     </span>
                 </div>
@@ -78,7 +78,7 @@ class MainSideNav extends React.Component {
                         :
                         <li onClick={this.toggleRead} id='read-more'>
                             <i id='chev' className="fas fa-chevron-down"></i> 
-                            <span className='flex-hzntal-ctr-2'>Show {this.props.subscriptions.length - this.limit} More</span>
+                            <span className='flexh-3'>Show {this.props.subscriptions.length - this.limit} More</span>
                         </li>
 
                 : null
@@ -88,8 +88,8 @@ class MainSideNav extends React.Component {
         return (
             this.props.login ?
                 <>
-                    <div id='subscription-tag'> SUBSCRIPTIONS </div>
-                    <ul id='subscription-list'>
+                    <div className='sub-tag'> SUBSCRIPTIONS </div>
+                    <ul className='sub-list'>
                         {this.getSubs()}
                         {this.getReadMore()}
                     </ul>
@@ -101,14 +101,14 @@ class MainSideNav extends React.Component {
         return (
             <>
                 {this.getTypeTwo()}
-                <div id='main-side-nav'>
-                    <ul id='main-side-nav-ul' className='flex-vert-ctr-all'>
+                <div className='msn'>
+                    <ul className='msn-ul flexv-1'>
                         <li
                             onClick={this.toHomeEvent}
                             id='Home'
-                            className={this.props.location.pathname === '/' ? 'main-side-icon-selected' : ""}>
+                            className={this.props.location.pathname === '/' ? 'msi-select' : ""}>
                             <i className="fas fa-home" />
-                            <span className='flex-hzntal-ctr-2'>Home</span>
+                            <span className='flexh-3'>Home</span>
                         </li>
                         <SideNavLinks type='main' />
                     </ul>
@@ -117,7 +117,7 @@ class MainSideNav extends React.Component {
                         <li>
                             <a target="_blank" href='https://angel.co/jian-wu-12?public_profile=1'>
                                 <i className="fab fa-angellist"></i>
-                                <span className='flex-hzntal-ctr-2'>AngelList</span>
+                                <span className='flexh-3'>AngelList</span>
                             </a>
                         </li>
                     </ul>

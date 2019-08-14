@@ -53,7 +53,7 @@ class SearchModal extends React.Component {
     }
 
     render() {
-        const extension = this.props.openModal && this.props.searches.length  ? "-active" : "";
+        const extension = this.props.openModal && this.props.searches.length  ? "sm-active" : "";
         if (this.textDidChange && !this.props.fetching) {
             this.textDidChange = false;
             this.searchPhrase = this.props.word;
@@ -62,17 +62,16 @@ class SearchModal extends React.Component {
         const listItems = this.searches();
 
         return (
-            <>
+            <React.Fragment>
                 {
                     listItems.length ? 
-                    <div id={'search-modal' + extension}
+                    <div className={`sch-mdl ${extension}`}
                         onMouseEnter={e => this.props.updateFocus(true)}
                         onMouseLeave={e => this.props.updateFocus(false)}>
-                        
-                            <ul id='search-modal-list' className='flex-vert'> {listItems} </ul>
+                            <ul id='sm-list' className='flexv-4'> {listItems} </ul>
                     </div > : null
                 }
-            </>
+            </React.Fragment>
         )
     }
 }
@@ -86,9 +85,5 @@ const msp = (state, props) => {
     }
 }
 
-const mdp = dispatch => {
-    return {
-    }
-}
 
-export default connect(msp, mdp)(SearchModal)
+export default connect(msp)(SearchModal)

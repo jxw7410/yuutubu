@@ -13,7 +13,7 @@ class DefaultControlUI extends React.Component {
         else
             volumeType = 'volume_down';
         
-        return <div className='icon-wrapper'>
+        return <div className='i-wrap'>
                 <i onClick={this.props.handleMute} className="material-icons volume-icon">{volumeType}</i>
                 <div className='icon-message icon-position-left'>{volumeType === 'volume_off' ? 'Unmute' : 'Mute'}</div>
             </div>
@@ -34,12 +34,12 @@ class DefaultControlUI extends React.Component {
     getFullScreen(){
         return (
             this.props.isFullScreen ?
-                <div className="icon-wrapper" onClick={this.props.normalScreen}>
+                <div className="i-wrap" onClick={this.props.normalScreen}>
                     <i className="material-icons-enlarged">fullscreen_exit</i>
                     <div className='icon-message icon-position-right'>Exit Full Screen</div>
                 </div>
                 :
-                <div className="icon-wrapper" onClick={this.props.maximizeScreen}>
+                <div className="i-wrap" onClick={this.props.maximizeScreen}>
                     <i className="material-icons-enlarged">fullscreen</i>
                     <div className='icon-message icon-position-right'>Full Screen</div>
                 </div>
@@ -66,7 +66,7 @@ class DefaultControlUI extends React.Component {
                 </section>
 
                 <section>
-                    <div onClick={this.props.handleMiniScreen} className='icon-wrapper'> 
+                    <div onClick={this.props.handleMiniScreen} className='i-wrap'> 
                         <i className="material-icons">picture_in_picture_alt</i>
                         <div className='icon-message icon-position-right'>Miniplayer</div>
                     </div>
