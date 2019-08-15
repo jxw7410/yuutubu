@@ -1,14 +1,9 @@
-#user-icon-modal-hook{
-    position: relative;
-}
-
-#user-icon{
+.usr-i{
     font-size: 35px;
     color: rgb(39, 97, 204);
 }
 
-
-#user-modal-item{
+.usr-mdl-i{
     position: absolute;
     outline:none;
     border: 1px solid lightgray;
@@ -22,8 +17,7 @@
 
 }
 
-
-#user-modal-header{
+.usr-mdl-hdr{
     height: 100px;
     width: 100%;
     display: grid;
@@ -31,70 +25,35 @@
     border-bottom: 1px solid lightgray;
 }
 
-#user-modal-header > div:first-child{
-    grid-row: 1 / 2;
+.umh-d{
     display: grid;
     grid-template-columns: 25% 75%;
 }
 
-#user-modal-header > div:nth-child(2){
-    grid-row: 2 / 3;
-    display: grid;
-    grid-template-columns: 25% 75%;
-}
 
-#user-modal-header > div:nth-child(2) > span {
-    grid-column: 2/ 3;
-    display:flex;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 16px;
-}
-
-
-#modal-profile-pic{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#mpp{
     font-size: 40px;
     color: rgb(39, 97, 204);
 }
 
-#modal-profile-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#modal-profile-info > span:first-child{
+#mpi > span:first-child{
     font-weight: bold;
 }
-#modal-profile-info > span{
+#mpi > span{
     font-size: 16px;
 }
 
-#user-modal-section-1 > ul {
+.um-sec-1 > ul {
     display: grid;
     grid-template-rows: 50% auto;
     height: 100px;
 }
 
-
-
-#user-modal-section-1 > ul > li:hover {
+#um-sec-1-ul > li:hover {
     background: lightgray;
 }
 
-#user-modal-section-1 > ul > li:first-child{
-    grid-row: 1 / 2;    
-}
-
-
-#user-modal-section-1 > ul > li:nth-child(2){
-    grid-row: 2 / 3;
-}
-
-#user-modal-section-1 > ul > li {
+#um-sec-1-ul > li {
     display: grid;
     grid-template-columns: 60px auto;
     width: 100%;
@@ -102,39 +61,20 @@
 }
 
 
-#user-modal-section-1 > ul > li > div:first-child{
-    grid-column: 1 / 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#user-modal-section-1 > ul > li > div:first-child > i {
+#um-sec-1-ul > li > div:first-child > i {
     color: white;
     background: rgb(144,144,144);
     padding: 3px;
     font-size: 14px;
 }
 
-#user-modal-section-1 > ul > li > div:nth-child(2){
-    grid-column: 2 / 3;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-
-
-
 ///////////////////
-
 
 .fa-video{
     position: relative;
 }
 
-
- .modal-background {
+.modal-background {
   position: fixed; 
   height: 100%;
   width: 100%;
@@ -142,14 +82,7 @@
   z-index: 1000;
 }
 
-.modal-child {
-    //position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-}
-
-#video-upload-modal{
+.video-upload-modal{
     background: white;
     padding: 5px 0;
     width: 180px;
@@ -161,15 +94,7 @@
     transform: translateX(-50%);
 }
 
-#video-upload-modal > li {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-}
-
-
-#video-upload-modal > li:hover {
+.video-upload-modal > li:hover {
     background: lightgray;
     cursor: pointer;
 }

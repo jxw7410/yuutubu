@@ -6,23 +6,26 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 const LoginForm = (props) => {
 
     return (
-        <div id='login-container-wrapper'>
-            <div id='login-container'>
-                <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"YuuTubu"}</h1></span>
+        <div className='flexh-1 max-w-h'>
+            <div className='login-ctn flexv-8'>
+                <span className='flexh-3'>
+                    <i className="fab fa-youtube"/>
+                    <h1 style={{fontSize: '25px'}}>{"YuuTubu"}</h1>
+                </span>
                 {
                     props.email ?
-                        <>
+                        <React.Fragment>
                             <h2>Welcome</h2>
                             <h3 style={{
                                 padding: "3px 8px",
                                 border: "1px solid rgb(192, 194, 197)",
                                 borderRadius: "12px"
                             }}>{props.email}</h3>
-                        </> :
-                        <>
+                        </React.Fragment> :
+                        <React.Fragment>
                             <h2>Sign In</h2>
                             <h3>to continue to YuuTubu</h3>
-                        </>
+                        </React.Fragment>
                 }
 
 
@@ -63,10 +66,6 @@ const LoginForm = (props) => {
                                 />
                         }
                     </ReactCSSTransitionGroup>
-
-
-
-
                 </div>
             </div>
         </div>

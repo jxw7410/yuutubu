@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import {isEmailValid} from './../../util/selectors';
+import { isEmailValid } from './../../util/selectors';
+import { AuthInputWidget } from './utils';
 
 class EmailFormStuff extends React.Component {
     constructor(props){
@@ -26,24 +27,21 @@ class LoginFormItem extends React.Component {
         this.state = {
             email: "",
             password: "",
-            focus: false,
         }
 
-        this.authElement = React.createRef();
         this.didUpdate = false;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.textChangeEvent = this.textChangeEvent.bind(this);
-        this.handleFocus = this.handleFocus.bind(this);
-        this.handleUnfocus = this.handleUnfocus.bind(this);
-        this.changePlaceholder = this.changePlaceholder.bind(this);
+        this.authElement = React.createRef();
     }
 
     componentDidMount() {
+        console.log('mounted')
         this.didUpdate = false; 
         this.props.removeNavBars();
         this.props.removeVideoPlayer();
         this.authElement.current.focus();
-    }
+    }   
 
     componentWillUnmount(){
         this.props.defaultAction();
@@ -53,7 +51,7 @@ class LoginFormItem extends React.Component {
 
     componentDidUpdate() {
         if (!this.didUpdate) {
-            if (this.props.errors.length > 0) {
+            if (this.props.errors.length) {
                 this.didUpdate = true;
                 this.authElement.current.focus();
             }
@@ -80,63 +78,28 @@ class LoginFormItem extends React.Component {
         }
     }
 
-    changePlaceholder(target, field) {
-        if (!this.state.focus) {
-            const htmlElement = document.getElementById(target);
-            if( htmlElement )
-                htmlElement.placeholder = field;
-        }
-    }
-
-    handleFocus(e) {
-        e.preventDefault();
-        this.setState({ focus: true })
-    }
-
-    handleUnfocus(e){
-        e.preventDefault();
-        this.setState({focus: false })
-    }   
-
     render() {
         const field = this.props.type;
-        const inputClassName = 'auth-input' + (this.props.errors.length ? "-errors" : '');
-        const inputFocused = this.state.focus || this.state[field].length
 
         return (
             <div className='auth-form-ctn'>
-                <form className={"auth-form"}>
-                    <label className={this.props.errors.length  ?  'auth-label-errors' : ""}>
-                        
+                <form className="auth-form flexv-7">
+        
 
-                        <span className={`input-tag ${ inputFocused ? 'input-tag-focused ' : ''}`}
-                            style={ (this.props.errors.length && inputFocused) ? { color: 'red' } : null}> 
-                            {field === 'email' ? 'Email' : 'Enter Your password'} 
-                        </span>
-
-
-
-                        <input
-                            id={"auth-input-element-"+field}
-                            ref={this.authElement}
-                            onBlur={this.handleUnfocus}
-                            onFocus={this.handleFocus}
-                            onChange={this.textChangeEvent(field)}
-                            type={field}
-                            className={inputClassName}
-                            value={this.setState[field]}
-                            />
-
-                        <span style={ this.props.errors.length ? {color:'red'} : null }>
-                            {this.props.errors ? this.props.errors : null}
-                        </span>
-                    </label>
-
-
+                    <AuthInputWidget 
+                        ref={this.authElement}
+                        type={field}
+                        text={field}
+                        value={this.state[field]}
+                        textChange={this.textChangeEvent(field)}
+                        errors = { this.props.errors }
+                        styleClass = {{ input: 'login-input', label: 'login-label'}}
+                        errorClass={{ input:'li-errors', label: 'll-errors' }}
+                    />
 
                     {field === 'email' ? <EmailFormStuff login={this.props.login}/> : null}
 
-                    <section>
+                    <section className='flexh-5' style={{width: '350px'}}>
                         <span>{field === 'email' ? <Link to='/signup' >Create Account</Link> : 'Forgot Password'}</span>
                         <button onClick={this.handleSubmit}>Next</button>
                     </section>

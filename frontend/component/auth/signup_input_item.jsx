@@ -18,7 +18,7 @@ const SignUpInputItem = props => {
 
 
     return (
-        <label ref={props.reference} className={inputLabelName}>
+        <label ref={props.reference} className={inputLabelName} style={{position: 'relative'}}>
             <span className={`createform-input-tag ${(focus || value) ? "c-i-t-focused" : ""}`}
                 style={ (errors && (focus || value)) ? {color: 'red'} : null }>
                 {field}
@@ -34,7 +34,7 @@ const SignUpInputItem = props => {
                 value={value}
             />
 
-            <span>{message}</span>
+            <span style={{color: 'red'}}>{message}</span>
         </label>
     )
 }

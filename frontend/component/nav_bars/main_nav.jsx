@@ -110,7 +110,7 @@ class MainNav extends React.Component {
                 {
                     this.props.navBar.active ?
                         <React.Fragment>
-                            <div id='top-nav-ctn'> <TopNavContainer /> </div>
+                            <div id='tn-ctn'> <TopNavContainer /> </div>
                             {this.getNavbar()}
                         </React.Fragment>
                         : null

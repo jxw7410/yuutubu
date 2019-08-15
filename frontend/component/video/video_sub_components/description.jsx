@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+// React Hook
 class Description extends React.Component {
     constructor(props) {
         super(props)

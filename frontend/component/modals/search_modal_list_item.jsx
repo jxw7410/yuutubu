@@ -44,8 +44,8 @@ class SearchModalListItem extends React.Component {
             <li className={this.props._class}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
-                onClick={this.handleOnClick}
-            >
+                onClick={this.handleOnClick}>
+                    
                 <span>{this.props.initialString}</span>
                 <span>{this.props.remenantString}</span>
             </li>

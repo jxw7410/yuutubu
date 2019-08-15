@@ -36,33 +36,38 @@ class UserModalItem extends React.Component {
 
     render() {
         return (
-            <div id='user-modal-item'>
-                <div id='user-modal-header'>
-                    <div>
-                        <section id='modal-profile-pic'>
-                            <i id='user-profile-icon' className="fas fa-user-circle"></i>
+            <div className='usr-mdl-i'>
+                <div className='usr-mdl-hdr'>
+                    <div className='umh-d'>
+                        <section id='mpp' className='flexh-1'>
+                            <i className="fas fa-user-circle"/>
                         </section>
-                        <section id='modal-profile-info'>
+                        <section id='mpi' className='flexv-2'>
                             <span>{this.props.user.username}</span>
                             <span>{this.props.user.email}</span>
                         </section>
                     </div>
-                    <div>
-                        <span>
+                    <div className='umh-d'>
+                        <span/>
+                        <span className='flexh-3' style={{fontSize: '16px'}}>
                             What's on your mind?
                         </span>
                     </div>
                 </div>
-                <div id='user-modal-section-1'>
-                    <ul>
+                <div className='um-sec-1'>
+                    <ul id='um-sec-1-ul'>
                         <li onClick={this.redirectEvent}>
-                            <div><i className="fas fa-user"></i></div>
-                            <div>Your Channel</div>
+                            <div className='flexh-1'>
+                                <i className="fas fa-user" />
+                            </div>
+                            <div className='flexh-3'>Your Channel</div>
                         </li>
 
                         <li onClick={this.props.logOut}>
-                            <div><i className="fas fa-sign-out-alt"></i></div>
-                            <div>Sign Out</div>
+                            <div className='flexh-1'>
+                                <i className="fas fa-sign-out-alt" />
+                            </div>
+                            <div className='flexh-3'>Sign Out</div>
                         </li>
                     </ul>
                 </div>

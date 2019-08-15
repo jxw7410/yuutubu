@@ -24,8 +24,8 @@ class UserModal extends React.Component{
 
     render(){
         return(
-            <div id='user-icon-modal-hook'>
-                <i key={'1'} onClick={this.togglePopUp} id='user-icon' className="fas fa-user-circle"/>
+            <div style={{position: 'relative'}}>
+                <i key={'1'} onClick={this.togglePopUp} className="fas fa-user-circle usr-i"/>
 
                 <div id={this.ref}>
                     {this.state.isToggled ?

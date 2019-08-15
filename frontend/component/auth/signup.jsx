@@ -120,19 +120,21 @@ class SignUpForm extends React.Component {
     //Be careful, this is a atrocious
     render() {
         const errors = this.props.errors;
-        const inputClassName = 'create-form-input';
-        const inputLabelName = "create-form-label";
+       
         return (
-            <div id='signup-form-wrapper' >
-                <div id='create-form-grid'>
-                    <div id='create-form-container'>
-                        <div id='create-form-header'>
-                            <span className='auth-logo'><i className="fab fa-youtube"></i><h1>{"YuuTubu"}</h1></span>
-                            <h1>Create your YuuTubu Account</h1>
+            <div className='flexh-1 max-w-h'>
+                <div className='c-f-grid'>
+                    <div className='c-f-ctn'>
+                        <div className='flexv-6' style={{ padding: "10px 20px 0px 20px"}}>
+                            <span className='auth-logo'>
+                                <i className="fab fa-youtube"/>
+                                <h1>{"YuuTubu"}</h1>
+                            </span>
+                            <h1 style={{fontSize: '25px'}}>Create your YuuTubu Account</h1>
                             <h2>to continue to YuuTubu</h2>
                         </div>
 
-                        <form id='create-form'>
+                        <form id='create-form' className='flexv-6'>
 
                             <SignUpInputitem
                                 id="Username"
@@ -140,45 +142,45 @@ class SignUpForm extends React.Component {
                                 field={this.map.userNameFocus}
                                 value={this.state.username}
                                 focus={this.state.userNameFocus}
-                                inputLabelName={inputLabelName + (errors.Username ? "-errors" : "")}
-                                inputClassName={inputClassName + (errors.Username ? "-errors" : "")}
+                                inputLabelName={`flexv-4 ${errors.Username ? "-errors" : ""}`}
+                                inputClassName={`cf-input ${errors.Username ? "cfi-err" : ""}`}
                                 blurEvent={this.handleUnfocus("userNameFocus", "userNamePlaceholder")}
                                 focusEvent={this.handleFocus("userNameFocus", "userNamePlaceholder")}
                                 changeEvent={this.textChangeEvent('username')}
-                                type={'text'}
+                                type='text'
                                 errors={errors.Username ? true : false}
                                 message={errors.Username ? errors.Username : ""}
                             />
 
 
                             <SignUpInputitem
-                                id={"Email"}
+                                id="Email"
                                 reference={this.email}
                                 field={this.map.emailFocus}
                                 value={this.state.email}
                                 focus={this.state.emailFocus}
-                                inputLabelName={inputLabelName + (errors.Email ? "-errors" : "")}
-                                inputClassName={inputClassName + (errors.Email ? "-errors" : "")}
+                                inputLabelName={`flexv-4 ${errors.Email ? "-errors" : ""}`}
+                                inputClassName={`cf-input ${errors.Email ? "cfi-err" : ""}`}
                                 blurEvent={this.handleUnfocus("emailFocus", "emailPlaceholder")}
                                 focusEvent={this.handleFocus("emailFocus", "emailPlaceholder")}
                                 changeEvent={this.textChangeEvent('email')}
-                                type={'text'}
+                                type='text'
                                 errors={errors.Email ? true : false }
                                 message={errors.Email ? errors.Email : "Please enter a valid email."}
                             />
 
                             <SignUpInputitem
-                                id={"Password"}
+                                id="Password"
                                 reference={this.password}
                                 field={this.map.passwordFocus}
                                 value={this.state.password}
                                 focus={this.state.passwordFocus}
-                                inputLabelName={inputLabelName + (errors.Password ? "-errors" : "")}
-                                inputClassName={inputClassName + (errors.Password ? "-errors" : "")}
+                                inputLabelName={`flexv-4 ${errors.Password ? "-errors" : ""}`}
+                                inputClassName={`cf-input ${errors.Password ? "cfi-err" : ""}`}
                                 blurEvent={this.handleUnfocus("passwordFocus", "passwordPlaceholder")}
                                 focusEvent={this.handleFocus("passwordFocus", "passwordPlaceholder")}
                                 changeEvent={this.textChangeEvent('password')}
-                                type={'password'}
+                                type='password'
                                 errors={errors.Password ? true : false }
                                 message={errors.Password ? errors.Password : "Password should be at least 6 characters long"}
                             />
@@ -191,9 +193,7 @@ class SignUpForm extends React.Component {
 
                     </div>
 
-                    <section id={'create-form-image-section'}>
-
-                    </section>
+                    <section/>
                 </div>
             </div>
         )

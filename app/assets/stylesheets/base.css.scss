@@ -31,6 +31,7 @@ body::-webkit-scrollbar-thumb
     padding: 5px;
 }
 
+
 .flexh-1{
     display: flex;
     justify-content: center;
@@ -53,6 +54,11 @@ body::-webkit-scrollbar-thumb
     justify-content: space-evenly;
 }
 
+.flexh-5{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 .flexv-1{
     display: flex;
@@ -82,6 +88,25 @@ body::-webkit-scrollbar-thumb
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.flexv-6{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.flexv-7{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flexv-8{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .max-w-h{

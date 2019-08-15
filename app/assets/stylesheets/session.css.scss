@@ -1,0 +1,193 @@
+.c-f-grid{
+    display:grid;
+    grid-template-columns: 70% auto;
+    width: 650px;
+    height: 600px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    position: absolute;
+}
+
+
+.c-f-ctn{
+    padding: 25px;
+    display: grid;
+    grid-template-rows: 25% auto;
+}
+
+#create-form{
+    padding: 0px 20px 20px 20px;
+}
+
+#create-form label > * {
+    padding-top: 5px;
+}
+
+#create-form  a {
+    text-decoration: none;
+    color: #1a73e8;
+}
+.cf-input{
+    height: 25px;
+    padding: 10px 15px;
+    font-size: 20px;
+}
+
+.cfi-err{
+    border: 2px solid red;
+    outline-color: red; 
+}
+
+
+.createform-input-tag{
+    position: absolute;
+    font-size: 20px;
+    left: 15px;
+    top: 6px;
+    outline: none;
+    color: gray;
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
+}
+
+.c-i-t-focused{
+    padding: 3px;
+    background: white;
+    font-size: 12px;
+    left: 8px;
+    top: -10px;
+    color: gray;
+    padding-top: 0px;
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
+}
+
+.createform-input-tag:focus{
+    outline: none;
+}
+
+
+#create-form > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#create-form button {
+    background:  #1a73e8;
+    height: 40px;
+    font-size: 20px;
+    color:white;
+    border-radius: 5px;
+    width: 80px;
+}
+
+.login-ctn{
+    border: 1px solid lightgray;
+    width: 400px;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 10px;
+    position: absolute;
+    
+}
+
+#demo-account-link{
+    color: rgb(53, 103, 197);
+}
+
+#demo-account-link:hover{
+    cursor: pointer;
+}
+
+#login-container > h2 {
+    font-size: 30px;
+}
+
+#auth-div{
+    position: relative;
+    width:370px;
+    height: 300px;
+}
+.auth-form-ctn{
+    position: absolute;
+    padding:10px;
+}
+.auth-form{
+    width: 350px; 
+    height: 250px;
+}
+
+.auth-form button {
+    background:  #1a73e8;
+    height: 40px;
+    font-size: 20px;
+    color:white;
+    border-radius: 5px;
+    width: 80px;
+}
+
+.auth-form button:hover{
+    cursor: pointer;
+    border: 3px solid #6cacff;
+} 
+
+
+.auth-form a{
+    text-decoration: none;
+    color: #1a73e8;
+}
+
+.session-form-enter{
+    transform: translateX(300px);
+}
+
+.session-form-enter.session-form-enter-active{
+    transform: translateX(0);
+    transition: transform 500ms ease-in;
+}
+
+.session-form-leave{
+    transform:  translateX(0);
+}
+
+.session-form-leave.session-form-leave-active{
+    transform: translateX(-300px);
+    transition: transform 300ms ease-in;
+}
+
+
+.login-input {
+    width: 318px;
+    height: 30px;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.li-errors:focus{
+    border: 2px solid red;
+    outline-color: red; 
+}
+
+
+.login-label{
+    position: absolute;
+    top: 22px;
+    left: 17px;
+    font-size: 20px;
+    color: rgb(117,117,117);
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
+}
+
+.flt-e{
+    font-size: 14px;
+    padding: 3px;
+    background: white;
+    top: -9px;
+    left: 5px;
+}
