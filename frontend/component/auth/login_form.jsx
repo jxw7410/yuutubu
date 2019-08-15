@@ -1,17 +1,17 @@
 import React from 'react';
-import Login_Form_Item from './login_form_item';
+import LoginFormItem from './login_form_item';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { AuthLogo } from './utils';
 
 
+//Refactor this tomorrow....add the container for the form item,
+//Not this bs
 const LoginForm = (props) => {
 
     return (
         <div className='flexh-1 max-w-h'>
             <div className='login-ctn flexv-8'>
-                <span className='flexh-3'>
-                    <i className="fab fa-youtube"/>
-                    <h1 style={{fontSize: '25px'}}>{"YuuTubu"}</h1>
-                </span>
+                <AuthLogo />
                 {
                     props.email ?
                         <React.Fragment>
@@ -23,26 +23,25 @@ const LoginForm = (props) => {
                             }}>{props.email}</h3>
                         </React.Fragment> :
                         <React.Fragment>
-                            <h2>Sign In</h2>
+                            <h2 style={{fontSize: '30px'}}>Sign In</h2>
                             <h3>to continue to YuuTubu</h3>
                         </React.Fragment>
                 }
 
 
-                <div id='auth-div'>
+                <div className='auth-div'>
                     <ReactCSSTransitionGroup
                         transitionName="session-form"
-                        transitionEnterTimeout={500}
-                        transitionLeaveTimeout={300}>
+                        transitionEnterTimeout= {500}
+                        transitionLeaveTimeout= {300}>
 
                         {
                             !props.email ?
-                                <Login_Form_Item
-                                    key={'email'}
+                                <LoginFormItem
+                                    key='email'
                                     errors={props.errors}
                                     email={props.email}
-                                    type={'email'}
-                                    className={'session'}
+                                    type='email'
                                     action={props.fetchEmail}
                                     defaultAction={props.defaultAction}
                                     raiseEmailError={props.raiseEmailError}
@@ -51,12 +50,11 @@ const LoginForm = (props) => {
                                     login={props.login}
                                 />
                                 :
-                                <Login_Form_Item
-                                    key={'password'}
+                                <LoginFormItem
+                                    key='password'
                                     errors={props.errors}
                                     email={props.email}
-                                    type={'password'}
-                                    className={'session'}
+                                    type='password'
                                     action={props.login}
                                     defaultAction={props.defaultAction}
                                     clearEmail={props.clearEmail}

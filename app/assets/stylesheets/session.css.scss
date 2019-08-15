@@ -9,7 +9,6 @@
     position: absolute;
 }
 
-
 .c-f-ctn{
     padding: 25px;
     display: grid;
@@ -40,41 +39,6 @@
 }
 
 
-.createform-input-tag{
-    position: absolute;
-    font-size: 20px;
-    left: 15px;
-    top: 6px;
-    outline: none;
-    color: gray;
-    transition: font-size 0.15s linear, 
-        left 0.15s linear,
-        top 0.15s linear;
-}
-
-.c-i-t-focused{
-    padding: 3px;
-    background: white;
-    font-size: 12px;
-    left: 8px;
-    top: -10px;
-    color: gray;
-    padding-top: 0px;
-    transition: font-size 0.15s linear, 
-        left 0.15s linear,
-        top 0.15s linear;
-}
-
-.createform-input-tag:focus{
-    outline: none;
-}
-
-
-#create-form > section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 #create-form button {
     background:  #1a73e8;
@@ -92,7 +56,6 @@
     overflow: hidden;
     border-radius: 10px;
     position: absolute;
-    
 }
 
 #demo-account-link{
@@ -103,11 +66,8 @@
     cursor: pointer;
 }
 
-#login-container > h2 {
-    font-size: 30px;
-}
 
-#auth-div{
+.auth-div{
     position: relative;
     width:370px;
     height: 300px;
@@ -135,7 +95,6 @@
     border: 3px solid #6cacff;
 } 
 
-
 .auth-form a{
     text-decoration: none;
     color: #1a73e8;
@@ -159,7 +118,6 @@
     transition: transform 300ms ease-in;
 }
 
-
 .login-input {
     width: 318px;
     height: 30px;
@@ -172,6 +130,18 @@
     outline-color: red; 
 }
 
+.cfi-label{
+    position: absolute;
+    font-size: 20px;
+    left: 15px;
+    top: 6px;
+    outline: none;
+    color: rgb(117,117,117);
+    transition: font-size 0.15s linear, 
+        left 0.15s linear,
+        top 0.15s linear;
+
+}
 
 .login-label{
     position: absolute;
@@ -189,5 +159,13 @@
     padding: 3px;
     background: white;
     top: -9px;
+    left: 5px;
+}
+
+.flt-f{
+    font-size: 14px;
+    padding: 3px;
+    background: white;
+    top: -11px;
     left: 5px;
 }

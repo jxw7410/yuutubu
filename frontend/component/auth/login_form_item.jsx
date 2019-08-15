@@ -1,25 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { isEmailValid } from './../../util/selectors';
-import { AuthInputWidget } from './utils';
-
-class EmailFormStuff extends React.Component {
-    constructor(props){
-        super(props)
-        this.handleOnClick = this.handleOnClick.bind(this);
-    }
-
-    handleOnClick(e){
-        e.preventDefault();
-        this.props.login({ email: "demouser@gmail.com", password: "password123"})
-    }
-
-    render(){
-        return (
-            <span> Have no account? Try out the <span onClick={this.handleOnClick} id='demo-account-link'>demo account</span></span>
-        )
-    }
-}
+import { AuthInputWidget, EmailFormStuff } from './utils';
 
 class LoginFormItem extends React.Component {
     constructor(props) {
@@ -36,7 +18,6 @@ class LoginFormItem extends React.Component {
     }
 
     componentDidMount() {
-        console.log('mounted')
         this.didUpdate = false; 
         this.props.removeNavBars();
         this.props.removeVideoPlayer();
@@ -94,7 +75,7 @@ class LoginFormItem extends React.Component {
                         textChange={this.textChangeEvent(field)}
                         errors = { this.props.errors }
                         styleClass = {{ input: 'login-input', label: 'login-label'}}
-                        errorClass={{ input:'li-errors', label: 'll-errors' }}
+                        otherClass={{ input:'li-errors', label: 'flt-e' }}
                     />
 
                     {field === 'email' ? <EmailFormStuff login={this.props.login}/> : null}

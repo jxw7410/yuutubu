@@ -94,13 +94,14 @@ export const filterByWords = (target, arrayOfWords) =>{
     return matchingWords;
 }
 
-
-
-
 export const filterSubscriptions = (channel_id, subscriptions) => {
     for(let i = 0; i < subscriptions.length; i++){
         if(subscriptions[i].channel_id === channel_id)
             return { sub_id: subscriptions[i].id }
     }
     return { sub_id: null}
+}
+
+export const capitalize = str => {
+    return str[0].toUpperCase() + str.slice(1, str.length);
 }
