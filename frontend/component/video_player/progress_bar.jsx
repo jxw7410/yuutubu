@@ -2,13 +2,13 @@ import React from 'react';
 
 const ProgressBar = props => {
     return (
-        <div id='progress-bar' 
+        <div className='progress-bar flexh-3' 
             onMouseMove={props.hoverProgressBar}
             onMouseLeave={props.leaveProgressBar}>
-            <div ref ={props.streamBar} id='user-streamed' />
-            <div id='buffer-streamed' style={{ width: props.bufferStream + "%" }} />
-            <div id='hover-bar' style={{width: props.hoverBarLength, maxWidth: props.maxHoverBarLength}} />
-            <input ref={props.seeker} id='seeker-bar' type='range' 
+            <div ref ={props.streamBar} className='user-stream' />
+            <div className='buffer-stream' style={{ width: props.bufferStream + "%" }} />
+            <div className='hover-bar' style={{width: props.hoverBarLength, maxWidth: props.maxHoverBarLength}} />
+            <input ref={props.seeker} className='seeker-bar' type='range' 
                 onMouseDown={props.handleSeekingClick}
                 onMouseUp={props.handleSeekingClick}    
                 onClick={e => e.stopPropagation()}

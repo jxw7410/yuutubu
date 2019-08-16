@@ -15,19 +15,19 @@ class DefaultControlUI extends React.Component {
         
         return <div className='i-wrap'>
                 <i onClick={this.props.handleMute} className="material-icons volume-icon">{volumeType}</i>
-                <div className='icon-message icon-position-left'>{volumeType === 'volume_off' ? 'Unmute' : 'Mute'}</div>
+                <div className='i-msg-v i-pos-lft'>{volumeType === 'volume_off' ? 'Unmute' : 'Mute'}</div>
             </div>
     }
 
     getVolumeControl(){
         return (
-            <>
-                <div id='volume-control-track' style={{width: `${this.props.volumeTrackLength}px`}}/>
-                <input id='volume-control' type="range" min="0" max="1" step="0.1" value={this.props.volumeValue}
+            <React.Fragment>
+                <div className='vol-ctrl-track' style={{width: `${this.props.volumeTrackLength}px`}}/>
+                <input className='vol-ctrl' type="range" min="0" max="1" step="0.1" value={this.props.volumeValue}
                     onMouseDown={e => e.stopPropagation()}
                     onClick={e => e.stopPropagation()}
                     onChange={this.props.handleVolumeChange} />
-            </>
+            </React.Fragment>
         )
     }
     
@@ -36,12 +36,12 @@ class DefaultControlUI extends React.Component {
             this.props.isFullScreen ?
                 <div className="i-wrap" onClick={this.props.normalScreen}>
                     <i className="material-icons-enlarged">fullscreen_exit</i>
-                    <div className='icon-message icon-position-right'>Exit Full Screen</div>
+                    <div className='i-msg-v i-pos-rgt'>Exit Full Screen</div>
                 </div>
                 :
                 <div className="i-wrap" onClick={this.props.maximizeScreen}>
                     <i className="material-icons-enlarged">fullscreen</i>
-                    <div className='icon-message icon-position-right'>Full Screen</div>
+                    <div className='i-msg-v i-pos-rgt'>Full Screen</div>
                 </div>
         )
     }
@@ -49,26 +49,25 @@ class DefaultControlUI extends React.Component {
 
     render(){
         return (    
-            <div id='video-control-ui'>
-                <section id='left-control-ui'>
-                    <div id='play-pause-hook'> {this.props.playButton} </div>
-                   
-                        <div id='volume-control-div'> 
+            <div className='vid-ctrl-ui flexh-6'>
+                <section className='flexh-3' style={{width:'auto'}}>
+                    <div> {this.props.playButton} </div>
+                        <div className='vol-ctrl-div flexh-3'> 
                             {this.getVolumeButton()}
-                            <div className='volume-control-bar-wrapper'>
-                                <div id='volume-control-bar'>{this.getVolumeControl()}</div>
+                            <div className='vol-ctrl-bar-wrap flexh-3'>
+                                <div className='vol-ctrl-bar'>{this.getVolumeControl()}</div>
                             </div>
                         </div>
                     
-                    <div id='video-time'>
-                        <div>{convertDurationToTime(this.props.currentTime)} / {convertDurationToTime(this.props.duration)}</div>
+                    <div className='vid-time'>
+                        <div className='max-w-h'>{convertDurationToTime(this.props.currentTime)} / {convertDurationToTime(this.props.duration)}</div>
                     </div>
                 </section>
 
-                <section>
+                <section className='flexh-3'>
                     <div onClick={this.props.handleMiniScreen} className='i-wrap'> 
-                        <i className="material-icons">picture_in_picture_alt</i>
-                        <div className='icon-message icon-position-right'>Miniplayer</div>
+                        <i style={{ margin: '0 5px'}} className="material-icons">picture_in_picture_alt</i>
+                        <div className='i-msg-v i-pos-rgt'>Miniplayer</div>
                     </div>
                     { this.getFullScreen()}
                 </section>

@@ -286,9 +286,9 @@ class VideoPlayer extends React.Component {
         }
 
         return (
-            <div id={button} className='i-wrap' onClick={eventHandler}>
+            <div  className={`i-wrap ${button}`} onClick={eventHandler}>
                 <i className="material-icons-enlarged">{buttonIcon}</i>
-                <div className='icon-message icon-position-left'>{iconMessage}</div>
+                <div className='i-msg-v i-pos-lft'>{iconMessage}</div>
             </div>
         )
     }
@@ -296,7 +296,7 @@ class VideoPlayer extends React.Component {
     miniDescription() {
         return (
             this.props.videoPlayer.type === 'MINI' ?
-                <div id='video-player-descriptions'>
+                <div className='vid-player-desc flexv-7'>
                     <span>{this.props.videoPlayer.video.title}</span>
                     <span>{this.state.channelName}</span>
                 </div> : null
@@ -311,12 +311,12 @@ class VideoPlayer extends React.Component {
     render() {
 
         return (
-            <>
+            <React.Fragment>
                 <div onClick={this.handlePlay('screen')}
-                    id={'video-player-hook' + (this.state.fullScreen ? "-fullscreen" : "")}>
+                    className={'vid-player-hook' + (this.state.fullScreen ? " vph-fullscn" : "")}>
 
-                    {this.state.videoStatus === 'REPLAY' ? <div id="video-dark-screen" /> : null}
-                    {this.state.videoStatus === 'LOAD' ? <div id='video-loader'><div className='spinner' /></div> : null}
+                    {this.state.videoStatus === 'REPLAY' ? <div className='vid-dark-scn max-w-h' /> : null}
+                    {this.state.videoStatus === 'LOAD' ? <div className='vid-ldr max-w-h flexh-1'><div className='spinner' /></div> : null}
 
                     <video id="video-player"
                         ref={this.videoElement}
@@ -333,7 +333,7 @@ class VideoPlayer extends React.Component {
                         <source src={this.props.video.videoUrl} type="video/mp4" />
                     </video>
 
-                    <div id={'video-control' + (this.state.videoStatus ? `-${this.state.videoStatus}` : "")} >
+                    <div className={`max-w-h flexv-10 vid-ctrl ${this.state.videoStatus === 'PLAY' ?  'vc-play': ""}`} >
                         {
                             this.props.videoPlayer.type === 'MINI' ?
                                 <MiniControlUI
@@ -380,7 +380,7 @@ class VideoPlayer extends React.Component {
                     </div>
                 </div>
                 {this.miniDescription()}
-            </>
+            </React.Fragment>
         )
     }
 }

@@ -9,12 +9,12 @@ import { withRouter } from 'react-router-dom';
 const VideoPlayerWrapper = (props) => {
     
     return (
-        <>
+        <React.Fragment>
         {   
             props.videoPlayer.type ? 
                 <VideoPlayer key={ props.videoPlayer.video.id } {...props} /> : null
         }
-        </>
+        </React.Fragment>
     )
 }
 
