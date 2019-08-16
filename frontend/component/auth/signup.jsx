@@ -91,7 +91,7 @@ class SignUpForm extends React.Component {
                             <h2>to continue to YuuTubu</h2>
                         </div>
 
-                        <form id='create-form' className='flexv-6'>
+                        <form className='create-form flexv-6'>
 
                             <AuthInputWidget
                                 ref={this.username}

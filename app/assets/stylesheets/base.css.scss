@@ -31,7 +31,7 @@ body::-webkit-scrollbar-thumb
     padding: 5px;
 }
 
-
+// Horizontal Flex
 .flexh-1{
     display: flex;
     justify-content: center;
@@ -60,6 +60,19 @@ body::-webkit-scrollbar-thumb
     justify-content: space-between;
 }
 
+.flexh-6{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flexh-7{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+// Vertical Flex
 .flexv-1{
     display: flex;
     justify-content: center;
@@ -114,6 +127,14 @@ body::-webkit-scrollbar-thumb
     width: 100%;
 }
 
+.w-100{
+    width: 100%;
+}
+
+.h-100{
+    height: 100%;
+}
+
 .dark{
     background: rgb(75,75,75);
     color: white;
@@ -124,3 +145,6 @@ body::-webkit-scrollbar-thumb
     padding: 1px 5px;
 }
 
+.mgt-24{
+    margin-top: 24px;
+}

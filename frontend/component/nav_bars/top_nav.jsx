@@ -59,7 +59,7 @@ class TopNav extends React.Component {
             <div className='top-nav'>
                 <div className='tns-1 flexh-3'>
                     <i onClick={this.handleToggle} className="fas fa-bars" />
-                    <span id='nb-i' className='flexh-3'>
+                    <span className='nb-i flexh-3'>
                         <NavLink exact className='flexh-3' to={'/'}>
                             <i className="fab fa-youtube"></i><h1>YuuTubu</h1>
                         </NavLink>

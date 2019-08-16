@@ -1,39 +1,22 @@
-
-#main-content-ctn{
+.main-ctnt-ctn{
     display: grid;
     grid-template-columns: 70px auto;
-    height: 100%;
     position: absolute;
     z-index: 103;
-    width: 100%;
 }
 
-#main-content-ctn-toggled{
-    display: grid;
+.mn-cc-tgl{
     grid-template-columns: 240px auto;
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    z-index: 103;
 }
 
 
-#main-content{
+.main-ctnt{
     grid-column: 2 / 3;
     background: rgb(250,250,250);
 }
 
-
-#main-content-section-1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-}
-#index-recommended-videos-ctn{
+.idx-rec-vid-ctn{
     margin-top: 56px;
-    
 }
 
 .show-more-inactive{
@@ -41,20 +24,16 @@
     overflow: hidden;
 }
 
-#index-recommended-videos-ctn > div:first-child{
-    font-weight:bold;
-}
 
-#index-recommended-videos{
+.idx-rec-vid{
     display:flex;
     flex-wrap:wrap;
     width: 1284px;
 }
 
-#index-recommended-videos .thumbnails{
+.idx-rec-vid .thumbnails{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     height: auto;
     width: 210px;
     margin-right: 4px;
@@ -73,69 +52,53 @@
     font-size: 16px;
 }
 
-#channels-list{
+.ch-list{
     width: 1284px;
     padding-top: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
-#channels-list-toggled{
-    width: 1284px;
-    padding-top: 10px;
-}
 
-.channel_index_items{
+.ch-idx-item{
     height: 295px;
     border-top: 1px solid rgb(225, 225, 255);
     display:grid;
     grid-template-rows: 70px auto;
 }
 
-
-.channel_index_items_header{
+.ch-idx-item-hdr{
     grid-row: 1 / 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
-.channel_index_items_channel_links{
+
+.ch-idx-item-link{
     display: flex;
     align-items: center;
 }
 
-.channel_index_items_channel_links .fas{
+.ch-idx-item-link .fas{
     font-size: 34px;
     margin-left: 2px;
 }
 
-
-.channel_index_items_channel_links * {
+.ch-idx-item-link * {
     margin-right: 10px;
 }
 
-.channel_index_items_header_ch_name{
+.chiih-name{
     font-size: 12px;
     color: rgb(116,116,116);
-    display: flex;
-    align-items: center;
 }
 
-
-
-.channel_index_items_header_ch_name > a{
+.chiih-name > a{
    text-decoration: none;
    color: black;
    font-size: 20px; 
 }
 
-
-#channel-index-items-body > ul {
-    display:flex;
-}
-
 .thumbnails {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     height: auto;
     width: 210px;
     margin-right: 4px;
@@ -145,7 +108,4 @@
     width: 100%;
 }
 
-.margin-top-shelf{
-    margin-top: 24px;
-}
 

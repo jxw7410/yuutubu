@@ -24,7 +24,7 @@ export const IndexPageThumbnailInfo = (props) => {
                 <section className='ch-title'>
                     {props.video.title}
                 </section>
-                <section className='ch-msc'>
+                <section className='flexv-7 ch-msc'>
                     {props.channel.name ?
                         <span>{props.channel.name}</span> : null
                     }

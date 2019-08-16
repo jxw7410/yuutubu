@@ -32,17 +32,17 @@ class ChannelHeader extends React.Component {
 
     render() {
         return (
-            <>
-                <div id='channel-header'>
-                    <div id='channel-header-wrap'>
-                        <div id='channel-header-profile'>
-                            <i className="fas fa-user-circle" />
-                            <span id='channel-header-profile-info'>
+            <React.Fragment>
+                <div className='ch-hdr flexv-1'>
+                    <div className='ch-hdr-wrap flexh-6'>
+                        <div className='flexh-7'>
+                            <i className="fas fa-user-circle chr-prf-i" />
+                            <span id='chprf-i' className='flexv-4'>
                                 <span>{this.props.channel.name}</span>
                                 <span>{this.props.channel.subscriptionCount} subscribers</span>
                             </span>
                         </div>
-                        <div id='channel-header-buttons'>
+                        <div className='flexh-1'>
                             {
                                 this.props.channel.user_id !== parseInt(this.props.userId) ?
                                     <SubscribeButton
@@ -55,21 +55,19 @@ class ChannelHeader extends React.Component {
                 </div>
 
 
-                <div id={"channel-header-nav" 
-                    + (this.state.navBarFixed ? "-fixed" : "")
-                    + (this.props.toggledSideNav ? "-toggled" : "")}>
-                    <div id={'channel-header-nav-wrapper'}>
-                        <div>
-                            <ul id="channel-header-nav-list">
+                <div className={`ch-hdr-nav${this.state.navBarFixed ? ' chhn-fixed' : ""}${this.props.toggledSideNav ? ' chhn-tgl' : ""}`}>
+                    <div className='flexh-1'>
+                        <div className='chhw-wrap'>
+                            <ul className='flexh-3' style={{width: 'inherit'}}>
                                 <li
                                     onClick={this.props.redirectEvent(null, 1)}
-                                    className={this.props.active_tab === 1 ? 'channel_tab_active' : null}>
+                                    className={`flexh-3 ch_tb${this.props.active_tab === 1 ? ' ch_tb_active' : ""}`}>
                                     HOME
                                 </li>
 
                                 <li
                                     onClick={this.props.redirectEvent('/videos', 2)}
-                                    className={this.props.active_tab === 2 ? 'channel_tab_active' : null}>
+                                    className={`flexh-3 ch_tb${this.props.active_tab === 2 ? ' ch_tb_active' : ""}`}>
                                     VIDEOS
                                 </li>
                             </ul>
@@ -78,7 +76,7 @@ class ChannelHeader extends React.Component {
                 </div>
 
 
-            </>
+            </React.Fragment>
         )
     }
 }

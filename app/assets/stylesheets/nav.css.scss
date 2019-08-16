@@ -1,4 +1,4 @@
-#tn-ctn{
+.tn-ctn{
     grid-row: 1 / 2;
     width: 100%;
     height: 56px;
@@ -63,12 +63,12 @@
     transition: .3s;
 }
 
-#nb-i > a {
+.nb-i > a {
     text-decoration: none;
     margin: 0 auto;
 }
 
-#nb-i > a > h1{
+.nb-i > a > h1{
     font-size: 15px;
     font-family: futura;
     color: #000;
@@ -160,27 +160,27 @@
    
 }
 
-#sm-list{
+.sm-list{
     margin-top: 10px;
 }
 
-#sm-list > li{ 
+.sm-list > li{ 
     padding: 4px 24px 4px 10px;   
 }
 
-#sm-list > li:last-child{
+.sm-list > li:last-child{
     margin-bottom: 5px;
 } 
 
-#sm-list > li:hover{ 
+.sm-list > li:hover{ 
     cursor: pointer;
 }
 
-#sm-list > li > span:first-child{
+.sm-list > li > span:first-child{
     font-size: 14px;
 }
 
-#sm-list > li > span:last-child{
+.sm-list > li > span:last-child{
     font-size: 14px;
     font-weight: bold;
 }

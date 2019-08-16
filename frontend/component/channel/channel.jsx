@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import AllVideosContainer from './all_vid_container';
-import ChannelBaseContainer from './channel_base_container';
+import AllVideosContainer from './all_vid_ctn';
+import ChannelBaseContainer from './channel_base_ctn';
 import ChannelHeader from './channel_header';
 import { withRouter } from 'react-router-dom';
 
@@ -46,10 +46,9 @@ class Channel extends React.Component {
 
     render() {
         return (
-
-            <div id={'channel-main-content-grid' + (this.props.navBar.toggled ? "-toggled" : "")}>
-                <div id={'channel-main-content'}>
-                    <div id="channel-main-content-wrapper">
+            <div className={`max-w-h ch-mn-ctnt-grid ${this.props.navBar.toggled ? "cmcg-tgl" : ""}`}>
+                <div className='ch-mn-ctnt'>
+                    <div className="ch-mn-ctnt-wrap">
                         <ChannelHeader
                             userId={this.props.userId}
                             channel={this.props.channel}

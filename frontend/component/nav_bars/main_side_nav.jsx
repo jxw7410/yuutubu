@@ -60,7 +60,7 @@ class MainSideNav extends React.Component {
             <div className='tns-1-ctn flexh-3'>
                 <div className='tns-1 flexh-3'>
                     <i onClick={this.toggleSideBar} className="fas fa-bars"></i>
-                    <span id="nb-i">
+                    <span className="nb-i">
                         <a href="#/" className="flexh-3"><i className="fab fa-youtube"></i><h1>YuuTubu</h1>
                         </a>
                     </span>

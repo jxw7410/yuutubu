@@ -26,7 +26,7 @@ class LoginFormItem extends React.Component {
 
     componentWillUnmount(){
         this.props.defaultAction();
-        if (this.props.email)
+        if (this.props.type === 'password' && this.props.email)
             this.props.clearEmail();
     }
 
@@ -55,7 +55,15 @@ class LoginFormItem extends React.Component {
         if (email && !isEmailValid(email)){
             this.props.raiseEmailError();
         } else {
-            this.props.action({ email, password });
+            console.log(this.props.type);
+            switch(this.props.type) {
+                case 'password':
+                    this.props.login({ email, password });
+                    break;
+                case 'email':
+                    this.props.fetchEmail({email})
+                    break;
+            }
         }
     }
 

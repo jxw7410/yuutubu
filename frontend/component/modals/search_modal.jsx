@@ -68,7 +68,7 @@ class SearchModal extends React.Component {
                     <div className={`sch-mdl ${extension}`}
                         onMouseEnter={e => this.props.updateFocus(true)}
                         onMouseLeave={e => this.props.updateFocus(false)}>
-                            <ul id='sm-list' className='flexv-4'> {listItems} </ul>
+                            <ul  className='sm-list flexv-4'> {listItems} </ul>
                     </div > : null
                 }
             </React.Fragment>

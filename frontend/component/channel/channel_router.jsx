@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ChannelContainer from './channel_container';
+import ChannelContainer from './channel_ctn';
 import {fetchChannel} from '../../actions/channel/channel_action';
 
 class ChannelRouter extends React.Component {

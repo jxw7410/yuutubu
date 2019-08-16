@@ -8,7 +8,7 @@ class ChannelBase extends React.Component {
         this.state = {
             video: null,
         }
-        
+
         this.didFetchedFeatured = false;
     }
 
@@ -21,7 +21,7 @@ class ChannelBase extends React.Component {
         if (this.props.videos.length > 0 && !this.didFetchedFeatured) {
             this.didFetchedFeatured = true;
             const video_id = this.props.videos[0].id;
-            this.props.fetchVideo(video_id).then(() => 
+            this.props.fetchVideo(video_id).then(() =>
                 this.setState({ video: this.props.videos[0] }));
         }
     }
@@ -32,19 +32,17 @@ class ChannelBase extends React.Component {
 
     render() {
         return (
-            <div id='channel-main-content-lower'>
-                <div id="ch-main-content-lower-grid-hook">
-                    <div>
-                        { 
+            <div className='ch-ctnt-lwr flexv-3'>
+                <div className='ch-ctn-lwr-hk'>
+                    <div className='flexv-4'>
+                        {
                             this.state.video ?
-                            <> 
-                                 <ChannelBaseVideoPlayer 
-                                    video={this.state.video}
-                                 /> 
-
-                                <div id='featured-videos'></div>
-                            </>
-                            : null}
+                                <React.Fragment>
+                                    <ChannelBaseVideoPlayer video={this.state.video} />
+                                    <div className='ftr-vids'></div>
+                                </React.Fragment>
+                                : null
+                        }
                     </div>
                 </div>
             </div>

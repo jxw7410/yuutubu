@@ -1,5 +1,5 @@
 import React from 'react';
-import ChannelIndexItem from './channel_index_item';
+import ChannelIndexItem from './channel_index_item_ctn';
 import RecommendedVideos from './recommended_video';
 
 
@@ -67,11 +67,11 @@ class ChannelIndex extends React.Component {
         });
 
         return (
-            <div id={'main-content-ctn' + (this.props.navBar.toggled ? "-toggled" : "")}>
-                <div id={'main-content'} ref={this.mainContent}>
-                    <div id='main-content-section-1'>
+            <div className={`max-w-h main-ctnt-ctn ${this.props.navBar.toggled ? "mn-cc-tgl" : ""}`}>
+                <div className='main-ctnt' ref={this.mainContent}>
+                    <div className='flexv-1'>
                         <RecommendedVideos />
-                        <ul id={'channels-list'}>
+                        <ul className='ch-list'>
                             {channelIndexItems}
                         </ul>
                     </div>

@@ -58,9 +58,9 @@ class AllVideos extends React.Component{
 
     render(){
         return(
-            <div id={'channel-video-content-lower' }>
-                <div id={'ch-vid-ctn-nav' + (this.props.toggledSideNav ? "" : "-toggled")}> Uploads </div>
-                    <ul id={"user-all-videos-list" + (this.props.toggledSideNav ? "" : "-toggled")}>
+            <div className='flexv-3 cvc-lower'>
+                <div className={`flexh-3 cvc-nav ${this.props.toggledSideNav ? "" : "cvc-nav-tgl"}`}> Uploads </div>
+                    <ul className={`usr-av-lst  ${this.props.toggledSideNav ? "" : "uav-lst-tgl"}`}>
                         { this.getThumbnails() }
                     </ul>
             </div>

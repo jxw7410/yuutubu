@@ -1,17 +1,14 @@
 @media screen and (max-width: 1530px){
 
-    #channels-list{
+    .ch-list{
         width: 1070px;
-        padding-top: 10px;
-        position: relative;
-        overflow: hidden;
     }
     
-    .channel_index_items_header{
+    .ch-idx-item-hdr{
         width: 1070px;
     }
 
-    #index-recommended-videos{
+    .idx-rec-vid{
         display:flex;
         flex-wrap:wrap;
         width: 1070px;
@@ -21,26 +18,18 @@
 @media screen and (max-width: 1502px){
 
 
-    #channel-header-wrap{
+    .ch-hdr-wrap{
         width: 1000px;
-        transition: width 0.2s linear;
     }
 
-    #channel-header-nav-wrapper > div{
+    .chhw-wrap{
         width: 1000px;
         grid-template-columns: 813px 187px;
-        transition: width 0.2s linear;
     }
 
-    #channel-header-nav-wrapper-fixed > div{
-        grid-template-columns:  813px 187px;
-        transition: grid-template-columns 0.2s linear;
-    }
-
-    #ch-main-content-lower-grid-hook {
+    .ch-ctn-lwr-hk {
         grid-template-columns: 767px 187px;
         width: 1000px;
-        transition: width 0.2s linear;
     }
 
 }
@@ -49,18 +38,15 @@
 
 @media screen and (max-width: 1305px){
 
-    #channels-list{
-        width: 856px;
-        padding-top: 10px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .channel_index_items_header{
+    .ch-list{
         width: 856px;
     }
 
-     #index-recommended-videos{
+    .ch-idx-item-hdr{
+        width: 856px;
+    }
+
+     .idx-rec-vid{
         display:flex;
         flex-wrap:wrap;
         width: 856px;
@@ -75,25 +61,17 @@
 
 @media screen and (max-width: 1256px){
     
-    #channel-header-wrap{
+    .ch-hdr-wrap{
         width: 754px;
-        transition: width 0.2s linear;
     }
 
-    #channel-header-nav-wrapper > div{
+    .chhw-wrap{
         width: 754px;
-        transition: width 0.2s linear;
     }
 
-     #channel-header-nav-wrapper-fixed > div{
-        grid-template-columns:  567px 187px;
-        transition: grid-template-columns 0.2s linear;
-    }
-
-    #ch-main-content-lower-grid-hook {
+    .ch-ctn-lwr-hk {
         width: 754px;
         grid-template-columns: 567px 187px;
-        transition: width 0.2s linear;
     }
 
 
@@ -111,7 +89,7 @@
 
 
 @media screen and (max-width: 1090px){
-    #main-content-ctn-toggled, #channel-main-content-grid-toggled{
+    .main-ctnt-ctn, .cmcg-tgl{
         grid-template-columns: 70px auto;
     }
 
@@ -119,31 +97,24 @@
         width: 88.5%;
     }
 
-    #channel-header-nav-fixed-toggled{
+    .chhn-fixed{
         width: calc(100% - 70px);
     }
 
-    #channels-list{
-        width: 642px;
-        padding-top: 10px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .channel_index_items_header{
+    .ch-list{
         width: 642px;
     }
 
-    #index-recommended-videos{
+    .ch-idx-item-hdr{
+        width: 642px;
+    }
+
+    .idx-rec-vid{
         display:flex;
         flex-wrap:wrap;
         width: 642px;
     }
 
-
-     .show-more-inactive{
-        height: 400px;
-    }
 }
 
 @media screen and (max-width: 910px){
@@ -154,25 +125,17 @@
 }
 
 @media screen and (max-width: 850px){
-     #channel-header-wrap{
+     .ch-hdr-wrap{
         width: 650px;
-        transition: width 0.2s linear;
      }
 
-    #channel-header-nav-wrapper > div{
+    .chhw-wrap{
         width: 650px;
-        transition: width 0.2s linear;
     }
 
-    #channel-header-nav-wrapper-fixed > div{
-        grid-template-columns:  463px 187px;
-        transition: grid-template-columns 0.2s linear;
-    }
-
-    #ch-main-content-lower-grid-hook {
+    .ch-ctn-lwr-hk {
         grid-template-columns: 463px 187px;
         width: 650px;
-        transition: width 0.2s linear;
     }
 
     .sbi {
@@ -191,11 +154,11 @@
         width: 0px;
     }
 
-    #main-content-ctn, #main-content-ctn-toggled, #channel-main-content-grid-toggled, #channel-main-content-grid{
+    .main-ctnt-ctn, .ch-mn-ctnt-grid, .cmcg-tgl{
         grid-template-columns: 0px auto;
     }
 
-    #channel-header-nav-fixed, #channel-header-nav-fixed-toggled{
+    #channel-header-nav-fixed, .chhn-fixed{
         width: 100%;
     }
 
@@ -209,52 +172,32 @@
 
 @media screen and (max-width: 720px){
 
-    #channels-list{
-        width: 428px;
-        padding-top: 10px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .channel_index_items_header{
+    .ch-list{
         width: 428px;
     }
 
-    #index-recommended-videos{
+    .ch-idx-item-hdr{
+        width: 428px;
+    }
+
+    .idx-rec-vid{
         display:flex;
         flex-wrap:wrap;
         width: 428px;
     }
-
-    .show-more-inactive{
-        height: 400px;
-    }
 }
 
 @media screen and (max-width: 660px){
-
-    .show-more-inactive{
-        height: 400px;
-    }
-
-     #channel-header-wrap{
+    .ch-hdr-wrap{
         width: 500px;
-        transition: width 0.2s linear;
      }
 
-    #channel-header-nav-wrapper > div{
+    .chhw-wrap{
         width: 500px;
-        transition: width 0.2s linear;
     }
 
-    #channel-header-nav-wrapper-fixed > div{
-        grid-template-columns:  313px 187px;
-        transition: grid-template-columns 0.2s linear;
-    }
-
-    #ch-main-content-lower-grid-hook {
+    .ch-ctn-lwr-hk {
         grid-template-columns: 313px 187px;
         width: 500px;
-        transition: width 0.2s linear;
     }
 }

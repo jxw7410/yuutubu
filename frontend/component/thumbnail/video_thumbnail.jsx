@@ -141,7 +141,7 @@ class VideoThumbnail extends React.Component {
 
                     {
                         this.clock ?
-                        <div className='thumbnail-clock'> 
+                        <div className='flexh-1 thumbnail-clock'> 
                             <i className="material-icons clock">watch_later</i>
                         </div> : null
                     }

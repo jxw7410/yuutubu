@@ -15,15 +15,15 @@
     grid-template-rows: 25% auto;
 }
 
-#create-form{
+.create-form{
     padding: 0px 20px 20px 20px;
 }
 
-#create-form label > * {
+.create-form label > * {
     padding-top: 5px;
 }
 
-#create-form  a {
+.create-form  a {
     text-decoration: none;
     color: #1a73e8;
 }
@@ -40,7 +40,7 @@
 
 
 
-#create-form button {
+.create-form button {
     background:  #1a73e8;
     height: 40px;
     font-size: 20px;

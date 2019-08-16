@@ -3,7 +3,7 @@ import { Route, Switch} from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/auth_route'
 import SignUpContainer  from '../component/auth/signup_container'
 import LoginContainer from '../component/auth/login_container'
-import ChannelIndexContainer from '../component/channel/channel_index_container';
+import ChannelIndexContainer from '../component/channel/channel_index_ctn';
 import ChannelRouter from '../component/channel/channel_router';
 import UploadVideoContainer from '../component/video/video_upload_ctn';
 import MainNav from './nav_bars/main_nav_ctn';

@@ -1,13 +1,10 @@
 import React from 'react';
-import LoginFormItem from './login_form_item';
+import LoginFormItem from './login_form_item_ctn';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { AuthLogo } from './utils';
 
 
-//Refactor this tomorrow....add the container for the form item,
-//Not this bs
 const LoginForm = (props) => {
-
     return (
         <div className='flexh-1 max-w-h'>
             <div className='login-ctn flexv-8'>
@@ -34,34 +31,11 @@ const LoginForm = (props) => {
                         transitionName="session-form"
                         transitionEnterTimeout= {500}
                         transitionLeaveTimeout= {300}>
-
                         {
-                            !props.email ?
-                                <LoginFormItem
-                                    key='email'
-                                    errors={props.errors}
-                                    email={props.email}
-                                    type='email'
-                                    action={props.fetchEmail}
-                                    defaultAction={props.defaultAction}
-                                    raiseEmailError={props.raiseEmailError}
-                                    removeNavBars={props.removeNavBars}
-                                    removeVideoPlayer={props.removeVideoPlayer}
-                                    login={props.login}
-                                />
+                            props.email ?
+                                <LoginFormItem key='password' type='password' />
                                 :
-                                <LoginFormItem
-                                    key='password'
-                                    errors={props.errors}
-                                    email={props.email}
-                                    type='password'
-                                    action={props.login}
-                                    defaultAction={props.defaultAction}
-                                    clearEmail={props.clearEmail}
-                                    raiseEmailError={props.raiseEmailError}
-                                    removeNavBars={props.removeNavBars}
-                                    removeVideoPlayer={props.removeVideoPlayer}
-                                />
+                                <LoginFormItem key='email' type='email' />
                         }
                     </ReactCSSTransitionGroup>
                 </div>
