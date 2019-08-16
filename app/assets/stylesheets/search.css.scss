@@ -1,19 +1,17 @@
-#search-video-list-ctn{
-    grid-column: 2 / 3;
+.src-vid-lst-ctn{
+    grid-column: 2/3;
     width: 100%;
-    display:flex;
-    justify-content: center;
 }
-#search-video-list{
+
+.src-vid-lst{
     margin-top: 80px;
     border-top: 1px solid rgb(225,225,225);
     width:95%;
-    display: flex;
-    flex-direction: column;
     max-width: 1280px;
 }
 
-#search-video-list .thumbnails{
+
+.src-vid-lst .thumbnails{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -22,16 +20,16 @@
 }
 
 
-#search-video-list .thumbnails-media, 
-#search-video-list .thumbnail-preview, 
-#search-video-list .thumbnail-preview-video,
-#search-video-list .thumbnail-preview-video-active{
+.src-vid-lst .tbn-ctnt, 
+.src-vid-lst .thumbnail-preview, 
+.src-vid-lst .thumbnail-preview-video,
+.src-vid-lst .tn-prev-vid-active{
     width: 246px;
     height: 138px;
     padding: 0;
 }
 
-#search-video-list .thumbnails-media{
+.src-vid-lst .tbn-ctnt{
     margin-right: 16px;
 }
 

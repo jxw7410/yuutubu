@@ -118,7 +118,7 @@ class VideoInfoHeader extends React.Component {
     likeDislikeButton(field, count, icon){
         let classExtension = this.props.like_dislike.is_liked === field ? " voted" : "";
         return (
-            <span onClick={this.handleClick(field)}>
+            <span className='flexh-1' onClick={this.handleClick(field)}>
                 <i className={"material-icons" + classExtension}>{icon}</i>
                 <span className='like-counts'>{count}</span>
             </span>
@@ -128,17 +128,17 @@ class VideoInfoHeader extends React.Component {
     render() {
         return (
             <>
-                <div id='video-info-header'>
-                    <section>{this.props.video.title}</section>
-                    <section>
+                <div className='vid-info-hdr'>
+                    <section className='flexh-8'>{this.props.video.title}</section>
+                    <section className='flexh-6'>
                         <span>{this.props.video.views} views</span>
-                        <div id='video-info-header-utils'>
-                            <section id='vid-like-dislike-icons'>
+                        <div className='vid-info-hdr-utils flexv-1'>
+                            <section className='vid-ld-i flexh-6'>
                                 {this.likeDislikeButton(this.like, this.state.likeCount, 'thumb_up')}
                                 {this.likeDislikeButton(this.dislike, this.state.dislikeCount, 'thumb_down')}
                             </section>
-                            <div id="like-dislike-bar">
-                                <div id={"like-ratio-bar" + (this.props.like_dislike.is_liked === undefined ? "" : "-voted")}
+                            <div className="ld-bar">
+                                <div className={"ldr-bar" + (this.props.like_dislike.is_liked === undefined ? "" : " ldrb-voted")}
                                     style={{ width: `${this.likeDislikeRatio() * 100}%` }} />
                             </div>
                         </div>

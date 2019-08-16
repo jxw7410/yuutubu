@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+// React Hook this later
 class PreviewVideo extends React.Component {
     constructor(props) {
         super(props)
@@ -38,12 +39,12 @@ class PreviewVideo extends React.Component {
 
     render() {
         return (
-            <>
-                <video ref={this.video} id='preview-video' muted >
+            <React.Fragment>
+                <video ref={this.video} className='prev-vid' muted >
                     <source src={this.props.fileUrl} type="video/mp4" />
                 </video>
-                <canvas  ref={this.canvas} id="capture-canvas" />
-            </>
+                <canvas  ref={this.canvas} className="capture-canvas" />
+            </React.Fragment>
         )
     }
 }

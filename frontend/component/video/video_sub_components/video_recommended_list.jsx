@@ -53,10 +53,10 @@ class VideoRecommendedList extends React.Component {
                             />
         })
         return (
-            <div id='video-main-right'>
+            <div className='vid-mn-r'>
                 {
                     this.state.fetched ?
-                        <ul id='preview-video-list'> { previews } </ul> : null
+                        <ul className='prev-vid-lst flexv-4'> { previews } </ul> : null
                 }
             </div>
         )

@@ -35,10 +35,10 @@ class Description extends React.Component {
 
     render() {
         return (
-            <>
+            <React.Fragment>
                 {this.props.render(this.state.expanded, this.description, this.props.description)}
                 {this.readMore()}
-            </>
+            </React.Fragment>
         )
     }
 }

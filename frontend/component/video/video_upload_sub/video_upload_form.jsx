@@ -39,16 +39,13 @@ class VideoUploadForm extends React.Component {
     getPreviewUi() {
         switch (this.state.videoStatus) {
             case 'PAUSE':
-                return <div id='preview-ui-play'
-                    className='preview-ui flexh-1'
+                return <div className='preview-ui pv-u-play flexh-1'
                     onClick={this.handlePlay} > <i className="fas fa-play-circle"></i></div>
             case 'PLAY':
-                return <div id='preview-ui-pause'
-                    className='preview-ui flexh-1'
+                return <div className='preview-ui pv-u-pause flexh-1'
                     onClick={this.handlePlay} > <i className="fas fa-pause-circle"></i></div>
             case 'END':
-                return <div id='preview-ui-end'
-                    className='preview-ui flexh-1'
+                return <div className='preview-ui pv-u-end flexh-1'
                     onClick={this.handlePlay} > <i className="fas fa-undo-alt"></i></div>
         }
     }
@@ -57,34 +54,26 @@ class VideoUploadForm extends React.Component {
         const previewUI = this.getPreviewUi();
         return (
             this.props.fileUrl ?
-                <div id='uploaded-vid-container'>
-                    <video id='uploaded-vid-preview'
-                        ref={this.vid}
+                <div className='upld-vid-ctn'>
+                    <video ref={this.vid}
                         onEnded={this.handleEnded}>
                         <source src={this.props.fileUrl} type='video/mp4' />
                     </video>
                     {previewUI}
                 </div>
-                : <div id='loading-video'
-                    className='flexv-1'>
+                : <div className='ld-vid flexv-1'>
                     <div className='spinner' />
                 </div>
         )
     }
 
     publishButton() {
-        const ready = this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description
-        return <button id='upload_button'
-            className={`submit-button flexh-3${(ready && !this.props.uploading) ? " enabled" : " disabled"}`}
+        const ready = this.props.thumbnailUrl && this.props.fileUrl && this.props.title && this.props.description;
+        return <button className='upld-btn'
+            className={`sbmt-btn upld-btn flexh-3${(ready && !this.props.uploading) ? " enabled" : " disabled"}`}
             onClick={this.props.handleSubmit}>
-            <span className='flexh-1'
-                style={{
-                    position: 'absolute',
-                    height: '100%',
-                    width: '100%',
-                    fontSize: '16px',
-                    zIndex: '1',
-                }}>{this.props.uploading ? 'Uploading' : 'Upload'}</span>
+            <span className='pbsh-sp flexh-1'>
+                {this.props.uploading ? 'Uploading' : 'Upload'}</span>
             {
                 this.props.uploading ?
                     <div className='upload-bar'>
@@ -100,35 +89,35 @@ class VideoUploadForm extends React.Component {
         if (this.props.fileUrl)
             return (
                 this.props.thumbnailUrl ?
-                    <div id='thumbnail-img' className='flexh-1'>
+                    <div className='tbn-img flexh-1'>
                         <img src={this.props.thumbnailUrl} />
                     </div>
                     :
-                    <>
+                    <React.Fragment>
                         <PreviewVideo
                             fileUrl={this.props.fileUrl}
                             handleThumbnail={this.props.handleThumbnail} />
-                        <div id='loading-thumbnail' className='flexh-1'>
+                        <div className='ld-tbn flexh-1'>
                             <div className='spinner' />
                         </div>
-                    </>
+                    </React.Fragment>
             )
         else
-            return <div id='loading-thumbnail' className='flexh-1'>
-                <div className='spinner' />
-            </div>
+            return <div className='ld-tbn flexh-1'> <div className='spinner' /></div>
     }
 
     uploadButton() {
         const state = this.props.fileUrl && this.props.thumbnailUrl;
 
-        return <label
-            className={`label-upload-btn flexh-1${state ? ' enabled' : ' disabled'}`}>
-            <input onChange={this.props.handleThumbnailUpload}
-                type='file'
-                disabled={!state}
-                accept="image/*" />Upload Own Thumbnail
-                </label>
+        return (
+            <label
+                className={`lbl-upld-btn flexh-1${state ? ' enabled' : ' disabled'}`}>
+                <input onChange={this.props.handleThumbnailUpload}
+                    type='file'
+                    disabled={!state}
+                    accept="image/*" />Upload Own Thumbnail
+            </label>
+        )
 
     }
 
@@ -151,35 +140,33 @@ class VideoUploadForm extends React.Component {
 
     render() {
         return (
-            <form id='video-submit-form'>
-                <div id='vsf-col-1' className='flexv-3'>
+            <form className='vid-sbmt-frm'>
+                <div className='vsf-col-1 flexv-3'>
                     <div className='flexv-5' style={{ marginTop: '8px' }}>
                         <span className='tag-14 dark' style={{ fontSize: '14px' }}>Preview</span>
                         {this.previewVideo()}
-                        <span style={{ fontSize: '14px' }}> 
+                        <span style={{ fontSize: '14px' }}>
                             <span className='tag-14 dark' >Video Status</span>
                             {this.statusSpan()}
-                        </span> 
+                        </span>
                     </div>
 
-                    <div id='thumbnail-ctn' className='flexv-3'>
+                    <div className='flexv-3' style={{marginTop: '50px'}}>
                         <div className='flexv-5'>
                             <span className='tag-14 dark' style={{ fontSize: '14px' }}>Video Thumbnail</span>
                             {this.videoThumbnail()}
                         </div>
-                        <div id='upload-thumbnail-ctn' className='flexv-4'>
+                        <div className='upld-tbn-ctn flexv-4'>
                             {this.uploadButton()}
                         </div>
                     </div>
                 </div>
 
-                <div id='vsf-col-2'>
+                <div className='vsf-col-2'>
                     <div className='flexh-1'> {this.publishButton()}</div>
-
-                    <div id='vsf-lower-section' className='flexv-3'>
-
+                    <div className='flexv-3'>
                         <label className='adfx'>
-                            <span className={`label ${(this.state.titleFocus || this.props.title.length) ? ' inputFocused' : ""}`}>
+                            <span className={`label ${(this.state.titleFocus || this.props.title.length) ? 'ipt-fcs' : ""}`}>
                                 Title
                             </span>
                             <input
@@ -193,12 +180,11 @@ class VideoUploadForm extends React.Component {
                         </label>
 
                         <label className='adfx'>
-                            <span className={`label ${(this.state.descriptionFocus || this.props.description.length) ? ' inputFocused' : ""}`}>
+                            <span className={`label ${(this.state.descriptionFocus || this.props.description.length) ? 'ipt-fcs': ""}`}>
                                 Description
                             </span>
                             <textarea
-                                id='vid-upload-desc'
-                                className='input-style-1'
+                                className='vid-upld-desc input-style-1'
                                 onFocus={this.toggleFocus("descriptionFocus")}
                                 onBlur={this.toggleFocus("descriptionFocus")}
                                 onChange={this.props.handleTypeEvent('description')}

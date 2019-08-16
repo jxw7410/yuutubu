@@ -146,7 +146,7 @@
 }
 
 
-.thumbnails-media {
+.tbn-ctnt {
     width: 210px;
     height: 117.5px;
     padding-bottom: 10px;
@@ -173,7 +173,7 @@
     z-index: 1;
 }
 
-.thumbnail-preview-video-active{
+.tn-prev-vid-active{
     width: 210px;
     height: 117.5px;
     opacity: 1;
@@ -182,7 +182,7 @@
     object-fit: cover;
 }
 
-.thumbnail-preview-wrapper{
+.tbn-prev-wrap{
     position: relative;
     z-index: 1;
     opacity: 1;
@@ -191,7 +191,7 @@
 }
 
 
-.thumbnail-active{
+.tbn-active{
     opacity: 0;
     position: absolute;
     transition: opacity 0.5s ease-in;

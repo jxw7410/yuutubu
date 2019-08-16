@@ -123,8 +123,8 @@ class VideoThumbnail extends React.Component {
 
     render() {
         return (
-            <li  className='thumbnails'>
-                <div className="thumbnails-media"
+            <li className='thumbnails'>
+                <div className="tbn-ctnt"
                     onMouseEnter={this.handleMouseEnter}
                     onMouseOver={this.handleMouseOver}
                     onMouseLeave={this.handleMouseLeave}
@@ -146,8 +146,8 @@ class VideoThumbnail extends React.Component {
                         </div> : null
                     }
 
-                    <div className={`thumbnail-preview-wrapper` +
-                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? " thumbnail-active" : "")
+                    <div className={`tbn-prev-wrap` +
+                        ((this.state.renderVideo && this.mouseHover && this.state.dataLoaded) ? " tbn-active" : "")
                          +
                          ((this.state.imgLoaded ? "" : " not-loaded"))
                         }>

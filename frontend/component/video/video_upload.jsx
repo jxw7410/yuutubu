@@ -164,7 +164,7 @@ class UploadVideo extends React.Component {
             const formData = new FormData();
             formData.append('video[file]', this.state.file);
             formData.append('video[thumbnail]', this.state.thumbnail);
-            debugger
+
             this.submit = true;
             this.props.requestDirectUpload(formData)
                 .then((blob) =>{
@@ -206,9 +206,8 @@ class UploadVideo extends React.Component {
 
     render() {
         return (
-            <>
-                    <div id='upload-body'
-                        className ='flexv-3'>
+            <React.Fragment>
+                    <div className ='upld-bd flexv-3'>
                     {
                         this.state.uploadForm ?
                             <VideoUploadForm
@@ -230,7 +229,7 @@ class UploadVideo extends React.Component {
                                 handleFile={this.handleFile} />
                     }
                     </div>
-            </>
+            </React.Fragment>
         )
     }
 }

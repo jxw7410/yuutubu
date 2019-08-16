@@ -9,8 +9,8 @@ const render = (expanded, reference, description) => {
     return (
         <section>
             <div />
-            <div className={"video-description" + (expanded ? " expanded" : "")}>
-                <span ref={reference} className='post-description'>{description}</span>
+            <div className={"vid-desc" + (expanded ? " expd" : "")}>
+                <span ref={reference} className='post-des'>{description}</span>
             </div>
         </section>
     )
@@ -20,7 +20,7 @@ const readMore = (expanded, handleReadMore) => {
     return (
         <section>
             <div />
-            <div id='video-info-body-footer'>
+            <div className='flexh-3'>
                 <span className='span-style-2' onClick={handleReadMore}>
                     {expanded ? 'Show less' : 'Show More'}
                 </span>
@@ -30,9 +30,9 @@ const readMore = (expanded, handleReadMore) => {
 }
 const videoInfoBodyHeader = props => {
     return (
-        <div>
-            <Link to={`/channel/${props.channel.id}`} id="vid-channel-name">{props.channel.name}</Link>
-            <span id="vid-video-date">Published on {props.video.created_at}</span>
+        <div className='flexv-4'>
+            <Link to={`/channel/${props.channel.id}`} className='vid-ch-name'>{props.channel.name}</Link>
+            <span className="vid-date">Published on {props.video.created_at}</span>
         </div>
     )
 }
@@ -51,10 +51,10 @@ const subscribeButton = props => {
 
 const VideoInfoBody = props => {
     return (
-        <div id='video-info-body'>
+        <div className='vid-info-bd'>
             <section>
-                <div id='channel-user-profile-pic'> <i className="fas fa-user-circle" /> </div>
-                <div id='video-info-body-header'>
+                <div className='ch-usr-prf-pic'> <i className="fas fa-user-circle" /> </div>
+                <div className='vid-info-bd-hdr flexh-5'>
                     {videoInfoBodyHeader(props)}
                     {subscribeButton(props)}
                 </div>

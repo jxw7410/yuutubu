@@ -5,63 +5,54 @@ import { filterSubscriptions } from '../../util/selectors';
 import { withRouter } from 'react-router-dom';
 
 
-class SubscribeButton extends React.Component{
-    constructor(props){
-        super(props);       
-        this.subscribe = this.subscribe.bind(this);
-        this.unsubscribe = this.unsubscribe.bind(this);
-        this.updating  = false;
-    }
+const SubscribeButton = props => {
+    let updating = false;
 
-
-    unsubscribe(e){
-        e.preventDefault()
-        if (this.props.login){
-            if(!this.updating){
-                this.updating = true;
-                this.props.unsubscribe(this.props.sub.sub_id).then(()=>{
-                    this.updating = false;
-                }).fail(
-                    () => {this.updating = false;})
-            }
-         }else 
-            this.props.history.push('/login');
-    }
-
-    subscribe(e){
+    const unsubscribe = e => {
         e.preventDefault();
-        if (this.props.login){
-            if(!this.updating){
-                this.updating = true;
-                this.props.subscribe(this.props.channel.id).then(()=>{
-                    this.updating = false;
-                }).fail(
-                    () => { this.updating = false; })
-            }
-        }else 
-            this.props.history.push('/login');
+        if (props.login) {
+            updating = true;
+            props.unsubscribe(props.sub.sub_id).then(() => {
+                updating = false
+            }).fail(() => updating = false)
+        } else {
+            props.history.push('/login')
+        }
     }
 
-    render(){
-        return(
-            <>
-                {
-                    this.props.sub.sub_id && this.props.login ?
-                        <button 
-                            onClick={this.unsubscribe}
-                            id='subscribed-button'> UNSUBSCRIBE {this.props.channel.subscriptionCount}</button> :
-                        <button 
-                            onClick={this.subscribe}
-                            id="subscribe-button"> SUBSCRIBE {this.props.channel.subscriptionCount}</button> 
-                }
-            </>
-        )
+    const subscribe = e => {
+        e.preventDefault();
+        if (props.login) {
+            if (!updating) {
+                updating = true;
+                props.subscribe(props.channel.id)
+                    .then(() => updating = false)
+                    .fail(() => updating = false)
+            }
+        } else {
+            props.history.push('/login')
+        }
     }
+
+    return (
+        <React.Fragment>
+            {
+                props.sub.sub_id && props.login ?
+                    <button
+                        onClick={unsubscribe}
+                        id='subscribed-button'> UNSUBSCRIBE {props.channel.subscriptionCount}</button> :
+                    <button
+                        onClick={subscribe}
+                        id="subscribe-button"> SUBSCRIBE {props.channel.subscriptionCount}</button>
+            }
+        </React.Fragment>
+    )
 }
 
 
+
 const msp = (store, props) => {
-    return{
+    return {
         login: Boolean(store.session.id),
         sub: filterSubscriptions(props.channel.id, Object.values(store.entities.subscriptions))
     }

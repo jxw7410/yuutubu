@@ -29,17 +29,17 @@ class FakeVideoRouter extends React.Component {
 
 const VideoWrapper = (props) => {
     return (
-        <>
+        <React.Fragment>
             {
                 props.videoPlayer.type === null ?
                     <Route path='/video/:video_id' 
                         requestDefaultPlayer={props.requestDefaultPlayer}
                         render={ () => (<FakeVideoRouter requestDefaultPlayer={props.requestDefaultPlayer}/>)} />
                     :
-                    <div id={'video-main-ctn' + (props.videoPlayer.type === 'MINI' ? "-mini" : "")}>
+                    <div className={`max-w-h flexh-1x ${props.videoPlayer.type === 'MINI' ? "vmc-mini" : ""}`}>
                         {
-                            <div id={'video-main' + (props.videoPlayer.type === 'MINI' ? "-mini" : "")}>
-                                <div id={'video-main-left' + (props.videoPlayer.type === 'MINI' ? "-mini" : "")} >
+                            <div id='video-main' className={`${props.videoPlayer.type === 'MINI' ? "max-w-h" : "vid-mn"}`}>
+                                <div className={`${props.videoPlayer.type === 'MINI' ? "max-w-h" : "vid-mn-lf"}`} >
                                     <VideoPlayerContainer />
                                     <Route path='/video/:video_id' component={VideoRouter} />
                                 </div>
@@ -48,7 +48,7 @@ const VideoWrapper = (props) => {
                         }
                     </div>
             }
-        </>
+        </React.Fragment>
     )
 }
 

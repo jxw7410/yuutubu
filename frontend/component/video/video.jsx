@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoInfoHeader from './video_sub_components/video_info_header';
-import VideoMainBody from './video_main_body';
+import VideoMainBody from './video_main_body_ctn';
 
 class Video extends React.Component {
     constructor(props) {
@@ -37,17 +37,14 @@ class Video extends React.Component {
         }
     }
 
-    componentWillMount(){
-        this.mounted = false;
-    }
-
     componentWillUnmount(){
+        this.mounted = false;
         this.props.updatePrevPath(this.props.match.path)
     }
 
     render() {
         return (
-            <>
+            <React.Fragment>
                     <VideoInfoHeader
                         video={this.props.video}
                         channel={this.state.channel}
@@ -57,7 +54,7 @@ class Video extends React.Component {
                         video={this.props.video}
                     />
         
-            </>
+            </React.Fragment>
         )
     }
 }

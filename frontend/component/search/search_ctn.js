@@ -7,7 +7,7 @@ import { sideBarOne } from '../../actions/nav_bar_action';
 import { requestUpdatePrevPath } from '../../actions/prev_path_action';
 
 
-const msp = (state,props) => {
+const msp = (state) => {
     return {
         videos: Object.values(state.entities.videos),
         sideNav: state.ui.navBars,

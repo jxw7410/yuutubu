@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { requestCreatePost, requestDeletePost, requestPosts, requestSomePosts } from '../../actions/video_post/video_posts_action';
 import { withRouter } from 'react-router-dom';
 import VideoPost from './video_sub_components/video_post';
 
@@ -122,22 +120,21 @@ class VideoMainBody extends React.Component {
     displayButtons(){
         return (
             this.state.displayFormButton ?
-                <div id='user-post-form-buttons'>
+                <div className='usr-pst-frm-btn flexh-9'>
                     <button onClick={this.handleCancel}>Cancel</button>
                     <button onClick={this.handleSubmit}
-                        className={this.state.postBody.trim().length > 0 ? null : 'button-disabled'}
-                        disabled={this.state.postBody.trim().length > 0 ? null : 'disabled'}>Comment</button>
+                        className={this.state.postBody.trim().length  ? null : 'button-disabled'}
+                        disabled={this.state.postBody.trim().length ? null : 'disabled'}>Comment</button>
                 </div> : null
         )
     }
 
     render() {
         return (
-            <div id='video-post-body'>
-                <div id='user-post-form-ctn'>
-                    <div id='user-form-profile-pic'> <i className="fas fa-user-circle"></i></div>
-                    <form id='user-post-form'>
-
+            <div className='vid-pst-bd'>
+                <div className='usr-pst-frm-ctn'>
+                    <div style={{fontSize: '36px'}}> <i className="fas fa-user-circle"/></div>
+                    <form className='usr-pst-frm'>
                         <textarea rows={this.state.rows}
                             onFocus={this.handleFocus}
                             onClick={this.handleClick}
@@ -147,36 +144,18 @@ class VideoMainBody extends React.Component {
                             value={this.state.postBody} 
                             style={{lineHeight: `${this.lineHeight}px`}}
                             />
-                        <div id="textarea-border">
-                            <div id={"expander" + (this.state.border ? "-active" : "")} />
+                        <div className='txtarea-brdr flexh-2'>
+                            <div className={"expander" + (this.state.border ? " exp-active" : "")} />
                         </div>
                         {this.displayButtons()}
                     </form>
                 </div>
-                <ul className='list-of-posts'>{this.posts()}</ul>
+                <ul id="lopst" className='flexv-4'>{this.posts()}</ul>
             </div>
         )
     }
 }
 
 
-const msp = state => {
-    return {
-        isLogin: Boolean(state.session.id),
-        currentUser: state.session,
-        offset: state.scrollingPaginationOffset,
-        posts: Object.values(state.entities.video_posts).reverse()
-    }
-}
 
-const mdp = dispatch => {
-    return {
-        createPost: post => dispatch(requestCreatePost(post)),
-        deletePost: post_id => dispatch(requestDeletePost(post_id)),
-        fetchMorePosts: (video_id, offset, limit) => dispatch(requestSomePosts(video_id, offset, limit)),
-        fetchPosts: video_id => dispatch(requestPosts(video_id))
-    }
-}
-
-
-export default withRouter(connect(msp, mdp)(VideoMainBody));
+export default withRouter(VideoMainBody);

@@ -31,7 +31,7 @@ class ThumbnailPreviewVideo extends React.Component {
                 ref={this.video}
                 onTimeUpdate={this.handleTimeUpdate}
                 onLoadedData={this.props.setDataloaded}
-                className='thumbnail-preview-video-active' muted autoPlay>
+                className='tn-prev-vid-active' muted autoPlay>
                 <source src={this.props.video.videoUrl} type="video/mp4" />
             </video>
         )

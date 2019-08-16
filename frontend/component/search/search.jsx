@@ -91,9 +91,9 @@ class Search extends React.Component {
         })
 
         return (
-            <div id={`main-content-ctn${this.props.sideNav.toggled ? "-toggled" : ""}`}>
-                <div id='search-video-list-ctn' ref={this.searchVideoListCtn}>
-                    <ul id='search-video-list'>
+            <div className={`max-w-h main-ctnt-ctn ${this.props.sideNav.toggled ? "mn-cc-tgl" : ""}`}>
+                <div className='flexh-2 src-vid-lst-ctn' ref={this.searchVideoListCtn}>
+                    <ul className='flexv-4 src-vid-lst'>
                         {videos}
                     </ul>
                 </div>

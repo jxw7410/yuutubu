@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { fetchVideo } from '../../actions/video/video_action';
 import { requestDefaultPlayer } from '../../actions/video_player';
-import VideoContainer from './video_container';
+import VideoContainer from './video_ctn';
 import { videoLikeDislike } from '../../actions/like/like_dislike_action';
 
 //This is really boiler plate to channel router, refactor when time is alloted

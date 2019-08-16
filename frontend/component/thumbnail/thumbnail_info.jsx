@@ -2,7 +2,7 @@ import React from 'react';
 
 export const VideoPageThumbnailInfo = (props) => {
     return (
-        <div id='videopage-thumbnail-preview'
+        <div className = 'flexv-4 vpg-tbn-prev'
             onClick={props.onClick}>
             <section className='ch-title'>
                 {props.video.title}

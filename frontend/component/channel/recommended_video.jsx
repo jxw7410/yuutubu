@@ -51,7 +51,7 @@ class RecommendedVideos extends React.Component{
         return (    
             <div className='idx-rec-vid-ctn' >
                 <div className="mgt-24" style={{fontWeight: 'bold'}}> Recommended </div>
-                <ul  className={`idx-rec-vid mgt-24" ${this.state.readMore ? "" : "show-more-inactive"}`}>
+                <ul  className={`idx-rec-vid mgt-24 ${this.state.readMore ? "" : "show-more-inactive"}`}>
                     {videos}
                 </ul>
                 {

@@ -4,7 +4,7 @@ import Description from './description';
 
 const render = (expanded, reference, description) => {
     return (
-        <div className={'video-posts-row-1-col-2-body' + (expanded ? " expanded" : "")}>
+        <div className={'vid-post-bd-r1-c2' + (expanded ? " expd" : "")}>
             <div ref={reference}>{description}</div>
         </div>
     )
@@ -13,7 +13,7 @@ const render = (expanded, reference, description) => {
 
 const readMore = (expanded, handleReadMore) => {
     return (
-        <div className='video-posts-row-1-col-2-footer'>
+        <div className='vid-post-ftr-r1-c2'>
             <span className='span-style-1' onClick={handleReadMore}>
                 {expanded ? 'Read Less' : 'Read More'}
             </span>
@@ -25,9 +25,9 @@ const readMore = (expanded, handleReadMore) => {
 
 const postInfo = props => {
     return (
-        <div className='video-posts-row-1-col-2-header-left'>
+        <div className='flexh-3'>
             <span>{props.post.user}</span>
-            <span>{props.post.created_at}</span>
+            <span className='vpr1c1hl'>{props.post.created_at}</span>
         </div>
     )
 }
@@ -35,7 +35,7 @@ const postInfo = props => {
 const deleteButton = props => {
     return (
         parseInt(props.currentUser.id) === props.post.user_id ?
-            <button className="form-delete-button"
+            <button className="form-del-btn"
                 onClick={props.handleDelete(props.post.id)}>Delete</button> : null
     )
 }
@@ -43,11 +43,11 @@ const deleteButton = props => {
 const VideoPost = props => {
     return (
         <li >
-            <div className='video-posts'>
-                <div className='video-posts-row-1'>
-                    <div className='video-posts-row-1-col-1'> <i className="fas fa-user-circle" /></div>
-                    <div className='video-posts-row-1-col-2'>
-                        <div className='video-posts-row-1-col-2-header'>
+            <div className='vid-post'>
+                <div className='vid-post-r1'>
+                    <div> <i className="fas fa-user-circle vpr1c1-i"/></div>
+                    <div className='vid-post-r1-c2'>
+                        <div className='vid-post-r1-c2-hdr flexh-5'>
                             {postInfo(props)}
                             {deleteButton(props)}
                         </div>
@@ -59,7 +59,7 @@ const VideoPost = props => {
                         />
                     </div>
                 </div>
-                <div className='video-posts-row-2'></div>
+                <div />
             </div>
         </li>
     )
