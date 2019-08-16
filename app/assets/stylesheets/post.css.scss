@@ -118,12 +118,6 @@
     margin-left: 5px;
 }
 
-.form-del-btn{
-    border: none;
-    background: transparent;
-}
-
-
 .vid-post-bd-r1-c2{
     grid-row: 2 / 3;
     overflow: hidden;
@@ -150,12 +144,12 @@
     grid-row: 3 / 4;
 }
 
-.form-delete-button{
+.form-del-btn{
     border: none;
     background: transparent;
 }
 
-.form-delete-button:hover{
+.form-del-btn:hover{
     font-weight: bold;
 }
 

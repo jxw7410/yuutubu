@@ -309,11 +309,10 @@ class VideoPlayer extends React.Component {
     }
 
     render() {
-
         return (
             <React.Fragment>
                 <div onClick={this.handlePlay('screen')}
-                    className={'vid-player-hook' + (this.state.fullScreen ? " vph-fullscn" : "")}>
+                    className={'vid-player-hook' + (this.state.fullScreen ? " vph-full" : "")}>
 
                     {this.state.videoStatus === 'REPLAY' ? <div className='vid-dark-scn max-w-h' /> : null}
                     {this.state.videoStatus === 'LOAD' ? <div className='vid-ldr max-w-h flexh-1'><div className='spinner' /></div> : null}

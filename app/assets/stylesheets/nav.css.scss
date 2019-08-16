@@ -423,15 +423,13 @@
     z-index: 200000;
     height: 100%;
     overflow-y: hidden;
-    left: 0;
+    left: -240px;
     background: white;
-    transform: translateX(-240px);
     transition: transform 0.15s linear;
 }
 
 .mc2-toggled{
-    transform: translateX(0px);
-    transition: transform 0.1s linear;
+    transform: translateX(240px);
 }
 
 .msn-ctn-cvr{

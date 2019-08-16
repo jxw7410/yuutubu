@@ -7,7 +7,6 @@
     position: absolute;
 }
 
-
 .vid-ldr .spinner{
     border: 6px solid transparent;
     border-top: 6px solid #f3f3f3;
@@ -267,8 +266,6 @@
     z-index: 1;
 }
 
-
-
 .vol-ctrl-div:hover{
 
     .vol-ctrl-bar-wrap{
@@ -294,8 +291,6 @@
     }
 }
 
-
-
 .vid-ctrl-ui > section{
     padding: 0 2%;
 }
@@ -303,7 +298,6 @@
 .vid-ctrl-ui > section:first-child > div{
     margin: 0 5px;
 }
-
 
 .vid-time{
     color: white;
@@ -317,8 +311,6 @@
     display:flex;
 }
 
-
-
 .vid-player-hook{
     grid-row: 1 / 2;
     position: relative;
@@ -327,7 +319,7 @@
     align-items: flex-end;
 }
 
-.vph-fullscn{
+.vph-full{
     position: fixed;
     bottom: 0;
     right: 0;
@@ -337,8 +329,7 @@
     background:transparent;
 }
 
-.vph-fullscn {
-
+.vph-full {
     .vid-ctrl, .vc-play{
         opacity: 1;
         width: 100%;
@@ -368,8 +359,6 @@
         width: 100%;
         z-index: 2002;
     }
-
-  
 }
 
 #mini-player{
@@ -427,8 +416,6 @@
     margin-bottom: 12px;
 }
 
-
-
 .mini-scn-ply-btn{
     width: 60px;
     height: 60px;
@@ -444,7 +431,6 @@
     font-size: 50px;
     color:white;
 }
-
 
 .volume-icon{
     opacity: 1;

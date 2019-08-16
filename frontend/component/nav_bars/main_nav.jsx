@@ -30,7 +30,6 @@ class MainNav extends React.Component {
             this.props.fetchSubscriptions();
         }
 
-
         if (prevProps.navBar.type === 2 && this.props.navBar.type === 1) {
             if (!prevProps.navBar.toggled) this.props.toggleSideBar();
         }
