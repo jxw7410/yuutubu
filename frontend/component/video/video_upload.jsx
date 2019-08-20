@@ -128,23 +128,12 @@ class UploadVideo extends React.Component {
     }
 
 
-    uploadPromise(image_blob, video_blob){
-        let image_uploaded, vid_uploaded = false;
-        
+    /* This Upload Promise is to asynchronously upload my files to aws because sync upload is slow AF. */
+    upload(blob, type){
         return new Promise((resolve, reject)=> {
-            this.requestUpload(image_blob, this.state.thumbnail, this.state.thumbnail.type)
-                .then(() => {
-                    image_uploaded = true
-                    if (image_uploaded && vid_uploaded)
-                        resolve()
-                }).fail(() => reject('Upload Failed'))
-
-            this.requestUpload(video_blob, this.state.file.slice(), this.state.file.type)
-                .then(() => {
-                    vid_uploaded = true
-                    if (image_uploaded && vid_uploaded)
-                        resolve()
-                }).fail(() => reject('Upload failed'))
+            this.requestUpload(blob, this.state[type], this.state[type].type)
+                .then(() => resolve())
+                .fail(() => reject('Upload Failed'))
         })
     }
     
@@ -171,22 +160,22 @@ class UploadVideo extends React.Component {
                     const { image_blob, video_blob } = blob
                     this.totalProgress = this.state.file.size + this.state.thumbnail.size
 
-                    this.uploadPromise(image_blob, video_blob).then(()=>{
-                        this.props.createVideo({
-                            "video" : {
-                                "title": this.state.title,
-                                "description": this.state.description,
-                                "channel_id" : this.state.channel_id,
-                                "duration": this.state.duration,
-                                "video_id": video_blob.id,
-                                "thumbnail_id": image_blob.id 
-                            }
-                        }).then( () =>{ 
-                            setTimeout(() => {
-                                alert('Upload Successful!');
-                                this.props.history.push(`./channel/${this.props.user.channel_id}/videos`);
-                                }, 110)
-                            })
+                    Promise.all([this.upload(video_blob, 'file'), this.upload(image_blob, 'thumbnail')])
+                        .then(()=>{
+                            this.props.createVideo({
+                                "video" : {
+                                    "title": this.state.title,
+                                    "description": this.state.description,
+                                    "channel_id" : this.state.channel_id,
+                                    "duration": this.state.duration,
+                                    "video_id": video_blob.id,
+                                    "thumbnail_id": image_blob.id 
+                                }
+                            }).then( () =>
+                                setTimeout(() => {
+                                    alert('Upload Successful!');
+                                    this.props.history.push(`./channel/${this.props.user.channel_id}/videos`);
+                                    }, 110))
                     }, () => {
                         this.props.deleteDirectUpload({
                             'blob_ids': {
