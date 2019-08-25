@@ -25,7 +25,7 @@ class VideoUploadModal extends React.Component{
 
     render(){
         return (
-            <ul className='video-upload-modal'>
+            <ul className='video-upload-modal box-shad-s1'>
                 <li className='flexh-1'
                     style={{height: '40px'}}
                     onClick={this.redirect('/upload')}>

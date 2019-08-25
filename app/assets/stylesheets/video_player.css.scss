@@ -319,6 +319,27 @@
     align-items: flex-end;
 }
 
+.ps-sym {
+    animation-name: ps-sym-anmte;
+    animation-duration: 1s;
+}
+
+.ps-sym{
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: blue;
+    position: absolute;
+    margin: 0 auto;
+}
+
+
+@keyframes ps-sym-anmte{
+    0% {opacity: 1; width: 20px; height: 20px}
+    100% {opacity: 0; width: 80px; height: 80px}
+}
+
 .vph-full{
     position: fixed;
     bottom: 0;
@@ -436,4 +457,5 @@
     opacity: 1;
     transition: opacity 0.5s linear;
 }
+
 

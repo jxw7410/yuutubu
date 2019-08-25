@@ -1,6 +1,7 @@
 import React from 'react';
 import ChannelIndexItem from './channel_index_item_ctn';
 import RecommendedVideos from './recommended_video';
+import {MINI} from '../../util/constants';
 
 
 class ChannelIndex extends React.Component {
@@ -19,7 +20,7 @@ class ChannelIndex extends React.Component {
         this.props.clearChannels();
         this.props.sideBarOne();
 
-        if (this.props.videoPlayer.type !== 'MINI')
+        if (this.props.videoPlayer.type !== MINI)
             this.props.removeVideoPlayer();
 
         this.props.fetchChannels(this.offset, 4, this.props.user_id)

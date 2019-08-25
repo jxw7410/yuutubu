@@ -4,6 +4,7 @@ import AllVideosContainer from './all_vid_ctn';
 import ChannelBaseContainer from './channel_base_ctn';
 import ChannelHeader from './channel_header';
 import { withRouter } from 'react-router-dom';
+import { MINI } from '../../util/constants'
 
 class Channel extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class Channel extends React.Component {
 
     componentDidMount() {
         this.props.sideBarOne();
-        if (this.props.videoPlayer.type !== 'MINI')
+        if (this.props.videoPlayer.type !== MINI)
             this.props.removeVideoPlayer();
     }
 

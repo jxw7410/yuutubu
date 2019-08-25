@@ -8,9 +8,7 @@ const ProgressBar = props => {
             <div ref ={props.streamBar} className='user-stream' />
             <div className='buffer-stream' style={{ width: props.bufferStream + "%" }} />
             <div className='hover-bar' style={{width: props.hoverBarLength, maxWidth: props.maxHoverBarLength}} />
-            <input ref={props.seeker} className='seeker-bar' type='range' 
-                onMouseDown={props.handleSeekingClick}
-                onMouseUp={props.handleSeekingClick}    
+            <input ref={props.seeker} className='seeker-bar' type='range'  
                 onClick={e => e.stopPropagation()}
                 onInput={props.handleSeeking}
                 onChange={props.handleSeeking}

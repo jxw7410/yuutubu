@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
-
+import {MINI} from '../../util/constants';
 
 class Search extends React.Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class Search extends React.Component {
 
     componentDidMount() {
         this.props.clearVideos();
-        if (this.props.videoPlayer.type !== 'MINI')
+        if (this.props.videoPlayer.type !== MINI)
             this.props.removeVideoPlayer();
 
         this.props.fetchSideBarOne();
@@ -79,8 +79,7 @@ class Search extends React.Component {
     }
 
     render() {
-        const videos = this.props.videos.map(video => {
-            return (
+        const videos = this.props.videos.map(video => 
                 <VideoThumbnail
                     key={video.id}
                     video={video}
@@ -88,7 +87,6 @@ class Search extends React.Component {
                     handleClick={this.redirectOnClick(video.id)}
                 />
             )
-        })
 
         return (
             <div className={`max-w-h main-ctnt-ctn ${this.props.sideNav.toggled ? "mn-cc-tgl" : ""}`}>

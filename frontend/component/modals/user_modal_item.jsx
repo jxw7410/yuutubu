@@ -36,7 +36,7 @@ class UserModalItem extends React.Component {
 
     render() {
         return (
-            <div className='usr-mdl-i'>
+            <div className='usr-mdl-i box-shad-s1'>
                 <div className='usr-mdl-hdr'>
                     <div className='umh-d'>
                         <section id='mpp' className='flexh-1'>

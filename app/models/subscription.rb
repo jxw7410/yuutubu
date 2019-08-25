@@ -28,8 +28,6 @@ class Subscription < ApplicationRecord
     #Custom validation to eliminate subscription to one's self (how)?
     def prevent_self_subscription
         channel = UserChannel.where(user_id: subscriber_id).first
-        if channel.id == channel_id 
-            errors.add(:subscriber_id, "Cannot subscribe to your own channel")
-        end
+        errors.add(:subscriber_id, "Cannot subscribe to your own channel") if channel.id == channel_id    
     end
 end

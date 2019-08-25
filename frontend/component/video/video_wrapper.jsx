@@ -5,6 +5,7 @@ import { requestDefaultPlayer } from '../../actions/video_player';
 import { Route } from 'react-router-dom';
 import VideoRouter from './video_router';
 import VideoRecommendedListContainer from './video_sub_components/video_recommended_list';
+import { MINI } from '../../util/constants';
 
 /*
 This is seemingly redundant. In terms of functionality, it really is,
@@ -18,9 +19,7 @@ class FakeVideoRouter extends React.Component {
     }
 
     render() {
-        return (
-            <div> Token Path </div>
-        )
+        return  <div> Token Path </div>
     }
 }
 
@@ -36,14 +35,14 @@ const VideoWrapper = (props) => {
                         requestDefaultPlayer={props.requestDefaultPlayer}
                         render={ () => (<FakeVideoRouter requestDefaultPlayer={props.requestDefaultPlayer}/>)} />
                     :
-                    <div className={`max-w-h flexh-1x ${props.videoPlayer.type === 'MINI' ? "vmc-mini" : ""}`}>
+                    <div className={`max-w-h flexh-1x ${props.videoPlayer.type === MINI ? "vmc-mini" : ""}`}>
                         {
-                            <div id='video-main' className={`${props.videoPlayer.type === 'MINI' ? "max-w-h" : "vid-mn"}`}>
-                                <div className={`${props.videoPlayer.type === 'MINI' ? "max-w-h" : "vid-mn-lf"}`} >
+                            <div id='video-main' className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn"}`}>
+                                <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn-lf"}`} >
                                     <VideoPlayerContainer />
                                     <Route path='/video/:video_id' component={VideoRouter} />
                                 </div>
-                                { props.videoPlayer.type === 'MINI' ? null : <VideoRecommendedListContainer />}
+                                { props.videoPlayer.type === MINI ? null : <VideoRecommendedListContainer />}
                             </div>
                         }
                     </div>

@@ -64,6 +64,11 @@ class VideoThumbnail extends React.Component {
         this.setState({infoComponent})
     }
 
+    handleMouseOver() {
+        this.mouseHover = true;
+        this.clock = true;
+    }
+
     handleMouseEnter() {
         clearTimeout(this.throttledAjax)
         this.mouseHover = true;
@@ -82,11 +87,6 @@ class VideoThumbnail extends React.Component {
                 this.setState({ renderVideo: true })
             }, 200);
         }
-    }
-
-    handleMouseOver() {
-        this.mouseHover = true;
-        this.clock = true;
     }
 
     setRender() {
@@ -165,15 +165,10 @@ class VideoThumbnail extends React.Component {
 }
 
 
-const msp = state => {
-    return {
-    }
-}
-
 const mdp = dispatch => {
     return {
         fetchVideo: video_id => dispatch(fetchVideo(video_id))
     }
 }
 
-export default connect(msp, mdp)(VideoThumbnail);   
+export default connect(null, mdp)(VideoThumbnail);   

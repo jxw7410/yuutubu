@@ -98,6 +98,11 @@ class UploadVideo extends React.Component {
 
     }
 
+    redirectOnFail() {
+        alert('Upload Failed!')
+        this.props.history.push('/');
+    }
+
     uploadProgress(){
         const xhr = new XMLHttpRequest();
         let previousProgress = 0;
@@ -114,7 +119,7 @@ class UploadVideo extends React.Component {
         return xhr
     }
 
-    requestUpload(blob, data, contentType){
+    xhrAWS(blob, data, contentType){
         return $.ajax({
             xhr: this.uploadProgress,
             url: blob.direct_upload.url,
@@ -126,71 +131,64 @@ class UploadVideo extends React.Component {
             processData: false
         })
     }
-
-
-    /* This Upload Promise is to asynchronously upload my files to aws because sync upload is slow AF. */
-    upload(blob, type){
-        return new Promise((resolve, reject)=> {
-            this.requestUpload(blob, this.state[type], this.state[type].type)
+  
+    uploadToBE(videoBlobId, imageBlobId){
+        this.props.createVideo({
+            "video": {
+                "title": this.state.title,
+                "description": this.state.description,
+                "channel_id": this.state.channel_id,
+                "duration": this.state.duration,
+                "video_id": videoBlobId,
+                "thumbnail_id": imageBlobId,
+            }
+        }).then(() =>
+            setTimeout(() => {
+                alert('Upload Successful!');
+                this.props.history.push(`./channel/${this.props.user.channel_id}/videos`);
+            }, 110))
+    }
+    
+    uploadToAWS(blob, type) {
+        return new Promise((resolve, reject) => {
+            this.xhrAWS(blob, this.state[type], this.state[type].type)
                 .then(() => resolve())
                 .fail(() => reject('Upload Failed'))
         })
     }
-    
-    redirectOnFail(){
-        alert('Upload Failed!')
-        this.props.history.push('/');
-    }
 
     handleSubmit(e) {
         e.preventDefault();
-        if (!this.submit && 
-            this.state.file &&
-            this.state.thumbnail &&
-            this.state.title.length &&
-            this.state.description.length
-        ) {
-            const formData = new FormData();
-            formData.append('video[file]', this.state.file);
-            formData.append('video[thumbnail]', this.state.thumbnail);
+        if (!this.submit && this.state.file &&
+            this.state.thumbnail && this.state.title.length &&
+            this.state.description.length) {
+            
+                this.submit = true;
+                const formData = new FormData();
+                formData.append('video[file]', this.state.file);
+                formData.append('video[thumbnail]', this.state.thumbnail);
 
-            this.submit = true;
-            this.props.requestDirectUpload(formData)
-                .then((blob) =>{
-                    const { image_blob, video_blob } = blob
-                    this.totalProgress = this.state.file.size + this.state.thumbnail.size
+                this.props.requestDirectUpload(formData)
+                    .then((blob) =>{
+                        const { image_blob, video_blob } = blob
+                        this.totalProgress = this.state.file.size + this.state.thumbnail.size
 
-                    Promise.all([this.upload(video_blob, 'file'), this.upload(image_blob, 'thumbnail')])
-                        .then(()=>{
-                            this.props.createVideo({
-                                "video" : {
-                                    "title": this.state.title,
-                                    "description": this.state.description,
-                                    "channel_id" : this.state.channel_id,
-                                    "duration": this.state.duration,
-                                    "video_id": video_blob.id,
-                                    "thumbnail_id": image_blob.id 
-                                }
-                            }).then( () =>
-                                setTimeout(() => {
-                                    alert('Upload Successful!');
-                                    this.props.history.push(`./channel/${this.props.user.channel_id}/videos`);
-                                    }, 110))
-                    }, () => {
-                        this.props.deleteDirectUpload({
-                            'blob_ids': {
-                                'image_blob_id': image_blob.id,
-                                'video_blob_id': video_blob.id
-                                }
-                            }).then(() => this.redirectOnFail())
-                        }
-                    )
-                }).fail(() => this.redirectOnFail());
-
-            this.setState({ uploading: true })
-        }
-        else
-            console.log('No Token!');
+                        Promise.all([this.uploadToAWS(video_blob, 'file'), this.uploadToAWS(image_blob, 'thumbnail')])
+                            .then(()=> this.uploadToBE(video_blob.id, image_blob.id))
+                            .catch(() => 
+                                this.props.deleteDirectUpload({
+                                    'blob_ids': {
+                                        'image_blob_id': image_blob.id,
+                                        'video_blob_id': video_blob.id
+                                        }
+                                    }).then(() => this.redirectOnFail())
+                            )
+                            
+                    }).fail(() => this.redirectOnFail());
+                this.setState({ uploading: true });
+            } else {
+                console.log('No Token!');
+            }
     }
 
     render() {
