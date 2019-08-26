@@ -1,6 +1,6 @@
 import React from 'react';
-import VideoUploadArea from './video_upload_sub/vid_upload_area';
-import VideoUploadForm from './video_upload_sub/video_upload_form';
+import VideoUploadArea from './vid_upload_area';
+import VideoUploadForm from './video_upload_form';
 import {withRouter} from 'react-router-dom';
 
 class UploadVideo extends React.Component {

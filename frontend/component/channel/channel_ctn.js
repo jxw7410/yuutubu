@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import { sideBarOne } from '../../actions/nav_bar_action';
-import { removeVideoPlayer } from '../../actions/video_player';
-
+import { sideBarOne } from '../../actions/nav/nav_bar_action';
+import { removeVideoPlayer } from '../../actions/video_player/video_player';
 import Channel from './channel';
-import { requestUpdatePrevPath } from '../../actions/prev_path_action';
+import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 
 
 const msp = (state, props) => {
@@ -17,13 +16,11 @@ const msp = (state, props) => {
     }
 }
 
-const mdp = dispatch => {
-    return {
+const mdp = dispatch => ({
         sideBarOne: () => dispatch(sideBarOne()),
         removeVideoPlayer: () => dispatch( removeVideoPlayer()),
         updatePrevPath: path => dispatch(requestUpdatePrevPath(path))
-    }
-}
+})
 
 
 export default connect(msp, mdp)(Channel);

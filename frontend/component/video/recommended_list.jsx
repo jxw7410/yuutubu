@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchRecommendedVideos } from '../../../actions/video/video_action';
-import {removeVideoPlayer} from '../../../actions/video_player';
-import PreviewVideo from '../../thumbnail/video_thumbnail';
+import { fetchRecommendedVideos } from '../../actions/video/video_action';
+import {removeVideoPlayer} from '../../actions/video_player/video_player';
+import PreviewVideo from '../thumbnail/video_thumbnail';
 import {withRouter} from 'react-router-dom';
-import {sortByViews} from '../../../util/selectors';
+import {sortByViews} from '../../util/selectors';
 
 class VideoRecommendedList extends React.Component {
     constructor(props) {
@@ -64,18 +64,14 @@ class VideoRecommendedList extends React.Component {
 }
 
 
-const msp = state => {
-    return {
+const msp = state => ({
         video: state.ui.videoPlayer.video,
         otherVideos: sortByViews(Object.values(state.entities.videos))
-    }
-}
+})
 
-const mdp = dispatch => {
-    return {
+const mdp = dispatch => ({
         fetchRecommendedVideos: video_id => dispatch(fetchRecommendedVideos(video_id)),
         removeVideoPlayer: () => dispatch(removeVideoPlayer()),
-    }
-}
+})
 
 export default withRouter(connect(msp, mdp)(VideoRecommendedList)); 

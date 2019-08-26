@@ -23,7 +23,7 @@ class DefaultControlUI extends React.Component {
         return (
             <React.Fragment>
                 <div className='vol-ctrl-track' style={{width: `${this.props.volumeTrackLength}px`}}/>
-                <input className='vol-ctrl' type="range" min="0" max="1" step="0.1" value={this.props.volumeValue}
+                <input className='vol-ctrl' type="range" min="0" max="1" step="0.05" value={this.props.volumeValue}
                     onMouseDown={e => e.stopPropagation()}
                     onClick={e => e.stopPropagation()}
                     onChange={this.props.handleVolumeChange} />

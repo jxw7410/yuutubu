@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { signUp, defaultAction, raiseEmailError } from '../../actions/session/session_action';
 import { convertErrorMessageToObject } from '../../util/selectors';
-import { removeNavBars } from '../../actions/nav_bar_action';
-import {removeVideoPlayer} from '../../actions/video_player';
+import { removeNavBars } from '../../actions/nav/nav_bar_action';
+import {removeVideoPlayer} from '../../actions/video_player/video_player';
 import SignUpForm from './signup';
 
 const msp = state => {

@@ -1,4 +1,4 @@
-import {UPDATE_PREV_PATH} from '../../actions/prev_path_action';
+import {UPDATE_PREV_PATH} from '../../actions/history/prev_path_action';
 
 
 const prevPathReducer = (state = {}, action) => {

@@ -5,14 +5,14 @@ import SignUpContainer  from '../component/auth/signup_container'
 import LoginContainer from '../component/auth/login_container'
 import ChannelIndexContainer from '../component/channel/channel_index_ctn';
 import ChannelRouter from '../component/channel/channel_router';
-import UploadVideoContainer from '../component/video/video_upload_ctn';
+import UploadVideoContainer from '../component/video_upload/video_upload_ctn';
 import MainNav from './nav_bars/main_nav_ctn';
 import Modal from '../component/modals/modal';
 import VideoWrapperContainer from '../component/video/video_wrapper';
 import SearchContainer from './search/search_ctn';
 
 const App = () => (
-    <>
+    <React.Fragment>
         <MainNav />
         <Modal />
         <VideoWrapperContainer />
@@ -24,7 +24,7 @@ const App = () => (
             <AuthRoute path="/login" component={LoginContainer}/>  
             <ProtectedRoute path='/upload' component={UploadVideoContainer} />
         </Switch>
-    </>
+    </React.Fragment>
 )
 
 export default App

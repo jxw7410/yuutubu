@@ -7,7 +7,7 @@ import {
     updateLikeDislike,
     deleteLikeDislike,
     requestClearLikeDislike
-} from '../../../actions/like/like_dislike_action';
+} from '../../actions/like/like_dislike_action';
 
 import VideoInfoBody from './video_info_body';
 
@@ -37,52 +37,27 @@ class VideoInfoHeader extends React.Component {
         this.props.clearLikeDislike();
     }
 
-    handleLike() {
-        if (this.props.like_dislike.is_liked === this.like)
-            this.props.deleteLikeDislike(this.props.like_dislike.id)
-                .then(() => {
-                    this.fetching = false
-                    this.setState({ likeCount: this.state.likeCount - 1 })
-                })
-                .fail(() => this.fetching = false)
-        else if (this.props.like_dislike.is_liked === this.dislike)
-            this.props.updateLikeDislike(this.props.like_dislike.id, true)
-                .then(() => {
-                    this.fetching = false
-                    this.setState({ likeCount: this.state.likeCount + 1, dislikeCount: this.state.dislikeCount - 1 })
-                })
-                .fail(() => this.fetching = false)
-        else
-            this.props.createLikeDislike(this.props.video.id, true)
-                .then(() => {
-                    this.fetching = false
-                    this.setState({ likeCount: this.state.likeCount + 1 })
-                })
-                .fail(() => this.fetching = false)
-    }
-
-    handleDislike() {
-        if (this.props.like_dislike.is_liked === this.dislike)
-            this.props.deleteLikeDislike(this.props.like_dislike.id)
-                .then(() => {
-                    this.fetching = false
-                    this.setState({ dislikeCount: this.state.dislikeCount - 1 })
-                })
-                .fail(() => this.fetching = false)
-        else if (this.props.like_dislike.is_liked === this.like)
-            this.props.updateLikeDislike(this.props.like_dislike.id, false)
+    handleLikeDislike(field, count, bool){
+        if (this.props.like_dislike.is_liked === undefined)
+            this.props.createLikeDislike(this.props.video.id, bool)
                 .then(() => {
                     this.fetching = false;
-                    this.setState({ likeCount: this.state.likeCount - 1, dislikeCount: this.state.dislikeCount + 1 })
-                })
-                .fail(() => this.fetching = false)
-        else
-            this.props.createLikeDislike(this.props.video.id, false)
+                    this.setState({ [count]: this.state[count] + 1 })
+                }).fail(() => this.fetching = false)
+        else if (this.props.like_dislike.is_liked === field)
+            this.props.deleteLikeDislike(this.props.like_dislike.id)
                 .then(() => {
-                    this.fetching = false
-                    this.setState({ dislikeCount: this.state.dislikeCount + 1 })
+                    this.fetching = false;
+                    this.setState({ [count]: this.state[count] - 1 })
+                }).fail(() => this.fetching = false)
+        else
+            this.props.updateLikeDislike(this.props.like_dislike.id, bool)
+                .then(() => {
+                    const oppCount = count === 'likeCount' ? 'dislikeCount' : 'likeCount'
+                    this.fetching = false;
+                    this.setState({ [count]: this.state[count] + 1, [oppCount]: this.state[oppCount] - 1 })
                 })
-                .fail(() => this.fetching = false)
+
     }
 
     handleClick(field) {
@@ -93,14 +68,13 @@ class VideoInfoHeader extends React.Component {
                     this.fetching = true;
                     switch (field) {
                         case this.like:
-                            this.handleLike()
+                            this.handleLikeDislike(field, 'likeCount', true)
                             break;
                         case this.dislike:
-                            this.handleDislike()
+                            this.handleLikeDislike(field, 'dislikeCount', false)
                             break;
                     }
                 }
-
             } else
                 this.props.history.push('/login')
         }
@@ -127,7 +101,7 @@ class VideoInfoHeader extends React.Component {
 
     render() {
         return (
-            <>
+            <React.Fragment>
                 <div className='vid-info-hdr'>
                     <section className='flexh-8'>{this.props.video.title}</section>
                     <section className='flexh-6'>
@@ -145,28 +119,24 @@ class VideoInfoHeader extends React.Component {
                     </section>
                 </div>
                 <VideoInfoBody {...this.props} />
-            </>
+            </React.Fragment>
         )
     }
 }
 
 
-const msp = state => {
-    return {
+const msp = state => ({
         isLogin: Boolean(state.session.id),
         like_dislike: state.entities.like,
         user: state.session
-    }
-}
+})
 
-const mdp = dispatch => {
-    return {
+const mdp = dispatch => ({
         createLikeDislike: (video_id, bool) => dispatch(createLikeDislike(video_id, bool)),
         updateLikeDislike: (id, bool) => dispatch(updateLikeDislike(id, bool)),
         deleteLikeDislike: id => dispatch(deleteLikeDislike(id)),
         clearLikeDislike: () => dispatch(requestClearLikeDislike())
-    }
-}
+})
 
 
 

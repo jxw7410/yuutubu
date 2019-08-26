@@ -1,21 +1,19 @@
 import React from 'react';
 
-const VideoUploadArea = (props) => {
-    return (
+const VideoUploadArea = ({handleDrop, handleFile}) => (
         <div className='upload-area flexv-1'
-            onDrop={props.handleDrop}
+            onDrop={handleDrop}
             onDragEnter={e => e.preventDefault()}
             onDragOver={e => e.preventDefault()}
             onDragLeave={e => e.preventDefault()}>
 
             <label className='upload-input flexv-9'>
-                <input onChange={props.handleFile} type="file" accept="video/mp4,video/x-m4v,video/*"/>
+                <input onChange={handleFile} type="file" accept="video/mp4,video/x-m4v,video/*"/>
                 <i className="fas fa-arrow-up"></i>
                 <span>Upload file</span>
                 <span>Or Drag and Drop</span>
             </label>
-        </div>
-    )
-}
+        </div>    
+)
 
 export default VideoUploadArea;

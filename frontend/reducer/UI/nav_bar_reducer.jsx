@@ -1,4 +1,4 @@
-import {SIDE_BAR_ONE, SIDE_BAR_TWO, REMOVE_NAV_BARS, TOGGLE_SIDE_BAR} from '../../actions/nav_bar_action';
+import {SIDE_BAR_ONE, SIDE_BAR_TWO, REMOVE_NAV_BARS, TOGGLE_SIDE_BAR} from '../../actions/nav/nav_bar_action';
 import { merge } from 'lodash';
 
 const defaultState = {

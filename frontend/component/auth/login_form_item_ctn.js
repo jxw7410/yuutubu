@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { login, fetchEmail, defaultAction, clearEmail, raiseEmailError } from '../../actions/session/session_action';
-import { removeNavBars } from '../../actions/nav_bar_action';
-import { removeVideoPlayer } from '../../actions/video_player';
+import { removeNavBars } from '../../actions/nav/nav_bar_action';
+import { removeVideoPlayer } from '../../actions/video_player/video_player';
 import LoginFormItem from './login_form_item';
 
 

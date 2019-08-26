@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import VideoPost from './video_sub_components/video_post';
+import VideoPost from './video_post';
 
 
 class VideoMainBody extends React.Component {

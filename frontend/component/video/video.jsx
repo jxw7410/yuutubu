@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoInfoHeader from './video_sub_components/video_info_header';
+import VideoInfoHeader from './video_info_header';
 import VideoMainBody from './video_main_body_ctn';
 
 class Video extends React.Component {
@@ -9,7 +9,6 @@ class Video extends React.Component {
             toggledSideNav: true,
             channel: {},
         }
-
        this.mounted = true;
     }
 
@@ -21,14 +20,13 @@ class Video extends React.Component {
         
     
         const channel_id = this.props.video.channel_id;
+        this.props.videoLikeDislike(this.props.video.like_dislike)
         this.props.fetchChannel(channel_id)
-            .then(() => {
-                this.setState({ channel: this.props.channels[channel_id] })
-            });
+            .then(() => this.setState({ channel: this.props.channels[channel_id] }));
     }
 
     componentDidUpdate(prevProps){
-        //This really only ever runs if video was changed via URL, while, since there would be a double query,
+        //This really only ever runs if video was changed via URL; while there would be a double query,
         //But it's unlikely anyone would switch via URL.
         if (prevProps.match.params.video_id !== this.props.match.params.video_id){
             this.props.fetchVideo(this.props.match.params.video_id).then(()=>{
@@ -45,15 +43,9 @@ class Video extends React.Component {
     render() {
         return (
             <React.Fragment>
-                    <VideoInfoHeader
-                        video={this.props.video}
-                        channel={this.state.channel}
-                    />
-
-                    <VideoMainBody
-                        video={this.props.video}
-                    />
-        
+                    <VideoInfoHeader video={this.props.video} 
+                        channel={this.state.channel}/>
+                    <VideoMainBody video={this.props.video}/>
             </React.Fragment>
         )
     }

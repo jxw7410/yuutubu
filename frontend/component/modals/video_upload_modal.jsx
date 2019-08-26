@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { closeModal } from '../../actions/modal_action';
+import { closeModal } from '../../actions/modal/modal_action';
 import {withRouter} from 'react-router-dom';
 
 
@@ -36,16 +36,12 @@ class VideoUploadModal extends React.Component{
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = (state) => ({
         formType: 'upload_vid',
-    };
-};
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
+const mapDispatchToProps = dispatch => ({
         closeModal: () => dispatch(closeModal())
-    }
-};
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(VideoUploadModal));

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import SearchBar from './search_bar';
 import { requestSearchQueries } from "../../actions/search/search_action";
-import { openModal } from "../../actions/modal_action";
+import { openModal } from "../../actions/modal/modal_action";
 import {sortBy} from 'lodash';
 import {filterSearchModalResults} from '../../util/selectors';
 
