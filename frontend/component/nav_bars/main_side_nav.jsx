@@ -73,7 +73,7 @@ class MainSideNav extends React.Component {
         return this.props.subscriptions.length > this.limit ?
                     this.state.readMore ?
                         <li onClick={this.toggleRead} id='read-less'>
-                            <i id='chev' className="fas fa-chevron-up"></i> <span>Show Less</span>
+                    <i id='chev' className="fas fa-chevron-up"></i> <span className='flexh-3'>Show Less</span>
                         </li>
                         :
                         <li onClick={this.toggleRead} id='read-more'>

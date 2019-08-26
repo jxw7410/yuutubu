@@ -55,7 +55,6 @@ class LoginFormItem extends React.Component {
         if (email && !isEmailValid(email)){
             this.props.raiseEmailError();
         } else {
-            console.log(this.props.type);
             switch(this.props.type) {
                 case 'password':
                     this.props.login({ email, password });
