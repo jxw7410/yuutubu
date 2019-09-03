@@ -27,7 +27,7 @@ class VideoMainBody extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchPosts(this.props.video.id).then(()=>{
+        this.props.fetchPosts(this.props.video.id, this.props.offset, 6).then(()=>{
             document.addEventListener('scroll', this.handleScroll);
             this.scrollHook = document.getElementById('video-main');
         })
@@ -38,7 +38,7 @@ class VideoMainBody extends React.Component {
         e.preventDefault();
         let currentScrollHeight = this.scrollHook.scrollHeight;
         if (document.querySelector('html').scrollTop > (currentScrollHeight * 0.55)){
-            this.props.fetchMorePosts(this.props.video.id, this.props.offset, 3)
+            this.props.fetchPosts(this.props.video.id, this.props.offset, 3)
                 .fail(() => {
                     document.removeEventListener('scroll', this.handleScroll);
                 });
@@ -91,7 +91,7 @@ class VideoMainBody extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.postBody.length > 0) {
+        if (this.state.postBody.length) {
             const post = {
                 user_id: this.props.currentUser.id,
                 video_id: this.props.video.id,

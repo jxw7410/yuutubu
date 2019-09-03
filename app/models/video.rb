@@ -43,6 +43,8 @@ class Video < ApplicationRecord
 
 
     def self.query_by_string(query, limit = nil, offset = nil)
+        query = query.downcase
+
         self.joins(:channel).where("lower(title) like ? 
             or lower(title) like ? 
             or lower(title) like ? 
@@ -57,6 +59,22 @@ class Video < ApplicationRecord
             "#{query}%", "%#{query}%", "%#{query}")
             .limit(limit)
             .offset(offset);
+    end
+
+    def self.find_by_video_id(id = nil, user_id = nil)
+        # remove_for_production
+        # hardcorded limit
+        limit = 12
+        if id 
+            return self.where.not(id: id, user_id: user_id)
+                    .limit(limit)
+                    .includes(:channel)
+                    .order(:views)
+        else 
+            return self.where.not(user_id: user_id)
+                    .includes(:channel)
+                    .order(:views)
+        end
     end
 end
 

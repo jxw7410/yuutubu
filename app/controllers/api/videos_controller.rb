@@ -1,59 +1,55 @@
 class Api::VideosController < ApplicationController
-    def index_search
+    def index_by_search
         @videos = Video.query_by_string(
-            params[:query].downcase, 
+            params[:query],
             params[:limit],
             params[:offset]
         )
 
         if !@videos.empty?
-            render :index_partial
+            render :index
         else  
             render json: {}, status: 404
         end
     end
 
-    def index_partial   
+    def index_by_channel
         @videos = Video.where(channel_id: params[:channel_id])
             .limit(params[:limit])
             .offset(params[:offset])
             .with_attached_thumbnail
-            
+
         if @videos
-            render :index_partial
+            render :index
         else 
             render json: ["Videos not found"], status: 422
         end
     end
 
-    def index_recommended
-        if params[:video_id]
-            @videos = recommended_video_query(params[:video_id])
+    def index_by_recommend
+        if login?
+            @videos = Video.find_by_video_id(params[:video_id], current_user.id)
         else 
-            @videos = recommended_video_query(nil)
-        end 
-             
+            @videos = Video.find_by_video_id(params[:video_id])
+        end
+
         if @videos 
-            render :index_partial
+            render :index
         else 
             render json: ["Videos not found"], status: 422
         end 
     end
 
     def update_views
-        begin
-            Video.find_by(id: params[:video_id]).increment!(:views)
-            render json: {}, status: 200
-        rescue
-            return
-        end
+        Video.find_by(id: params[:video_id]).increment!(:views)
+        render json: {}, status: 200
     end
 
     def create
         channel = current_user.user_channels.first
 
-
-        #Make a transaction
+        # Wrap around a transaction.
+        
         @video = Video.create(
             user_id: current_user.id, 
             title: video_params[:title],
@@ -61,7 +57,6 @@ class Api::VideosController < ApplicationController
             description: video_params[:description],
             duration: video_params[:duration]
         )
-
 
         @video_attachment = ActiveStorage::Attachment.create(
             name: 'video_content',
@@ -116,33 +111,6 @@ class Api::VideosController < ApplicationController
             :video_id,
             :thumbnail_id
         )
-    end
-
-
-    def recommended_video_query(video_id)
-        # remove_for_production
-        limit = 1;
-        if video_id
-            videos = login? ? Video.where.not(id: video_id, user_id: current_user.id)
-                .limit(limit)
-                .includes(:channel)
-                .order(:views) 
-                : 
-                Video.where.not(id: video_id)
-                .limit(limit)
-                .includes(:channel)
-                .order(:views)
-        else 
-            videos = login? ? Video.all.limit(limit).not(user_id: current_user.id)
-                .includes(:channel)
-                .order(:views) 
-                : 
-                Video.all.limit(limit)
-                .includes(:channel)
-                .order(:views)
-        end
-        
-        videos
     end
 end
 

@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
     def email
-        @user = User.verify_email(email_params[:email].downcase)
+        @user = User.verify_email(email_params[:email])
         if @user
             render :email
         else 

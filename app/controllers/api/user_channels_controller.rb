@@ -1,6 +1,7 @@
 class Api::UserChannelsController < ApplicationController
     def index 
-        if params[:user_id].length > 0
+        # if params[:user_id] is given, and is not an empty string
+        if params[:user_id] && !params[:user_id].empty?
             @channels = UserChannel.where
                 .not(user_id: params[:user_id])
                 .limit(params[:limit])
@@ -24,17 +25,14 @@ class Api::UserChannelsController < ApplicationController
     end
 
     def show
-        @channel = UserChannel.where(id: params[:id]).includes(:subscriptions).first
+        @channel = UserChannel.includes(:subscriptions).find(params[:id])
+
         if @channel 
             @current_user = current_user
             render :show
         else 
             render json: ['Channel does not exist.'], status: 422 
         end
-    end
-
-    def create
-        render json: ['Unavailable at this time.'], status: 422
     end
 
     private

@@ -1,9 +1,7 @@
 class Api::SearchesController < ApplicationController
     before_action :ensure_login, only: [:create]
-    
-    def index;end 
 
-    def index_history
+    def index_by_history
         if login?
             limit = 8
             @histories = SearchHistory.where(user_id: current_user.id)
@@ -11,31 +9,31 @@ class Api::SearchesController < ApplicationController
                 .order(updated_at: :desc)
             
             if !@histories.empty?
-                    render :index_history_title
+                render :index
             else  
-                    render json: {}, status: 200
+                render json: {}, status: 200
             end
         else 
             render json: {}, status: 200
         end
     end
 
-    def index_history_title
+    def index_by_history_title
         if params[:query]
             limit = 8 
-            
+            query = params[:query].downcase
             if login?
-                @histories = SearchHistory.where("user_id = ? and context LIKE ?", current_user.id, "#{params[:query].downcase}%")
-                    .limit(limit)
+                @histories = SearchHistory.limit(limit)
+                    .where("user_id = ? and context LIKE ?", current_user.id, "#{query}%")
             end
             
             @videos = Video.joins(:channel)
-                .where("lower(title) LIKE ? or lower(user_channels.name) LIKE ?", "#{params[:query].downcase}%", "#{params[:query].downcase}%")
+                .where("lower(title) LIKE ? or lower(user_channels.name) LIKE ?", "#{query}%", "#{query}%")
                 .limit(limit)
                 .select(:id, :title, :name)
            
             if !@videos.empty? || !@histories.empty?
-                render :index_history_title
+                render :index
             else  
                 render json: {}, status: 200
             end
@@ -59,7 +57,4 @@ class Api::SearchesController < ApplicationController
         end
     end
 
-    def destroy
-
-    end
 end

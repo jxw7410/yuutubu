@@ -19,7 +19,6 @@ class VideoPlayer extends React.Component {
             duration: 0,
             previousURL: "/",
             channelName: null,
-            renderBtn: false,
         }
 
         this.videoElementContainer = React.createRef();
@@ -162,12 +161,12 @@ class VideoPlayer extends React.Component {
         e.preventDefault();
         e.stopPropagation();
 
-        let duration = this.videoElement.current.duration;
-        let currentTime = duration * (e.target.value / 100);
+       
+        let currentTime = this.state.duration * (e.target.value / 100);
         this.videoElement.current.currentTime = currentTime;
 
 
-        const value = ((currentTime / duration) * 100).toFixed(4);
+        const value = ((currentTime / this.state.duration) * 100).toFixed(4);
         this.seeker.current.value = value;
         this.streamBar.current.style.width = value + '%';
 
@@ -184,16 +183,12 @@ class VideoPlayer extends React.Component {
         }
 
         const currentTime = this.videoElement.current.currentTime;
-        const duration = this.videoElement.current.duration;
-
-        const value = ((currentTime / duration) * 100).toFixed(4);
+        const value = ((currentTime / this.state.duration) * 100).toFixed(4);
         this.seeker.current.value = value;
         this.streamBar.current.style.width = value + '%';
 
-        if (!this.state.duration)
-            this.setState({ duration, userStream: value, currentTime })
-        else
-            this.setState({ userStream: value, currentTime })
+        
+        this.setState({ userStream: value, currentTime })
     }
 
 
@@ -236,10 +231,7 @@ class VideoPlayer extends React.Component {
     }
 
     handlePlayStatus(e) {
-        if (!this.autoPlay) {
-            e.currentTarget.muted = false
-            this.autoPlay = true;
-        }
+        e.preventDefault();
         this.setState({ videoStatus: PLAY })
     }
 

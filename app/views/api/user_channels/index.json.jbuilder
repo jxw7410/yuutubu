@@ -1,5 +1,5 @@
 @channels.each do |channel|
-    if channel.videos.length > 0
+    if !channel.videos.empty?
         json.set! channel.id do 
             json.extract! channel, :id, :name, :user_id
             json.subscriptionCount channel.subscriptions.count

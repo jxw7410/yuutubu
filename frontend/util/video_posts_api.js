@@ -7,7 +7,7 @@ export const requestVideoPosts = video_id => {
 
 export const requestSomeVideoPosts = (video_id, offset, limit) => {
     return $.ajax({
-        url: `/api/video_posts/index_partial/${video_id}`,
+        url: `/api/video_posts/video/${video_id}`,
         data: {
             offset,
             limit

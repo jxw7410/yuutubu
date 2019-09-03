@@ -11,7 +11,7 @@ class ChannelIndexItem extends React.Component {
 
     componentDidMount() {
         // remove_for_production
-        // this.props.fetchChannelVideos(this.props.channel.id, 6, 0)
+        this.props.fetchChannelVideos(this.props.channel.id, 6, 0)
     }
 
 

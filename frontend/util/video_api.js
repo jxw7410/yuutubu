@@ -6,7 +6,7 @@ export const requestVideo = video_id => {
 
 export const requestChannelVideos = (channel_id, limit, offset) => {
     return $.ajax({
-        url: `/api/videos/index_partial/${channel_id}`,
+        url: `/api/videos/channel/${channel_id}`,
         data: {
             limit,
             offset
@@ -15,9 +15,8 @@ export const requestChannelVideos = (channel_id, limit, offset) => {
 }
 
 export const requestRecommendedVideos = video_id => {
-    //
     return $.ajax({
-        url: `/api/videos/index_recommended/${video_id}`,
+        url: `/api/videos/recommend/${video_id}`,
     })
 }
 

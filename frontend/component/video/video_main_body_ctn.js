@@ -12,8 +12,7 @@ const msp = state => ({
 const mdp = dispatch => ({
         createPost: post => dispatch(requestCreatePost(post)),
         deletePost: post_id => dispatch(requestDeletePost(post_id)),
-        fetchMorePosts: (video_id, offset, limit) => dispatch(requestSomePosts(video_id, offset, limit)),
-        fetchPosts: video_id => dispatch(requestPosts(video_id))
+        fetchPosts: (video_id, offset, limit) => dispatch(requestSomePosts(video_id, offset, limit))
 })
 
 export default connect(msp,mdp)(VideoMainBody);
