@@ -48,10 +48,12 @@ class RecommendedVideos extends React.Component{
             })
         }
 
+        const idxRecVidClass = `idx-rec-vid mgt-24 ${this.state.readMore ? "" : "show-more-inactive"}`;
+
         return (    
             <div className='idx-rec-vid-ctn' >
                 <div className="mgt-24" style={{fontWeight: 'bold'}}> Recommended </div>
-                <ul  className={`idx-rec-vid mgt-24 ${this.state.readMore ? "" : "show-more-inactive"}`}>
+                <ul  className={idxRecVidClass}>
                     {videos}
                 </ul>
                 {
@@ -65,23 +67,17 @@ class RecommendedVideos extends React.Component{
             </div>
         )
     }
-
-
 }
 
 
 
-const msp = state => {
-    return {
-        videos: sortByViews(Object.values(state.entities.videos)).slice(0, 18),
-    }
-}
+const msp = state => ({
+    videos: sortByViews(Object.values(state.entities.videos)).slice(0, 18),
+})
 
 
-const mdp = dispatch => {
-    return {
-        fetchRecommendedVideos: () => dispatch(fetchRecommendedVideos()),
-    }
-}
+const mdp = dispatch => ({
+    fetchRecommendedVideos: () => dispatch(fetchRecommendedVideos()),
+})
 
 export default withRouter(connect(msp, mdp)(RecommendedVideos));

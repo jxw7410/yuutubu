@@ -15,13 +15,8 @@ class VideoPlayer extends React.Component {
             fullScreen: false,
             userStream: 0,
             bufferStream: 0,
-            volumeValue: localStorage.getItem('volume') || 1,
-            volumeTrackLength: Math.floor(50 * (localStorage.getItem('volume') || 1)),
-            hoverBarLength: 0,
-            maxHoverBarLength: 0, //Needs to be fixed
             currentTime: 0,
             duration: 0,
-            stepper: 1,
             previousURL: "/",
             channelName: null,
             renderBtn: false,
@@ -32,16 +27,13 @@ class VideoPlayer extends React.Component {
         this.seeker = React.createRef();
         this.streamBar = React.createRef();
 
-        this.minDuration = null;
         this.viewUpdated = false;
-        this.startTime = 0;
         this.autoPlay = false;
-
+    
         /*  Handlers */
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
-        this.handleProgress = this.handleProgress.bind(this);
-        this.handleVolumeChange = this.handleVolumeChange.bind(this);
+        this.handleProgress = this.handleProgress.bind(this)
         this.handleSeeking = this.handleSeeking.bind(this);
         this.handlePlayStatus = this.handlePlayStatus.bind(this);
         this.handlePauseStatus = this.handlePauseStatus.bind(this);
@@ -50,7 +42,6 @@ class VideoPlayer extends React.Component {
         this.handlePause = this.handlePause.bind(this);
         this.handleReplay = this.handleReplay.bind(this);
         this.handleGoBack = this.handleGoBack.bind(this);
-        this.handleMute = this.handleMute.bind(this);
         this.handleLoadedData = this.handleLoadedData.bind(this);
         this.handleDBClick = this.handleDBClick.bind(this);
         this.handleCanPlay = this.handleCanPlay.bind(this);
@@ -59,14 +50,11 @@ class VideoPlayer extends React.Component {
         /* Other events */
         this.maximizeScreen = this.maximizeScreen.bind(this);
         this.normalScreen = this.normalScreen.bind(this);
-        this.hoverProgressBar = this.hoverProgressBar.bind(this);
-        this.leaveProgressBar = this.leaveProgressBar.bind(this);
         this.fullScreenChangeEvent = this.fullScreenChangeEvent.bind(this);
     }
 
     componentDidMount() {
         this.videoElement.current.muted = false;
-        this.minDuration = this.props.video.duration > 30 ? 30 : this.props.video.duration / 5;
         document.addEventListener('fullscreenchange', this.fullScreenChangeEvent)
     }
 
@@ -125,24 +113,6 @@ class VideoPlayer extends React.Component {
         this.props.history.push(this.state.previousURL);
     }
 
-    handleMute(e) {
-        e.stopPropagation();
-        if (this.videoElement.current.muted) {
-            const volume = localStorage.getItem('volume') || 1;
-            this.videoElement.current.muted = false;
-            this.setState({ volumeValue: volume, volumeTrackLength: Math.floor(50 * volume) })
-        } else if (parseFloat(this.state.volumeValue) === 0) {
-            this.videoElement.current.volume = 0.5;
-            localStorage.setItem('volume', 0.5);
-            this.setState({ volumeValue: 0.5, volumeTrackLength: 25 })
-        } else {
-            localStorage.setItem('volume', this.videoElement.current.volume)
-            this.videoElement.current.muted = true;
-            this.setState({ volumeValue: 0, volumeTrackLength: 0 })
-        }
-    }
-
-
     /* 
         This function is very perculiar reason being the buffer.end represents where the end of the buffer is.
         However because seeking can segment the buffer, the buffer end is subjected to changes such that the range
@@ -180,10 +150,10 @@ class VideoPlayer extends React.Component {
             this.setState({ duration: this.videoElement.current.duration })
         }
 
-        this.videoElement.current.volume = this.state.volumeValue;
+        this.videoElement.current.volume = localStorage.getItem('volume') || 1;
 
         if (this.state.videoStatus === LOAD){
-            this.setState({ videoStatus: null, stepper: 100 / this.videoElement.current.duration })
+            this.setState({ videoStatus: null})
         }
     }
 
@@ -207,7 +177,7 @@ class VideoPlayer extends React.Component {
     handleTimeUpdate(e) {
         e.preventDefault();
         if (!this.viewUpdated) {
-            if ((this.videoElement.current.currentTime - this.startTime) > this.startTime) {
+            if (this.videoElement.current.currentTime) {
                 this.viewUpdated = true;
                 updateView(this.props.video.id);
             }
@@ -236,19 +206,6 @@ class VideoPlayer extends React.Component {
         this.setState({ videoStatus: REPLAY });
     }
 
-
-    handleVolumeChange(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (this.videoElement.current.muted)
-            this.videoElement.current.muted = false
-
-        this.videoElement.current.volume = e.target.value;
-        localStorage.setItem('volume', this.videoElement.current.volume);
-        this.setState({ volumeValue: e.target.value, volumeTrackLength: 50 * e.target.value })
-    }
-
     handleReplay(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -272,14 +229,6 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    renderFadingStatus() {
-        return new Promise(resolve => {
-            this.setState({ renderBtn: true })
-            resolve();
-        }).then(() => {
-            setTimeout(() => this.setState({ renderBtn: false }))
-        });
-    }
 
     handlePause(e) {
         e.stopPropagation();
@@ -299,22 +248,17 @@ class VideoPlayer extends React.Component {
         this.setState({ videoStatus: PAUSE });
     }
 
-    hoverProgressBar(e) {
-        let { x, width } = e.currentTarget.getBoundingClientRect();
 
-        if (width !== this.state.maxHoverBarLength)
-            this.setState({
-                hoverBarLength: e.clientX - x,
-                maxHoverBarLength: width
-            });
-        else
-            this.setState({ hoverBarLength: e.clientX - x });
-
+    handleCanPlay(e) {
+        if (this.state.videoStatus !== PAUSE) {
+            this.setState({ videoStatus: PLAY })
+            e.target.play()
+        }
     }
 
-    leaveProgressBar(e) {
-        e.preventDefault();
-        this.setState({ hoverBarLength: 0 })
+    handleWaiting(e) {
+        if (this.videoStatus !== LOAD)
+            this.setState({ videoStatus: LOAD })
     }
 
     renderPlayStatusButtons() {
@@ -367,17 +311,6 @@ class VideoPlayer extends React.Component {
     }
 
 
-    handleCanPlay(e) {
-        if(this.state.videoStatus !== PAUSE){
-            this.setState({ videoStatus: PLAY })   
-            e.target.play()
-        }
-    }
-
-    handleWaiting(e){
-        this.setState({videoStatus: LOAD})
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -387,7 +320,7 @@ class VideoPlayer extends React.Component {
                     className={'vid-player-hook' + (this.state.fullScreen ? " vph-full" : "")}
                 >
 
-                    {this.state.videoStatus === REPLAY ? <div className='vid-dark-scn max-w-h' /> : null}
+                    {this.state.videoStatus === REPLAY || this.state.videoStatus === PAUSE ? <div className='vid-dark-scn max-w-h' /> : null}
                     {this.state.videoStatus === LOAD ? <div className='vid-ldr max-w-h flexh-1'><div className='spinner' /></div> : null}
                     
                     {/* The t=? is to force a non cache video, browser caches videos by default.*/}
@@ -407,7 +340,7 @@ class VideoPlayer extends React.Component {
                         <source src={this.props.video.videoUrl + `t=?${new Date()}`} type="video/mp4" />
                     </video>
 
-                    <div className={`max-w-h flexv-10 vid-ctrl ${this.state.videoStatus === PLAY ? 'vc-play' : ""}`} >
+                    <div  className={`max-w-h flexv-10 vid-ctrl ${this.state.videoStatus === PLAY ? 'vc-play' : ""}`} >
                         {
                             this.props.videoPlayer.type === MINI ?
                                 <MiniControlUI
@@ -423,31 +356,21 @@ class VideoPlayer extends React.Component {
                             streamBar={this.streamBar}
                             userStream={this.state.userStream}
                             bufferStream={this.state.bufferStream}
-                            handleSeeking={this.handleSeeking}
-                            hoverProgressBar={this.hoverProgressBar}
-                            leaveProgressBar={this.leaveProgressBar}
-                            videoElement={this.videoElement.current}
-                            currentTime={this.state.currentTime}
-                            hoverBarLength={this.state.hoverBarLength}
-                            maxHoverBarLength={this.state.maxHoverBarLength}
-                            duration={this.state.duration}
-                            stepper={this.state.stepper} />
+                            handleSeeking={this.handleSeeking} />
 
 
                         {
                             this.props.videoPlayer.type === MINI ? null :
                                 <DefaultControlUI
+                                    videoElement={this.videoElement.current}
                                     playButton={this.renderPlayStatusButtons()}
-                                    volumeValue={this.state.volumeValue}
-                                    volumeTrackLength={this.state.volumeTrackLength}
-                                    handleVolumeChange={this.handleVolumeChange}
-                                    handleMiniScreen={this.handleMiniScreen}
                                     isFullScreen={this.state.fullScreen}
                                     normalScreen={this.normalScreen}
+                                    handleMiniScreen={this.handleMiniScreen}
                                     maximizeScreen={this.maximizeScreen}
                                     currentTime={this.state.currentTime}
                                     duration={this.state.duration}
-                                    handleMute={this.handleMute} />
+                                    />
                         }
 
                     </div>

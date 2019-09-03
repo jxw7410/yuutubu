@@ -1,7 +1,6 @@
 class Api::UsersController < ApplicationController
     def create
         @user = User.new(user_params)
-        @user.email.downcase! if @user.email
         if @user.save
             login(@user)
             @channel = UserChannel.create(name: @user.username, user: @user)

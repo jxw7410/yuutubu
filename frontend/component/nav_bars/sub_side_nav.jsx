@@ -10,6 +10,8 @@ const SubSideNav = props => {
         props.history.push('/')
     }
 
+    const listClass = props.location.pathname === '/' ? 'ssi-select' : "";
+
     return (
         <div className='ssn-ctn'>
             <nav id='ssn'>
@@ -18,7 +20,7 @@ const SubSideNav = props => {
                         <li
                             onClick={toHomeEvent}
                             id='Home'
-                            className={props.location.pathname === '/' ? 'ssi-select' : ""}>
+                            className={listClass}>
                             <i className="fas fa-home" />
                             <span>Home</span>
                         </li>

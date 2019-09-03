@@ -2,7 +2,7 @@ class Api::VideoPostsController < ApplicationController
     before_action :ensure_login, only: [:create, :destroy]
     
     def index
-        @posts = VideoPost.all.where(video_id: params[:video_id])
+        @posts = VideoPost.where(video_id: params[:video_id])
             .includes(:user)
             .limit(6)
             .order("created_at DESC")
@@ -15,7 +15,7 @@ class Api::VideoPostsController < ApplicationController
     end
 
     def index_partial
-        @posts = VideoPost.all.where(video_id: params[:video_id])
+        @posts = VideoPost.where(video_id: params[:video_id])
             .includes(:user)
             .limit(params[:limit])
             .offset(params[:offset])

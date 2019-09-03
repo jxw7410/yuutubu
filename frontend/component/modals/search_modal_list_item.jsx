@@ -1,57 +1,46 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter} from 'react-router-dom'
 
 
-//Change this to a React Hook
-class SearchModalListItem extends React.Component {
+const SearchModalListItem = props => {
+    let mouseEnter = false; 
 
-    constructor(props) {
-        super(props)
-
-        this.mouseEnter = false;
-        this.onMouseEnter = this.onMouseEnter.bind(this);
-        this.onMouseLeave = this.onMouseLeave.bind(this);
-        this.handleOnClick = this.handleOnClick.bind(this);
-    }
-
-
-    componentDidUpdate() {
-        if ((this.props._class === 'sbsd_d' || this.props._class === 'sbsd_d history') && !this.mouseEnter) {
-            this.props.updateText(this.props.initialString + this.props.remenantString);
+    // Functions like componentDidUpdate
+    // This is to update the text color for history matching
+    useEffect(()=> {
+        if( props._class.includes('sbsd_d') && !mouseEnter) {
+            props.updateText(props.initialString + props.remenantString)
         }
+    })
+
+    const onMouseLeave = e => {
+        e.preventDefault()
+        mouseEnter = false;
+        props.updateIndex(null)
     }
 
-    onMouseLeave(e) {
+    const onMouseEnter = e => {
         e.preventDefault();
-        this.mouseEnter = false;
-        this.props.updateIndex(null)
+        mouseEnter = true;
+        props.updateIndex(props.index)
     }
 
-    onMouseEnter(e) {
-        e.preventDefault();
-        this.mouseEnter = true;
-        this.props.updateIndex(this.props.index);
-    }
-
-    handleOnClick(e) {
+    const handleOnClick = e => {
         e.stopPropagation();
-        this.props.closeModal();
-        this.props.history.push(`/search/${this.props.initialString + this.props.remenantString}`)
+        props.closeModal();
+        props.history.push(`/search/${props.initialString + props.remenantString}`)
     }
 
-    render() {
-        return (
-            <li className={this.props._class}
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
-                onClick={this.handleOnClick}>
-                    
-                <span>{this.props.initialString}</span>
-                <span>{this.props.remenantString}</span>
-            </li>
-        )
-    }
+    return (
+        <li className={props._class}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            onClick={handleOnClick}>
+
+            <span>{props.initialString}</span>
+            <span>{props.remenantString}</span>
+        </li>
+    )
 }
-
 
 export default withRouter(SearchModalListItem);

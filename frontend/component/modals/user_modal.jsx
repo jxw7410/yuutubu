@@ -3,6 +3,7 @@ import UserModelItem from './user_modal_item';
 import { connect } from 'react-redux';
 
 
+// React Hook
 class UserModal extends React.Component{
     constructor(props){
         super(props)
@@ -19,8 +20,6 @@ class UserModal extends React.Component{
         const isToggled = this.state.isToggled ? false : true;
         this.setState({ isToggled})
     }
-
-
 
     render(){
         return(

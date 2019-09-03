@@ -5,6 +5,12 @@ import { AuthLogo } from './utils';
 
 
 const LoginForm = (props) => {
+    const emailStyle = {
+        padding: "3px 8px",
+        border: "1px solid rgb(192, 194, 197)",
+        borderRadius: "12px"
+    }
+
     return (
         <div className='flexh-1 max-w-h'>
             <div className='login-ctn flexv-8'>
@@ -13,11 +19,7 @@ const LoginForm = (props) => {
                     props.email ?
                         <React.Fragment>
                             <h2>Welcome</h2>
-                            <h3 style={{
-                                padding: "3px 8px",
-                                border: "1px solid rgb(192, 194, 197)",
-                                borderRadius: "12px"
-                            }}>{props.email}</h3>
+                            <h3 style={emailStyle}>{props.email}</h3>
                         </React.Fragment> :
                         <React.Fragment>
                             <h2 style={{fontSize: '30px'}}>Sign In</h2>

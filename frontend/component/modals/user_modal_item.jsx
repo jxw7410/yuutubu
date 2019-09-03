@@ -1,7 +1,7 @@
 import React from 'react';
-import {withRouter, Redirect, Switch } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
-
+// Todo: React Hook
 class UserModalItem extends React.Component {
     constructor(props) {
         super(props);
@@ -58,14 +58,14 @@ class UserModalItem extends React.Component {
                     <ul id='um-sec-1-ul'>
                         <li onClick={this.redirectEvent}>
                             <div className='flexh-1'>
-                                <i className="fas fa-user" />
+                                <i className="fas fa-user"/>
                             </div>
                             <div className='flexh-3'>Your Channel</div>
                         </li>
 
                         <li onClick={this.props.logOut}>
                             <div className='flexh-1'>
-                                <i className="fas fa-sign-out-alt" />
+                                <i className="fas fa-sign-out-alt"/>
                             </div>
                             <div className='flexh-3'>Sign Out</div>
                         </li>

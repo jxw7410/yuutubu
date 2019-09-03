@@ -46,8 +46,10 @@ class Channel extends React.Component {
     }
 
     render() {
+        const mainCtnClass = `max-w-h ch-mn-ctnt-grid ${this.props.navBar.toggled ? "cmcg-tgl" : ""}`;
+        
         return (
-            <div className={`max-w-h ch-mn-ctnt-grid ${this.props.navBar.toggled ? "cmcg-tgl" : ""}`}>
+            <div className={mainCtnClass}>
                 <div className='ch-mn-ctnt'>
                     <div className="ch-mn-ctnt-wrap">
                         <ChannelHeader

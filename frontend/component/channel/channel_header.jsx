@@ -31,6 +31,10 @@ class ChannelHeader extends React.Component {
     }
 
     render() {
+        const chHdrNavClass = `ch-hdr-nav${this.state.navBarFixed ? ' chhn-fixed' : ""}${this.props.toggledSideNav ? ' chhn-tgl' : ""}`;
+        const activeOne = `flexh-3 ch_tb${this.props.active_tab === 1 ? ' ch_tb_active' : ""}`;
+        const activeTwo = `flexh-3 ch_tb${this.props.active_tab === 2 ? ' ch_tb_active' : ""}`;
+
         return (
             <React.Fragment>
                 <div className='ch-hdr flexv-1'>
@@ -45,9 +49,7 @@ class ChannelHeader extends React.Component {
                         <div className='flexh-1'>
                             {
                                 this.props.channel.user_id !== parseInt(this.props.userId) ?
-                                    <SubscribeButton
-                                        channel = {this.props.channel}
-                                    />
+                                    <SubscribeButton channel = {this.props.channel} />
                                     : null
                             }
                         </div>
@@ -55,19 +57,19 @@ class ChannelHeader extends React.Component {
                 </div>
 
 
-                <div className={`ch-hdr-nav${this.state.navBarFixed ? ' chhn-fixed' : ""}${this.props.toggledSideNav ? ' chhn-tgl' : ""}`}>
+                <div className={chHdrNavClass}>
                     <div className='flexh-1'>
                         <div className='chhw-wrap'>
                             <ul className='flexh-3' style={{width: 'inherit'}}>
                                 <li
                                     onClick={this.props.redirectEvent(null, 1)}
-                                    className={`flexh-3 ch_tb${this.props.active_tab === 1 ? ' ch_tb_active' : ""}`}>
+                                    className={activeOne}>
                                     HOME
                                 </li>
 
                                 <li
                                     onClick={this.props.redirectEvent('/videos', 2)}
-                                    className={`flexh-3 ch_tb${this.props.active_tab === 2 ? ' ch_tb_active' : ""}`}>
+                                    className={activeTwo}>
                                     VIDEOS
                                 </li>
                             </ul>

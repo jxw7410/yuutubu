@@ -39,10 +39,15 @@ export const AuthInputWidget = React.forwardRef((props, ref) => {
 
     const newText = text.split(" ").map( word => capitalize(word) ).join(" ");
 
+    const topSpanClass = `${styleClass.label}  ${state.focus ? otherClass.label : ""}`;
+    const topSpanStyle = { color: (errors.length && state.focus) ? "red" : null };
+    const inputClass = `${styleClass.input} ${errors.length ? otherClass.input : ""}`
+    const errorStyle = { paddingTop: '5px', color: errors.length ? 'red' : null }
+
     return (
         <label style={{ position: 'relative' }} className='flexv-4'>
-            <span className={`${styleClass.label}  ${state.focus ? otherClass.label : ""}`}
-                style={{ color: (errors.length && state.focus) ? "red" : null }}>
+            <span className={topSpanClass}
+                style={topSpanStyle}>
                 {newText}
             </span>
 
@@ -50,13 +55,12 @@ export const AuthInputWidget = React.forwardRef((props, ref) => {
                 ref={ref}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className={`${styleClass.input} ${errors.length ? otherClass.input : ""}`}
+                className={inputClass}
                 onChange={textChange}
                 type={type}
-            >
-            </input>
+            />
 
-            <span style={{ paddingTop: '5px', color: errors.length ? 'red' : null }}>
+            <span style={errorStyle}>
                 {errors}
             </span>
         </label>
@@ -68,7 +72,7 @@ export const AuthLogo = () => {
     return (
         <span className='flexh-3'>
             <i className="fab fa-youtube" />
-            <h1 style={{ fontSize: '25px' }}>{"YuuTubu"}</h1>
+            <h1 style={{ fontSize: '25px' }}>YuuTubu</h1>
         </span>
     )
 }

@@ -67,8 +67,10 @@ class ChannelIndex extends React.Component {
                 return (<ChannelIndexItem key={index} channel={channel} />)
         });
 
+        const mainCtnClass = `max-w-h main-ctnt-ctn ${this.props.navBar.toggled ? "mn-cc-tgl" : ""}`
+
         return (
-            <div className={`max-w-h main-ctnt-ctn ${this.props.navBar.toggled ? "mn-cc-tgl" : ""}`}>
+            <div className={mainCtnClass}>
                 <div className='main-ctnt' ref={this.mainContent}>
                     <div className='flexv-1'>
                         <RecommendedVideos />

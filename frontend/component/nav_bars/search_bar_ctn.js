@@ -12,15 +12,13 @@ const msp = state => {
         isLogin: Boolean(state.session.id), 
         searches: filterSearchModalResults(historyArray, Object.values(state.entities.searches))
     }
-}
+};
 
 
-const mdp = dispatch => {
-    return {
+const mdp = dispatch => ({
         requestSearchQueries: text => dispatch(requestSearchQueries(text)),
         openModal: type => dispatch(openModal(type)),
-    }
-}
+});
 
 
 

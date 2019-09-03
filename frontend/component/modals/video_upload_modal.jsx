@@ -1,42 +1,35 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { closeModal } from '../../actions/modal/modal_action';
 import {withRouter} from 'react-router-dom';
 
 
-class VideoUploadModal extends React.Component{
-    constructor(props){
-        super(props);
-        this.redirect = this.redirect.bind(this);
-    }
+const VideoUploadModal = props => {
 
-    redirect(url){
+    // ComponentWillUnmount
+    useEffect( ()=>{
+        return () => props.closeModal();
+    }, [])
+
+    const redirect = url => {
         return e => {
-            this.props.closeModal();
-            this.props.history.push(url)
+            props.closeModal();
+            props.history.push(url)
         }
     }
 
-
-    componentWillUnmount(){
-        this.props.closeModal();
-    }
-
-
-    render(){
-        return (
-            <ul className='video-upload-modal box-shad-s1'>
-                <li className='flexh-1'
-                    style={{height: '40px'}}
-                    onClick={this.redirect('/upload')}>
-                    Upload Video
+    return (
+        <ul className='video-upload-modal box-shad-s1'>
+            <li className='flexh-1'
+                style={{ height: '40px' }}
+                onClick={redirect('/upload')}>
+                Upload Video
                 </li>
-            </ul>
-        )
-    }
+        </ul>
+    )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
         formType: 'upload_vid',
 });
 

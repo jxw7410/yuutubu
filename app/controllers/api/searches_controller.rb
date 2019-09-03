@@ -10,7 +10,7 @@ class Api::SearchesController < ApplicationController
                 .limit(limit)
                 .order(updated_at: :desc)
             
-            if @histories.length > 0
+            if !@histories.empty?
                     render :index_history_title
             else  
                     render json: {}, status: 200
@@ -29,11 +29,12 @@ class Api::SearchesController < ApplicationController
                     .limit(limit)
             end
             
-            @videos = Video.joins(:channel).where("lower(title) LIKE ? or lower(user_channels.name) LIKE ?", "#{params[:query].downcase}%", "#{params[:query].downcase}%")
+            @videos = Video.joins(:channel)
+                .where("lower(title) LIKE ? or lower(user_channels.name) LIKE ?", "#{params[:query].downcase}%", "#{params[:query].downcase}%")
                 .limit(limit)
                 .select(:id, :title, :name)
            
-            if @videos.length > 0 || @histories.length > 0
+            if !@videos.empty? || !@histories.empty?
                 render :index_history_title
             else  
                 render json: {}, status: 200

@@ -15,9 +15,6 @@ function Modal({ modal, closeModal }) {
         case 'upload_vid':
             component = <VideoUploadModal />
             break;
-        case 'search':
-            component = <SearchModal />
-            break;
         case 'unsubscribe':
             component = null;
             break;

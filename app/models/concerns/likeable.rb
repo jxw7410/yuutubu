@@ -1,3 +1,6 @@
+# This concerns extends the functionality 
+# of classes that are associated with the polymorphic table
+
 module Likeable
     extend ActiveSupport::Concern
 

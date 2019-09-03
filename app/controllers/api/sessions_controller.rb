@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
     end
 
     def create
-        @user = User.find_by_credentials(params[:user][:email].downcase,
+        @user = User.find_by_credentials(params[:user][:email],
             params[:user][:password])
             
         if @user 
@@ -22,7 +22,7 @@ class Api::SessionsController < ApplicationController
     end
    
     def destroy
-        if  login? 
+        if login? 
             logout
             render json: {}
         else

@@ -3,6 +3,7 @@ import SearchModal from '../modals/search_modal';
 import { withRouter } from 'react-router-dom';
 import { filterByWords } from '../../util/selectors'
 
+// Todo: React Hook
 class SearchBar extends React.Component {
     constructor(props) {
         super(props)
@@ -65,21 +66,8 @@ class SearchBar extends React.Component {
     }
 
     handleChange(e) {
-        e.preventDefault();
         this.setState({ inputText: e.target.value, sliceLength: e.target.value.length, selected: null })
-        if (!this.state.fetching) {
-            this.setState({ fetching: true })
-            setTimeout(() => {
-                this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
-                    this.length = filterByWords(this.state.inputText, this.props.searches).length - 1;
-                    this.setState({ fetching: false, openModal: true, selected: null });
-                }
-                ).fail(
-                    () => {
-                        this.setState({ fetching: false, openModal: false, selected: null })
-                    });
-            }, 10);
-        }
+        this.handleFocus(e)
     }
 
 
@@ -127,7 +115,7 @@ class SearchBar extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.closeModal();
-        if (this.state.inputText.length > 0) {
+        if (this.state.inputText.length) {
             this.props.history.push(`/search/${this.state.inputText}`)
         }
     }
@@ -168,5 +156,6 @@ class SearchBar extends React.Component {
         )
     }
 }
+
 
 export default withRouter(SearchBar);

@@ -57,10 +57,13 @@ class AllVideos extends React.Component{
 
 
     render(){
+        const cvcNavClass = `flexh-3 cvc-nav ${this.props.toggledSideNav ? "" : "cvc-nav-tgl"}`;
+        const usrAvListClass = `usr-av-lst  ${this.props.toggledSideNav ? "" : "uav-lst-tgl"}`;
+
         return(
             <div className='flexv-3 cvc-lower'>
-                <div className={`flexh-3 cvc-nav ${this.props.toggledSideNav ? "" : "cvc-nav-tgl"}`}> Uploads </div>
-                    <ul className={`usr-av-lst  ${this.props.toggledSideNav ? "" : "uav-lst-tgl"}`}>
+                <div className={cvcNavClass}> Uploads </div>
+                    <ul className={usrAvListClass}>
                         { this.getThumbnails() }
                     </ul>
             </div>

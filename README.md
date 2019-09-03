@@ -6,7 +6,6 @@
 # Technologies
 * Yuutubu is build using Ruby on Rails and PostgreSQL for the backend, while React JS / Redux is used on the front end.
 * Video data are hosted on Amazon Webservices (AWS)
-* Comparatively, the real Youtube uses Angular JS, and their own servers.
 
 # Features
 

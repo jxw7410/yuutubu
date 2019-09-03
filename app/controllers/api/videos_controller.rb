@@ -52,6 +52,8 @@ class Api::VideosController < ApplicationController
     def create
         channel = current_user.user_channels.first
 
+
+        #Make a transaction
         @video = Video.create(
             user_id: current_user.id, 
             title: video_params[:title],
@@ -119,7 +121,7 @@ class Api::VideosController < ApplicationController
 
     def recommended_video_query(video_id)
         # remove_for_production
-        limit = 12;
+        limit = 1;
         if video_id
             videos = login? ? Video.where.not(id: video_id, user_id: current_user.id)
                 .limit(limit)

@@ -1,21 +1,18 @@
 class Api::SubscriptionsController < ApplicationController
     before_action :ensure_login
+    
     def index
-        if login? 
-            @subscriptions = Subscription.where(subscriber_id: current_user.id).includes(:channel)
-            if @subscriptions.length > 0 
-                render :index
-            else
-                render json: {}, status: 200
-            end
-        else 
+        @subscriptions = Subscription.where(subscriber_id: current_user.id).includes(:channel)
+        if !@subscriptions.empty?
+            render :index
+        else
             render json: {}, status: 200
         end
     end
 
     def create 
         @subscription = Subscription.create(subscriber_id: current_user.id, channel_id: params[:channel_id])
-        if @subscription.valid?
+        if @subscription
             @channel = UserChannel.where(id: params[:channel_id]).includes(:subscriptions).first
             render :show
         else 
