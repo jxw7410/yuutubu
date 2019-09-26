@@ -1,43 +1,43 @@
 class Api::UserChannelsController < ApplicationController
-    def index 
-        # if params[:user_id] is given, and is not an empty string
-        if params[:user_id] && !params[:user_id].empty?
-            @channels = UserChannel.where
-                .not(user_id: params[:user_id])
-                .limit(params[:limit])
-                .offset(params[:offset])
-                .includes(:videos)
-                .includes(:subscriptions)
-        else
-            @channels = UserChannel.all
-                .offset(params[:offset])
-                .includes(:videos)
-                .includes(:subscriptions)
-        end
-
-
-        unless @channels.empty?
-            @current_user = current_user
-            render :index
-        else 
-            render json: ["Channels not found."], status: 404
-        end
+  def index
+    # if params[:user_id] is given, and is not an empty string
+    # Fix this remove user_id from params from FE and BE
+    if current_user.id
+      @channels = UserChannel.where
+        .not(user_id: params[:user_id])
+        .limit(params[:limit])
+        .offset(params[:offset])
+        .includes(:videos)
+        .includes(:subscriptions)
+    else
+      @channels = UserChannel.all
+        .offset(params[:offset])
+        .includes(:videos)
+        .includes(:subscriptions)
     end
 
-    def show
-        @channel = UserChannel.includes(:subscriptions).find(params[:id])
-
-        if @channel 
-            @current_user = current_user
-            render :show
-        else 
-            render json: ['Channel does not exist.'], status: 422 
-        end
+    unless @channels.empty?
+      @current_user = current_user
+      render :index
+    else
+      render json: ["Channels not found."], status: 404
     end
+  end
 
-    private
-    def user_channel_params   
-        params.require(:user_channel).permit( :name, :user_id )
+  def show
+    @channel = UserChannel.includes(:subscriptions).find(params[:id])
+
+    if @channel
+      @current_user = current_user
+      render :show
+    else
+      render json: ["Channel does not exist."], status: 422
     end
+  end
+
+  private
+
+  def user_channel_params
+    params.require(:user_channel).permit(:name, :user_id)
+  end
 end
-

@@ -1,0 +1,39 @@
+version: "2"
+
+
+volumes:
+  db-data:
+    external: false
+  node_modules:
+
+
+services:
+  db:
+    image: postgres:12
+    volumes: 
+      - db-data:/user/local/psql/data
+    environment:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+  
+  frontend:
+    build: .
+    command: npm start
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    ports: 
+      - "8080:8080"
+  
+  web:
+    depends_on:
+      - 'db'
+    build: .
+    command: puma -C config/puma.rb
+    volumes: 
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    env_file: '.env'
+
+  

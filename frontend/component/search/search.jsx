@@ -39,7 +39,7 @@ class Search extends React.Component {
             this.props.updateSearchHistory(this.props.match.params).then(
                 this.props.requestSearchVideos(this.props.match.params, this.limit, 0).then(() => {
                     this.offset += 10;
-                    this.scrollPercentage = (this.offset - 6.9) / this.offset;
+                    this.scrollPercentage = (this.offset - 6) / this.offset;
                 })
             )
         }
@@ -78,6 +78,15 @@ class Search extends React.Component {
         }
     }
 
+
+    styles() {
+        return {
+            divOne: `max-w-h main-ctnt-ctn ${this.props.sideNav.toggled ? "mn-cc-tgl" : ""}`,
+            divTwo: 'flexh-2 src-vid-lst-ctn',
+            ulOne: 'flexv-4 src-vid-lst'
+        }
+    }
+
     render() {
         const videos = this.props.videos.map(video => 
                 <VideoThumbnail
@@ -88,10 +97,12 @@ class Search extends React.Component {
                 />
             )
 
+        const styles = this.styles();
+
         return (
-            <div className={`max-w-h main-ctnt-ctn ${this.props.sideNav.toggled ? "mn-cc-tgl" : ""}`}>
-                <div className='flexh-2 src-vid-lst-ctn' ref={this.searchVideoListCtn}>
-                    <ul className='flexv-4 src-vid-lst'>
+            <div className={styles.divOne}>
+                <div className={styles.divTwo} ref={this.searchVideoListCtn}>
+                    <ul className={styles.ulOne}>
                         {videos}
                     </ul>
                 </div>

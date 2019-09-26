@@ -15,10 +15,10 @@
 # which has a polymorphic field, in this case likeable.
 # Look at likable concern for the other part.
 class Like < ApplicationRecord
-    validates :user_id, :likeable_id, :likeable_type, presence: true
-    validates :user_id, uniqueness: {scope: [:likeable]}
-    validates :is_liked, inclusion: {in: [true, false]} 
+  validates :user_id, :likeable_id, :likeable_type, presence: true
+  validates :user_id, uniqueness: { scope: [:likeable] }
+  validates :is_liked, inclusion: { in: [true, false] }
 
-    belongs_to :user
-    belongs_to :likeable, polymorphic: true
+  belongs_to :user
+  belongs_to :likeable, polymorphic: true
 end

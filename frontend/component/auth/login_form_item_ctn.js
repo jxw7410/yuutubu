@@ -7,19 +7,19 @@ import LoginFormItem from './login_form_item';
 
 
 const msp = state => ({
-    email: state.session.email,
-    errors: state.errors
+  email: state.session.email,
+  errors: state.errors
 })
 
 
 const mdp = dispatch => ({
-    login: user => dispatch(login(user)),
-    fetchEmail: email => dispatch(fetchEmail(email)),
-    raiseEmailError: () => dispatch(raiseEmailError()),
-    defaultAction: () => dispatch(defaultAction()),
-    clearEmail: () => dispatch(clearEmail()),
-    removeNavBars: () => dispatch(removeNavBars()),
-    removeVideoPlayer: () => dispatch(removeVideoPlayer())
+  login: user => dispatch(login(user)),
+  fetchEmail: email => dispatch(fetchEmail(email)),
+  raiseEmailError: () => dispatch(raiseEmailError()),
+  defaultAction: () => dispatch(defaultAction()),
+  clearEmail: () => dispatch(clearEmail()),
+  removeNavBars: () => dispatch(removeNavBars()),
+  removeVideoPlayer: () => dispatch(removeVideoPlayer())
 })
 
 

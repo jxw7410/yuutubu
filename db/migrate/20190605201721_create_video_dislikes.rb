@@ -7,7 +7,7 @@ class CreateVideoDislikes < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-      add_index :video_dislikes, :user_id
-      add_index :video_dislikes, :video_id
+    add_index :video_dislikes, :user_id
+    add_index :video_dislikes, :video_id
   end
 end
