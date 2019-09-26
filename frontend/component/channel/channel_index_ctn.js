@@ -14,7 +14,7 @@ const msp = state => ({
 
 
 const mdp = dispatch => ({
-  fetchChannels: (offset, num, user_id) => dispatch(fetchChannels(offset, num, user_id)),
+  fetchChannels: (offset, num) => dispatch(fetchChannels(offset, num)),
   clearChannels: () => dispatch(clearChannels()),
   sideBarOne: () => dispatch(sideBarOne()),
   removeVideoPlayer: () => dispatch(removeVideoPlayer()),

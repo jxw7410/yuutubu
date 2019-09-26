@@ -5,10 +5,8 @@ const videoPostReducer = (state = {}, action) => {
   Object.freeze(state)
   switch (action.type) {
     case RECEIVE_POST:
-      //
       return merge({}, state, action.post);
     case RECEIVE_SOME_POSTS:
-      //
       return merge({}, state, action.response.posts)
     case RECEIVE_POSTS:
       return action.response.posts || {};

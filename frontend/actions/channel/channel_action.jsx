@@ -25,8 +25,8 @@ export const fetchChannel = channel_id => dispatch => {
     .then(channel => dispatch(receiveChannel(channel)));
 };
 
-export const fetchChannels = (offset, limit, user_id) => dispatch => {
-  return ChannelAPI.requestChannels(offset, limit, user_id)
+export const fetchChannels = (offset, limit) => dispatch => {
+  return ChannelAPI.requestChannels(offset, limit)
     .then(channels => dispatch(receiveChannels(channels)));
 }
 

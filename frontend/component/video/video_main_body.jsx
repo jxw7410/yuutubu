@@ -27,7 +27,7 @@ class VideoMainBody extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPosts(this.props.video.id, this.props.offset, 6).then(() => {
+    this.props.fetchInitPosts(this.props.video.id).then(() => {
       document.addEventListener('scroll', this.handleScroll);
       this.scrollHook = document.getElementById('video-main');
     })
@@ -93,7 +93,6 @@ class VideoMainBody extends React.Component {
     e.preventDefault();
     if (this.state.postBody.length) {
       const post = {
-        user_id: this.props.currentUser.id,
         video_id: this.props.video.id,
         description: this.state.postBody.trim()
       }

@@ -4,7 +4,7 @@ class Api::UserChannelsController < ApplicationController
     # Fix this remove user_id from params from FE and BE
     if current_user.id
       @channels = UserChannel.where
-        .not(user_id: params[:user_id])
+        .not(user_id: current_user.id)
         .limit(params[:limit])
         .offset(params[:offset])
         .includes(:videos)
@@ -38,6 +38,6 @@ class Api::UserChannelsController < ApplicationController
   private
 
   def user_channel_params
-    params.require(:user_channel).permit(:name, :user_id)
+    params.require(:user_channel).permit(:name)
   end
 end

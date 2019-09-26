@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { requestCreatePost, requestDeletePost, requestPosts, requestSomePosts } from '../../actions/video_post/video_posts_action';
+import { requestCreatePost, requestDeletePost, requestSomePosts, requestPosts } from '../../actions/video_post/video_posts_action';
 import VideoMainBody from './video_main_body';
 
 const msp = state => ({
@@ -12,6 +12,7 @@ const msp = state => ({
 const mdp = dispatch => ({
   createPost: post => dispatch(requestCreatePost(post)),
   deletePost: post_id => dispatch(requestDeletePost(post_id)),
+  fetchInitPosts: video_id => dispatch(requestPosts(video_id)),
   fetchPosts: (video_id, offset, limit) => dispatch(requestSomePosts(video_id, offset, limit))
 })
 

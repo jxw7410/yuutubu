@@ -7,8 +7,6 @@ export const RECEIVE_SOME_POSTS = 'RECEIVE_SOME_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 
 
-
-
 const receiveDeletePost = post => {
   return {
     type: RECEIVE_DELETE_POST,

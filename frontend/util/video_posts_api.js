@@ -1,7 +1,6 @@
 export const requestVideoPosts = video_id => {
   return $.ajax({
-    url: '/api/video_posts',
-    data: { video_id }
+    url: `/api/videos/${video_id}/video_posts`,
   })
 }
 

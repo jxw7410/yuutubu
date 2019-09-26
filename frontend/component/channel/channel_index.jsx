@@ -23,7 +23,7 @@ class ChannelIndex extends React.Component {
     if (this.props.videoPlayer.type !== MINI)
       this.props.removeVideoPlayer();
 
-    this.props.fetchChannels(this.offset, 4, this.props.user_id)
+    this.props.fetchChannels(this.offset, 4)
       .then(() => {
         this.offset += 4;
       })
@@ -45,7 +45,7 @@ class ChannelIndex extends React.Component {
       let scrollHeight = this.mainContent.current.scrollHeight;
       if (document.querySelector('html').scrollTop > (scrollHeight * this.scrollPercentage)) {
         this.fetching = true;
-        this.props.fetchChannels(this.offset, 3, this.props.user_id)
+        this.props.fetchChannels(this.offset, 3)
           .then(() => {
             this.offset += 3;
             let refactorPercentage = (this.defaultPercentage * this.scrollHeightOffset) / scrollHeight;
