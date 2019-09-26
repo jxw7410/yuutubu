@@ -5,11 +5,11 @@ import App from './component/app';
 
 
 const Root = ({ store }) => (
-    <Provider store={store}>
-        <HashRouter>
-            <App />
-        </HashRouter>
-    </Provider>
+  <Provider store={store}>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </Provider>
 );
 
 export default Root;

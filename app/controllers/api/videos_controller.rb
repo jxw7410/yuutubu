@@ -26,7 +26,6 @@ class Api::VideosController < ApplicationController
       params[:id],
       login? ? current_user.id : nil
     )
-
     if @videos
       render :index
     else
@@ -42,7 +41,7 @@ class Api::VideosController < ApplicationController
     # Not using user channel since I want to eager load user_channel as well
     user = User.includes(:user_channels).find_by_session_token(session[:session_token])
     begin
-      # create video is a transaction, so if it fails, it will raise an error. And a rollback would occur
+      # create video is a transaction, so if it fails, it will raise an error, and a rollback would occur
       Video.create_video(user, video_params)
     rescue
       DirectUpload.destroy_blobs(video_params[:video_id], video_params[:thumbnail_id])
@@ -61,7 +60,6 @@ class Api::VideosController < ApplicationController
       else
         @like_dislike = nil
       end
-
       render :show
     else
       render json: ["Video is unavailable"], status: 422

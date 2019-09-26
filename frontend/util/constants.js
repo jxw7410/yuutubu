@@ -2,7 +2,7 @@
 
 export const PLAY = 'PLAY';
 export const PAUSE = 'PAUSE';
-export const REPLAY ='REPLAY';
+export const REPLAY = 'REPLAY';
 export const LOAD = 'LOAD';
 
 //Constants to be used for video type

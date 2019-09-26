@@ -6,18 +6,18 @@ export const TOGGLE_SIDE_BAR = 'TOGGLE_SIDE_BAR';
 
 
 export const sideBarOne = () => ({
-    type: SIDE_BAR_ONE
+  type: SIDE_BAR_ONE
 });
 
-export const sideBarTwo = () =>({
-    type: SIDE_BAR_TWO
+export const sideBarTwo = () => ({
+  type: SIDE_BAR_TWO
 });
 
 export const removeNavBars = () => ({
-    type: REMOVE_NAV_BARS
+  type: REMOVE_NAV_BARS
 })
 
 export const toggleSideBar = () => ({
-    type: TOGGLE_SIDE_BAR
+  type: TOGGLE_SIDE_BAR
 })
 

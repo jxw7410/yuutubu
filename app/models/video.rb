@@ -47,13 +47,13 @@ class Video < ApplicationRecord
         description: video_params[:description],
         duration: video_params[:duration],
       )
-      
+
       # In case of confusion, the video_id refers the blob id created prior to the direct upload
       # same with the thumbnail.
       video_attachment = ActiveStorage::Attachment.create!(
         name: "video_content",
         record_type: "Video",
-        record_id: videos.id,
+        record_id: video.id,
         blob_id: video_params[:video_id],
       )
 
@@ -105,5 +105,5 @@ class Video < ApplicationRecord
   private
 
   # Hardcoded video limit
-  VIDEO_LIMIT = 2
+  VIDEO_LIMIT = 12
 end

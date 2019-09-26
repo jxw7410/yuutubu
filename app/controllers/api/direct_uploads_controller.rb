@@ -12,7 +12,6 @@ class Api::DirectUploadsController < ApplicationController
     rescue 
       render json: ["Request to Upload failed"], status: 422
     end 
-
   end
 
   def destroy

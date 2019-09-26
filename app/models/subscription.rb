@@ -14,14 +14,14 @@ class Subscription < ApplicationRecord
   validate :prevent_self_subscription, on: :create
 
   belongs_to :subscriber,
-            primary_key: :id,
-            foreign_key: :subscriber_id,
-            class_name: :User
+             primary_key: :id,
+             foreign_key: :subscriber_id,
+             class_name: :User
 
   belongs_to :channel,
-            primary_key: :id,
-            foreign_key: :channel_id,
-            class_name: :UserChannel
+             primary_key: :id,
+             foreign_key: :channel_id,
+             class_name: :UserChannel
 
   private
 

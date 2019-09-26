@@ -1,35 +1,31 @@
 import { RECEIVE_USER, LOGOUT_USER, RECEIVE_EMAIL, RECEIVE_CLEAR_EMAIL } from "../../actions/session/session_action";
-import { merge }  from 'lodash'
+import { merge } from 'lodash'
 
 const _nullSession = {
-        id: null,
-        email: null,
-        username: null,
-        channel_id: null,
+  id: null,
+  email: null,
+  username: null,
+  channel_id: null,
 };
 
 
 
-const sessionReducer = (state= _nullSession, action) => {
-    Object.freeze(state)
-    switch(action.type){
-        case RECEIVE_USER:
-            return action.user
-        
-        case RECEIVE_EMAIL:
-            const newState = merge({}, state)
-            newState.email = action.email
-            return newState;
-
-        case RECEIVE_CLEAR_EMAIL:
-            return merge({}, state, { email: null} )
-            
-        case LOGOUT_USER:
-            return _nullSession;
-
-        default:
-            return state;
-    }
+const sessionReducer = (state = _nullSession, action) => {
+  Object.freeze(state)
+  switch (action.type) {
+    case RECEIVE_USER:
+      return action.user
+    case RECEIVE_EMAIL:
+      const newState = merge({}, state)
+      newState.email = action.email
+      return newState;
+    case RECEIVE_CLEAR_EMAIL:
+      return merge({}, state, { email: null })
+    case LOGOUT_USER:
+      return _nullSession;
+    default:
+      return state;
+  }
 }
 
 export default sessionReducer;

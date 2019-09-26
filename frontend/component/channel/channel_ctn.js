@@ -6,20 +6,20 @@ import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 
 
 const msp = (state, props) => {
-    const channel = state.entities.channels[props.match.params.channel_id] || {}
-    return {
-        channel,
-        userId: state.session.id,
-        isLogin: Boolean(state.session.id),
-        navBar: state.ui.navBars,
-        videoPlayer: state.ui.videoPlayer
-    }
+  const channel = state.entities.channels[props.match.params.channel_id] || {}
+  return {
+    channel,
+    userId: state.session.id,
+    isLogin: Boolean(state.session.id),
+    navBar: state.ui.navBars,
+    videoPlayer: state.ui.videoPlayer
+  }
 }
 
 const mdp = dispatch => ({
-        sideBarOne: () => dispatch(sideBarOne()),
-        removeVideoPlayer: () => dispatch( removeVideoPlayer()),
-        updatePrevPath: path => dispatch(requestUpdatePrevPath(path))
+  sideBarOne: () => dispatch(sideBarOne()),
+  removeVideoPlayer: () => dispatch(removeVideoPlayer()),
+  updatePrevPath: path => dispatch(requestUpdatePrevPath(path))
 })
 
 

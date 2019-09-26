@@ -5,32 +5,32 @@ export const REQUEST_DEFAULT_PLAYER = 'REQUEST_DEFAULT_PLAYER';
 export const REQUEST_SET_VIDEO = 'REQUEST_SET_VIDEO';
 
 export const removeVideoPlayer = () => {
-    return {
-        type: REMOVE_VIDEO_PLAYER
-    }
+  return {
+    type: REMOVE_VIDEO_PLAYER
+  }
 }
 
 export const requestMiniPlayer = () => {
-    return {
-        type: REQUEST_MINI_PLAYER
-    }
+  return {
+    type: REQUEST_MINI_PLAYER
+  }
 }
 
 export const requestTheaterPlayer = () => {
-    return {
-        type: REQUEST_THEATER_PLAYER
-    }
+  return {
+    type: REQUEST_THEATER_PLAYER
+  }
 }
 
 export const requestDefaultPlayer = () => {
-    return {
-        type: REQUEST_DEFAULT_PLAYER
-    }
+  return {
+    type: REQUEST_DEFAULT_PLAYER
+  }
 }
 
 export const requestSetVideo = video => {
-    return {
-        type: REQUEST_SET_VIDEO,
-        video
-    }
+  return {
+    type: REQUEST_SET_VIDEO,
+    video
+  }
 }

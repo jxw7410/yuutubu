@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     # shallow nesting videos because videos belong to channel
     resources :user_channels, only: [:index, :show] do
       # The index method will exist inside of the VideosController
-      resources :videos, only: [:index] # 
+      resources :videos, only: [:index] #
     end
 
     resources :videos, only: [:show, :create] do
@@ -30,14 +30,14 @@ Rails.application.routes.draw do
       get "search_titles", on: :member
       # The index method will exist inside of the VideosController
       # It will hit the same index as the user_channel
-      # However we can check for the keys as prescibed by rails routes to act 
+      # However we can check for the keys as prescibed by rails routes to act
       # accordingly
       resources :videos, only: [:index]
     end
     # The reason why this route exists is if the search bar in the frontend is empty
-    # The :query parameter would be empty, thus creating the url searches/search_titiles 
+    # The :query parameter would be empty, thus creating the url searches/search_titiles
     # instead. This URL should be used to fetch history only.
-    get 'searches/search_titles', to: "searches#history"
+    get "searches/search_titles", to: "searches#history"
 
     resources :subscriptions, only: [:create, :destroy, :index]
 
