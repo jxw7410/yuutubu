@@ -3,8 +3,8 @@ import * as VideoPostApi from '../../util/video_posts_api';
 
 export const RECEIVE_DELETE_POST = 'RECEIVE_DELETE_POST';
 export const RECEIVE_POST = 'RECEIVE_POST';
-export const RECEIVE_SOME_POSTS = 'RECEIVE_SOME_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const REMOVE_POSTS = 'REMOVE_POSTS';
 
 
 const receiveDeletePost = post => {
@@ -28,12 +28,8 @@ const receivePosts = response => {
   }
 }
 
-
-const receiveSomePosts = response => {
-  return {
-    type: RECEIVE_SOME_POSTS,
-    response
-  }
+export const removePosts = {
+  type: REMOVE_POSTS
 }
 
 
@@ -47,13 +43,8 @@ export const requestDeletePost = post_id => dispatch => {
     .then(post => dispatch(receiveDeletePost(post)));
 };
 
-export const requestSomePosts = (video_id, offset, limit) => dispatch => {
-  return VideoPostApi.requestSomeVideoPosts(video_id, offset, limit)
-    .then(posts => dispatch(receiveSomePosts(posts)));
-}
-
-export const requestPosts = video_id => dispatch => {
-  return VideoPostApi.requestVideoPosts(video_id)
+export const requestPosts = params => dispatch => {
+  return VideoPostApi.requestVideoPosts(params)
     .then(posts => dispatch(receivePosts(posts)));
 }
 

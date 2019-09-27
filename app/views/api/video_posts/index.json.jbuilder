@@ -7,5 +7,3 @@ json.posts do
     end
   end
 end
-
-json.offset @posts.length

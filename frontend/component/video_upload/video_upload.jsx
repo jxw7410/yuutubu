@@ -179,18 +179,19 @@ class UploadVideo extends React.Component {
 
           // Using async here to prevent callback hell
           await Promise.all([this.uploadToAWS(video_blob, 'file'), this.uploadToAWS(image_blob, 'thumbnail')])
-            .then(() => {
-              this.persistVideo(video_blob.id, image_blob.id)
-            }, () => {
+            .then(() => this.persistVideo(video_blob.id, image_blob.id), () => {
               // Triggers if upload to s3 fails.
               this.props.deleteDirectUpload({
                 'blob_ids': {
                   'image_blob_id': image_blob.id,
                   'video_blob_id': video_blob.id
                 }
-              }).then(() => this.redirectOnFail())
+              })
+              this.redirectOnFail();
             });
-        }).fail(() => this.redirectOnFail());
+        })
+        .fail(() => this.redirectOnFail());
+
       this.setState({ uploading: true });
     } else {
       console.log('No Token!');

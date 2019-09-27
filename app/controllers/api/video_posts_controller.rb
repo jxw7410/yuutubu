@@ -4,11 +4,11 @@ class Api::VideoPostsController < ApplicationController
   def index
     @posts = VideoPost.where(video_id: params[:video_id])
       .includes(:user)
-      .limit(params[:limit] || 6)
-      .offset(params[:offset] || 0)
+      .limit(params[:limit])
+      .offset(params[:offset])
       .order("created_at DESC")
 
-    if @posts
+    if !@posts.empty?
       render :index
     else
       render json: ["Posts are not found"], status: 404
