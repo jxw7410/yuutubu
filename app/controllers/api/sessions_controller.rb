@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
   def email
-    @user = User.verify_email(email_params[:email])
+    @user = User.verify_email(params[:email])
     if @user
       render :email
     else
@@ -30,9 +30,5 @@ class Api::SessionsController < ApplicationController
     end
   end
 
-  private
-
-  def email_params
-    params.require(:email).permit(:email)
-  end
+  
 end

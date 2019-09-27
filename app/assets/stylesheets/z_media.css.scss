@@ -13,6 +13,10 @@
         flex-wrap:wrap;
         width: 1070px;
     }
+
+    .usr-av-lst{
+        grid-template-columns: repeat(5, 210px);
+    }
 }
 
 @media screen and (max-width: 1502px){
@@ -54,6 +58,10 @@
     .sbi {
         width: 541px;
         transition: width 0.2s linear;
+    }
+
+    .usr-av-lst{
+        grid-template-columns: repeat(4, 210px);
     }
 }
 
@@ -120,6 +128,10 @@
     .sbi {
         width: 300px;
         transition: width 0.2s linear;
+    }
+
+    .usr-av-lst{
+        grid-template-columns: repeat(3, 210px);
     }
 }
 
@@ -198,5 +210,9 @@
     .ch-ctn-lwr-hk {
         grid-template-columns: 313px 187px;
         width: 500px;
+    }
+
+    .usr-av-lst{
+        grid-template-columns: repeat(2, 210px);
     }
 }

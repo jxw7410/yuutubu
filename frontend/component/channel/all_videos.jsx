@@ -1,75 +1,85 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 
-// Change to React Hook
-class AllVideos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.offset = 0;
-    this.scrollPercentage = null;
-    this.defaultPercentage = 0.40;
-    this.scrollHeightOffset = 888;
-    this.handleScroll = this.handleScroll.bind(this);
-  }
 
-  componentDidMount() {
-    this.props.clearChannelVideos();
-    this.props.setActiveTab(2);
-    this.props.fetchChannelVideos(this.props.channelId, 36, this.offset)
+const AllVideos = props => {
+  let offset = 0;
+  let fetching = false;
+  let page;
+
+  // This use Effect will function like componentDidMount, and willUnMount
+  useEffect(() => {
+    props.clearChannelVideos();
+    props.setActiveTab(1);
+    props.fetchChannelVideos(props.channelId, 24, offset)
+      .then(() => offset += 24)
       .then(() => {
-        this.offset += 36;
-      })
-      .then(() => {
-        document.addEventListener('scroll', this.handleScroll);
-        this.scrollPercentage = this.defaultPercentage;
-      })
-  }
+        page = document.querySelector('html');
+        document.addEventListener('scroll', handleScrollEvent)
+      });
 
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll);
-    this.props.clearChannelVideos();
-  }
+    return () => {
+      document.removeEventListener('scroll', handleScrollEvent);
+      props.clearChannelVideos();
+    }
 
-  handleScroll(e) {
+  }, [])
+
+  const handleScrollEvent = e => {
     e.preventDefault();
+    // Checks if you hit the bottom of the page for new fetch
+    const scrollLimit = (page.scrollTop + page.offsetHeight === page.scrollHeight);
+    if (scrollLimit && !fetching) {
+      fetching = true;
+      props.fetchChannelVideos(props.channelId, 12, offset)
+        .then(() => {
+          fetching = false;
+          offset += 12
+        }).fail(err => {
+          if (err.status === 404) {
+            document.removeEventListener('scroll', handleScrollEvent);
+          }
+        })
+    }
   }
 
-  redirectOnClick(video_id) {
+
+  const redirectOnClick = video_id => {
     return e => {
       e.preventDefault();
-      this.props.history.push(`/video/${video_id}`);
+      props.history.push(`/video/${video_id}`)
     }
   }
 
+  // Logic to build css classes 
+  const cvcNavClass = `flexh-3 cvc-nav ${props.toggledSideNav ? "" : "cvc-nav-tgl"}`;
+  const usrAvListClass = `usr-av-lst  ${props.toggledSideNav ? "" : "uav-lst-tgl"}`;
+  const videos = props.videos.map(video => (
+    <VideoThumbnail
+      key={video.id}
+      video={video}
+      handleClick={redirectOnClick(video.id)}
+      channel={{}} />
+  ));
 
-  getThumbnails() {
-    let thumbnails = null;
-    if (this.props.videos.length > 0) {
-      thumbnails = this.props.videos.map(video => {
-        return <VideoThumbnail key={video.id}
-          video={video}
-          handleClick={this.redirectOnClick(video.id)}
-          channel={{}}
-        />
-      })
-    }
-    return thumbnails
-  }
+  return (
+    <>
+      {
+        videos.length ?
+          <div className='flexv-3 cvc-lower' >
+            <div className={cvcNavClass}> Uploads </div>
+            <ul className={usrAvListClass}>
+              {videos}
+            </ul>
+          </div >
+          :
+          <div style={{ width: '100%', height: '300px', gridRow: '4/5' }} className='flexh-1'>
+            Looks like there are no contents in this channel yet.
+          </div>
+      }
+    </>
+  )
 
-
-  render() {
-    const cvcNavClass = `flexh-3 cvc-nav ${this.props.toggledSideNav ? "" : "cvc-nav-tgl"}`;
-    const usrAvListClass = `usr-av-lst  ${this.props.toggledSideNav ? "" : "uav-lst-tgl"}`;
-
-    return (
-      <div className='flexv-3 cvc-lower'>
-        <div className={cvcNavClass}> Uploads </div>
-        <ul className={usrAvListClass}>
-          {this.getThumbnails()}
-        </ul>
-      </div>
-    )
-  }
 }
 
 export default AllVideos;

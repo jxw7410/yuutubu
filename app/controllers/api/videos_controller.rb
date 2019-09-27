@@ -3,18 +3,10 @@ class Api::VideosController < ApplicationController
   
   def index
     if params.has_key?(:user_channel_id)
-      @videos = Video.where(channel_id: params[:user_channel_id])
-        .limit(params[:limit])
-        .offset(params[:offset])
-        .includes(:channel)
-        .with_attached_thumbnail
+      @videos = Video.find_videos_by_channel(params)
       render_index
     elsif params.has_key?(:search_query)
-      @videos = Video.query_by_string(
-        params[:search_query],
-        params[:limit],
-        params[:offset]
-      )
+      @videos = Video.query_by_string(params)
       render_index
     else
       render json: ["No parent token"], status: 422
@@ -79,7 +71,7 @@ class Api::VideosController < ApplicationController
   end
 
   def render_index
-    if @videos
+    if !@videos.empty?
       render :index
     else
       render json: ["Videos not found"], status: 404

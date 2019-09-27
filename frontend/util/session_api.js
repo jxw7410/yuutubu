@@ -1,8 +1,8 @@
 export const confirmEmail = email => {
   return $.ajax({
-    method: 'post',
-    url: 'api/session/email',
-    data: { email }
+    method: "POST",
+    url: `api/session/email`,
+    data: email 
   });
 }
 

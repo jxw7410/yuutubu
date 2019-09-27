@@ -33,7 +33,6 @@ class ChannelHeader extends React.Component {
   render() {
     const chHdrNavClass = `ch-hdr-nav${this.state.navBarFixed ? ' chhn-fixed' : ""}${this.props.toggledSideNav ? ' chhn-tgl' : ""}`;
     const activeOne = `flexh-3 ch_tb${this.props.active_tab === 1 ? ' ch_tb_active' : ""}`;
-    const activeTwo = `flexh-3 ch_tb${this.props.active_tab === 2 ? ' ch_tb_active' : ""}`;
 
     return (
       <React.Fragment>
@@ -61,15 +60,10 @@ class ChannelHeader extends React.Component {
           <div className='flexh-1'>
             <div className='chhw-wrap'>
               <ul className='flexh-3' style={{ width: 'inherit' }}>
+ 
                 <li
                   onClick={this.props.redirectEvent(null, 1)}
                   className={activeOne}>
-                  HOME
-                                </li>
-
-                <li
-                  onClick={this.props.redirectEvent('/videos', 2)}
-                  className={activeTwo}>
                   VIDEOS
                                 </li>
               </ul>

@@ -68,9 +68,8 @@ class Video < ApplicationRecord
     end
   end
 
-  def self.query_by_string(query, limit = nil, offset = nil)
-    query = query.downcase
-
+  def self.query_by_string(params)
+    query = params[:search_query].downcase
     self.joins(:channel).where(
       "lower(title) like ? 
       or lower(title) like ? 
@@ -84,8 +83,8 @@ class Video < ApplicationRecord
       "#{query}%", "%#{query}%", "%#{query}",
       "#{query}%", "%#{query}%", "%#{query}",
       "#{query}%", "%#{query}%", "%#{query}"
-    ).limit(limit)
-      .offset(offset)
+    ).limit(params[:limit])
+      .offset(params[:offset])
   end
 
   def self.find_by_video_id(id = nil, user_id = nil)
@@ -100,6 +99,15 @@ class Video < ApplicationRecord
                .includes(:channel)
                .order(views: :desc)
     end
+  end
+
+  def self.find_videos_by_channel(params)
+    self.where(channel_id: params[:user_channel_id])
+      .order(id: :asc)
+      .limit(params[:limit])
+      .offset(params[:offset])
+      .includes(:channel)
+      .with_attached_thumbnail
   end
 
   private

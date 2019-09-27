@@ -351,12 +351,12 @@
 }
 
 .usr-av-lst{
-    grid-auto-rows: auto;
-    width: 88.5%;
-}
-
-.uav-lst-tgl{
-    width: 79.1%;
+    display: grid;
+    grid-row-gap: 24px;
+    grid-column-gap: 2px;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(6, 210px);
+    width: fit-content
 }
 
 .usr-av-lst .thumbnails{

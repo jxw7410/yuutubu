@@ -72,7 +72,7 @@ class MainNav extends React.Component {
               this.state.inverseNavBar ?
                 <React.Fragment>
                   {this.typeTwoNavBar()}
-                  <div style={{ marginTop: '56px', height: '100%', position: 'fixed' }}>
+                  <div style={{ marginTop: '56px', height: '100%', position: 'fixed', zIndex: 104 }}>
                     <SubSideNav />
                   </div>
                 </React.Fragment>

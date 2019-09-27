@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create]
 
     resource :session, only: [:create, :destroy]
-    #fix this to get
+    # Emails should be done using post for security reasons, since posting does SSL, etc.
     post "/session/email", to: "sessions#email"
 
     # shallow nesting videos because videos belong to channel

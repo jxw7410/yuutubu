@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import AllVideosContainer from './all_vid_ctn';
-import ChannelBaseContainer from './channel_base_ctn';
 import ChannelHeader from './channel_header';
 import { withRouter } from 'react-router-dom';
 import { MINI } from '../../util/constants'
@@ -59,16 +58,7 @@ class Channel extends React.Component {
               redirectEvent={this.redirectEvent}
               toggledSideNav={this.props.navBar.toggled} />
 
-
-            <Route exact path={this.basePath}
-              render={props => <ChannelBaseContainer {...props}
-                toggledSideNav={this.props.navBar.toggled}
-                channelId={this.props.match.params.channel_id}
-                setActiveTab={this.setActiveTab}
-              />}
-            />
-
-            <Route path={`${this.basePath}/videos`}
+            <Route path={this.basePath}
               render={props => <AllVideosContainer {...props}
                 toggledSideNav={this.props.navBar.toggled}
                 channelId={this.props.match.params.channel_id}
