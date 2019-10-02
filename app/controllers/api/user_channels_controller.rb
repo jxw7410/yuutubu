@@ -10,7 +10,8 @@ class Api::UserChannelsController < ApplicationController
         .includes(:videos)
         .includes(:subscriptions)
     else
-      @channels = UserChannel.all
+      @channels = UserChannel.all 
+        .limit(params[:limit])
         .offset(params[:offset])
         .includes(:videos)
         .includes(:subscriptions)
