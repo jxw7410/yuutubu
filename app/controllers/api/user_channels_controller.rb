@@ -2,7 +2,7 @@ class Api::UserChannelsController < ApplicationController
   def index
     # if params[:user_id] is given, and is not an empty string
     # Fix this remove user_id from params from FE and BE
-    if current_user.id
+    if current_user
       @channels = UserChannel.where
         .not(user_id: current_user.id)
         .limit(params[:limit])
