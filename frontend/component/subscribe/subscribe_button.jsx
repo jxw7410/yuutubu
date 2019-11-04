@@ -35,7 +35,7 @@ const SubscribeButton = React.memo(props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       {
         props.sub.sub_id && props.login ?
           <button
@@ -45,7 +45,7 @@ const SubscribeButton = React.memo(props => {
             onClick={subscribe}
             id="subscribe-button"> SUBSCRIBE {props.channel.subscriptionCount}</button>
       }
-    </React.Fragment>
+    </>
   )
 });
 

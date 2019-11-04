@@ -5,68 +5,51 @@ import { connect } from 'react-redux';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { withRouter } from 'react-router-dom';
 
-// React Hook
-class RecommendedVideos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetched: false,
-      readMore: false,
-    }
+const RecommendedVideos = props => {
+  const [state, setState] = React.useState({
+    fetched: false,
+    readMore: false, 
+  })
 
-    this.redirectOnClick = this.redirectOnClick.bind(this);
-    this.handleReadMore = this.handleReadMore.bind(this);
-  }
+  React.useEffect(() => {
+    props.fetchRecommendedVideos()
+      .then(() => setState({ ...state, fetched: true}))
+  }, []);
 
-  componentDidMount() {
-    this.props.fetchRecommendedVideos()
-      .then(() => this.setState({ fetched: true }));
-  }
-
-
-  redirectOnClick(video_id) {
+  function redirectOnClick(videoId){
     return e => {
-      e.preventDefault();
-      this.props.history.push(`/video/${video_id}`);
+      props.history.push(`/video/${videoId}`)
     }
   }
 
-  handleReadMore(e) {
-    e.preventDefault();
-    this.setState({ readMore: true })
-  }
 
-  render() {
-    let videos;
-
-    if (this.state.fetched) {
-      videos = this.props.videos.map(video => {
-        return <VideoThumbnail key={video.id}
-          video={video}
-          handleClick={this.redirectOnClick(video.id)}
-          channel={{ id: video.channel_id, name: video.channelName }} />
-      })
-    }
-
-    const idxRecVidClass = `idx-rec-vid mgt-24 ${this.state.readMore ? "" : "show-more-inactive"}`;
-
-    return (
-      <div className='idx-rec-vid-ctn' >
-        <div className="mgt-24" style={{ fontWeight: 'bold' }}> Recommended </div>
-        <ul className={idxRecVidClass}>
-          {videos}
-        </ul>
+  return (
+   <div className='idx-rec-vid-ctn'>
+     <div className='mgt-24' style={{fontWeight: 'bold'}}> Recommneded </div>
+      <ul className={`
+        idx-rec-vid
+        ${ state.readmore ? "" : 'show-more-inactive'}`}>
         {
-          this.state.readMore ? null :
-
-            <button
-              id='show-more-button'
-              onClick={this.handleReadMore}
-            >Show More</button>
+          state.fetched ? 
+            props.videos.map( video => 
+              <VideoThumbnail 
+                key={video.id}
+                video={video}
+                handleClick={redirectOnClick}
+                channel={{ id: video.channel_id, name: video.channelName}} /> 
+              ) : null
         }
-      </div>
-    )
-  }
+      </ul>
+      {
+        state.readMore ? null : 
+          <button 
+            id='show-more-button'
+            onClick={ e => setState({...state, readMore: true})}>
+            Show More
+          </button>
+      }
+   </div> 
+  )
 }
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ChannelIndexItem from './channel_index_item_ctn';
+import ChannelIndex from './channel_index_ctn';
 import RecommendedVideos from './recommended_video';
 import { MINI } from '../../util/constants';
 
@@ -8,7 +8,6 @@ const MainPage = props => {
   let fetching = false;
   let page;
 
-  // Functions as both componentDidMount, and WillUnmount
   useEffect(() => {
     props.clearChannels();
     props.sideBarOne();
@@ -54,7 +53,7 @@ const MainPage = props => {
           <RecommendedVideos />
           <ul className='ch-list'>
             {
-              props.channels.map(channel => <ChannelIndexItem key={channel.id} channel={channel} />)
+              props.channels.map(channel => <ChannelIndex key={channel.id} channel={channel} />)
             }
           </ul>
         </div>
