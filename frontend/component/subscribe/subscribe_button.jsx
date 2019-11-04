@@ -5,7 +5,7 @@ import { filterSubscriptions } from '../../util/selectors';
 import { withRouter } from 'react-router-dom';
 
 
-const SubscribeButton = props => {
+const SubscribeButton = React.memo(props => {
   let updating = false;
 
   const unsubscribe = e => {
@@ -47,8 +47,7 @@ const SubscribeButton = props => {
       }
     </React.Fragment>
   )
-}
-
+});
 
 
 const msp = (store, props) => {

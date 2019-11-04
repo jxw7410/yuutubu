@@ -3,7 +3,7 @@ import ChannelIndexItem from './channel_index_item_ctn';
 import RecommendedVideos from './recommended_video';
 import { MINI } from '../../util/constants';
 
-const ChannelIndex = props => {
+const MainPage = props => {
   let offset = 0;
   let fetching = false;
   let page;
@@ -51,7 +51,7 @@ const ChannelIndex = props => {
     <div className={mainCtnClass}>
       <div className='main-ctnt'>
         <div className='flexv-1'>
-          {/* <RecommendedVideos /> */}
+          <RecommendedVideos />
           <ul className='ch-list'>
             {
               props.channels.map(channel => <ChannelIndexItem key={channel.id} channel={channel} />)
@@ -64,4 +64,4 @@ const ChannelIndex = props => {
 }
 
 
-export default ChannelIndex
+export default MainPage;

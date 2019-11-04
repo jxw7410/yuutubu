@@ -1,6 +1,6 @@
-export const requestChannel = channel_id => {
+export const requestChannel = channelId => {
   return $.ajax({
-    url: `/api/user_channels/${channel_id}`
+    url: `/api/user_channels/${channelId}`
   });
 }
 

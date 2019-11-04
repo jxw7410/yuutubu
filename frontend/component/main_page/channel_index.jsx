@@ -4,7 +4,7 @@ import VideoThumbnail from '../thumbnail/video_thumbnail';
 import SubscribeButton from '../subscribe/subscribe_button';
 
 
-const ChannelIndexItem = props => {
+const ChannelIndex = props => {
 	React.useEffect(()=>{
 		props.fetchChannelVideos(props.channel.id, 6, 0);
 	}, []);
@@ -45,5 +45,5 @@ const ChannelIndexItem = props => {
 }
 
 
-export default ChannelIndexItem;
+export default ChannelIndex;
 

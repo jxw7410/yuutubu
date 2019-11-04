@@ -1,20 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 
 
 const AllVideos = props => {
-  let offset = 0;
-  let fetching = false;
-  let page;
+  const offset = React.useRef(0);
+  const fetching = React.useRef(false);
+  const pageRef = React.useRef(null);
 
-  // This use Effect will function like componentDidMount, and willUnMount
   useEffect(() => {
     props.clearChannelVideos();
-    props.setActiveTab(1);
-    props.fetchChannelVideos(props.channelId, 24, offset)
-      .then(() => offset += 24)
+    props.fetchChannelVideos(props.channelId, 24, offset.current)
+      .then(() =>  offset.current += 24 )
       .then(() => {
-        page = document.querySelector('html');
+        pageRef.current = document.querySelector('html');
         document.addEventListener('scroll', handleScrollEvent)
       });
 
@@ -26,50 +24,51 @@ const AllVideos = props => {
   }, [])
 
   const handleScrollEvent = e => {
-    e.preventDefault();
-    // Checks if you hit the bottom of the page for new fetch
-    const scrollLimit = (page.scrollTop + page.offsetHeight === page.scrollHeight);
-    if (scrollLimit && !fetching) {
-      fetching = true;
-      props.fetchChannelVideos(props.channelId, 12, offset)
+    const page = pageRef.current;
+    const scrollLimit = page.scrollTop + page.offsetHeight === page.scrollHeight;
+    if (scrollLimit && !fetching.current) {
+      fetching.current = true;
+      props.fetchChannelVideos(props.channelId, 12, offset.current)
         .then(() => {
-          fetching = false;
-          offset += 12
+          fetching.current = false;
+          offset.current += 12
         }).fail(err => {
-          if (err.status === 404) {
+          if (err.status === 404) 
             document.removeEventListener('scroll', handleScrollEvent);
-          }
         })
     }
   }
 
 
-  const redirectOnClick = video_id => {
+  const redirectOnClick = videoId => {
     return e => {
       e.preventDefault();
-      props.history.push(`/video/${video_id}`)
+      props.history.push(`/video/${videoId}`)
     }
   }
 
-  // Logic to build css classes 
-  const cvcNavClass = `flexh-3 cvc-nav ${props.toggledSideNav ? "" : "cvc-nav-tgl"}`;
-  const usrAvListClass = `usr-av-lst  ${props.toggledSideNav ? "" : "uav-lst-tgl"}`;
-  const videos = props.videos.map(video => (
-    <VideoThumbnail
-      key={video.id}
-      video={video}
-      handleClick={redirectOnClick(video.id)}
-      channel={{}} />
-  ));
+
 
   return (
     <>
       {
-        videos.length ?
+        props.videos.length ?
           <div className='flexv-3 cvc-lower' >
-            <div className={cvcNavClass}> Uploads </div>
-            <ul className={usrAvListClass}>
-              {videos}
+            <div className={`
+              flexh-3 cvc-nav 
+              ${props.isNavToggled ? "" : "cvc-nav-tgl"}`}> Uploads </div>
+
+            <ul className={`
+              usr-av-lst  
+              ${props.isNavToggled ? "" : "uav-lst-tgl"}`}>
+              {
+                props.videos.map(video => 
+                  <VideoThumbnail
+                    key={video.id}
+                    video={video}
+                    handleClick={redirectOnClick(video.id)}
+                    channel={{}} /> )
+              }
             </ul>
           </div >
           :

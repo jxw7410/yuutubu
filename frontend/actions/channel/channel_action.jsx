@@ -20,8 +20,8 @@ export const clearChannels = () => ({
   type: CLEAR_CHANNELS
 });
 
-export const fetchChannel = channel_id => dispatch => {
-  return ChannelAPI.requestChannel(channel_id)
+export const fetchChannel = channelId => dispatch => {
+  return ChannelAPI.requestChannel(channelId)
     .then(channel => dispatch(receiveChannel(channel)));
 };
 

@@ -1,76 +1,37 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import AllVideosContainer from './all_vid_ctn';
-import ChannelHeader from './channel_header';
-import { withRouter } from 'react-router-dom';
+import ChannelHeaderContainer from './channel_header_ctn';
 import { MINI } from '../../util/constants'
 
-class Channel extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active_tab: 1,
-    }
+const Channel = props => {
+  React.useEffect( () => {
+    props.sideBarOne();
+    if (props.videoPlayer.type !== MINI)
+      props.removeVideoPlayer();
 
-    this.basePath = this.props.match.url;
-    this.redirectEvent = this.redirectEvent.bind(this);
-    this.setActiveTab = this.setActiveTab.bind(this);
-
-  }
-
-  componentDidMount() {
-    this.props.sideBarOne();
-    if (this.props.videoPlayer.type !== MINI)
-      this.props.removeVideoPlayer();
-  }
-
-  componentWillUnmount() {
-    this.props.updatePrevPath(this.props.match.path)
-  }
+    return () => props.updatePrevPath(props.match.path);
+  }, []);
 
 
-  componentDidUpdate() {
-    this.basePath = this.props.match.url;
-  }
+  React.useEffect(() => {
+    if(props.match.params.channel_id)
+      props.fetchChannel(props.match.params.channel_id);
+  }, [props.match.params.channel_id])
 
-  setActiveTab(num) {
-    this.setState({ active_tab: num })
-  }
 
-  redirectEvent(field, active_tab) {
-    return e => {
-      this.props.history.push(this.basePath + (field ? field : ""));
-      this.setState({ active_tab });
-    }
-  }
-
-  render() {
-    const mainCtnClass = `max-w-h ch-mn-ctnt-grid ${this.props.navBar.toggled ? "cmcg-tgl" : ""}`;
-
-    return (
-      <div className={mainCtnClass}>
-        <div className='ch-mn-ctnt'>
-          <div className="ch-mn-ctnt-wrap">
-            <ChannelHeader
-              userId={this.props.userId}
-              channel={this.props.channel}
-              active_tab={this.state.active_tab}
-              redirectEvent={this.redirectEvent}
-              toggledSideNav={this.props.navBar.toggled} />
-
-            <Route path={this.basePath}
-              render={props => <AllVideosContainer {...props}
-                toggledSideNav={this.props.navBar.toggled}
-                channelId={this.props.match.params.channel_id}
-                setActiveTab={this.setActiveTab}
-              />}
-            />
-
-          </div>
+  return (
+    <div className ={`
+      max-w-h ch-mn-ctnt-grid
+      ${props.isNavToggled ? 'cmcg-tgl' : ""}`}>
+      <div className='ch-mn-ctnt'>
+        <div className="ch-mn-ctnt-wrap">
+          <ChannelHeaderContainer />
+          <AllVideosContainer key={ props.match.params.channel_id }/>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default withRouter(Channel);
+
+export default Channel;

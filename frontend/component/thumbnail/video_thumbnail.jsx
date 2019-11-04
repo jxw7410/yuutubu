@@ -7,6 +7,7 @@ import { VideoPageThumbnailInfo, IndexPageThumbnailInfo, SearchPageThumbnailInfo
 import { convertDurationToTime } from '../../util/selectors';
 
 
+
 const VideoThumbnail = props => {
   const [state, setState] = React.useState({
     renderVideo: false,
@@ -65,6 +66,11 @@ const VideoThumbnail = props => {
     }, throttledTimeout);
   }
 
+
+  /*
+    Fetch data from backend for video url once only. 
+    Also sets mouseOver state to true
+  */ 
   function mouseEnterEvent() {
     clearTimeout(throttledFetchVideoRequest.current);
     isMouseOver.current = true;

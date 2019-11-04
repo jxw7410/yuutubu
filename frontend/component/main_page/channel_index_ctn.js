@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchChannelVideos } from '../../actions/video/video_action';
 import { getVideosForChannel } from '../../util/selectors';
-import ChannelIndexItem from './channel_index_item';
+import ChannelIndex from './channel_index';
 
 const msp = (state, ownProps) => {
   return {
@@ -18,4 +18,4 @@ const mdp = dispatch => {
 }
 
 
-export default connect(msp, mdp)(ChannelIndexItem);
+export default connect(msp, mdp)(ChannelIndex);

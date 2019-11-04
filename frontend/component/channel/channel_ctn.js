@@ -2,16 +2,13 @@ import { connect } from 'react-redux';
 import { sideBarOne } from '../../actions/nav/nav_bar_action';
 import { removeVideoPlayer } from '../../actions/video_player/video_player';
 import Channel from './channel';
+import { fetchChannel } from '../../actions/channel/channel_action';
 import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 
 
-const msp = (state, props) => {
-  const channel = state.entities.channels[props.match.params.channel_id] || {}
+const msp = state => {
   return {
-    channel,
-    userId: state.session.id,
-    isLogin: Boolean(state.session.id),
-    navBar: state.ui.navBars,
+    isNavToggled: state.ui.navBars.toggled,
     videoPlayer: state.ui.videoPlayer
   }
 }
@@ -19,7 +16,8 @@ const msp = (state, props) => {
 const mdp = dispatch => ({
   sideBarOne: () => dispatch(sideBarOne()),
   removeVideoPlayer: () => dispatch(removeVideoPlayer()),
-  updatePrevPath: path => dispatch(requestUpdatePrevPath(path))
+  updatePrevPath: path => dispatch(requestUpdatePrevPath(path)),
+  fetchChannel: channelId => dispatch(fetchChannel(channelId)),
 })
 
 

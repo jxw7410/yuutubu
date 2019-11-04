@@ -1,11 +1,15 @@
 import { connect } from 'react-redux';
 import AllVideos from './all_videos';
 import { fetchChannelVideos, clearChannelVideos } from '../../actions/video/video_action'
+import { withRouter } from 'react-router-dom'
 
 const msp = (state, props) => {
+  const channelId = props.match.params.channel_id;
   return {
-    channel: state.entities.channels[props.channelId],
-    videos: Object.values(state.entities.videos)
+    channelId,
+    channel: state.entities.channels[channelId] || {},
+    videos: Object.values(state.entities.videos),
+    isNavToggled: state.ui.navBars.toggled,
   }
 }
 
@@ -17,4 +21,4 @@ const mdp = dispatch => {
   }
 }
 
-export default connect(msp, mdp)(AllVideos);
+export default withRouter(connect(msp, mdp)(AllVideos));

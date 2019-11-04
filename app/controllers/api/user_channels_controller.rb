@@ -35,10 +35,4 @@ class Api::UserChannelsController < ApplicationController
       render json: ["Channel does not exist."], status: 422
     end
   end
-
-  private
-
-  def user_channel_params
-    params.require(:user_channel).permit(:name)
-  end
 end
