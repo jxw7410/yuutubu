@@ -157,16 +157,6 @@
     visibility: visible;
 }
 
-
-.thumbnail-preview-video{
-    opacity: 0;
-    position: absolute;
-    width: 210px;
-    height: 117.5px;
-    z-index: -2;
-    transition: opacity 0.1s linear;
-}
-
 .thumbnails > div:hover{
     cursor: pointer;
 }
@@ -175,31 +165,6 @@
     position: relative;
     z-index: 1;
 }
-
-.tn-prev-vid-active{
-    width: 210px;
-    height: 117.5px;
-    opacity: 1;
-    position: absolute;
-    z-index: -2;
-    object-fit: cover;
-}
-
-.tbn-prev-wrap{
-    position: relative;
-    z-index: 1;
-    opacity: 1;
-    transition: opacity 0.15s linear;
-    height: inherit;
-}
-
-
-.tbn-active{
-    opacity: 0;
-    position: absolute;
-    transition: opacity 0.5s ease-in;
-}
-
 
 .thumbnail-preview {
     width: 210px;
@@ -216,6 +181,32 @@
 .not-loaded{
     animation: color-shift 2s infinite
 }
+
+
+.tn-prev-vid-active{
+    width: 210px;
+    height: 117.5px;
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+    object-fit: cover;
+}
+
+.tbn-prev-wrap{
+    position: absolute;
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 0.4s linear;
+    height: inherit;
+}
+
+
+.tbn-active{
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+
 
 @keyframes color-shift{
     0% {background: rgb(230,230,230)}

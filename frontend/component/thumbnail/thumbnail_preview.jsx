@@ -1,42 +1,40 @@
 import React from 'react';
 
-// React Hook
-class ThumbnailPreviewVideo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.elementId = 'thumbnail-preview-vid'
-    this.video = React.createRef();
-    this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
-
-  }
+const ThumbnailPreviewVideo = props => {
+  const videoRef = React.useRef(null);
 
 
-  componentDidMount() {
-    this.video.current.currentTime = 0;
-  }
-
-
-  handleTimeUpdate(e) {
-    e.preventDefault();
-    if (this.video.current.currentTime > 3) {
-      this.video.current.pause();
-      this.props.stopRenderVideo();
+  React.useEffect(() => {
+    if (props.playVid){
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
     }
+  }, [props.playVid])
 
+  async function handleTimeUpdate(e) {
+    e.preventDefault();
+    if (videoRef.current.currentTime > 3){
+        await videoRef.current.pause();
+        props.stopRenderVideo();
+    }
   }
-
-  render() {
-    return (
-      <video
-        id={this.elementId}
-        ref={this.video}
-        onTimeUpdate={this.handleTimeUpdate}
-        onLoadedData={this.props.setDataloaded}
-        className='tn-prev-vid-active' muted autoPlay>
-        <source src={this.props.video.videoUrl} type="video/mp4" />
-      </video>
-    )
-  }
+  /*
+    Key is required because React won't rerender if it doesn't know
+    the video's source has changed. It only knows if there is a key change.
+  */
+  return (
+    <video
+      key={props.videoUrl}
+      ref={videoRef}
+      muted
+      className='tn-prev-vid-active'
+      onLoadedData={props.videoUrl ? props.setDataloaded : null}
+      onTimeUpdate={handleTimeUpdate}>
+      <source src={props.videoUrl} type="video/mp4" />
+    </video>
+  )
 }
 
 export default ThumbnailPreviewVideo;

@@ -15,7 +15,7 @@ const ChannelIndex = props => {
     if (props.videoPlayer.type !== MINI) {
       props.removeVideoPlayer();
     }
-    props.fetchChannels(offset, 4)
+    props.fetchChannels(offset, 1)
       .then(() => offset += 4)
       .then(() => {
         page = document.querySelector('html');
@@ -31,7 +31,7 @@ const ChannelIndex = props => {
   }, []);
 
 
-  const handleScrollEvent = e => {
+  function handleScrollEvent(e){
     e.preventDefault();
     const scrollLimit = (page.scrollTop + page.offsetHeight === page.scrollHeight);
     if (scrollLimit && !fetching) {
@@ -45,19 +45,17 @@ const ChannelIndex = props => {
     }
   }
 
-  const channelIndexItems = props.channels.map(channel => (
-    <ChannelIndexItem key={channel.id} channel={channel} />
-  ))
-
   // Style constants 
   const mainCtnClass = `max-w-h main-ctnt-ctn ${props.navBar.toggled ? "mn-cc-tgl" : ""}`
   return (
     <div className={mainCtnClass}>
       <div className='main-ctnt'>
         <div className='flexv-1'>
-          <RecommendedVideos />
+          {/* <RecommendedVideos /> */}
           <ul className='ch-list'>
-            {channelIndexItems}
+            {
+              props.channels.map(channel => <ChannelIndexItem key={channel.id} channel={channel} />)
+            }
           </ul>
         </div>
       </div>
