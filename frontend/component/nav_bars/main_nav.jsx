@@ -11,6 +11,10 @@ const MainNav = props => {
 
   const isMounted = React.useRef(false);
 
+  /* 
+    This for when a user is switching between video and main page
+    There are two type of navbars which works on inverse logic.
+  */
   React.useEffect(() => {
     if (isMounted.current) {
       if (props.navBar.type === 2 && !props.navBar.toggled) {
@@ -22,6 +26,7 @@ const MainNav = props => {
     }
   }, [props.navBar.type]);
 
+  /* componentDidMount */
   React.useEffect( () => {
     if (window.innerWidth < 1090) setState({ ...state, inverseNavBar: true })
     isMounted.current = true;
@@ -29,6 +34,10 @@ const MainNav = props => {
     return () => isMounted.current = false;
   }, []);
 
+  /* 
+    Event listeners which modifies the state needs the handler to be watched
+    otherwise data in handlers are cached.
+  */
   React.useEffect( () => {
     window.addEventListener('resize', resizeHandler);
     return () => {
@@ -106,11 +115,7 @@ const MainNav = props => {
       }
     </>
   )
-
-
 }
-
-
 
 export default MainNav;
 
