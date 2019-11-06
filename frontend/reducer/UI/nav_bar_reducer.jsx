@@ -15,7 +15,7 @@ const navBarsReducer = (state = defaultState, action) => {
     case SIDE_BAR_TWO:
       return merge({}, state, { active: true, type: 2 })
     case TOGGLE_SIDE_BAR:
-      const toggled = state.toggled ? false : true;
+      const toggled = !state.toggled;
       return merge({}, state, { toggled })
     case REMOVE_NAV_BARS:
       return merge({}, state, { active: false })

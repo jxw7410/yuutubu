@@ -50,7 +50,7 @@ const MainPage = props => {
     <div className={mainCtnClass}>
       <div className='main-ctnt'>
         <div className='flexv-1'>
-          <RecommendedVideos />
+          {/* <RecommendedVideos /> */}
           <ul className='ch-list'>
             {
               props.channels.map(channel => <ChannelIndex key={channel.id} channel={channel} />)

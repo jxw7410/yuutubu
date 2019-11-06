@@ -17,14 +17,14 @@ const LoginForm = (props) => {
         <AuthLogo />
         {
           props.email ?
-            <React.Fragment>
+            <>
               <h2>Welcome</h2>
               <h3 style={emailStyle}>{props.email}</h3>
-            </React.Fragment> :
-            <React.Fragment>
+            </> :
+            <>
               <h2 style={{ fontSize: '30px' }}>Sign In</h2>
               <h3>to continue to YuuTubu</h3>
-            </React.Fragment>
+            </>
         }
 
 

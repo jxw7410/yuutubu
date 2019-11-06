@@ -2,122 +2,115 @@ import React from 'react';
 import TopNavContainer from './top_nav_ctn';
 import SubSideNav from './sub_side_nav';
 import MainSideNavContainer from './main_side_nav_ctn';
+import TypeTwoNavBar from './type_two_nav_bar';
 
-class MainNav extends React.Component {
-  constructor(props) {
-    super(props);
+const MainNav = props => {
+  const [state, setState] = React.useState({
+    inverseNavBar: false,
+  });
 
-    this.state = {
-      inverseNavBar: false,
+  const isMounted = React.useRef(false);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      if (props.navBar.type === 2 && !props.navBar.toggled) {
+        props.toggleSideBar();
+      }
+      if (props.navBar.type === 1 && !props.navBar.toggled) {
+        props.toggleSideBar();
+      }
     }
+  }, [props.navBar.type]);
 
-    this.handleResize = this.handleResize.bind(this);
-  }
+  React.useEffect( () => {
+    if (window.innerWidth < 1090) setState({ ...state, inverseNavBar: true })
+    isMounted.current = true;
 
-  componentDidMount() {
-    if (this.props.login)
-      this.props.fetchSubscriptions();
+    return () => isMounted.current = false;
+  }, []);
 
-    if (window.innerWidth < 1090)
-      this.setState({ inverseNavBar: true })
-
-    window.addEventListener('resize', this.handleResize);
-  }
-
-
-  componentDidUpdate(prevProps) {
-    if (!prevProps.login && this.props.login) {
-      this.props.fetchSubscriptions();
+  React.useEffect( () => {
+    window.addEventListener('resize', resizeHandler);
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
     }
+  }, [resizeHandler])
 
-    if (prevProps.navBar.type === 2 && this.props.navBar.type === 1) {
-      if (!prevProps.navBar.toggled) this.props.toggleSideBar();
-    }
+  // Basically if the state switch from not login to login...
+  React.useEffect(() => {
+    if (props.login) props.fetchSubscriptions();
+  }, [props.login])
 
-    else if (prevProps.navBar.type === 1 && this.props.navBar.type === 2) {
-      if (!prevProps.navBar.toggled) this.props.toggleSideBar();
-    }
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
-  }
 
-  handleResize(e) {
-    e.preventDefault()
-
+  function resizeHandler(e) {
+    e.preventDefault();
+    // Some hardcoded pixel value.
     if (window.innerWidth < 1090) {
-      if (!this.state.inverseNavBar) {
-        this.setState({ inverseNavBar: true })
-
-        if (!this.props.navBar.toggled)
-          this.props.toggleSideBar()
-      }
+      if (!state.inverseNavBar){ setState({ ...state, inverseNavBar: true }); } 
+      if (!props.navBar.toggled){ props.toggleSideBar(); }
     } else {
-      if (this.state.inverseNavBar) {
-        this.setState({ inverseNavBar: false })
-
-        if (!this.props.navBar.toggled)
-          this.props.toggleSideBar()
-      }
+      if (state.inverseNavBar){ setState({ ...state, inverseNavBar: false }); } 
+      if (!props.navBar.toggled) {  props.toggleSideBar(); }
     }
   }
 
-  getNavbar() {
-    switch (this.props.navBar.type) {
+
+  function renderNavBar() {
+    switch (props.navBar.type) {
       case 1:
         return (
-          <React.Fragment>
+          <>
             {
-              this.state.inverseNavBar ?
-                <React.Fragment>
-                  {this.typeTwoNavBar()}
-                  <div style={{ marginTop: '56px', height: '100%', position: 'fixed', zIndex: 104 }}>
+              state.inverseNavBar ?
+                <>
+                  <TypeTwoNavBar />
+                  <div style={{
+                    marginTop: '56px',
+                    height: '100%',
+                    position: 'fixed',
+                    zIndex: 104
+                  }}>
                     <SubSideNav />
                   </div>
-                </React.Fragment>
+                </>
                 :
                 <div className='msn-ctn'>
-                  {this.props.navBar.toggled ? < MainSideNavContainer /> : null}
+                  {
+                    props.navBar.toggled ?
+                      <MainSideNavContainer /> : null
+                  }
                   <SubSideNav />
                 </div>
             }
-          </React.Fragment>
+          </>
         )
       case 2:
-        return this.typeTwoNavBar()
+        return <TypeTwoNavBar />
       default:
-        return null
+        return null;
     }
   }
 
-  typeTwoNavBar() {
-    return (
-      <React.Fragment>
-        <div className={`msn-ctn-2 ${this.props.navBar.toggled ? "" : 'mc2-toggled'}`}>
-          <MainSideNavContainer type="typeTwo" />
-        </div>
-        <div className={`msn-ctn-cvr ${this.props.navBar.toggled ? "" : "mcc-toggled"}`}
-          onClick={this.props.toggleSideBar} />
-      </React.Fragment>
-    )
-  }
+  return (
+    <>
+      {
+        props.navBar.active ?
+          <>
+            <div className='tn-ctn'>
+              <TopNavContainer />
+            </div>
+            {renderNavBar()}
+          </>
+          : null
+      }
+    </>
+  )
 
-  render() {
-    return (
-      <React.Fragment>
-        {
-          this.props.navBar.active ?
-            <React.Fragment>
-              <div className='tn-ctn'> <TopNavContainer /> </div>
-              {this.getNavbar()}
-            </React.Fragment>
-            : null
-        }
-      </React.Fragment>
-    )
-  }
+
 }
+
+
 
 export default MainNav;
 

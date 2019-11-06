@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     # shallow nesting videos because videos belong to channel
     resources :user_channels, only: [:index, :show] do
       # The index method will exist inside of the VideosController
-      resources :videos, only: [:index] #
+      resources :videos, only: [:index]
     end
 
     resources :videos, only: [:show, :create] do
