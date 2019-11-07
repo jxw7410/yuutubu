@@ -2,7 +2,7 @@ import React from 'react'
 import SubscribeButton from '../subscribe/subscribe_button';
 import ChannelHeaderNav from './channel_header_nav';
 
-const ChannelHeader = props => {
+const ChannelHeader = React.memo( props => {
   return (
     <>
       <div className="ch-hdr flexv-1">
@@ -24,7 +24,7 @@ const ChannelHeader = props => {
       <ChannelHeaderNav />
     </>
   )
-}
+});
 
 
 

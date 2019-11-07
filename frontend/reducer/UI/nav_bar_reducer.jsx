@@ -11,9 +11,9 @@ const navBarsReducer = (state = defaultState, action) => {
   Object.freeze(state)
   switch (action.type) {
     case SIDE_BAR_ONE:
-      return merge({}, state, { active: true, type: 1 })
+      return merge({}, state, { active: true, type: 'TYPEONE' })
     case SIDE_BAR_TWO:
-      return merge({}, state, { active: true, type: 2 })
+      return merge({}, state, { active: true, type: 'TYPETWO' })
     case TOGGLE_SIDE_BAR:
       const toggled = !state.toggled;
       return merge({}, state, { toggled })

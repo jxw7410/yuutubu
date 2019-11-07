@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { isEmailValid } from './../../util/selectors';
-import { AuthInputWidget, EmailFormStuff } from './utils';
+import { AuthInputWidget, DemoUserLogin } from './utils';
 
 const LoginFormItem = props => {
 	const [state, setState] = React.useState({
@@ -71,7 +71,7 @@ const LoginFormItem = props => {
 				/>
 				{
 					field === 'email' ?
-						<EmailFormStuff login={props.login} /> : null
+						<DemoUserLogin login={props.login} /> : null
 				}
 				<section className='flexh-5' style={{ width: '350px' }}>
 					<span>

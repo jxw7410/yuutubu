@@ -10,12 +10,12 @@ const ChannelHeaderNav = props => {
   });
 
   React.useEffect(() => {
-    document.addEventListener('scroll', fixNavBar);
+    document.addEventListener('scroll', fixedNavBar);
     return () => document.removeEventListener('scroll', fixedNavBar);
   }, []);
 
 
-  function fixNavBar(e) {
+  function fixedNavBar(e) {
     const scrollBarPos = document.querySelector('html').scrollTop;
     if (scrollBarPos > fixedPosition)
       setState({ ...state, isNavBarFixed: true });

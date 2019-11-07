@@ -33,12 +33,10 @@ export const AuthInputWidget = React.forwardRef((props, ref) => {
 
   const handleBlur = e => {
     e.preventDefault();
-    if (!value.length)
-      setState({ focus: false })
+    if (!value.length) setState({ focus: false })
   }
 
   const newText = text.split(" ").map(word => capitalize(word)).join(" ");
-
   const topSpanClass = `${styleClass.label}  ${state.focus ? otherClass.label : ""}`;
   const topSpanStyle = { color: (errors.length && state.focus) ? "red" : null };
   const inputClass = `${styleClass.input} ${errors.length ? otherClass.input : ""}`
@@ -68,22 +66,21 @@ export const AuthInputWidget = React.forwardRef((props, ref) => {
 });
 
 
-export const AuthLogo = () => {
+export const AuthLogo = React.memo( () => {
   return (
     <span className='flexh-3'>
       <i className="fab fa-youtube" />
       <h1 style={{ fontSize: '25px' }}>YuuTubu</h1>
     </span>
   )
-}
+});
 
-export const EmailFormStuff = ({ login }) => {
+export const DemoUserLogin = React.memo( ({ login }) => {
   const handleOnClick = e => {
     e.preventDefault()
     login({ email: "demouser@gmail.com", password: "password123" })
   }
-
   return (
     <span> Have no account? Try out the <span onClick={handleOnClick} id='demo-account-link'>demo account</span></span>
   )
-}
+});

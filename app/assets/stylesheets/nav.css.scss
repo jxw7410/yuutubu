@@ -99,6 +99,13 @@
     font-size: 25px;
 }
 
+.sbi-ctn{
+    position: relative;
+}
+
+.sbi-ctn:focus{
+    outline: none;
+}
 
 .sbi{
     width: 555px;
@@ -157,6 +164,7 @@
     box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);
     border: 1px solid rgb(204,204,204);
     border-top: 4px solid rgba(190,190,190, 0.1);
+    z-index: 200;
    
 }
 

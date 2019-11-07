@@ -1,164 +1,141 @@
 import React from 'react';
-import SearchModal from '../modals/search_modal';
 import { withRouter } from 'react-router-dom';
-import { filterByWords } from '../../util/selectors'
+import SearchDropdown from './search_drop_down';
+import { filterByWords } from '../../util/selectors';
 
-// Todo: React Hook
-class SearchBar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      inputText: "",
-      fetching: false,
-      openModal: false,
+export const SearchBarContext = React.createContext();
+
+const SearchBar = props => {
+  const [state, setState] = React.useState({
+    inputText: "",
+    selected: null,
+    isFocused: false,
+    filteredSearches: [],
+    redirecting: false, 
+  });
+  
+  const inputRef = React.useRef(null);
+  const isFetchingData = React.useRef(false);
+
+  // When ajax is made to change searches
+  React.useEffect( () => {
+    const filteredSearches = filterByWords(state.inputText, props.searches);
+    setState({ ...state, filteredSearches });
+  }, [props.searches])
+  
+  // When text changes or search is focused.
+  React.useEffect( () => {
+    if(state.redirecting){
+      handleSubmit();
+      setState({...state, redirecting: false, isFocused: false});
+      inputRef.current.blur();
+     } else if (state.isFocused) {
+      searchForMatches();
+     }
+  }, [state.inputText, state.isFocused])
+
+
+  function handleFocus(bool) {
+    return e => {
+      setState({ ...state, isFocused: bool });
+    }
+  }
+
+  function handleChange(e) {
+    setState({
+      ...state,
       selected: null,
-      sliceLength: 0,
-      modalFocus: false,
-    }
-
-
-    this.searchBar = React.createRef();
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.updateText = this.updateText.bind(this);
-    this.updateIndex = this.updateIndex.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateFocus = this.updateFocus.bind(this);
-    this.length = 0;
-  }
-
-  closeModal() {
-    setTimeout(() => {
-      this.setState({ openModal: false, modalFocus: false })
-      this.searchBar.current.blur()
-    }, 100)
-  }
-
-
-  updateFocus(modalFocus) {
-    this.setState({ modalFocus })
-  }
-
-  updateText(inputText) {
-    this.setState({ inputText })
-  }
-
-  updateIndex(index) {
-    this.setState({ selected: index })
-  }
-
-  handleFocus(e) {
-    e.preventDefault();
-    if (!this.state.fetching) {
-      this.setState({ fetching: true })
-      setTimeout(() => this.props.requestSearchQueries(this.state.inputText.trim()).then(() => {
-        this.length = filterByWords(this.state.inputText, this.props.searches).length - 1;
-        this.setState({ fetching: false, openModal: true, selected: null })
-      }).fail(
-        () => {
-          this.setState({ fetching: false, openModal: false, selected: null })
-        }
-      ), 10);
-    }
-  }
-
-  handleChange(e) {
-    this.setState({ 
-      inputText: e.target.value, 
-      sliceLength: e.target.value.length, 
-      selected: null 
+      inputText: e.target.value,
     });
-    this.handleFocus(e)
+  }
+
+  function handleSubmit(e) {
+    if (state.inputText.length) {
+      props.history.push(`/search/${state.inputText}`)
+    }
+  }
+
+  function searchForMatches() {
+    if (!isFetchingData.current) {
+      isFetchingData.current = true;
+      // For throttling.
+      setTimeout(async () => {
+        await props.requestSearchQueries(state.inputText.trim())
+        isFetchingData.current = false;
+      }, 10)
+    }
   }
 
 
-  handleKeyPress(e) {
-
+  function handleKeyPress(e) {
     if (e.key === 'ArrowUp' || e.keyCode === 38) {
       e.preventDefault();
-      if (this.state.selected === null) {
-        this.setState({ selected: this.length })
-      }
-      else if (this.state.selected === 0) {
-        this.setState({ selected: null })
-      }
-      else {
-        this.setState({ selected: this.state.selected - 1 })
-      }
-
-
+      if (state.selected === null) 
+        setState({...state, selected: state.filteredSearches.length - 1})
+      else if (state.selected === 0) 
+        setState({...state, selected: null})
+      else 
+        setState({...state, selected: state.selected - 1})
     } else if (e.key === 'ArrowDown' || e.keyCode === 40) {
       e.preventDefault();
-      if (this.state.selected === null)
-        this.setState({ selected: 0 })
-      else if (this.state.selected === this.length)
-        this.setState({ selected: null })
-      else
-        this.setState({ selected: this.state.selected + 1 })
-
+      if (state.selected === null)
+        setState({...state, selected: 0})
+      else if (state.selected === state.filteredSearches.length - 1) 
+        setState({...state, selected: null})
+      else 
+        setState({...state, selected : state.selected + 1})
+    } else if (e.key === 'Enter' || e.keyCode === 13 ) {
+      if (state.selected !== null) {
+        e.preventDefault();
+        const selectedSearch = state.filteredSearches[state.selected];
+        setState({
+          ...state, 
+          redirecting: true,
+          selected: null, 
+          inputText: selectedSearch.context
+        })
+      }
     }
   }
 
 
-  handleBlur(e) {
-    if (this.state.openModal) {
-      if (!this.state.modalFocus)
-        this.setState({ openModal: false })
-      else
-        e.target.focus();
-    }
+  return (
+    <form className='flexh-1'
+      style={{ width: '100%' }}
+      onSubmit={handleSubmit}
+    >
+      <div 
+        tabIndex='0'
+        className='sbi-ctn'
+        onFocus={handleFocus(true)}
+        onBlur={handleFocus(false)}
+        onKeyDown={handleKeyPress}
+      >
+        <input
+          ref={inputRef}
+          className='sbi'
+          type='text'
+          placeholder='Search'
+          autoComplete='off'
+          onChange={handleChange}
+          value={state.inputText}
+        />
 
-    if (!this.state.inputText.trim())
-      this.setState({ inputText: "" })
-  }
+        <SearchBarContext.Provider
+          value={{
+            searchBarState: state,
+            setSearchBarState: setState
+          }}
+        >
+          <SearchDropdown />
+        </SearchBarContext.Provider>
 
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.closeModal();
-    if (this.state.inputText.length) {
-      this.props.history.push(`/search/${this.state.inputText}`)
-    }
-  }
-
-  render() {
-    return (
-      <form className='flexh-1' style={{ width: '100%' }} onSubmit={this.handleSubmit}>
-        <div style={{ position: 'relative' }}>
-          <input ref={this.searchBar}
-            className='sbi'
-            type='text'
-            placeholder='Search'
-            autoComplete='off'
-            onKeyDown={this.handleKeyPress}
-            value={this.state.inputText}
-            onChange={this.handleChange}
-            onFocus={this.handleFocus}
-            onSubmit={this.handleSubmit}
-            onBlur={this.handleBlur}
-          />
-
-          <SearchModal
-            word={this.state.inputText}
-            fetching={this.state.fetching}
-            inputTextLength={this.state.sliceLength}
-            openModal={this.state.openModal}
-            selected={this.state.selected}
-            updateText={this.updateText}
-            updateIndex={this.updateIndex}
-            updateFocus={this.updateFocus}
-            closeModal={this.closeModal}
-          />
-        </div>
-        <button className='sbb'
-          onClick={this.handleSubmit}
-        > <i className="fas fa-search"></i> </button>
-      </form>
-    )
-  }
+      </div>
+      <button className='sbb'
+        onClick={handleSubmit}
+      > <i className="fas fa-search" /> </button>
+    </form>
+  )
 }
 
 

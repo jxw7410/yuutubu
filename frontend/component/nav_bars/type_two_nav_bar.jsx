@@ -5,17 +5,17 @@ import MainSideNavContainer from './main_side_nav_ctn';
 
 
 
-const TypeTwoNavBar = ({isNavBarToggled, toggleSideBar}) => {
+const TypeTwoNavBar = React.memo(({isNavBarToggled, toggleSideBar}) => {
   return (
     <>
       <div className={`msn-ctn-2 ${isNavBarToggled ? "" : 'mc2-toggled'}`}>
-        <MainSideNavContainer type='typeTwo' />
+        <MainSideNavContainer type='TYPETWO' />
       </div>
       <div className={`msn-ctn-cvr ${isNavBarToggled ? "" : "mcc-toggled"}`} 
         onClick={toggleSideBar} />
     </>
   )
-};
+});
 
 
 

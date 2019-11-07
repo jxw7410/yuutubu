@@ -17,12 +17,10 @@ const MainNav = props => {
   */
   React.useEffect(() => {
     if (isMounted.current) {
-      if (props.navBar.type === 2 && !props.navBar.toggled) {
+      if (props.navBar.type === 'TYPETWO' && !props.navBar.toggled)
         props.toggleSideBar();
-      }
-      if (props.navBar.type === 1 && !props.navBar.toggled) {
+      if (props.navBar.type === 'TYPEONE' && !props.navBar.toggled)
         props.toggleSideBar();
-      }
     }
   }, [props.navBar.type]);
 
@@ -54,8 +52,8 @@ const MainNav = props => {
 
   function resizeHandler(e) {
     e.preventDefault();
-    // Some hardcoded pixel value.
-    if (window.innerWidth < 1090) {
+    const pixelLimit = 1090;
+    if (window.innerWidth < pixelLimit) {
       if (!state.inverseNavBar){ setState({ ...state, inverseNavBar: true }); } 
       if (!props.navBar.toggled){ props.toggleSideBar(); }
     } else {
@@ -67,7 +65,7 @@ const MainNav = props => {
 
   function renderNavBar() {
     switch (props.navBar.type) {
-      case 1:
+      case 'TYPEONE':
         return (
           <>
             {
@@ -85,16 +83,13 @@ const MainNav = props => {
                 </>
                 :
                 <div className='msn-ctn'>
-                  {
-                    props.navBar.toggled ?
-                      <MainSideNavContainer /> : null
-                  }
+                  { props.navBar.toggled ? <MainSideNavContainer /> : null }
                   <SubSideNav />
                 </div>
             }
           </>
         )
-      case 2:
+      case 'TYPETWO':
         return <TypeTwoNavBar />
       default:
         return null;
