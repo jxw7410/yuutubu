@@ -24,7 +24,7 @@
 .src-vid-lst .thumbnail-preview, 
 .src-vid-lst .thumbnail-preview-video,
 .src-vid-lst .tn-prev-vid-active{
-    width: 246px;
+    min-width: 246px;
     height: 138px;
     padding: 0;
 }

@@ -33,7 +33,7 @@ export const IndexPageThumbnailInfo = React.memo(props =>
               {props.video.views} views 
             </span>
             <span className="midot">
-              &middot;
+             &middot; 
             </span>
             <span> 
               {props.video.created_at}
@@ -56,13 +56,13 @@ export const SearchPageThumbnailInfo = React.memo(props =>
           {props.video.channelName} 
         </span>
         <span className="midot">
-          &middot;
+             &middot; 
         </span>
         <span> 
           {props.video.views} views 
         </span>
         <span className="midot">
-          &middot;
+            &middot; 
         </span>
         <span> 
           {props.video.created_at}

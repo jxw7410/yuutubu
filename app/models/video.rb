@@ -68,10 +68,8 @@ class Video < ApplicationRecord
     end
   end
 
-  def self.query_by_string(params)
-    query = params[:search_query].downcase
-    self.joins(:channel).where(
-      "lower(title) like ? 
+  def self.query_by_string(query, limit = nil, offset = nil)
+    self.joins(:channel).where("lower(title) like ? 
       or lower(title) like ? 
       or lower(title) like ? 
       or lower(description) like ? 
@@ -82,22 +80,24 @@ class Video < ApplicationRecord
       or lower(user_channels.name) like ?",
       "#{query}%", "%#{query}%", "%#{query}",
       "#{query}%", "%#{query}%", "%#{query}",
-      "#{query}%", "%#{query}%", "%#{query}"
-    ).limit(params[:limit]).offset(params[:offset])
+      "#{query}%", "%#{query}%", "%#{query}")
+      .limit(limit)
+      .offset(offset)
+      .order(:id)
   end
 
   def self.find_by_video_id(id = nil, user_id = nil)
     if id
       return self.where.not(id: id, user_id: user_id)
-               .limit(VIDEO_LIMIT)
-               .includes(:channel)
-               .order(views: :desc)
-    else
-      return self.where.not(user_id: user_id)
-               .limit(VIDEO_LIMIT)
-               .includes(:channel)
-               .order(views: :desc)
-    end
+        .limit(VIDEO_LIMIT)
+        .includes(:channel)
+        .order(views: :desc)
+    end 
+
+    self.where.not(user_id: user_id)
+      .limit(VIDEO_LIMIT)
+      .includes(:channel)
+      .order(views: :desc)
   end
 
   def self.find_videos_by_channel(params)

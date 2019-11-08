@@ -4,18 +4,33 @@ import { MINI } from '../../util/constants';
 
 const Search = props => {
   const queryOffset = React.useRef(0);
+  const currentQuery = React.useRef(null); /* This is for the scroll event handler */
   const fetching = React.useRef(false);
   const page = React.useRef(document.querySelector('html'));
 
   React.useEffect(() => {
+    currentQuery.current = props.match.params.query;
     props.clearVideos();
-    if (props.videoPlayer.type !== MINI) props.removeVideoPlayer();
-    props.fetchSideBarOne();
-    return () => props.updatePrevPath(props.match.path);
-  }, []);
+    queryOffset.current = 0;
+    fetchData();
+  }, [props.match.params.query])
 
   React.useEffect(() => {
-    const fetchData = async () => {
+    if (props.videoPlayer.type !== MINI) {
+      props.removeVideoPlayer();
+    }
+    props.fetchSideBarOne();
+    document.addEventListener('scroll', scrollPagination)
+    return () => {
+      props.updatePrevPath(props.match.path);
+      document.removeEventListener('scroll', scrollPagination);
+    }
+  }, []);
+
+
+  async function fetchData() {
+    if (!fetching.current) {
+      fetching.current = true;
       const queryLimit = 10;
       await props.updateSearchHistory(props.match.params);
       await props.requestSearchVideos(
@@ -23,13 +38,10 @@ const Search = props => {
         queryLimit,
         queryOffset.current
       );
+      fetching.current = false;
       queryOffset.current += 10;
-      document.addEventListener('scroll', scrollPagination);
     }
-    fetchData();
-    return () => document.removeEventListener('scroll', scrollPagination);
-  }, [])
-
+  }
 
   function scrollPagination(e) {
     e.preventDefault();
@@ -38,15 +50,15 @@ const Search = props => {
       const queryLimit = 10;
       fetching.current = true;
       props.requestSearchVideos(
-        props.match.params,
+        { query: currentQuery.current },
         queryLimit,
         queryOffset.current
       ).then(() => {
         queryOffset.current += 10;
         fetching.current = false;
-      }).fail(() => {
-        document.removeEventListener('scroll', scrollPagination);
-      })
+      }).fail(() =>
+        fetching.current = false
+      )
     }
   }
 
@@ -60,19 +72,17 @@ const Search = props => {
       <div className='flexh-2 src-vid-lst-ctn'>
         <ul className='flexv-4 src-vid-lst'>
           {
-            props.videos.map( video => 
+            props.videos.map(video =>
               <VideoThumbnail
                 key={video.id}
                 video={video}
-                type='search-page' />
-              )
+                type='SEARCHPAGE' />
+            )
           }
         </ul>
       </div>
     </div>
   )
-
-
 }
 
 

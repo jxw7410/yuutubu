@@ -13,7 +13,6 @@ const VideoThumbnail = props => {
     renderVideo: false,
     imgLoaded: false,
     vidLoaded: false,
-    infoComponent: null,
   })
 
   const throttledFetchVideoRequest = React.useRef();
@@ -45,7 +44,7 @@ const VideoThumbnail = props => {
           video={props.video}
           redirect={props.redirectEvent} />
         break;
-      case 'search-page':
+      case 'SEARCHPAGE':
         infoComponent = <SearchPageThumbnailInfo
           video={props.video}
           redirect={props.redirectEvent} />
@@ -56,7 +55,7 @@ const VideoThumbnail = props => {
           channel={props.channel}
           redirect={props.redirectEvent} />
     }
-    setState({ ...state, infoComponent })
+    return infoComponent;
   }
 
   function stopRenderVideo() {
@@ -143,7 +142,7 @@ const VideoThumbnail = props => {
           </div>
         </div>
       </div>
-      {state.infoComponent}
+      {renderInfoComponent()}
     </li>
   )
 

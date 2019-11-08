@@ -27,8 +27,6 @@ const SearchBar = props => {
   React.useEffect( () => {
     if(state.redirecting){
       handleSubmit();
-      setState({...state, redirecting: false, isFocused: false});
-      inputRef.current.blur();
      } else if (state.isFocused) {
       searchForMatches();
      }
@@ -49,9 +47,11 @@ const SearchBar = props => {
     });
   }
 
-  function handleSubmit(e) {
+  function handleSubmit() {
     if (state.inputText.length) {
       props.history.push(`/search/${state.inputText}`)
+      setState({ ...state, redirecting: false, isFocused: false });
+      inputRef.current.blur();
     }
   }
 
