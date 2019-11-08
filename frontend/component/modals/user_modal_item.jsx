@@ -54,6 +54,7 @@ class UserModalItem extends React.Component {
                         </span>
           </div>
         </div>
+        
         <div className='um-sec-1'>
           <ul id='um-sec-1-ul'>
             <li onClick={this.redirectEvent}>

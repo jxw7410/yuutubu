@@ -13,7 +13,7 @@ const SearchBar = props => {
     filteredSearches: [],
     redirecting: false, 
   });
-  
+
   const inputRef = React.useRef(null);
   const isFetchingData = React.useRef(false);
 
@@ -60,30 +60,23 @@ const SearchBar = props => {
       isFetchingData.current = true;
       // For throttling.
       setTimeout(async () => {
-        await props.requestSearchQueries(state.inputText.trim())
+        await props.requestSearchQueries(state.inputText.trim());
         isFetchingData.current = false;
       }, 10)
     }
   }
 
-
+  /* 
+    The repeated e.preventDefault are intentional. Only want it to happen if
+    Certain keys matches.
+  */
   function handleKeyPress(e) {
     if (e.key === 'ArrowUp' || e.keyCode === 38) {
       e.preventDefault();
-      if (state.selected === null) 
-        setState({...state, selected: state.filteredSearches.length - 1})
-      else if (state.selected === 0) 
-        setState({...state, selected: null})
-      else 
-        setState({...state, selected: state.selected - 1})
+      _moveSelectorUp()
     } else if (e.key === 'ArrowDown' || e.keyCode === 40) {
       e.preventDefault();
-      if (state.selected === null)
-        setState({...state, selected: 0})
-      else if (state.selected === state.filteredSearches.length - 1) 
-        setState({...state, selected: null})
-      else 
-        setState({...state, selected : state.selected + 1})
+      _moveSelectorDown();
     } else if (e.key === 'Enter' || e.keyCode === 13 ) {
       if (state.selected !== null) {
         e.preventDefault();
@@ -98,6 +91,24 @@ const SearchBar = props => {
     }
   }
 
+  function _moveSelectorUp(){
+    if (state.selected === null)
+      setState({ ...state, selected: state.filteredSearches.length - 1 })
+    else if (state.selected === 0)
+      setState({ ...state, selected: null })
+    else
+      setState({ ...state, selected: state.selected - 1 })
+  }
+
+
+  function _moveSelectorDown(){
+    if (state.selected === null)
+      setState({ ...state, selected: 0 })
+    else if (state.selected === state.filteredSearches.length - 1)
+      setState({ ...state, selected: null })
+    else
+      setState({ ...state, selected: state.selected + 1 })
+  }
 
   return (
     <form className='flexh-1'

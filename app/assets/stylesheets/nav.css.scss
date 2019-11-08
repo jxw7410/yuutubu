@@ -49,7 +49,7 @@
     width: 100%;
 }
 
-.tns-3 li:not(:nth-child(5)) > .fas, .tns-3 li:not(:nth-child(5)) > a > .fab{
+.tns-3 li:not(:nth-child(5)) .fas, .tns-3 li:not(:nth-child(5)) > a > .fab{
     color: rgb(96, 96, 96);
     padding: 10px;
     border-radius: 20px;
