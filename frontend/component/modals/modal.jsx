@@ -1,7 +1,6 @@
 import React from 'react';
 import { closeModal } from '../../actions/modal/modal_action';
 import { connect } from 'react-redux';
-import VideoUploadModal from './video_upload_modal';
 
 
 
@@ -12,9 +11,6 @@ function Modal({ modal, closeModal }) {
   let component;
 
   switch (modal) {
-    case 'upload_vid':
-      component = <VideoUploadModal />
-      break;
     case 'unsubscribe':
       component = null;
       break;

@@ -11,7 +11,7 @@ const TopNav = props => {
 	return (
 		<div className='top-nav'>
 			<div className='tns-1 flexh-3'>
-				<i className='fas fa-bar' 
+				<i className='fas fa-bars' 
 					onClick={() => props.toggleSideBar()} />
 				<span className='nb-i flexh-3'>
 					<NavLink exact className='flexh-3' to='/'>
@@ -29,7 +29,7 @@ const TopNav = props => {
 						<UploadDropDown />
 					</li>
 					<SideNavLinks type='top' />
-					<li>
+					<li className='i-wrap'>
 						{
 							props.isLoggedIn ?
 								<UserDropDown /> : <LoginButton />					

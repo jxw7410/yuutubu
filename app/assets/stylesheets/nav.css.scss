@@ -1,5 +1,6 @@
-.tn-ctn{
-    grid-row: 1 / 2;
+$defaultBlue: rgb(39, 97, 204);
+
+.top-nav--container{
     width: 100%;
     height: 56px;
     position: fixed;
@@ -7,6 +8,7 @@
     z-index: 999;
     top: 0;
 }
+
 
 .top-nav{
     display: grid;
@@ -47,14 +49,6 @@
 .tns-3{
     justify-content: space-between;
     width: 100%;
-}
-
-.tns-3 li:not(:nth-child(5)) .fas, .tns-3 li:not(:nth-child(5)) > a > .fab{
-    color: rgb(96, 96, 96);
-    padding: 10px;
-    border-radius: 20px;
-    background: transparent;
-    transition: background 0.8s;
 }
 
 
@@ -207,13 +201,13 @@
     margin-left: 5px;
     height: 40px;
     width: 110px;
-    border: 2px solid rgb(39, 97, 204);
+    border: 2px solid $defaultBlue;
     border-radius: 2px;
     outline:none;
     background: white;
     transition: background, 0.5s;
     font-size: 15px;
-    color: rgb(39, 97, 204);
+    color: $defaultBlue;
     justify-content: space-around;
 }
 
@@ -472,15 +466,24 @@
 
 .i-msg{
     position: absolute;
-    opacity: 0;
     top:55px;
-    transition: opacity 0.25s linear;
-    font-size: 14px;
+    z-index: 999;
     padding: 10px;
     background: rgb(75, 75, 75);
-    color: white;
     border-radius: 3px;
     white-space: nowrap;
+    font-size: 14px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.25s linear;
+}
+
+.nav-i-link{
+    color: #606060;
+    padding: 10px;
+    border-radius: 20px;
+    background: transparent;
+    transition: background 0.8s;
 }
 
 .nav-i-link:hover + .i-msg{
@@ -488,6 +491,31 @@
     transition: opacity 0.5s ease-in;
 }
 
+.dropdown-container:focus{
+    outline:none;
+}
 
+.dropdown-container li:hover{
+    cursor: pointer;
+}
 
+.dropdown-container > .fa-user-circle{
+    font-size: 35px;
+    color: $defaultBlue;
+}
 
+.video-upload-dropdown{
+    position: absolute; 
+    top: 48px;
+    left: -3px;
+    z-index: 1000;
+    width: 180px;
+    padding: 5px 0;
+    background: white;
+    border: 1px solid lightgray;
+}
+
+.video-upload-dropdown > li:hover{
+    background: lightgray;
+    cursor: pointer;
+}

@@ -1,8 +1,3 @@
-.usr-i{
-    font-size: 35px;
-    color: rgb(39, 97, 204);
-}
-
 .usr-mdl-i{
     position: absolute;
     outline:none;
@@ -80,20 +75,5 @@
   z-index: 1000;
 }
 
-.video-upload-modal{
-    background: white;
-    padding: 5px 0;
-    width: 180px;
-    border: 1px solid lightgray;
-    position: absolute;
-    top: 48px;
-    right: 0%;
-    transform: translateX(-50%);
-}
-
-.video-upload-modal > li:hover {
-    background: lightgray;
-    cursor: pointer;
-}
 
 

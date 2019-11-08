@@ -8,15 +8,15 @@ import { withRouter } from 'react-router-dom';
 const RecommendedVideos = props => {
   const [state, setState] = React.useState({
     fetched: false,
-    readMore: false, 
+    readMore: false,
   })
 
   React.useEffect(() => {
     props.fetchRecommendedVideos()
-      .then(() => setState({ ...state, fetched: true}))
+      .then(() => setState({ ...state, fetched: true }))
   }, []);
 
-  function redirectOnClick(videoId){
+  function redirectOnClick(videoId) {
     return e => {
       props.history.push(`/video/${videoId}`)
     }
@@ -24,31 +24,34 @@ const RecommendedVideos = props => {
 
 
   return (
-   <div className='idx-rec-vid-ctn'>
-     <div className='mgt-24' style={{fontWeight: 'bold'}}> Recommneded </div>
-      <ul className={`
-        idx-rec-vid
-        ${ state.readmore ? "" : 'show-more-inactive'}`}>
+    <div className='idx-rec-vid-ctn'>
+      <div className='mgt-24' style={{ fontWeight: 'bold' }}> 
+        Recommneded
+      </div>
+      <ul className={[
+        'idx-rec-vid',
+        state.readmore ? "" : 'show-more-inactive'
+      ].join(' ')}>
         {
-          state.fetched ? 
-            props.videos.map( video => 
-              <VideoThumbnail 
+          state.fetched ?
+            props.videos.map(video =>
+              <VideoThumbnail
                 key={video.id}
                 video={video}
                 handleClick={redirectOnClick}
-                channel={{ id: video.channel_id, name: video.channelName}} /> 
-              ) : null
+                channel={{ id: video.channel_id, name: video.channelName }} />
+            ) : null
         }
       </ul>
       {
-        state.readMore ? null : 
-          <button 
+        state.readMore ? null :
+          <button
             id='show-more-button'
-            onClick={ e => setState({...state, readMore: true})}>
+            onClick={e => setState({ ...state, readMore: true })}>
             Show More
           </button>
       }
-   </div> 
+    </div>
   )
 }
 

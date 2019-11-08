@@ -12,8 +12,10 @@ const SearchDropdown = props => {
     return searchBarState.filteredSearches.map((search, index) => {
       const matchedSubstring = search.context.slice(0, inputTextLength);
       const remenantString = search.context.slice(inputTextLength);
-      const className = `${searchBarState.selected === index ? 'sbsd_d' : ""} 
-          ${search.category ? "history" : ""}`;
+      const className = [
+          searchBarState.selected === index ? 'sbsd_d' : "",
+          search.category ? "history" : "",
+      ].join(" ")
 
       return <SearchListItem
         key={index}

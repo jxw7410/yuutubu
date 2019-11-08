@@ -1,42 +1,62 @@
 import React from 'react';
 
 const SideNavLinks = (props) => {
-  return (
-    <React.Fragment>
-      <li className='i-wrap'>
-        <a className='nav-i-link flexv-3'
-            target="_blank"
-            href='https://github.com/jxw7410/yuutubu'>
-          <i className="fab fa-github" />
-          {props.type === 'top' ? null : <span className='flexh-3'>Git</span>}
-        </a>
-        {props.type === 'top' ? <div className='i-msg'>GitHub</div> : null}
-      </li>
 
+  const anchorClass = [
+    'flexv-3',
+    props.type === 'top' ? "nav-i-link" : ""
+  ].join(" ");
+
+  function renderIconContainer(href, tag){
+    return (
       <li className='i-wrap'>
-        <a className='nav-i-link flexv-3'
-            target="_blank"
-            href='https://www.linkedin.com/in/jian-hong-wu-b1535284/'>
-          <i className="fab fa-linkedin" />
-          {props.type === 'top' ? null : <span className='flexh-3'>Linkedin</span>}
-        </a>
-        {props.type === 'top' ? <div className='i-msg'>LinkedIn</div> : null}
+        <a className={anchorClass}
+          target="_blank"
+          href={href}>
+            <i className={`fab fa-${tag.toLowerCase()}`} />
+            {
+              props.type === 'top' ? null : 
+                <span className='flexh-3'>
+                  {tag}
+                </span>
+            }
+          </a>
+          {
+            props.type ==='top' ?
+              <div className='i-msg'>
+                {tag}
+              </div> : null
+          }
       </li>
+    )
+  }
+
+
+  return (
+    <>
+      {
+        renderIconContainer(
+          'https://github.com/jxw7410/yuutubu',
+          'GitHub'
+        )
+      } 
 
       {
-        props.type === 'main' ? null :
-          <li className='i-wrap'>
-            <a className='nav-i-link flexv-3'
-                target="_blank"
-                href='https://angel.co/jian-wu-12?public_profile=1'>
-              <i className="fab fa-angellist" />
-              {props.type === 'top' ? null : <span className='flexh-3'>AngelList</span>}
-            </a>
-            {props.type === 'top' ? <div className='i-msg'>AngelList</div> : null}
-          </li>
+        renderIconContainer(
+          'https://www.linkedin.com/in/jian-hong-wu-b1535284/',
+          'LinkedIn'
+        )
       }
-    </React.Fragment>
+    
+      {
+        props.type === 'main' ? null :
+          renderIconContainer(
+            'https://angel.co/jian-wu-12?public_profile=1',
+            'AngelList'
+          )
+      }
+    </>
   )
 }
 
-export default SideNavLinks;
+export default React.memo(SideNavLinks);

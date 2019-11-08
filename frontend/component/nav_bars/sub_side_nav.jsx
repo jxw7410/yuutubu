@@ -5,26 +5,22 @@ import SideNavLinks from './side_nav_links';
 
 const SubSideNav = props => {
 
-  const toHomeEvent = e => {
+  const toMainPage = e => {
     e.preventDefault();
     props.history.push('/')
   }
-
-  const listClass = props.location.pathname === '/' ? 'ssi-select' : "";
 
   return (
     <div className='ssn-ctn'>
       <nav id='ssn'>
         <div className='ssn-content flexh-2'>
           <ul className='flexv-1'>
-            <li
-              onClick={toHomeEvent}
-              id='Home'
-              className={listClass}>
+            <li id='Home'
+              onClick={toMainPage}
+              className={props.location.pathname === '/' ? 'ssi-select' : ""}>
               <i className="fas fa-home" />
               <span>Home</span>
             </li>
-
             <SideNavLinks />
           </ul>
         </div>

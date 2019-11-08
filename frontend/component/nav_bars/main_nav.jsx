@@ -25,7 +25,7 @@ const MainNav = props => {
   }, [props.navBar.type]);
 
   /* componentDidMount */
-  React.useEffect( () => {
+  React.useEffect(() => {
     if (window.innerWidth < 1090) setState({ ...state, inverseNavBar: true })
     isMounted.current = true;
 
@@ -36,7 +36,7 @@ const MainNav = props => {
     Event listeners which modifies the state needs the handler to be watched
     otherwise data in handlers are cached.
   */
-  React.useEffect( () => {
+  React.useEffect(() => {
     window.addEventListener('resize', resizeHandler);
     return () => {
       window.removeEventListener('resize', resizeHandler);
@@ -54,11 +54,11 @@ const MainNav = props => {
     e.preventDefault();
     const pixelLimit = 1090;
     if (window.innerWidth < pixelLimit) {
-      if (!state.inverseNavBar){ setState({ ...state, inverseNavBar: true }); } 
-      if (!props.navBar.toggled){ props.toggleSideBar(); }
+      if (!state.inverseNavBar) { setState({ ...state, inverseNavBar: true }); }
+      if (!props.navBar.toggled) { props.toggleSideBar(); }
     } else {
-      if (state.inverseNavBar){ setState({ ...state, inverseNavBar: false }); } 
-      if (!props.navBar.toggled) {  props.toggleSideBar(); }
+      if (state.inverseNavBar) { setState({ ...state, inverseNavBar: false }); }
+      if (!props.navBar.toggled) { props.toggleSideBar(); }
     }
   }
 
@@ -83,7 +83,7 @@ const MainNav = props => {
                 </>
                 :
                 <div className='msn-ctn'>
-                  { props.navBar.toggled ? <MainSideNavContainer /> : null }
+                  {props.navBar.toggled ? <MainSideNavContainer /> : null}
                   <SubSideNav />
                 </div>
             }
@@ -97,18 +97,14 @@ const MainNav = props => {
   }
 
   return (
-    <>
-      {
-        props.navBar.active ?
-          <>
-            <div className='tn-ctn'>
-              <TopNavContainer />
-            </div>
-            {renderNavBar()}
-          </>
-          : null
-      }
-    </>
+    <div style={props.navBar.active ? null : { display: 'none' }} >
+      <div
+        className='top-nav--container'>
+        <TopNavContainer />
+      </div>
+      {renderNavBar()}
+    </div>
+
   )
 }
 

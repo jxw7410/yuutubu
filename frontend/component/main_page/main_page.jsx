@@ -44,16 +44,20 @@ const MainPage = props => {
     }
   }
 
-  // Style constants 
-  const mainCtnClass = `max-w-h main-ctnt-ctn ${props.navBar.toggled ? "mn-cc-tgl" : ""}`
   return (
-    <div className={mainCtnClass}>
+    <div className={[
+        'max-w-h',
+        'main-ctnt-ctn',
+        props.navBar.toggled ? "mn-cc-tgl" : ""
+      ].join(' ')}>
+
       <div className='main-ctnt'>
         <div className='flexv-1'>
           {/* <RecommendedVideos /> */}
           <ul className='ch-list'>
             {
-              props.channels.map(channel => <ChannelIndex key={channel.id} channel={channel} />)
+              props.channels.map(channel => 
+                <ChannelIndex key={channel.id} channel={channel} />)
             }
           </ul>
         </div>

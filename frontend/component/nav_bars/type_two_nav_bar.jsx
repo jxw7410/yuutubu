@@ -1,18 +1,28 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { toggleSideBar } from '../../actions/nav/nav_bar_action';
 import MainSideNavContainer from './main_side_nav_ctn';
 
 
 
-const TypeTwoNavBar = React.memo(({isNavBarToggled, toggleSideBar}) => {
+const TypeTwoNavBar = React.memo(({ isNavBarToggled, toggleSideBar }) => {
+  const topDivStyle = [
+    'msn-ctn-2',
+    isNavBarToggled ? "" : 'mc2-toggled'
+  ].join(' ');
+
+  const bottomDivStyle = [
+    'msn-ctn-cvr',
+    isNavBarToggled ? "" : "mcc-toggled"
+  ].join(' ');
+
   return (
     <>
-      <div className={`msn-ctn-2 ${isNavBarToggled ? "" : 'mc2-toggled'}`}>
+      <div className={topDivStyle}>
         <MainSideNavContainer type='TYPETWO' />
       </div>
-      <div className={`msn-ctn-cvr ${isNavBarToggled ? "" : "mcc-toggled"}`} 
-        onClick={toggleSideBar} />
+      <div className={bottomDivStyle}
+        onClick={() => toggleSideBar()} />
     </>
   )
 });
@@ -26,7 +36,7 @@ const msp = state => ({
 
 
 const mdp = dispatch => ({
-  toggleSideBar: () => dispatch(toggleSideBar)
+  toggleSideBar: () => dispatch(toggleSideBar())
 });
 
 

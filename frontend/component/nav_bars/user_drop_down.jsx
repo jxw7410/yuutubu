@@ -6,22 +6,28 @@ import { logOut } from '../../actions/session/session_action'
 
 const UserDropdown = props => {
   const [displayDropdown, changeState] = React.useState(false);
-  const dropDownCtnRef = React.useRef(null);
 
   function toChannelPage(e) {
-    dropDownCtnRef.current.blur();
+    changeState(false);
     props.history.push(`/channel/${props.user.channel_id}`)
   }
 
+  function toggleDropdown(e) {
+    if(e.currentTarget === e.target){
+      const newState = !displayDropdown;
+      changeState(newState);
+    }
+  }
 
   return (
-    <div ref={dropDownCtnRef} 
+    <div 
       tabIndex='0'
-      onClick={() => changeState(true)}
       onBlur={() => changeState(false)}
-      style={{position: 'relative'}}>
-      <i className="fas fa-user-circle usr-i" />
-  
+      className='dropdown-container'>
+      <i
+        onClick={toggleDropdown} 
+        className="fas fa-user-circle" />
+
       <ul style={ displayDropdown ? null : {display: 'none'}} 
         className='usr-mdl-i box-shad-s1'>
         <li className='usr-mdl-hdr'>
@@ -45,7 +51,7 @@ const UserDropdown = props => {
                 Your Channel
               </div>
             </li>
-            <li onClick={()=> props.logOut}>
+            <li onClick={()=> props.logOut()}>
               <div className='flexh-1'>
                 <i className='fas fa-sign-out-alt' />
               </div>

@@ -70,7 +70,7 @@ const VideoThumbnail = props => {
   /*
     Fetch data from backend for video url once only. 
     Also sets mouseOver state to true
-  */ 
+  */
   function mouseEnterEvent() {
     clearTimeout(throttledFetchVideoRequest.current);
     isMouseOver.current = true;
@@ -124,18 +124,23 @@ const VideoThumbnail = props => {
           <i className="material-icons clock">watch_later</i>
         </div>
 
-        <div className={`
-          tbn-prev-wrap 
-          ${(state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'tbn-active' : ""} 
-          ${ state.imgLoaded ? "" : " not-loaded"}`}  >
+        <div className={[
+            'tbn-prev-wrap',
+            (state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'tbn-active' : "",
+            state.imgLoaded ? "" : " not-loaded",
+          ].join(' ')}  >
 
-          <img className={`
-            thumbnail-preview 
-            ${state.imgLoaded ? "loaded" : ""}`}
+          <img 
+            src={props.video.thumbnail}
             onLoad={setDataloaded('imgLoaded')}
-            src={props.video.thumbnail} />
+            className={[
+              'thumbnail-preview',
+              state.imgLoaded ? "loaded" : ""
+            ].join(" ")}  />
 
-          <div className='video-time'>{convertDurationToTime(props.video.duration)}</div>
+          <div className='video-time'>
+            {convertDurationToTime(props.video.duration)}
+          </div>
         </div>
       </div>
       {state.infoComponent}
