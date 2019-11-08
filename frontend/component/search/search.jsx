@@ -2,113 +2,77 @@ import React from 'react';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { MINI } from '../../util/constants';
 
-class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.searchVideoListCtn = React.createRef();
-    this.offset = 0;
-    this.limit = 10;
-    this.scrollPercentage = 0;
-    this.fetching = false;
-    this.redirectOnClick = this.redirectOnClick.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
-  }
+const Search = props => {
+  const queryOffset = React.useRef(0);
+  const fetching = React.useRef(false);
+  const page = React.useRef(document.querySelector('html'));
 
+  React.useEffect(() => {
+    props.clearVideos();
+    if (props.videoPlayer.type !== MINI) props.removeVideoPlayer();
+    props.fetchSideBarOne();
+    return () => props.updatePrevPath(props.match.path);
+  }, []);
 
-  componentDidMount() {
-    this.props.clearVideos();
-    if (this.props.videoPlayer.type !== MINI)
-      this.props.removeVideoPlayer();
-
-    this.props.fetchSideBarOne();
-    this.props.updateSearchHistory(this.props.match.params).then(
-      this.props.requestSearchVideos(this.props.match.params, this.limit, this.offset)
-        .then(() => {
-          this.offset += 10;
-          this.scrollPercentage = (this.offset - 6) / this.offset;
-          document.addEventListener('scroll', this.handleScroll);
-        }
-        )
-    )
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.query !== this.props.match.params.query) {
-      this.props.clearVideos();
-      this.offset = 0;
-      this.props.updateSearchHistory(this.props.match.params).then(
-        this.props.requestSearchVideos(this.props.match.params, this.limit, 0).then(() => {
-          this.offset += 10;
-          this.scrollPercentage = (this.offset - 6) / this.offset;
-        })
-      )
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const queryLimit = 10;
+      await props.updateSearchHistory(props.match.params);
+      await props.requestSearchVideos(
+        props.match.params,
+        queryLimit,
+        queryOffset.current
+      );
+      queryOffset.current += 10;
+      document.addEventListener('scroll', scrollPagination);
     }
-  }
+    fetchData();
+    return () => document.removeEventListener('scroll', scrollPagination);
+  }, [])
 
 
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll);
-    this.props.updatePrevPath(this.props.match.path);
-  }
-
-  handleScroll(e) {
+  function scrollPagination(e) {
     e.preventDefault();
-    if (!this.fetching) {
-      let scrollHeight = this.searchVideoListCtn.current.scrollHeight;
-      if (document.querySelector('html').scrollTop > (scrollHeight * this.scrollPercentage)) {
-        this.fetching = true;
-        this.props.requestSearchVideos(this.props.match.params, this.limit, this.offset)
-          .then(() => {
-            this.offset += 10;
-            this.scrollPercentage = (this.offset - 6.9) / this.offset;
-            this.fetching = false
-          })
-          .fail(() => {
-            document.removeEventListener('scroll', this.handleScroll);
-          })
-      }
-    }
-
-  }
-
-  redirectOnClick(video_id) {
-    return e => {
-      e.preventDefault();
-      this.props.history.push(`/video/${video_id}`);
+    const scrollLimit = page.current.scrollTop + page.current.offsetHeight === page.current.scrollHeight;
+    if (scrollLimit && !fetching.current) {
+      const queryLimit = 10;
+      fetching.current = true;
+      props.requestSearchVideos(
+        props.match.params,
+        queryLimit,
+        queryOffset.current
+      ).then(() => {
+        queryOffset.current += 10;
+        fetching.current = false;
+      }).fail(() => {
+        document.removeEventListener('scroll', scrollPagination);
+      })
     }
   }
 
 
-  styles() {
-    return {
-      divOne: `max-w-h main-ctnt-ctn ${this.props.sideNav.toggled ? "mn-cc-tgl" : ""}`,
-      divTwo: 'flexh-2 src-vid-lst-ctn',
-      ulOne: 'flexv-4 src-vid-lst'
-    }
-  }
-
-  render() {
-    const videos = this.props.videos.map(video =>
-      <VideoThumbnail
-        key={video.id}
-        video={video}
-        type='search-page'
-        handleClick={this.redirectOnClick(video.id)}
-      />
-    )
-
-    const styles = this.styles();
-
-    return (
-      <div className={styles.divOne}>
-        <div className={styles.divTwo} ref={this.searchVideoListCtn}>
-          <ul className={styles.ulOne}>
-            {videos}
-          </ul>
-        </div>
+  return (
+    <div className={[
+      'max-w-h',
+      'main-ctnt-ctn',
+      props.sideNav.toggled ? "mn-cc-tgl" : ""
+    ].join(" ")}>
+      <div className='flexh-2 src-vid-lst-ctn'>
+        <ul className='flexv-4 src-vid-lst'>
+          {
+            props.videos.map( video => 
+              <VideoThumbnail
+                key={video.id}
+                video={video}
+                type='search-page' />
+              )
+          }
+        </ul>
       </div>
-    )
-  }
+    </div>
+  )
+
+
 }
 
 

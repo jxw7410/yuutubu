@@ -10,7 +10,25 @@ const MainNav = props => {
   });
 
   const isMounted = React.useRef(false);
+  /*
+    These are to be used for our the resize event handler.
+    The problem is of JS closure effect such that the initial state in which
+    the event handler was first defined is persisted throughout the life time 
+    of this component, which means, we can't rely on accessing the state
+    for the latest information.
+  */
+  const inverseNavBar = React.useRef(null);
+  const navBarToggle = React.useRef(null);
 
+  React.useEffect( () => {
+    inverseNavBar.current = state.inverseNavBar;
+  } ,  [state.inverseNavBar])
+  
+  React.useEffect( () => {
+    navBarToggle.current = props.navBar.toggled;
+  }, [props.navBar.toggled])
+
+  
   /* 
     This for when a user is switching between video and main page
     There are two type of navbars which works on inverse logic.
@@ -24,44 +42,32 @@ const MainNav = props => {
     }
   }, [props.navBar.type]);
 
-  /* componentDidMount */
   React.useEffect(() => {
     if (window.innerWidth < 1090) setState({ ...state, inverseNavBar: true })
     isMounted.current = true;
-
-    return () => isMounted.current = false;
-  }, []);
-
-  /* 
-    Event listeners which modifies the state needs the handler to be watched
-    otherwise data in handlers are cached.
-  */
-  React.useEffect(() => {
     window.addEventListener('resize', resizeHandler);
     return () => {
+      isMounted.current = false;
       window.removeEventListener('resize', resizeHandler);
     }
-  }, [resizeHandler])
+  }, []);
 
-  // Basically if the state switch from not login to login...
   React.useEffect(() => {
     if (props.login) props.fetchSubscriptions();
   }, [props.login])
 
 
-
-  function resizeHandler(e) {
+  const resizeHandler = React.useCallback( e => {
     e.preventDefault();
     const pixelLimit = 1090;
     if (window.innerWidth < pixelLimit) {
-      if (!state.inverseNavBar) { setState({ ...state, inverseNavBar: true }); }
-      if (!props.navBar.toggled) { props.toggleSideBar(); }
+      if (!inverseNavBar.current) { setState({ ...state, inverseNavBar: true }); }
+      if (!navBarToggle.current) { props.toggleSideBar(); }
     } else {
-      if (state.inverseNavBar) { setState({ ...state, inverseNavBar: false }); }
-      if (!props.navBar.toggled) { props.toggleSideBar(); }
+      if (inverseNavBar.current) { setState({ ...state, inverseNavBar: false }); }
+      if (!navBarToggle.current) { props.toggleSideBar(); }
     }
-  }
-
+  }, []);
 
   function renderNavBar() {
     switch (props.navBar.type) {

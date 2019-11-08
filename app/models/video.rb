@@ -83,8 +83,7 @@ class Video < ApplicationRecord
       "#{query}%", "%#{query}%", "%#{query}",
       "#{query}%", "%#{query}%", "%#{query}",
       "#{query}%", "%#{query}%", "%#{query}"
-    ).limit(params[:limit])
-      .offset(params[:offset])
+    ).limit(params[:limit]).offset(params[:offset])
   end
 
   def self.find_by_video_id(id = nil, user_id = nil)
