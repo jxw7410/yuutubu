@@ -5,7 +5,7 @@ import { MINI } from '../../util/constants';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 
 const MainPage = props => {
-  const [isFetching, setIsFetching] = useInfiniteScrolling(fetchChannels)
+  const [isFetchingRef, setIsFetching] = useInfiniteScrolling(fetchChannels)
   const queryOffset = React.useRef(0);
   
 

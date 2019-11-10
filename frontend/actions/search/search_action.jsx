@@ -24,13 +24,22 @@ const receiveSearchHistory = history => {
 const receiveSearchVideos = videos => ({
   type: RECEIVE_SEARCH_VIDEOS,
   videos
-})
+});
 
-
-export const requestSearchQueries = text => dispatch => {
-  return SearchAPI.fetchSearchBarQuery(text)
-    .then(searches => dispatch(receiveSearchQueries(searches)));
+// This is to account for network latency.
+const _requestSearchQueries = () => {
+  let currentWord;
+  return text => dispatch => {
+    currentWord = text;
+    return SearchAPI.fetchSearchBarQuery(text)
+      .then( searches => {
+        if (currentWord === text)
+          dispatch(receiveSearchQueries(searches))
+      })
+  }
 }
+
+export const requestSearchQueries = _requestSearchQueries();
 
 export const updateSearchHistory = query => dispatch => {
   return SearchAPI.updateSearchHistory(query)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import SearchDropdown from './search_drop_down';
-import { filterByWords } from '../../util/selectors';
+import { filterByWords, debouncer } from '../../util/selectors';
 
 export const SearchBarContext = React.createContext();
 
@@ -15,7 +15,7 @@ const SearchBar = props => {
   });
 
   const inputRef = React.useRef(null);
-  const isFetchingData = React.useRef(false);
+  const searchForMatchesRef = React.useRef(debouncer(searchForMatches, 100))
 
   // When ajax is made to change searches
   React.useEffect( () => {
@@ -28,7 +28,7 @@ const SearchBar = props => {
     if(state.redirecting){
       handleSubmit();
      } else if (state.isFocused) {
-      searchForMatches();
+      searchForMatchesRef.current();
      }
   }, [state.inputText, state.isFocused])
 
@@ -56,14 +56,7 @@ const SearchBar = props => {
   }
 
   function searchForMatches() {
-    if (!isFetchingData.current) {
-      isFetchingData.current = true;
-      // For throttling.
-      setTimeout(async () => {
-        await props.requestSearchQueries(state.inputText.trim());
-        isFetchingData.current = false;
-      }, 10)
-    }
+      props.requestSearchQueries(state.inputText.trim());
   }
 
   /* 

@@ -4,14 +4,14 @@ import { MINI } from '../../util/constants';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 
 const Search = props => {
-  const [isFetching, setIsFetching] = useInfiniteScrolling(fetchThumbnails);
+  const [isFetchingRef, setIsFetching] = useInfiniteScrolling(fetchThumbnails);
   const queryOffset = React.useRef(0);
 
   React.useEffect(() => {
     queryOffset.current = 0;
     props.clearVideos();
     props.updateSearchHistory(props.match.params);
-    if (!isFetching) {
+    if (!isFetchingRef.current) {
     // The reason is because our Hook would deal with the fetching.
       setIsFetching(true)
     }

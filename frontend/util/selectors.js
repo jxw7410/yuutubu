@@ -105,3 +105,14 @@ export const filterSubscriptions = (channel_id, subscriptions) => {
 export const capitalize = str => {
   return str[0].toUpperCase() + str.slice(1, str.length);
 }
+
+
+export function debouncer(callback, delay) {
+  let debounce;
+  return () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+      callback(arguments);
+    }, delay)
+  }
+}
