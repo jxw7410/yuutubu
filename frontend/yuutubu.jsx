@@ -7,7 +7,7 @@ import Root from './root';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root')
+  const root = document.getElementById('root');
   let store;
 
   if (window.currentUser) {

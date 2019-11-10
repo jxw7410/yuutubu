@@ -1,15 +1,11 @@
-html{
-    height: 100%;
-}
-
 body{
-    height:inherit;
+    overflow-y: scroll;
 }
 
 #root{
     display: flex;
-    height: inherit;
     position: relative;
+    height: 100vh;
 }
 
 body::-webkit-scrollbar-thumb

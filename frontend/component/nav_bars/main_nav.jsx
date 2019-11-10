@@ -60,13 +60,15 @@ const MainNav = props => {
   const resizeHandler = React.useCallback( e => {
     e.preventDefault();
     const pixelLimit = 1090;
-    if (window.innerWidth < pixelLimit) {
-      if (!inverseNavBar.current) { setState({ ...state, inverseNavBar: true }); }
+    
+    if (window.innerWidth < pixelLimit && !inverseNavBar.current){ 
+      setState({ ...state, inverseNavBar: true }); 
       if (!navBarToggle.current) { props.toggleSideBar(); }
-    } else {
-      if (inverseNavBar.current) { setState({ ...state, inverseNavBar: false }); }
+    } else if (window.innerWidth >= pixelLimit && inverseNavBar.current) { 
+      setState({ ...state, inverseNavBar: false }); 
       if (!navBarToggle.current) { props.toggleSideBar(); }
     }
+  
   }, []);
 
   function renderNavBar() {

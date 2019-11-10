@@ -1,52 +1,37 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ChannelIndex from './channel_index_ctn';
 import RecommendedVideos from './recommended_video';
 import { MINI } from '../../util/constants';
+import { useInfiniteScrolling } from '../../util/custom_hooks';
 
 const MainPage = props => {
+  const [isFetching, setIsFetching] = useInfiniteScrolling(fetchChannels)
   const queryOffset = React.useRef(0);
-  const fetching = React.useRef(false);
-  const page = React.useRef(document.querySelector('html'))
+  
 
-  useEffect(() => {
+  React.useEffect(() => {
     props.clearChannels();
     props.sideBarOne();
     if (props.videoPlayer.type !== MINI) props.removeVideoPlayer();
-
-    const queryLimit = 4;
-    props.fetchChannels(queryOffset.current, queryLimit)
-      .then(() => queryOffset.current += queryLimit)
-      .then(() => {
-        document.addEventListener('scroll', handleScrollEvent);
-      });
-
-
+    fetchChannels();
     return () => {
       props.clearChannels();
       props.updatePrevPath(props.match.path);
-      document.removeEventListener('scroll', handleScrollEvent);
     }
   }, []);
 
-
-
-  function handleScrollEvent(e){
-    e.preventDefault();
-    const scrollLimit = page.current.scrollTop + page.current.offsetHeight === page.current.scrollHeight;
-    if (scrollLimit && !fetching.current) {
-      fetching.current = true;
-      const queryLimit = 3;
-      props.fetchChannels(queryOffset.current, queryLimit)
-        .then(() => {
-          queryOffset.current += queryLimit;
-          fetching.current = false;
-        })
-        .fail(() => {
-          document.removeEventListener('scroll', handleScrollEvent)
-        });
-    }
+  function fetchChannels(){
+    const queryLimit = 4;
+    props.fetchChannels(queryOffset.current, queryLimit)
+      .then( () => {
+        queryOffset.current += 4;
+        setIsFetching(false);
+      })
+      .fail( () => {
+        setIsFetching(false);
+      });
   }
-
+ 
   return (
     <div className={[
         'max-w-h',

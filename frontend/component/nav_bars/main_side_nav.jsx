@@ -28,7 +28,9 @@ const MainSideNav = props => {
             </div>
           </div> : null
       }
-      <div className='msn'>
+      <div 
+        onScroll={ e => e.stopPropagation()}
+        className='msn'>
         <ul className='msn-ul flexv-1'>
           <li id='Home'
             onClick={redirectToMainPage}

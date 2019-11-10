@@ -1,32 +1,32 @@
 import React from 'react';
 
-const SideNavLinks = (props) => {
+const SideNavLinks = ({type}) => {
 
   const anchorClass = [
     'flexv-3',
-    props.type === 'top' ? "nav-i-link" : ""
+    type === 'top' ? "nav-i-link" : ""
   ].join(" ");
 
-  function renderIconContainer(href, tag){
+  function renderIconContainer(href, tag) {
     return (
       <li className='i-wrap'>
         <a className={anchorClass}
           target="_blank"
           href={href}>
-            <i className={`fab fa-${tag.toLowerCase()}`} />
-            {
-              props.type === 'top' ? null : 
-                <span className='flexh-3'>
-                  {tag}
-                </span>
-            }
-          </a>
+          <i className={`fab fa-${tag.toLowerCase()}`} />
           {
-            props.type ==='top' ?
-              <div className='i-msg'>
+            type === 'top' ? null :
+              <span className='flexh-3'>
                 {tag}
-              </div> : null
+              </span>
           }
+        </a>
+        {
+          type === 'top' ?
+            <div className='i-msg'>
+              {tag}
+            </div> : null
+        }
       </li>
     )
   }
@@ -39,7 +39,7 @@ const SideNavLinks = (props) => {
           'https://github.com/jxw7410/yuutubu',
           'GitHub'
         )
-      } 
+      }
 
       {
         renderIconContainer(
@@ -47,9 +47,9 @@ const SideNavLinks = (props) => {
           'LinkedIn'
         )
       }
-    
+
       {
-        props.type === 'main' ? null :
+        type === 'main' ? null :
           renderIconContainer(
             'https://angel.co/jian-wu-12?public_profile=1',
             'AngelList'
