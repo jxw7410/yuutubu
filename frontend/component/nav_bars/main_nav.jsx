@@ -5,50 +5,23 @@ import MainSideNavContainer from './main_side_nav_ctn';
 import TypeTwoNavBar from './type_two_nav_bar';
 
 const MainNav = props => {
-  const [state, setState] = React.useState({
-    inverseNavBar: false,
-  });
+  const [inverseNavBar, setInverseNavBar] = React.useState(false);
 
-  const isMounted = React.useRef(false);
-  /*
-    These are to be used for our the resize event handler.
-    The problem is of JS closure effect such that the initial state in which
-    the event handler was first defined is persisted throughout the life time 
-    of this component, which means, we can't rely on accessing the state
-    for the latest information.
-  */
-  const inverseNavBar = React.useRef(null);
-  const navBarToggle = React.useRef(null);
+  const pixelLimit = 1090;
 
-  React.useEffect( () => {
-    inverseNavBar.current = state.inverseNavBar;
-  } ,  [state.inverseNavBar])
-  
-  React.useEffect( () => {
-    navBarToggle.current = props.navBar.toggled;
-  }, [props.navBar.toggled])
-
-  
-  /* 
-    This for when a user is switching between video and main page
-    There are two type of navbars which works on inverse logic.
-  */
   React.useEffect(() => {
-    if (isMounted.current) {
-      if (props.navBar.type === 'TYPETWO' && !props.navBar.toggled)
-        props.toggleSideBar();
-      if (props.navBar.type === 'TYPEONE' && !props.navBar.toggled)
-        props.toggleSideBar();
-    }
+    if (props.navBar.type === 'TYPETWO' && !props.navBar.toggled)
+      props.toggleSideBar();
+    else if (props.navBar.type === 'TYPEONE' && !props.navBar.toggled)
+      props.toggleSideBar();
+
   }, [props.navBar.type]);
 
   React.useEffect(() => {
-    if (window.innerWidth < 1090) setState({ ...state, inverseNavBar: true })
-    isMounted.current = true;
-    window.addEventListener('resize', resizeHandler);
+    if (window.innerWidth < pixelLimit) setInverseNavBar(true);
+    window.addEventListener('resize', resizeHandler());
     return () => {
-      isMounted.current = false;
-      window.removeEventListener('resize', resizeHandler);
+      window.removeEventListener('resize', resizeHandler());
     }
   }, []);
 
@@ -57,19 +30,35 @@ const MainNav = props => {
   }, [props.login])
 
 
-  const resizeHandler = React.useCallback( e => {
-    e.preventDefault();
-    const pixelLimit = 1090;
-    
-    if (window.innerWidth < pixelLimit && !inverseNavBar.current){ 
-      setState({ ...state, inverseNavBar: true }); 
-      if (!navBarToggle.current) { props.toggleSideBar(); }
-    } else if (window.innerWidth >= pixelLimit && inverseNavBar.current) { 
-      setState({ ...state, inverseNavBar: false }); 
-      if (!navBarToggle.current) { props.toggleSideBar(); }
+  function resizeHandler() {
+    /*
+      We are use these local variables because the initial state
+      in which the event listener is initialize, the state 
+      is persisted through the life time of the component, so
+      if we call state, it's always the initial state.
+    */
+    let isInverseNavBar = window.innerWidth < pixelLimit;
+    let isNavBarToggled = props.navBar.toggled
+    return () => {
+      if (window.innerWidth < pixelLimit && !isInverseNavBar) {
+        setInverseNavBar(true)
+        isInverseNavBar = true;
+
+        if (!isNavBarToggled) {
+          props.toggleSideBar();
+          isNavBarToggled = true;
+        }
+      } else if (window.innerWidth >= pixelLimit && isInverseNavBar) {
+        setInverseNavBar(false);
+        isInverseNavBar = false;
+
+        if (!isNavBarToggled) {
+          props.toggleSideBar();
+          isNavBarToggled = true;
+        }
+      }
     }
-  
-  }, []);
+  }
 
   function renderNavBar() {
     switch (props.navBar.type) {
@@ -77,7 +66,7 @@ const MainNav = props => {
         return (
           <>
             {
-              state.inverseNavBar ?
+              inverseNavBar ?
                 <>
                   <TypeTwoNavBar />
                   <div style={{
