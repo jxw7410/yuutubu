@@ -5,7 +5,7 @@ import { MINI } from '../../util/constants';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 
 const MainPage = props => {
-  const [isFetchingRef, setIsFetching] = useInfiniteScrolling(fetchChannels)
+  const [isFetching, setIsFetching] = useInfiniteScrolling(fetchChannels)
   const queryOffset = React.useRef(0);
   
 
@@ -41,7 +41,7 @@ const MainPage = props => {
 
       <div className='main-ctnt'>
         <div className='flexv-1'>
-          {/* <RecommendedVideos /> */}
+          <RecommendedVideos />
           <ul className='ch-list'>
             {
               props.channels.map(channel => 

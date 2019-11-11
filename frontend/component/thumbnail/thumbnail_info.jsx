@@ -10,8 +10,8 @@ export const VideoPageThumbnailInfo = React.memo(props =>
         {props.video.channelName}
       </section>
       <section>
-        <span>{props.video.views} 
-          views
+        <span>
+          {props.video.views} views
         </span>
       </section>
     </div>

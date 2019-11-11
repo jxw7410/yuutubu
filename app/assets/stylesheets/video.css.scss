@@ -109,6 +109,7 @@
     grid-column: 3 / 4;
     position: absolute;
     width: 100%;
+    margin-top: 85px;
 }
 
 
@@ -163,13 +164,6 @@
     color: rgb(36, 97, 205);
 }
 
-#video-main-right{
-    grid-column: 3 / 4;
-    position: absolute;
-    margin-top: 85px;
-    width: 100%;
-}
-
 
 .prev-vid-lst{
     width: 100%;
@@ -190,7 +184,8 @@
 .prev-vid-lst .thumbnail-preview-video,
 .prev-vid-lst .tn-prev-vid-active{
     height: 95px;
-    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
 }
 
 

@@ -1,13 +1,6 @@
 import React from 'react';
 import { debouncer}  from './selectors';
 
-/* 
-  The ref is needed since the scroll event caches the initialte state of isFetching 
-  of for the life time of the component.
-*/
-
-
-
 export function usePrevious(value) {
   const ref = React.useRef();
   React.useEffect(() => {
@@ -17,11 +10,16 @@ export function usePrevious(value) {
 }
 
 
-export const useInfiniteScrolling = (fetchHandler) => {
+export function useInfiniteScrolling(fetchHandler){
+/*
+  The ref is needed since the scroll event caches the initialte state of isFetching
+  of for the life time of the component.
+*/
   const isFetchingRef = React.useRef(false);
   const [isFetching, setIsFetching] = React.useState(false);
-  const debouncedHandleScroll = debouncer(handleScroll, 100);
+
   React.useEffect( () => {
+    const debouncedHandleScroll = debouncer(handleScroll, 100);
     window.addEventListener('scroll', debouncedHandleScroll);
     return () => window.removeEventListener('scroll', debouncedHandleScroll);
   }, [])
@@ -44,5 +42,5 @@ export const useInfiniteScrolling = (fetchHandler) => {
   }
 
 
-  return [isFetchingRef, setIsFetching]
+  return [isFetchingRef.current, setIsFetching]
 }

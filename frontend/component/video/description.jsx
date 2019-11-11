@@ -27,10 +27,10 @@ const Description = props => {
 
 
   return (
-    <React.Fragment>
+    <>
       {props.render(state.expanded, description, props.description)}
       {readMore()}
-    </React.Fragment>
+    </>
   )
 }
 

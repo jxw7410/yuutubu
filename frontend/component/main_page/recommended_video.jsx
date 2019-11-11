@@ -1,5 +1,4 @@
 import React from 'react';
-import { sortByViews } from '../../util/selectors';
 import { fetchRecommendedVideos } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
@@ -7,13 +6,11 @@ import { withRouter } from 'react-router-dom';
 
 const RecommendedVideos = props => {
   const [state, setState] = React.useState({
-    fetched: false,
     readMore: false,
   })
 
   React.useEffect(() => {
     props.fetchRecommendedVideos()
-      .then(() => setState({ ...state, fetched: true }))
   }, []);
 
   function redirectOnClick(videoId) {
@@ -22,25 +19,24 @@ const RecommendedVideos = props => {
     }
   }
 
-
   return (
-    <div className='idx-rec-vid-ctn'>
-      <div className='mgt-24' style={{ fontWeight: 'bold' }}> 
-        Recommneded
+    <div>
+      <div className='mgt-24' style={{ fontWeight: 'bold' }}>
+        Recommended
       </div>
       <ul className={[
         'idx-rec-vid',
+        'mgt-24',
         state.readmore ? "" : 'show-more-inactive'
       ].join(' ')}>
         {
-          state.fetched ?
-            props.videos.map(video =>
-              <VideoThumbnail
-                key={video.id}
-                video={video}
-                handleClick={redirectOnClick}
-                channel={{ id: video.channel_id, name: video.channelName }} />
-            ) : null
+          props.videos.map(video =>
+            <VideoThumbnail
+              key={video.id}
+              video={video}
+              handleClick={redirectOnClick}
+              channel={{ id: video.channel_id, name: video.channelName }} />
+          )
         }
       </ul>
       {
@@ -57,9 +53,15 @@ const RecommendedVideos = props => {
 
 
 
-const msp = state => ({
-  videos: sortByViews(Object.values(state.entities.videos)).slice(0, 18),
-})
+const msp = state => {
+  const videos = Object.values(state.entities.videos)
+    .sort((vid1, vid2) => vid2.views - vid1.views)
+    .slice(0, 18);
+
+  return {
+    videos
+  }
+}
 
 
 const mdp = dispatch => ({

@@ -6,7 +6,6 @@ import TypeTwoNavBar from './type_two_nav_bar';
 
 const MainNav = props => {
   const [inverseNavBar, setInverseNavBar] = React.useState(false);
-
   const pixelLimit = 1090;
 
   React.useEffect(() => {

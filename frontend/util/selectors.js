@@ -25,22 +25,6 @@ export const getVideosForChannel = (videos, keys = []) => {
   return vidArray;
 }
 
-export const sortByViews = arrayOfVids => {
-  if (arrayOfVids.length <= 1) return arrayOfVids
-
-  const pivot = arrayOfVids[0];
-  const leftSide = arrayOfVids.slice(1).filter(obj => {
-    if (obj.views > pivot.views) return obj
-  });
-
-  const rightSide = arrayOfVids.slice(1).filter(obj => {
-    if (obj.views <= pivot.views) return obj
-  });
-
-  return sortByViews(leftSide).concat([pivot]).concat(sortByViews(rightSide))
-
-}
-
 
 export const getChannelVideos = (channel_id, arrayOfVids) => {
   if (!channel_id) return [];
@@ -95,9 +79,10 @@ export const filterByWords = (target, arrayOfWords) => {
 }
 
 export const filterSubscriptions = (channel_id, subscriptions) => {
-  for (let i = 0; i < subscriptions.length; i++) {
-    if (subscriptions[i].channel_id === channel_id)
-      return { sub_id: subscriptions[i].id }
+  for(const subscription of subscriptions){
+    if( subscription.channel_id === channel_id)  {
+      return {sub_id: subscription.id}
+    }
   }
   return { sub_id: null }
 }

@@ -13,17 +13,12 @@ const VideoThumbnail = props => {
     renderVideo: false,
     imgLoaded: false,
     vidLoaded: false,
+    videoRequested: false,
   })
 
-  const throttledFetchVideoRequest = React.useRef();
-  const videoRequested = React.useRef(false);
-  const throttledTimeout = 200;
-  /* 
-    This exists because the ajax that renders video is delayed
-    Therefore, a person can mouseover a thumbnail briefly, and then 
-    leave, but the video would render.
-  */
   const isMouseOver = React.useRef(false);
+  const throttledFetchVideoRequest = React.useRef();
+  const throttledTimeout = 200;
   /* 
     This is used so that if an ajax was sent to fetch the video, but the user
     already redirected, cancel React from trying to render information with that ajax's result
@@ -58,11 +53,16 @@ const VideoThumbnail = props => {
     return infoComponent;
   }
 
+  function debounced(callback) {
+    return setTimeout(() => {
+      callback()
+    }, throttledTimeout)
+  }
+
   function stopRenderVideo() {
-    setTimeout(() => {
-      if (_isMounted.current)
-        setState({ ...state, renderVideo: false });
-    }, throttledTimeout);
+    debounced(() => {
+      if (_isMounted.current) setState({ ...state, renderVideo: false });
+    })
   }
 
 
@@ -71,29 +71,30 @@ const VideoThumbnail = props => {
     Also sets mouseOver state to true
   */
   function mouseEnterEvent() {
-    clearTimeout(throttledFetchVideoRequest.current);
     isMouseOver.current = true;
-    if (!videoRequested.current) {
-      throttledFetchVideoRequest.current = setTimeout(async () => {
-        try {
-          await props.fetchVideo(props.video.id);
-          if (_isMounted.current) {
-            videoRequested.current = true;
-            setState({ ...state, renderVideo: true })
-          }
-        } catch { console.log('Fetching video failed'); }
-      }, throttledTimeout);
+    clearTimeout(throttledFetchVideoRequest.current);
+    if (!state.videoRequested) {
+      throttledFetchVideoRequest.current = debounced(() => {
+        props.fetchVideo(props.video.id)
+          .then(() => {
+            if (!_isMounted.current) return
+            setState({
+              ...state,
+              renderVideo: true,
+              videoRequested: true,
+            })
+          })
+      })
     } else {
-      throttledFetchVideoRequest.current = setTimeout(() =>
-        setState({ ...state, renderVideo: true }), throttledTimeout);
+      throttledFetchVideoRequest.current = debounced(() =>
+        setState({ ...state, renderVideo: true }))
     }
   }
 
   function mouseLeaveEvent() {
     clearTimeout(throttledFetchVideoRequest.current);
     isMouseOver.current = false;
-    if (state.renderVideo)
-      stopRenderVideo();
+    if (state.renderVideo) stopRenderVideo();
   }
 
   function redirectEvent(e) {
@@ -124,18 +125,18 @@ const VideoThumbnail = props => {
         </div>
 
         <div className={[
-            'tbn-prev-wrap',
-            (state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'tbn-active' : "",
-            state.imgLoaded ? "" : " not-loaded",
-          ].join(' ')}  >
+          'tbn-prev-wrap',
+          (state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'tbn-active' : "",
+          state.imgLoaded ? "" : " not-loaded",
+        ].join(' ')}  >
 
-          <img 
+          <img
             src={props.video.thumbnail}
             onLoad={setDataloaded('imgLoaded')}
             className={[
               'thumbnail-preview',
               state.imgLoaded ? "loaded" : ""
-            ].join(" ")}  />
+            ].join(" ")} />
 
           <div className='video-time'>
             {convertDurationToTime(props.video.duration)}

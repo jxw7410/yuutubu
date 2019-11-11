@@ -6,15 +6,15 @@ import { withRouter } from 'react-router-dom';
 
 
 const SubscribeButton = React.memo(props => {
-  let updating = false;
+  const updating = React.useRef(false);
 
   const unsubscribe = e => {
     e.preventDefault();
     if (props.login) {
-      updating = true;
-      props.unsubscribe(props.sub.sub_id).then(() => {
-        updating = false
-      }).fail(() => updating = false)
+      updating.current = true;
+      props.unsubscribe(props.sub.sub_id)
+        .then(() => updating.current = false)
+        .fail(() => updating.current = false)
     } else {
       props.history.push('/login')
     }
@@ -23,11 +23,11 @@ const SubscribeButton = React.memo(props => {
   const subscribe = e => {
     e.preventDefault();
     if (props.login) {
-      if (!updating) {
-        updating = true;
+      if (!updating.current) {
+        updating.current = true;
         props.subscribe(props.channel.id)
-          .then(() => updating = false)
-          .fail(() => updating = false)
+          .then(() => updating.current = false)
+          .fail(() => updating.current = false)
       }
     } else {
       props.history.push('/login')

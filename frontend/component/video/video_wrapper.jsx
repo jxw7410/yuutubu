@@ -32,7 +32,7 @@ const VideoWrapper = (props) => (
         :
         <div className={`max-w-h flexh-1x ${props.videoPlayer.type === MINI ? "vmc-mini" : ""}`}>
           {
-            <div id='video-main' className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn"}`}>
+            <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn"}`}>
               <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn-lf"}`} >
                 <VideoPlayerContainer />
                 <Route path='/video/:video_id' component={VideoRouter} />

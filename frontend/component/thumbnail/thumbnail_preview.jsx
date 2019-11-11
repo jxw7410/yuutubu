@@ -7,7 +7,8 @@ const ThumbnailPreviewVideo = props => {
   React.useEffect(() => {
     if (props.playVid){
       videoRef.current.currentTime = 0;
-      videoRef.current.play();
+      // to block the pause() interrupting play() error msg
+      try { videoRef.current.play(); } catch {} 
     } else {
       videoRef.current.pause();
     }
