@@ -9,16 +9,17 @@ import { videoLikeDislike } from '../../actions/like/like_dislike_action';
 
 const msp = (state, props) => {
   const video = state.entities.videos[props.match.params.video_id] || {}
+  const channel = state.entities.channels[video.channel_id] || {};
   return {
     video,
-    channels: state.entities.channels,
+    channel,
     videoPlayer: state.ui.videoPlayer
   }
 }
 
 const mdp = dispatch => ({
-  fetchVideo: video_id => dispatch(fetchVideo(video_id)),
-  fetchChannel: channel_id => dispatch(fetchChannel(channel_id)),
+  fetchVideo: videoId => dispatch(fetchVideo(videoId)),
+  fetchChannel: channelId => dispatch(fetchChannel(channelId)),
   sideBarTwo: () => dispatch(sideBarTwo()),
   requestDefaultPlayer: () => dispatch(requestDefaultPlayer()),
   requestSetVideo: video => dispatch(requestSetVideo(video)),

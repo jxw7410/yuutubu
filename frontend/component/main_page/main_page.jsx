@@ -23,13 +23,8 @@ const MainPage = props => {
   function fetchChannels(){
     const queryLimit = 4;
     props.fetchChannels(queryOffset.current, queryLimit)
-      .then( () => {
-        queryOffset.current += 4;
-        setIsFetching(false);
-      })
-      .fail( () => {
-        setIsFetching(false);
-      });
+      .then( () => queryOffset.current += queryLimit)
+      .always(() => setIsFetching(false));
   }
  
   return (

@@ -1,54 +1,34 @@
 import React from 'react';
 import VideoInfoHeader from './video_info_header';
-import VideoMainBody from './video_main_body_ctn';
+import CommentContainer from './comment_container_ctn';
 
-class Video extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      toggledSideNav: true,
-      channel: {},
-    }
-    this.mounted = true;
-  }
+const Video = props => {
 
-  componentDidMount() {
-    this.props.sideBarTwo();
-    this.props.requestDefaultPlayer();
-    if (this.props.video.id !== this.props.videoPlayer.video.id)
-      this.props.requestSetVideo(this.props.video);
+  React.useEffect(() => {
+    props.fetchVideo(props.match.params.video_id)
+      .then( () => props.requestSetVideo(props.video))
+  }, [props.match.params.video_id])
 
 
-    const channel_id = this.props.video.channel_id;
-    this.props.videoLikeDislike(this.props.video.like_dislike)
-    this.props.fetchChannel(channel_id)
-      .then(() => this.setState({ channel: this.props.channels[channel_id] }));
-  }
+  React.useEffect( () => {
+    props.sideBarTwo();
+    props.requestDefaultPlayer();
+    props.fetchChannel(props.video.channel_id);
+    props.videoLikeDislike(props.video.like_dislike)
 
-  componentDidUpdate(prevProps) {
-    //This really only ever runs if video was changed via URL; while there would be a double query,
-    //But it's unlikely anyone would switch via URL.
-    if (prevProps.match.params.video_id !== this.props.match.params.video_id) {
-      this.props.fetchVideo(this.props.match.params.video_id).then(() => {
-        this.props.requestSetVideo(this.props.video)
-      });
-    }
-  }
+    return () => props.updatePrevPath(props.match.path);
+  }, [])
 
-  componentWillUnmount() {
-    this.mounted = false;
-    this.props.updatePrevPath(this.props.match.path)
-  }
 
-  render() {
-    return (
-      <React.Fragment>
-        <VideoInfoHeader video={this.props.video}
-          channel={this.state.channel} />
-        <VideoMainBody video={this.props.video} />
-      </React.Fragment>
-    )
-  }
+  return (
+    <>  
+      <VideoInfoHeader 
+        video={props.video}
+        channel={props.channel}
+      />
+      <CommentContainer video={props.video} />
+    </>
+  )
 }
 
 export default Video;

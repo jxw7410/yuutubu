@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SubscribeButton from '../subscribe/subscribe_button';
 import { connect } from 'react-redux';
-import Description from './description';
 
 const VideoInfoBody = props => {
 
@@ -55,12 +54,12 @@ const VideoInfoBody = props => {
           {subscribeButton()}
         </div>
       </section>
-
+{/* 
       <Description
         description={props.video.description}
         readMore={readMore}
         render={render}
-        heightLimit={90} />
+        heightLimit={90} /> */}
     </div>
   )
 }

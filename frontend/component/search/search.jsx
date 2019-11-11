@@ -35,11 +35,8 @@ const Search = props => {
       queryLimit,
       queryOffset.current
     ).then(() => {
-      queryOffset.current += 10;
-      setIsFetching(false);
-    }).fail(() =>
-      setIsFetching(false)
-    )
+      queryOffset.current += queryLimit;
+    }).always(() => setIsFetching(false))
   }
 
 
