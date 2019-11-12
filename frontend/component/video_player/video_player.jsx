@@ -90,8 +90,7 @@ class VideoPlayer extends React.Component {
   minifyScreen() {
     this.props.requestMiniPlayer();
     const previousURL = `/video/${this.props.videoPlayer.video.id}`;
-    const channelName = this.props.channels[0].name;
-    this.setState({ previousURL, channelName });
+    this.setState({ previousURL });
     if (!this.props.prevPath || this.props.prevPath === '/video/:video_id')
       this.props.history.push('/');
     else
@@ -296,7 +295,6 @@ class VideoPlayer extends React.Component {
       this.props.videoPlayer.type === MINI ?
         <div className='vid-player-desc flexv-7'>
           <span>{this.props.videoPlayer.video.title}</span>
-          <span>{this.state.channelName}</span>
         </div> : null
     )
   }

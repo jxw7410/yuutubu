@@ -44,3 +44,26 @@ export function useInfiniteScrolling(fetchHandler){
 
   return [isFetchingRef.current, setIsFetching]
 }
+
+
+export function useDescriptionExpander(heightLimit){
+  const [state, setState] = React.useState({
+    readMore: false,
+    expanded: false,
+  });
+
+  const contentContainer = React.useRef();
+
+  React.useEffect(() => {
+    if(contentContainer.current.offsetHeight > heightLimit)
+      setState({...state, readMore: true})
+  }, [contentContainer.current]);
+
+  function handleReadMore(){
+    const expanded = !state.expanded;
+    setState({...state, expanded})
+  }
+
+
+  return [ state, contentContainer, handleReadMore ];
+}

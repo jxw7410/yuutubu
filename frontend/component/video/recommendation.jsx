@@ -6,7 +6,7 @@ import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { withRouter } from 'react-router-dom';
 
 
-const VideoRecommendedList = props => {
+const Recommendation = props => {
   React.useEffect(() => {
     props.fetchRecommendedVideos(props.video.id)
   }, [props.video.id])
@@ -54,4 +54,4 @@ const mdp = dispatch => ({
   removeVideoPlayer: () => dispatch(removeVideoPlayer()),
 })
 
-export default withRouter(connect(msp, mdp)(VideoRecommendedList)); 
+export default withRouter(connect(msp, mdp)(Recommendation)); 

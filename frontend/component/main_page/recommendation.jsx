@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { withRouter } from 'react-router-dom';
 
-const RecommendedVideos = props => {
+const Recommendation = props => {
   const [state, setState] = React.useState({
     readMore: false,
   })
@@ -68,4 +68,4 @@ const mdp = dispatch => ({
   fetchRecommendedVideos: () => dispatch(fetchRecommendedVideos()),
 })
 
-export default withRouter(connect(msp, mdp)(RecommendedVideos));
+export default withRouter(connect(msp, mdp)(Recommendation));

@@ -35,7 +35,7 @@ const SubscribeButton = React.memo(props => {
   }
 
   return (
-    <>
+    <div style={ props.channel.id == props.user.channel_id ? {display: 'none'} : null}>
       {
         props.sub.sub_id && props.login ?
           <button
@@ -45,15 +45,16 @@ const SubscribeButton = React.memo(props => {
             onClick={subscribe}
             id="subscribe-button"> SUBSCRIBE {props.channel.subscriptionCount}</button>
       }
-    </>
+    </div>
   )
 });
 
 
-const msp = (store, props) => {
+const msp = (state, props) => {
   return {
-    login: Boolean(store.session.id),
-    sub: filterSubscriptions(props.channel.id, Object.values(store.entities.subscriptions))
+    user: state.session,
+    login: Boolean(state.session.id),
+    sub: filterSubscriptions(props.channel.id, Object.values(state.entities.subscriptions))
   }
 }
 

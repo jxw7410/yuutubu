@@ -9,7 +9,6 @@ const msp = state => ({
 })
 
 const mdp = dispatch => ({
-  deletePost: post_id => dispatch(requestDeletePost(post_id)),
   fetchPosts: params => dispatch(requestPosts(params)),
   clearPosts: () => dispatch(removePosts)
 })

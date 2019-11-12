@@ -1,6 +1,6 @@
 import React from 'react';
 import ChannelIndex from './channel_index_ctn';
-import RecommendedVideos from './recommended_video';
+import Recommendation from './recommendation';
 import { MINI } from '../../util/constants';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 
@@ -36,7 +36,7 @@ const MainPage = props => {
 
       <div className='main-ctnt'>
         <div className='flexv-1'>
-          <RecommendedVideos />
+          <Recommendation />
           <ul className='ch-list'>
             {
               props.channels.map(channel => 

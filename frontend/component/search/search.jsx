@@ -13,6 +13,7 @@ const Search = props => {
     props.updateSearchHistory(props.match.params);
     if (!isFetching) {
     // The reason is because our Hook would deal with the fetching.
+      debugger
       setIsFetching(true)
     }
   }, [props.match.params.query])

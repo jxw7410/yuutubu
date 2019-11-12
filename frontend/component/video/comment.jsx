@@ -1,5 +1,6 @@
-import React from 'react'
-
+import React from 'react';
+import CommentDeleteBtn from './comment_delete_btn';
+import { useDescriptionExpander } from '../../util/custom_hooks';
 
 /* 
 
@@ -13,23 +14,8 @@ import React from 'react'
 */
 
 const Comment = props => {
-  const [state, setState] = React.useState({
-    readMore: false,
-    expanded: false,
-  });
-
-  const contentContainer = React.useRef();
   const contentHeightLimit = 94 // 94px
-
-  React.useEffect(() => { 
-    if (contentContainer.current.offsetHeight > contentHeightLimit)
-      setState({ ...state, readMore: true })
-  }, []);
-
-  function handleReadMore(){
-    const expanded = !state.expanded;
-    setState({...state, expanded});
-  }
+  const [state, contentContainer, handleReadMore] = useDescriptionExpander(contentHeightLimit);
 
   return (
     <li>
@@ -47,13 +33,14 @@ const Comment = props => {
                   {props.post.created_at}
                 </span>
               </section>
-              {/* delete button comp goes here in the future */}
+              <CommentDeleteBtn post={props.post}/>
             </div>
 
-            <div className={[
-              'vid-post-bd-r1-c2',
-              state.expanded ? "expd" : ""
-            ].join(" ")}>
+            <div 
+              className={[
+                'vid-post-bd-r1-c2',
+                state.expanded ? "expd" : ""
+              ].join(" ")}>
               <div ref={contentContainer}>
                 {props.post.description}
               </div>

@@ -14,10 +14,8 @@ const ChannelHeader = React.memo( props => {
               <span>{props.channel.subscriptionCount} subscribers</span>
             </span>
           </div>
-          <div className='flexh-1'>{
-            props.isOwnerOfChannel ? null :
-              <SubscribeButton channel={props.channel} />
-          }
+          <div className='flexh-1'>
+            <SubscribeButton channel={props.channel} />
           </div>
         </div>
       </div>      

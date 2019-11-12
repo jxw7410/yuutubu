@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import VideoPlayerContainer from '../video_player/video_player_ctn';
 import { requestDefaultPlayer } from '../../actions/video_player/video_player';
 import { Route } from 'react-router-dom';
-import VideoRouter from './video_router';
-import VideoRecommendedListContainer from './recommended_list';
+import Video from './video_ctn';
+import Recommendation from './recommendation';
 import { MINI } from '../../util/constants';
 
 const VideoWrapper = (props) => {
@@ -25,12 +25,12 @@ const VideoWrapper = (props) => {
         <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn"}`}>
           <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn-lf"}`} >
             <VideoPlayerContainer />
-            <Route path='/video/:video_id' component={VideoRouter} />
+            <Route path='/video/:video_id' component={Video} />
           </div>
-          { 
+          {/* { 
             props.videoPlayer.type === MINI ? 
-              null : <VideoRecommendedListContainer />
-          }
+              null : <Recommendation />
+          } */}
         </div>
       }
     </div>
