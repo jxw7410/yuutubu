@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { convertDurationToTime } from '../../util/selectors';
 import { VideoPlayerContext } from './video_player';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { requestMiniPlayer } from '../../actions/video_player/video_player';
 
 const DefaultVideoUI = props => {
   const { videoRef, videoState, setVideoState } = React.useContext(VideoPlayerContext);
@@ -39,7 +42,32 @@ const DefaultVideoUI = props => {
     setState({ ...state, volume, volumeTrackLength: 50 * volume });
   }
 
-  function getVolumeIcon(){
+  function minMaxScreen(bool) {
+    return e => {
+      e.stopPropagation();
+      setVideoState({ ...videoState, fullScreen: bool })
+    }
+  }
+
+  async function requestMiniPlayer(e) {
+    e.stopPropagation();
+    if (videoState.fullScreen)
+      await document.exitFullscreen()
+    _requestMiniPlayer()
+    setVideoState({ ...state, fullScreen: false });
+  }
+
+  function _requestMiniPlayer() {
+    props.requestMiniPlayer();
+    const currentUrl = `/video/${props.video.id}`;
+    setVideoState({ ...videoState, currentUrl });
+    if (!props.prevPath || props.prevPath === '/video/:video_id')
+      props.history.push('/');
+    else
+      props.history.goBack();
+  }
+
+  function getVolumeIcon() {
     let volumeType;
     if (state.volume == 0)
       volumeType = 'volume_off';
@@ -58,7 +86,7 @@ const DefaultVideoUI = props => {
         <div> {props.videoStateBtn} </div>
         <div className='vol-ctrl-div flexh-3'>
           <div className='i-wrap'>
-            <i 
+            <i
               onClick={handleMute}
               className='material-icons volume-icon'>
               {getVolumeIcon()}
@@ -66,15 +94,15 @@ const DefaultVideoUI = props => {
           </div>
           <div className='vol-ctrl-bar-wrap flexh-3'>
             <div className='vol-ctrl-bar'>
-              <div 
-                className='vol-ctrl-track' 
+              <div
+                className='vol-ctrl-track'
                 style={{ width: `${state.volumeTrackLength}px` }} />
-              <input 
-                className='vol-ctrl' 
-                type="range" 
-                min="0" 
-                max="1" 
-                step="0.05" 
+              <input
+                className='vol-ctrl'
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
                 value={state.volume}
                 onMouseDown={e => e.stopPropagation()}
                 onClick={e => e.stopPropagation()}
@@ -91,26 +119,26 @@ const DefaultVideoUI = props => {
       </section>
 
       <section className='flexh-3'>
-        <div 
-          // onClick={props.handleMiniScreen} 
+        <div
+          onClick={requestMiniPlayer}
           className='i-wrap'>
-          <i 
-            style={{ margin: '0 5px' }} 
+          <i
+            style={{ margin: '0 5px' }}
             className="material-icons">
-              picture_in_picture_alt
+            picture_in_picture_alt
           </i>
           <div className='i-msg-v i-pos-rgt'>Miniplayer</div>
         </div>
         {
           videoState.fullScreen ?
-            <div className="i-wrap" 
-              onClick={()=>setVideoState({...videoState, fullScreen: false})}>
+            <div className="i-wrap"
+              onClick={minMaxScreen(false)}>
               <i className="material-icons-enlarged">fullscreen_exit</i>
               <div className='i-msg-v i-pos-rgt'>Exit Full Screen</div>
             </div>
             :
-            <div className="i-wrap" 
-              onClick={() => setVideoState({ ...videoState, fullScreen: true})}>
+            <div className="i-wrap"
+              onClick={minMaxScreen(true)}>
               <i className="material-icons-enlarged">fullscreen</i>
               <div className='i-msg-v i-pos-rgt'>Full Screen</div>
             </div>
@@ -120,4 +148,14 @@ const DefaultVideoUI = props => {
   )
 }
 
-export default DefaultVideoUI;
+
+const msp = state => ({
+  video: state.ui.videoPlayer.video,
+  prevPath: state.ui.prevPath.path,
+})
+
+const mdp = dispatch => ({
+  requestMiniPlayer: () => dispatch(requestMiniPlayer()),
+})
+
+export default withRouter(connect(msp, mdp)(DefaultVideoUI));

@@ -4,9 +4,13 @@ import VideoBody from './video_body';
 import CommentContainer from './comment_container_ctn';
 
 const Video = props => {
+  const [isMounted, setIsMounted] = React.useState(false);
   React.useEffect(() => {
     props.fetchVideo(props.match.params.video_id)
-    props.updatePrevPath(props.match.path);
+    if (isMounted)
+      props.updatePrevPath(props.match.path);
+    else 
+      setIsMounted(true);
   }, [props.match.params.video_id])
 
   React.useEffect(() => {
