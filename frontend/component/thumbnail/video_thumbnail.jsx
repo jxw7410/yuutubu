@@ -113,12 +113,14 @@ const VideoThumbnail = props => {
         onMouseLeave={mouseLeaveEvent}
         onClick={redirectEvent} >
 
-        <ThumbnailPreviewVideo
-          playVid={state.renderVideo && isMouseOver.current}
-          stopRenderVideo={stopRenderVideo}
-          setDataloaded={setDataloaded('vidLoaded')}
-          videoUrl={props.video.videoUrl} />
-
+        {
+          props.video.videoUrl ? 
+            <ThumbnailPreviewVideo
+              playVid={state.renderVideo && isMouseOver.current}
+              stopRenderVideo={stopRenderVideo}
+              setDataloaded={setDataloaded('vidLoaded')}
+              videoUrl={props.video.videoUrl} /> : null
+        }
 
         <div className="flexh-1 thumbnail-clock">
           <i className="material-icons clock">watch_later</i>

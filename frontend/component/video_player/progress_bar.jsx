@@ -1,35 +1,41 @@
 import React, { useState } from 'react';
+import { VideoPlayerContext } from './video_player';
+
 
 const ProgressBar = props => {
-
+  const { videoRef, videoState, setVideoState } = React.useContext(VideoPlayerContext);
   const [state, setState] = useState({
     hoverBarLength: 0,
     maxHoverBarLength: 0,
   });
 
-
-  // Because setState from hooks overwrites, not merge, so a closed function is
-  // needed
-  const mergeState = newState => {
-    setState(Object.assign({}, state, newState))
+  function handleSeeking(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const seekedTime = videoRef.duration * (e.currentTarget.value / 100);
+    const streamed = (seekedTime / videoRef.duration * 100).toFixed(4);
+    videoRef.currentTime = seekedTime;
+    props.seekerRef.current.value = streamed;
+    props.streamBarRef.current.style.width = streamed + '%';
+    setVideoState({...videoState, currentTime: seekedTime});
   }
 
-
-  const hoverProgressBar = e => {
+  function hoverProgressBar(e) {
     let { x, width } = e.currentTarget.getBoundingClientRect();
 
     if (width != state.maxHoverBarLength)
-      mergeState({
+      setState({
+        ...state,
         hoverBarLength: e.clientX - x,
         maxHoverBarLength: width
       });
     else
-      mergeState({ hoverBarLength: e.clientX - x })
+      setState({ ...state, hoverBarLength: e.clientX - x })
   }
 
-  const leaveProgressBar = e => {
+  function leaveProgressBar(e) {
     e.preventDefault();
-    mergeState({ hoverBarLength: 0 })
+    setState({ ...state, hoverBarLength: 0 })
   }
 
 
@@ -38,13 +44,23 @@ const ProgressBar = props => {
     <div className='progress-bar flexh-3'
       onMouseMove={hoverProgressBar}
       onMouseLeave={leaveProgressBar}>
-      <div ref={props.streamBar} className='user-stream' />
-      <div className='buffer-stream' style={{ width: props.bufferStream + "%" }} />
-      <div className='hover-bar' style={{ width: state.hoverBarLength, maxWidth: state.maxHoverBarLength }} />
-      <input ref={props.seeker} className='seeker-bar' type='range'
+      <div
+        ref={props.streamBarRef} 
+        className='user-stream' />
+      <div className='buffer-stream'
+        style={{ width: videoState.buffered + "%" }} />
+      <div className='hover-bar'
+        style={{
+          width: state.hoverBarLength,
+          maxWidth: state.maxHoverBarLength
+        }} />
+      <input
+        ref={props.seekerRef}
+        className='seeker-bar'
+        type='range'
         onClick={e => e.stopPropagation()}
-        onInput={props.handleSeeking}
-        onChange={props.handleSeeking}
+        onInput={handleSeeking}
+        onChange={handleSeeking}
         step={0.05}
       />
     </div>

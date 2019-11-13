@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import VideoPlayer from './video_player';
 import { requestDefaultPlayer, requestMiniPlayer, removeVideoPlayer } from '../../actions/video_player/video_player';
-import { withRouter } from 'react-router-dom';
+
 
 
 const VideoPlayerWrapper = (props) => (
@@ -30,4 +30,4 @@ const mdp = dispatch => ({
 })
 
 
-export default withRouter(connect(msp, mdp)(VideoPlayerWrapper));
+export default connect(msp, mdp)(VideoPlayerWrapper);
