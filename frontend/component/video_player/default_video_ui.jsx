@@ -51,21 +51,16 @@ const DefaultVideoUI = props => {
 
   async function requestMiniPlayer(e) {
     e.stopPropagation();
-    if (videoState.fullScreen)
-      await document.exitFullscreen()
-    _requestMiniPlayer()
-    setVideoState({ ...state, fullScreen: false });
-  }
-
-  function _requestMiniPlayer() {
+    if (videoState.fullScreen) await document.exitFullscreen()
     props.requestMiniPlayer();
     const currentUrl = `/video/${props.video.id}`;
-    setVideoState({ ...videoState, currentUrl });
+    setVideoState({ ...videoState, currentUrl, fullScreen: false });
     if (!props.prevPath || props.prevPath === '/video/:video_id')
       props.history.push('/');
     else
       props.history.goBack();
   }
+
 
   function getVolumeIcon() {
     let volumeType;

@@ -27,10 +27,10 @@ const VideoWrapper = (props) => {
             <VideoPlayerContainer />
             <Route path='/video/:video_id' component={Video} />
           </div>
-          {/* { 
+          { 
             props.videoPlayer.type === MINI ? 
               null : <Recommendation />
-          } */}
+          }
         </div>
       }
     </div>

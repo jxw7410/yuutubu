@@ -11,15 +11,11 @@ const Search = props => {
     queryOffset.current = 0;
     props.clearVideos();
     props.updateSearchHistory(props.match.params);
-    if (!isFetching) {
-      setIsFetching(true)
-    }
+    if (!isFetching) setIsFetching(true)
   }, [props.match.params.query])
 
   React.useEffect(() => {
-    if (props.videoPlayer.type !== MINI) {
-      props.removeVideoPlayer();
-    }
+    if (props.videoPlayer.type !== MINI) props.removeVideoPlayer();
     props.fetchSideBarOne();
     return () => {
       props.updatePrevPath(props.match.path);

@@ -16,7 +16,6 @@ const VideoPlayerWrapper = (props) => (
 //There should exist only 1 video inside videos
 const msp = state => ({
   channels: Object.values(state.entities.channels),
-  video: state.ui.videoPlayer.video,
   videoPlayer: state.ui.videoPlayer,
 })
 

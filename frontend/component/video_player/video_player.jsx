@@ -1,7 +1,7 @@
 import React from 'react';
 import ProgressBar from './progress_bar';
 import DefaultVideoUI from './default_video_ui';
-import MiniControlUI from './mini_control_ui';
+import MiniPlayerUI from './mini_player_ui';
 import { withRouter } from 'react-router-dom';
 import { updateView } from '../../util/video_api';
 import { LOAD, PLAY, PAUSE, REPLAY, MINI } from '../../util/constants';
@@ -33,7 +33,7 @@ const VideoPlayer = props => {
 
   function updateViewCount() {
     if (viewCountUpdated) return;
-    updateView(props.video.id);
+    updateView(props.videoPlayer.video.id);
     setViewCountUpdated(true);
   }
 
@@ -45,6 +45,7 @@ const VideoPlayer = props => {
   }
 
   function handleDoubleClick(e) {
+    if (props.videoPlayer.type === MINI) return;
     e.stopPropagation();
     const fullScreen = !videoState.fullScreen;
     setVideoState({ ...videoState, fullScreen })
@@ -156,15 +157,13 @@ const VideoPlayer = props => {
           style={videoState.state === REPLAY || videoState.state === PAUSE ? null : { display: 'none' }}
           className='vid-dark-scn max-w-h'
         />
-
         <div
           style={videoState.state === LOAD ? null : { display: 'none' }}
           className='vid-ldr max-w-h flexh-1'>
           <div className='spinner' />
         </div>
-
         <video
-          key={props.video.videoUrl}
+          key={props.videoPlayer.video.videoUrl}
           ref={videoRef}
           id='video-player'
           preload='auto'
@@ -177,7 +176,7 @@ const VideoPlayer = props => {
           onLoadedData={handleLoadedData}
           onWaiting={handleWaiting} >
           {/* The t=? is to force a non cache video, browser caches videos by default.*/}
-          <source src={props.video.videoUrl + `t=?${new Date()}`} type="video/mp4" />
+          <source src={props.videoPlayer.video.videoUrl + `t=?${new Date()}`} type="video/mp4" />
         </video>
         <div
           className={[
@@ -188,15 +187,16 @@ const VideoPlayer = props => {
           ].join(" ")}>
           <VideoPlayerContext.Provider
             value={{ videoRef: videoRef.current, videoState, setVideoState }}>
+            {
+              props.videoPlayer.type === MINI ? 
+                <MiniPlayerUI videoStateBtn={renderVidStateBtn()} /> : null
+            }
             <ProgressBar
               seekerRef={seekerRef}
               streamBarRef={streamBarRef} />
-
             {
               props.videoPlayer.type === MINI ? null :
-                <DefaultVideoUI
-                  videoStateBtn={renderVidStateBtn()}
-                />
+                <DefaultVideoUI videoStateBtn={renderVidStateBtn()} />
             }
           </VideoPlayerContext.Provider>
         </div>
@@ -205,25 +205,12 @@ const VideoPlayer = props => {
         props.videoPlayer.type === MINI ?
           <div className='vid-player-desc flexv-7'>
             <span>{props.videoPlayer.video.title}</span>
+            <span>{props.videoPlayer.video.description}</span>
           </div> : null
       }
     </>
   )
 }
-
-/* {
-              this.props.videoPlayer.type === MINI ? null :
-                // <DefaultControlUI
-                //   videoElement={this.videoElement.current}
-                //   playButton={this.renderPlayStatusButtons()}
-                //   isFullScreen={this.state.fullScreen}
-                //   normalScreen={this.normalScreen}
-                //   handleMiniScreen={this.handleMiniScreen}
-                //   maximizeScreen={this.maximizeScreen}
-                //   currentTime={this.state.currentTime}
-                //   duration={this.state.duration}
-                // />
-            } */
 
 export default withRouter(VideoPlayer);
 

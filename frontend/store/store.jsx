@@ -6,7 +6,7 @@ import RootReducer from '../reducer/root_reducer';
 // remove_for_production
 
 const configureStore = (preloadedState = {}) => {
-  return createStore(RootReducer, preloadedState, applyMiddleware(thunk))
+  return createStore(RootReducer, preloadedState, applyMiddleware(thunk, logger))
 }
 
 export default configureStore;
