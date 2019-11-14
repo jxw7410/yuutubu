@@ -24,6 +24,7 @@ const VideoPlayer = props => {
     currentUrl: null,
   });
 
+
   React.useEffect(() => {
     if (videoState.fullScreen)
       videoCtnRef.current.requestFullscreen();

@@ -14,6 +14,7 @@ const SearchBar = props => {
     redirecting: false,
   });
 
+  const inputText = React.useRef();
   const inputRef = React.useRef(null);
   const searchForMatchesRef = React.useRef(debouncer(searchForMatches, 100))
 
@@ -23,12 +24,12 @@ const SearchBar = props => {
     setState({ ...state, filteredSearches });
   }, [props.searches])
 
+
   // When text changes or search is focused.
   React.useEffect(() => {
-    if (state.isFocused) {
-      searchForMatchesRef.current();
-    }
-  }, [state.inputText, state.isFocused])
+    inputText.current = state.inputText;
+    searchForMatchesRef.current();
+  }, [state.inputText, state.isFocused, searchForMatches])
 
   React.useEffect(() => {
     if (state.redirecting)
@@ -58,7 +59,7 @@ const SearchBar = props => {
   }
 
   function searchForMatches() {
-    props.requestSearchQueries(state.inputText.trim());
+    props.requestSearchQueries(inputText.current.trim());
   }
 
   /* 
