@@ -8,7 +8,8 @@ import { withRouter } from 'react-router-dom';
 
 const Recommendation = props => {
   React.useEffect(() => {
-    props.fetchRecommendedVideos(props.video.id)
+    if (props.video.id)
+      props.fetchRecommendedVideos(props.video.id)
   }, [props.video.id])
 
   function redirectToVideo(videoId){

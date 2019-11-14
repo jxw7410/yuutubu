@@ -53,7 +53,6 @@ const VideoPlayer = props => {
 
   function handleCanPlay(e) {
     if (videoState.state === PAUSE) return;
-    setVideoState({ ...videoState, state: PLAY })
     e.currentTarget.play();
   }
 
