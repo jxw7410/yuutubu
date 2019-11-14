@@ -18,7 +18,10 @@ const SubscriptionList = ({isLoggedin, subscriptions, history}) => {
     if (!subscriptions.length) return [];
 
     const listOfSubscriptions = [];
-    const limit = readMore ? subscriptions.length : displayLimit;
+    let limit = subscriptions.length; 
+
+    if (!readMore && limit > displayLimit)
+        limit = displayLimit;
 
     for (let i = 0; i < limit; i++) {
       const subscription = subscriptions[i];
