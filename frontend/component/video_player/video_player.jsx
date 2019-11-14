@@ -53,7 +53,7 @@ const VideoPlayer = props => {
 
   function handleCanPlay(e) {
     if (videoState.state === PAUSE) return;
-    e.currentTarget.play();
+    setTimeout( () => videoRef.current.play(), 50);
   }
 
   function handleTimeUpdate(e) {
@@ -88,16 +88,13 @@ const VideoPlayer = props => {
   }
 
   function handleVideoState(state) {
-    return e => setVideoState({ ...videoState, state });
+    return e => {
+      setVideoState({ ...videoState, state })
+    };
   }
 
   function handleLoadedData(e) {
     e.currentTarget.volume = localStorage.getItem('volume') || 1;
-    if (videoState.state === LOAD) setVideoState({ ...videoState, state: null })
-  }
-
-  function handleWaiting(e) {
-    if (videoState.state !== LOAD) setVideoState({ ...videoState, state: LOAD })
   }
 
   function renderVidStateBtn() {
@@ -153,7 +150,7 @@ const VideoPlayer = props => {
         ].join(" ")}
       >
         <div
-          style={videoState.state === REPLAY || videoState.state === PAUSE ? null : { display: 'none' }}
+          style={videoState.state === REPLAY || videoState.state === PAUSE  ? null : { display: 'none' }}
           className='vid-dark-scn max-w-h'
         />
         <div
@@ -172,8 +169,7 @@ const VideoPlayer = props => {
           onProgress={handleProgress}
           onPlay={handleVideoState(PLAY)}
           onPause={handleVideoState(PAUSE)}
-          onLoadedData={handleLoadedData}
-          onWaiting={handleWaiting} >
+          onLoadedData={handleLoadedData}  >
           {/* The t=? is to force a non cache video, browser caches videos by default.*/}
           <source src={props.videoPlayer.video.videoUrl + `t=?${new Date()}`} type="video/mp4" />
         </video>

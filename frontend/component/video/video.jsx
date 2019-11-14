@@ -2,7 +2,6 @@ import React from 'react';
 import VideoHeader from './video_header';
 import VideoBody from './video_body';
 import CommentContainer from './comment_container_ctn';
-import { MINI } from '../../util/constants';
 
 const Video = props => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -15,7 +14,7 @@ const Video = props => {
 
   React.useEffect(() => {
     if (props.video.id) {
-      if (props.videoPlayer.type !== MINI) {
+      if (props.videoPlayer.video.id != props.match.params.video_id) {
         props.requestSetVideo(props.video);
       }
       props.fetchChannel(props.video.channel_id);

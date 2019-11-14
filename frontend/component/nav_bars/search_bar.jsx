@@ -11,27 +11,29 @@ const SearchBar = props => {
     selected: null,
     isFocused: false,
     filteredSearches: [],
-    redirecting: false, 
+    redirecting: false,
   });
 
   const inputRef = React.useRef(null);
   const searchForMatchesRef = React.useRef(debouncer(searchForMatches, 100))
 
   // When ajax is made to change searches
-  React.useEffect( () => {
+  React.useEffect(() => {
     const filteredSearches = filterByWords(state.inputText, props.searches);
     setState({ ...state, filteredSearches });
   }, [props.searches])
-  
+
   // When text changes or search is focused.
-  React.useEffect( () => {
-    if(state.redirecting){
-      handleSubmit();
-     } else if (state.isFocused) {
+  React.useEffect(() => {
+    if (state.isFocused) {
       searchForMatchesRef.current();
-     }
+    }
   }, [state.inputText, state.isFocused])
 
+  React.useEffect(() => {
+    if (state.redirecting)
+      handleSubmit();
+  }, [state.redirecting])
 
   function handleFocus(bool) {
     return e => {
@@ -56,7 +58,7 @@ const SearchBar = props => {
   }
 
   function searchForMatches() {
-      props.requestSearchQueries(state.inputText.trim());
+    props.requestSearchQueries(state.inputText.trim());
   }
 
   /* 
@@ -65,26 +67,23 @@ const SearchBar = props => {
   */
   function handleKeyPress(e) {
     if (e.key === 'ArrowUp' || e.keyCode === 38) {
-      e.preventDefault();
       _moveSelectorUp()
     } else if (e.key === 'ArrowDown' || e.keyCode === 40) {
-      e.preventDefault();
       _moveSelectorDown();
-    } else if (e.key === 'Enter' || e.keyCode === 13 ) {
+    } else if (e.key === 'Enter' || e.keyCode === 13) {
       if (state.selected !== null) {
-        e.preventDefault();
         const selectedSearch = state.filteredSearches[state.selected];
         setState({
-          ...state, 
+          ...state,
           redirecting: true,
-          selected: null, 
+          selected: null,
           inputText: selectedSearch.context
         })
       }
     }
   }
 
-  function _moveSelectorUp(){
+  function _moveSelectorUp() {
     if (state.selected === null)
       setState({ ...state, selected: state.filteredSearches.length - 1 })
     else if (state.selected === 0)
@@ -94,7 +93,7 @@ const SearchBar = props => {
   }
 
 
-  function _moveSelectorDown(){
+  function _moveSelectorDown() {
     if (state.selected === null)
       setState({ ...state, selected: 0 })
     else if (state.selected === state.filteredSearches.length - 1)
@@ -108,7 +107,7 @@ const SearchBar = props => {
       style={{ width: '100%' }}
       onSubmit={handleSubmit}
     >
-      <div 
+      <div
         tabIndex='0'
         className='sbi-ctn'
         onFocus={handleFocus(true)}
