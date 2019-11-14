@@ -29,7 +29,7 @@ const SearchBar = props => {
   React.useEffect(() => {
     inputText.current = state.inputText;
     searchForMatchesRef.current();
-  }, [state.inputText, state.isFocused, searchForMatches])
+  }, [state.inputText, state.isFocused])
 
   React.useEffect(() => {
     if (state.redirecting)
