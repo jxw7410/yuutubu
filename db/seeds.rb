@@ -19,8 +19,8 @@ Subscription.destroy_all
 demouser = User.create(username: "demouser", email: "demouser@gmail.com", password: "password123")
 UserChannel.create(name: demouser.username, user: demouser)
 
-user1 = User.create(username: "MonHuntGuy", email: "master@gmail.com", password: "password123")
-user2 = User.create(username: "GameGuy", email: "gameguy@gmail.com", password: "password123")
+user1 = User.create(username: "HowDoIPressCircle", email: "fakeemail1@gmail.com", password: "password123")
+user2 = User.create(username: "FFfan", email: "fakeemail2@gmail.com", password: "password123")
 user3 = User.create(username: "AC1", email: "ac1@gmail.com", password: "password123")
 user4 = User.create(username: "AC2", email: "ac2@gmail.com", password: "password123")
 user5 = User.create(username: "AC3", email: "ac3@gmail.com", password: "password123")
@@ -119,70 +119,62 @@ video.thumbnail.attach(io: file, filename: "nergigante6.png")
 file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/nergigante6.mp4")
 video.video_content.attach(io: file, filename: "nergigante6.mp4")
 
-video = Video.create(
-  title: "Defeating Aqua",
-  description: "The irony of the fight...",
-  user_id: user2.id,
-  channel_id: channel2.id,
-  duration: 20.00,
-)
-
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/kh3.png")
-video.thumbnail.attach(io: file, filename: "kh3.png")
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/kh3_aqua.mp4")
-video.video_content.attach(io: file, filename: "kh3_aqua.mp4")
 
 video = Video.create(
-  title: "X02-Wyvern",
-  description: "X02-Wyvern vs Arsenal Bird",
+  title: "FFXIV: Answers - End of an Era",
+  description: "All rights belong to Square Enix. 
+  Please support the offical video: https://www.youtube.com/watch?v=39j5v8jlndM",
   user_id: user2.id,
   channel_id: channel2.id,
-  duration: 214.00,
+  duration: 99.00,
 )
 
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/lighthouse.png")
-video.thumbnail.attach(io: file, filename: "lighthouse.png")
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/lighthouse.mp4")
-video.video_content.attach(io: file, filename: "lighthouse.mp4")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/end_of_an_era.png")
+video.thumbnail.attach(io: file, filename: "end_of_an_era.png")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/end_of_an_era.mp4")
+video.video_content.attach(io: file, filename: "end_of_an_era.mp4")
 
 video = Video.create(
-  title: "MHW: Insect Glaive Part I",
-  description: "Hunting a Rathian",
+  title: "FFXIV: Innocence - Crown of the Immaculate.",
+  description: "All rights to belong to Square Enix, and owner of video.
+  Please support the offical video: https://www.youtube.com/watch?v=Wc4w0AXWcnI",
   user_id: user2.id,
   channel_id: channel2.id,
-  duration: 61.00,
+  duration: 57.00,
 )
 
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/rathian.png")
-video.thumbnail.attach(io: file, filename: "rathian.png")
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/rathian.mp4")
-video.video_content.attach(io: file, filename: "rathian.mp4")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/innocence.png")
+video.thumbnail.attach(io: file, filename: "innocence.png")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/innocence.mp4")
+video.video_content.attach(io: file, filename: "innocence.mp4")
 
 video = Video.create(
-  title: "MHW: Insect Glaive Part II",
-  description: "Part II of a Rathian Hunt",
+  title: "FFXIV: Weight of the World- YoRHa Unit No.9 Type S",
+  description: "All rights belong to Square Enix, and owner of video.
+  Please support the offical video: https://www.youtube.com/watch?v=jVAgd9dbYIs",
   user_id: user2.id,
   channel_id: channel2.id,
-  duration: 56.00,
+  duration: 86.00,
 )
 
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/rathian2.png")
-video.thumbnail.attach(io: file, filename: "rathian2.png")
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/rathian2.mp4")
-video.video_content.attach(io: file, filename: "rathian2.mp4")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/yoruha_9s.png")
+video.thumbnail.attach(io: file, filename: "yorha_9s.png")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/yoruha_9s.mp4")
+video.video_content.attach(io: file, filename: "yorha_9s.mp4")
 
 video = Video.create(
-  title: "MHW: Insect Glaive Part III",
-  description: "Part III of a Rathian Hunt",
+  title: "FFXIV: Wayward Daughter - Tsukuyomi",
+  description: "All rights belong to Square Enix, and owner of video.
+  Please support the offical video: https://www.youtube.com/watch?v=njYgggITz2g",
   user_id: user2.id,
   channel_id: channel2.id,
-  duration: 58.00,
+  duration: 85.00,
 )
 
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/rathian3.png")
-video.thumbnail.attach(io: file, filename: "rathian3.png")
-file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/rathian3.mp4")
-video.video_content.attach(io: file, filename: "rathian3.mp4")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/tsukuyomi.png")
+video.thumbnail.attach(io: file, filename: "tsukuyomi.png")
+file = open("https://yuutubu-seed-bucket.s3.amazonaws.com/tsukuyomi.mp4")
+video.video_content.attach(io: file, filename: "tsukuyomi.mp4")
 
 video = Video.create(
   title: "AC7: Siren's Song P1",

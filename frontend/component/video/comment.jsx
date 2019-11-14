@@ -2,17 +2,6 @@ import React from 'react';
 import CommentDeleteBtn from './comment_delete_btn';
 import { useDescriptionExpander } from '../../util/custom_hooks';
 
-/* 
-
-  const deleteButton = () => {
-    return (
-      parseInt(props.currentUser.id) === props.post.user_id ?
-        <button className="form-del-btn"
-          onClick={props.handleDelete(props.post.id)}>Delete</button> : null
-    )
-  }
-*/
-
 const Comment = props => {
   const contentHeightLimit = 94 // 94px
   const [state, contentContainer, handleReadMore] = useDescriptionExpander(contentHeightLimit);

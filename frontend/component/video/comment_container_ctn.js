@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {  requestDeletePost, requestPosts, removePosts } from '../../actions/video_post/video_posts_action';
+import { requestPosts, removePosts } from '../../actions/video_post/video_posts_action';
 import CommentContainer from './comment_container';
 
 const msp = state => ({

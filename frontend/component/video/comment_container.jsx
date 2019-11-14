@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Comment from './comment';
 import {useInfiniteScrolling} from '../../util/custom_hooks';
 import CommentBox from './comment_box';
