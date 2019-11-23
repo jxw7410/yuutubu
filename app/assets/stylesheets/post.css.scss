@@ -144,25 +144,6 @@
     grid-row: 3 / 4;
 }
 
-.post-delete-dropdown{
-    z-index: 1000;
-    position: absolute;
-    border: 1px solid gray;
-    border-radius: 3px;
-    width: 80px;
-    background: white;
-}
-
-.post-delete-dropdown:focus{
-    outline: none;
-}
-
-.post-delete-dropdown-item{
-    width: 100%;
-    height: 20px;
-    font-size: 14px;
-}
-
 .span-style-1{
     font-size: 12px;
     font-weight:bold;
