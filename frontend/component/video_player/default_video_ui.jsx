@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { requestMiniPlayer } from '../../actions/video_player/video_player';
 
 const DefaultVideoUI = props => {
-  const { videoRef, videoState, setVideoState } = React.useContext(VideoPlayerContext);
+  const { videoRef,  videoCtnRef, videoState, isFullscreen, setCurrentUrl } = React.useContext(VideoPlayerContext);
 
   const [state, setState] = useState({
     volume: localStorage.getItem('volume') || 1,
@@ -45,16 +45,16 @@ const DefaultVideoUI = props => {
   function minMaxScreen(bool) {
     return e => {
       e.stopPropagation();
-      setVideoState({ ...videoState, fullScreen: bool })
+      if (bool) videoCtnRef.requestFullscreen();
+      else document.exitFullscreen();
     }
   }
 
   async function requestMiniPlayer(e) {
     e.stopPropagation();
-    if (videoState.fullScreen) await document.exitFullscreen()
+    if (isFullscreen) await document.exitFullscreen();
     props.requestMiniPlayer();
-    const currentUrl = `/video/${props.video.id}`;
-    setVideoState({ ...videoState, currentUrl, fullScreen: false });
+    setCurrentUrl(`/video/${props.video.id}`);
     if (!props.prevPath || props.prevPath === '/video/:video_id')
       props.history.push('/');
     else
@@ -125,7 +125,7 @@ const DefaultVideoUI = props => {
           <div className='i-msg-v i-pos-rgt'>Miniplayer</div>
         </div>
         {
-          videoState.fullScreen ?
+          isFullscreen ?
             <div className="i-wrap"
               onClick={minMaxScreen(false)}>
               <i className="material-icons-enlarged">fullscreen_exit</i>

@@ -7,15 +7,12 @@ export const VideoUploadContext = React.createContext();
 
 const VideoUpload = props => {
   const [isUploadForm, setIsUploadForm] = React.useState(false);
-  const [videoUploadState, setVideoUploadState] = React.useState({
+  const [videoMetaState, setVideoMetaState] = React.useState({
     video: null,
     videoUrl: null,
     thumbnail: null,
     thumbnailUrl: null,
     videoDuration: null,
-    videoTitle: "",
-    videoDescription: "",
-    isUploading: false
   });
 
   React.useEffect(() => {
@@ -29,8 +26,8 @@ const VideoUpload = props => {
       <VideoUploadContext.Provider 
         value={{
           setIsUploadForm,
-          videoUploadState,
-          setVideoUploadState
+          videoMetaState,
+          setVideoMetaState
         }}
         >
         {

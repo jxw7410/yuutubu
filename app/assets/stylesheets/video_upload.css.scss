@@ -99,6 +99,12 @@
 .preview-ui > i{
     font-size: 30px;
     color: rgba(255,255,255, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+
+.preview-ui > i:hover{
+    opacity: 1;
 }
 
 

@@ -6,7 +6,7 @@ import { removeVideoPlayer } from '../../actions/video_player/video_player';
 import { convertDurationToTime } from '../../util/selectors';
 
 const MiniPlayerUI = props => {
-  const { videoState } = React.useContext(VideoPlayerContext);
+  const { videoState, currentUrl } = React.useContext(VideoPlayerContext);
 
   function closeVideoPlayer(e) {
     e.stopPropagation();
@@ -15,7 +15,7 @@ const MiniPlayerUI = props => {
 
   function goBackToVideoPage(e) {
     e.stopPropagation();
-    props.history.push(videoState.currentUrl)
+    props.history.push(currentUrl)
   }
 
   return (

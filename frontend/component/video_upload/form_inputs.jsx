@@ -1,9 +1,14 @@
 import React from 'react';
-import { VideoUploadContext } from './video_upload';
+import { VideoUploadFormContext } from './video_upload_form';
 import PublishButton from './publish_button';
 
 const FormInput = props => {
-  const { videoUploadState, setVideoUploadState } = React.useContext(VideoUploadContext);
+  const { isUploading } = React.useContext(VideoUploadFormContext);
+  const [ videoText, setVideoText] = React.useState({
+    videoTitle: "",
+    videoDescription: "",
+  });
+
   const [focusState, setFocusState] = React.useState({
     title: false,
     description: false,
@@ -21,8 +26,8 @@ const FormInput = props => {
     return e => {
       e.preventDefault();
       const userInput = e.currentTarget.value;
-      setVideoUploadState({
-        ...videoUploadState,
+      setVideoText({
+        ...videoText,
         [field]: userInput
       });
     }
@@ -31,14 +36,14 @@ const FormInput = props => {
   return (
     <div className='vsf-col-2'>
       <div className='flexh-1'>
-        <PublishButton />
+        <PublishButton videoText={videoText} />
       </div>
       <div className='flexv-3'>
         <label className='adfx'>
           <span
             className={[
               'label',
-              focusState.title || videoUploadState.videoTitle.length ? 'ipt-fcs' : ""
+              focusState.title || videoText.videoTitle.length ? 'ipt-fcs' : ""
             ].join(" ")}>
             Title
           </span>
@@ -51,9 +56,9 @@ const FormInput = props => {
             }}
             onFocus={toggleFocus('title')}
             onBlur={toggleFocus('title')}
-            disabled={videoUploadState.isUploading}
+            disabled={isUploading}
             onChange={handleChange('videoTitle')}
-            value={videoUploadState.videoTitle}
+            value={videoText.videoTitle}
           />
         </label>
 
@@ -61,7 +66,7 @@ const FormInput = props => {
           <span
             className={[
               'label',
-              focusState.description || videoUploadState.videoDescription.length ? 'ipt-fcs' : ""
+              focusState.description || videoText.videoDescription.length ? 'ipt-fcs' : ""
             ].join(" ")}>
             Description
           </span>
@@ -74,9 +79,11 @@ const FormInput = props => {
             className='vid-upld-desc input-style-1'
             onFocus={toggleFocus('description')}
             onBlur={toggleFocus('description')}
-            disabled={videoUploadState.isUploading}
+            disabled={isUploading}
             onChange={handleChange('videoDescription')}
-            rows='10' />
+            rows='10' 
+            value={videoText.videoDescription}
+            />
         </label>
       </div>
     </div>

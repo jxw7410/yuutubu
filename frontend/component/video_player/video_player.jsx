@@ -15,22 +15,27 @@ const VideoPlayer = props => {
   const seekerRef = React.useRef();
 
   const [viewCountUpdated, setViewCountUpdated] = React.useState(false);
+  const [currentUrl, setCurrentUrl] = React.useState(null);
+  const [isFullscreen, setFullScreen] = React.useState(false);
   const [videoState, setVideoState] = React.useState({
     state: LOAD,
     buffered: 0,
     duration: 0,
     currentTime: 0,
-    fullScreen: false,
-    currentUrl: null,
   });
 
-
+  // This is control user input for fullscreen
   React.useEffect(() => {
-    if (videoState.fullScreen)
-      videoCtnRef.current.requestFullscreen();
-    else if (document.fullscreen)
-      document.exitFullscreen();
-  }, [videoState.fullScreen])
+    document.addEventListener('fullscreenchange', fullscreenEvent);
+  }, [fullscreenEvent])
+
+  function fullscreenEvent(e){
+    e.preventDefault();
+    if(isFullscreen)
+      setFullScreen(false);
+    else 
+      setFullScreen(true);
+  }
 
   function updateViewCount() {
     if (viewCountUpdated) return;
@@ -147,7 +152,7 @@ const VideoPlayer = props => {
         onDoubleClick={handleDoubleClick}
         className={[
           'vid-player-hook',
-          videoState.fullScreen ? 'vph-full' : ''
+          isFullscreen ? 'vph-full' : ''
         ].join(" ")}
       >
         <div
@@ -182,7 +187,15 @@ const VideoPlayer = props => {
             videoState.state === PLAY ? 'vc-play' : ""
           ].join(" ")}>
           <VideoPlayerContext.Provider
-            value={{ videoRef: videoRef.current, videoState, setVideoState }}>
+            value={{ 
+              videoRef: videoRef.current, 
+              videoCtnRef: videoCtnRef.current,
+              videoState, 
+              setVideoState,
+              isFullscreen,
+              currentUrl,
+              setCurrentUrl
+              }}>
             {
               props.videoPlayer.type === MINI ? 
                 <MiniPlayerUI videoStateBtn={renderVidStateBtn()} /> : null

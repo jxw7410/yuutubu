@@ -1,17 +1,16 @@
 import React from 'react';
 import {VideoUploadContext} from './video_upload';
 
-
 const ThumbnailUploadBtn = props => {
-  const { videoUploadState, setVideoUploadState } = React.useContext(VideoUploadContext)
+  const { videoMetaState, setVideoMetaState } = React.useContext(VideoUploadContext)
   
   function changeThumbnail(e){
     e.preventDefault();
     const thumbnail = e.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
-      setVideoUploadState({ 
-        ...videoUploadState,
+      setVideoMetaState({ 
+        ...videoMetaState,
         thumbnail, 
         thumbnailUrl: fileReader.result 
       });
@@ -20,9 +19,9 @@ const ThumbnailUploadBtn = props => {
   }
 
   const isEnabled = (
-    videoUploadState.videoUrl && 
-    videoUploadState.thumbnailUrl && 
-    !videoUploadState.isUploading
+    videoMetaState.videoUrl && 
+    videoMetaState.thumbnailUrl && 
+    !props.isUploading
   );
   return (
     <div className='upld-tbn-ctn flexv-4'>

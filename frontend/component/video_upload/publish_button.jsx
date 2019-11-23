@@ -1,5 +1,6 @@
 import React from 'react';
 import { VideoUploadContext } from './video_upload';
+import { VideoUploadFormContext } from './video_upload_form';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
@@ -12,14 +13,15 @@ import {
 const PublishButton = props => {
   const currentProgress = React.useRef(0);
   const totalProgress = React.useRef(0);
-  const { videoUploadState, setVideoUploadState } = React.useContext(VideoUploadContext);
-  const [ uploadPercent, setUploadPercent] = React.useState(0);
+  const { videoMetaState } = React.useContext(VideoUploadContext);
+  const { isUploading, setIsUploading } = React.useContext(VideoUploadFormContext);
+  const [uploadPercent, setUploadPercent] = React.useState(0);
 
   const readyToUpload = (
-    videoUploadState.thumbnailUrl &&
-    videoUploadState.videoUrl &&
-    videoUploadState.videoTitle.length &&
-    videoUploadState.videoDescription.length
+    videoMetaState.thumbnailUrl &&
+    videoMetaState.videoUrl &&
+    props.videoText.videoTitle.length &&
+    props.videoText.videoDescription.length
   );
 
   function redirectOnFail() {
@@ -31,21 +33,21 @@ const PublishButton = props => {
     try {
       await props.createVideo({
         'video': {
-          'title': videoUploadState.videoTitle,
-          'description': videoUploadState.videoDescription,
-          'duration': videoUploadState.duration,
+          'title': props.videoText.videoTitle,
+          'description': props.videoText.videoDescription,
+          'duration': videoMetaState.duration,
           'video_id': videoId,
           'thumbnail_id': imageId
         }
       })
-    } catch (err){ return redirectOnFail(); }
+    } catch (err) { return redirectOnFail(); }
     setTimeout(() => {
       alert('Upload Successful!');
       props.history.push(`./channel/${props.user.channel_id}/videos`);
     }, 110)
   }
 
-  function uploadProgressHandler(){
+  function uploadProgressHandler() {
     const xhr = new XMLHttpRequest();
     let previousProgress = 0;
     xhr.upload.addEventListener('progress', e => {
@@ -59,7 +61,7 @@ const PublishButton = props => {
   }
 
   function uploadToCloudStorage(blob, fileType) {
-    const data = videoUploadState[fileType];
+    const data = videoMetaState[fileType];
     return new Promise((resolve, reject) => {
       $.ajax({
         xhr: uploadProgressHandler,
@@ -78,24 +80,23 @@ const PublishButton = props => {
 
   function requestDirectUploadURL() {
     const formData = new FormData();
-    formData.append('video[file]', videoUploadState.video);
-    formData.append('video[thumbnail]', videoUploadState.thumbnail);
+    formData.append('video[file]', videoMetaState.video);
+    formData.append('video[thumbnail]', videoMetaState.thumbnail);
     return props.requestDirectUpload(formData);
   }
 
   async function uploadVideo(e) {
-    if (!readyToUpload || videoUploadState.isUploading) return;
-
-    setVideoUploadState({ ...videoUploadState, isUploading: true });
+    if (!readyToUpload || isUploading) return;
+    setIsUploading(true);
     try {
       const { image_blob, video_blob } = await requestDirectUploadURL();
-      totalProgress.current = videoUploadState.video.size + videoUploadState.thumbnail.size;
+      totalProgress.current = videoMetaState.video.size + videoMetaState.thumbnail.size;
       try {
         await Promise.all([
           uploadToCloudStorage(video_blob, 'video'),
           uploadToCloudStorage(image_blob, 'thumbnail')
         ]);
-      } catch (err){
+      } catch (err) {
         props.deleteDirectUpload({
           'blob_ids': {
             'image_blob_id': image_blob.id,
@@ -105,8 +106,8 @@ const PublishButton = props => {
         throw err;
       }
       createVideo(video_blob.id, image_blob.id);
-    } catch (err) { 
-      return redirectOnFail(); 
+    } catch (err) {
+      return redirectOnFail();
     }
   }
 
@@ -117,16 +118,16 @@ const PublishButton = props => {
         'upld-btn',
         'sbmt-btn',
         'flexh-3',
-        readyToUpload && !videoUploadState.isUploading ? "enabled" : 'disabled'
+        readyToUpload && !isUploading ? "enabled" : 'disabled'
       ].join(" ")}>
       <span className='pbsh-sp flexh-1'>
-        {videoUploadState.isUploading ? `Uploading ${parseInt(uploadPercent)}%` : "Upload"}
+        {isUploading ? `Uploading ${parseInt(uploadPercent)}%` : "Upload"}
       </span>
       {
-        videoUploadState.isUploading ?
+        isUploading ?
           <div className='upload-bar'>
             <div
-              style={{ width: `${uploadPercent}%`}}
+              style={{ width: `${uploadPercent}%` }}
               className='upload-bar-progress'
             />
           </div> : null

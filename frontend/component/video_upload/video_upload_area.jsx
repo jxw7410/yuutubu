@@ -2,22 +2,22 @@ import React from 'react';
 import { VideoUploadContext } from './video_upload';
 
 const VideoUploadArea = () => {
-  const { 
-    setIsUploadForm, 
-    setVideoUploadState,
-    videoUploadState,
-   } = React.useContext(VideoUploadContext);
+  const {
+    setIsUploadForm,
+    setVideoMetaState,
+    videoMetaState,
+  } = React.useContext(VideoUploadContext);
 
   function handleUpload(type) {
     return e => {
       e.preventDefault();
       setIsUploadForm(true);
       const video = type === 'DROP' ? e.dataTransfer.files[0] : e.currentTarget.files[0];
-      const fileReader = new FileReader();   
+      const fileReader = new FileReader();
       fileReader.onloadend = () => {
-        setVideoUploadState({
-          ...videoUploadState, 
-          video, 
+        setVideoMetaState({
+          ...videoMetaState,
+          video,
           videoUrl: fileReader.result
         });
       }
@@ -33,9 +33,9 @@ const VideoUploadArea = () => {
       onDragLeave={e => e.preventDefault()}>
 
       <label className='upload-input flexv-9'>
-        <input 
+        <input
           onChange={handleUpload('INPUT')}
-          type="file" 
+          type="file"
           accept="video/mp4,video/x-m4v,video/*" />
         <i className="fas fa-arrow-up"></i>
         <span>Upload file</span>

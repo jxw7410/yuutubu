@@ -1,11 +1,12 @@
 import React from 'react';
 import { VideoUploadContext } from './video_upload';
+
 const PreviewVideo = props => {
   const videoRef = React.useRef();
   const canvasRef = React.useRef();
 
   const [videoState, setVideoState] = React.useState('PAUSE');
-  const { videoUploadState, setVideoUploadState } = React.useContext(VideoUploadContext);
+  const { videoMetaState, setVideoMetaState } = React.useContext(VideoUploadContext);
 
 
   function handleVideoState(state) {
@@ -27,8 +28,8 @@ const PreviewVideo = props => {
   }
 
   function setThumbnail(thumbnail, thumbnailUrl, duration) {
-    setVideoUploadState({
-      ...videoUploadState,
+    setVideoMetaState({
+      ...videoMetaState,
       thumbnail,
       thumbnailUrl,
       duration
@@ -36,7 +37,7 @@ const PreviewVideo = props => {
   }
 
   function captureImage(e) {
-    if (videoUploadState.thumbnailUrl) return;
+    if (videoMetaState.thumbnailUrl) return;
     setTimeout( () => {
       const video = videoRef.current;
       const canvas = canvasRef.current;
@@ -79,29 +80,29 @@ const PreviewVideo = props => {
   return (
     <>
       <div className='upld-vid-ctn'>
-        {/* set up a screen for this */}
         <video
+          muted
           ref={videoRef}
-          key={videoUploadState.videoUrl}
+          key={videoMetaState.videoUrl}
           onPlay={handleVideoState('PLAY')}
           onPause={handleVideoState('PAUSE')}
           onEnded={handleVideoState('END')}
           onCanPlay={captureImage}>
-          <source src={videoUploadState.videoUrl} type="video/mp4" />
+          <source src={videoMetaState.videoUrl} type="video/mp4" />
         </video>
         {renderPreviewUI()}
       </div>
       <span style={{ fontSize: '14px' }}>
         <span className='tag-14 dark' >Video Status</span>
         {
-          videoUploadState.videoUrl && videoUploadState.thumbnailUrl ?
+          videoMetaState.videoUrl && videoMetaState.thumbnailUrl ?
             <span style={{ color: 'green' }}> Ready</span>
             :
             <span style={{ color: 'red' }}> Pending</span>
         }
       </span>
       {
-        videoUploadState.thumbnailUrl ? null :
+        videoMetaState.thumbnailUrl ? null :
           <canvas ref={canvasRef} className='capture-canvas' />
       }
     </>

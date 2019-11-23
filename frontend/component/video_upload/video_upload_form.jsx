@@ -1,12 +1,15 @@
 import React from 'react';
 import PreviewVideo from './preview_video';
-import {VideoUploadContext} from './video_upload';
+import { VideoUploadContext } from './video_upload';
 import ThumbnailUploadBtn from './thumbnail_upload_btn';
 import FormInput from './form_inputs';
 
 
+export const VideoUploadFormContext = React.createContext(null);
+
 const VideoUploadForm = props => {
-  const { videoUploadState } = React.useContext(VideoUploadContext);
+  const { videoMetaState } = React.useContext(VideoUploadContext);
+  const [isUploading, setIsUploading] = React.useState(false);
 
   return (
     <form className='vid-sbmt-frm'>
@@ -31,21 +34,22 @@ const VideoUploadForm = props => {
               Video Thumbnail
             </span>
             {
-              // Turn this into a screen
-              videoUploadState.thumbnailUrl ? 
+              videoMetaState.thumbnailUrl ?
                 <div className='tbn-img flexh-1'>
-                  <img src={videoUploadState.thumbnailUrl} />
-                </div> 
+                  <img src={videoMetaState.thumbnailUrl} />
+                </div>
                 :
-                <div className='ld-tbn flexh-1'> 
+                <div className='ld-tbn flexh-1'>
                   <div className='spinner' />
                 </div>
             }
           </div>
         </div>
-        <ThumbnailUploadBtn />
+        <ThumbnailUploadBtn isUploading={isUploading} />
       </div>
-      <FormInput />
+      <VideoUploadFormContext.Provider value={{ isUploading, setIsUploading }}>
+        <FormInput />
+      </VideoUploadFormContext.Provider>
     </form>
   )
 }
