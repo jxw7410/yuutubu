@@ -4,7 +4,7 @@ import ChannelHeaderContainer from './channel_header_ctn';
 import { MINI } from '../../util/constants'
 
 const Channel = props => {
-  React.useEffect( () => {
+  React.useEffect(() => {
     props.sideBarOne();
     if (props.videoPlayer.type !== MINI)
       props.removeVideoPlayer();
@@ -14,19 +14,22 @@ const Channel = props => {
 
 
   React.useEffect(() => {
-    if(props.match.params.channel_id)
+    if (props.match.params.channel_id)
       props.fetchChannel(props.match.params.channel_id);
   }, [props.match.params.channel_id])
 
 
   return (
-    <div className ={`
-      max-w-h ch-mn-ctnt-grid
-      ${props.isNavToggled ? 'cmcg-tgl' : ""}`}>
-      <div className='ch-mn-ctnt'>
-        <div className="ch-mn-ctnt-wrap">
+    <div
+      className={[
+        'max-width-height',
+        'channel-main-content--grid',
+        props.isNavToggled ? 'channel-main-content--grid-toggled' : ""
+      ].join(" ")}>
+      <div className='channel-main-content'>
+        <div className="channel-main-content--wrap">
           <ChannelHeaderContainer />
-          <AllVideosContainer key={ props.match.params.channel_id }/>
+          <AllVideosContainer key={props.match.params.channel_id} />
         </div>
       </div>
     </div>

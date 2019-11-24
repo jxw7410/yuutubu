@@ -1,42 +1,23 @@
 import React, { useEffect } from 'react';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
+import { useInfiniteScrolling } from '../../util/custom_hooks';
 
 
 const AllVideos = props => {
-  const offset = React.useRef(0);
-  const fetching = React.useRef(false);
-  const pageRef = React.useRef(null);
+  const [isFetching, setIsFetching] = useInfiniteScrolling(fetchVideos)
+  const queryOffset = React.useRef(0);
 
   useEffect(() => {
     props.clearChannelVideos();
-    props.fetchChannelVideos(props.channelId, 24, offset.current)
-      .then(() =>  offset.current += 24 )
-      .then(() => {
-        pageRef.current = document.querySelector('html');
-        document.addEventListener('scroll', handleScrollEvent)
-      });
-
-    return () => {
-      document.removeEventListener('scroll', handleScrollEvent);
-      props.clearChannelVideos();
-    }
-
+    fetchVideos();
   }, [])
 
-  const handleScrollEvent = e => {
-    const page = pageRef.current;
-    const scrollLimit = page.scrollTop + page.offsetHeight === page.scrollHeight;
-    if (scrollLimit && !fetching.current) {
-      fetching.current = true;
-      props.fetchChannelVideos(props.channelId, 12, offset.current)
-        .then(() => {
-          fetching.current = false;
-          offset.current += 12
-        }).fail(err => {
-          if (err.status === 404) 
-            document.removeEventListener('scroll', handleScrollEvent);
-        })
-    }
+
+  function fetchVideos(){
+    const queryLimit = 24;
+    props.fetchChannelVideos(props.channelId, queryLimit, queryOffset.current)
+      .then(() => queryOffset.current += queryLimit)
+      .always(() => setIsFetching(false))
   }
 
 
@@ -48,31 +29,28 @@ const AllVideos = props => {
   }
 
 
-
   return (
     <>
       {
         props.videos.length ?
-          <div className='flexv-3 cvc-lower' >
+          <div className='flex-vertical--style-3 channel-video--container-lower' >
             <div className={`
-              flexh-3 cvc-nav 
-              ${props.isNavToggled ? "" : "cvc-nav-tgl"}`}> Uploads </div>
+              flex-horizontal--style-3 channel-video--nav 
+              ${props.isNavToggled ? "" : "channel-video--nav-toggle"}`}> Uploads </div>
 
-            <ul className={`
-              usr-av-lst  
-              ${props.isNavToggled ? "" : "uav-lst-tgl"}`}>
+            <ul className='channel-videos-list'>
               {
-                props.videos.map(video => 
+                props.videos.map(video =>
                   <VideoThumbnail
                     key={video.id}
                     video={video}
                     handleClick={redirectOnClick(video.id)}
-                    channel={{}} /> )
+                    channel={{}} />)
               }
             </ul>
           </div >
           :
-          <div style={{ width: '100%', height: '300px', gridRow: '4/5' }} className='flexh-1'>
+          <div style={{ width: '100%', height: '300px', gridRow: '4/5' }} className='flex-horizontal--style-1'>
             Looks like there are no contents in this channel yet.
           </div>
       }

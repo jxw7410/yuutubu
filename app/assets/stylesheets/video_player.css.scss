@@ -1,13 +1,13 @@
-.vid-dark-scn{
+.video-player--cover{
     background: rgba(0,0,0,0.5);
     position: absolute;
 }
 
-.vid-ldr{
+.video-loader{
     position: absolute;
 }
 
-.vid-ldr .spinner{
+.video-loader .spinner{
     border: 6px solid transparent;
     border-top: 6px solid #f3f3f3;
     border-bottom: 6px solid  #f3f3f3;
@@ -127,38 +127,38 @@
     cursor: pointer;
 }
 
-.vid-ctrl{
+.video-player--control{
     position: absolute;
     background: linear-gradient(  rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
     opacity: 1; 
 }
 
-.vc-play{
+.video-player--control--play{
     opacity: 0;
     transition: opacity 0.1s linear;
 }
 
-.vid-player-hook:hover{
-    .vc-play{
+.video-player--container:hover{
+    .video-player--control--play{
         opacity: 1;
     }
 }
 
 
-.vid-ctrl-ui{
+.video-player-main-ui{
     margin: 2px 0;
     width: 100%;
 }
 
-.vid-ctrl-ui i{
+.video-player-main-ui i{
     color: rgb(231,231,231)
 }
 
-.i-wrap{
+.icon-wrap{
     position: relative;
 }
 
-.i-msg-v{
+.icon-message-v{
     display: none;
     position: absolute;
     background: rgb(25,25,25);
@@ -170,25 +170,25 @@
     z-index: 5;
 }
 
-.i-pos-lft{
+.icon-position--left{
     left: -10px;
 }
 
-.i-pos-rgt{
+.icon-position-right{
     right: -15px;
 }
 
 
-.vid-ctrl-ui i:hover{
+.video-player-main-ui i:hover{
     color: white;
 }
 
-.vid-ctrl-ui i:hover + .i-msg-v{
+.video-player-main-ui i:hover + .icon-message-v{
     display: block;
 }
 
 
-.vol-ctrl-div{
+.volume-ui--container{
     width:auto;
     position: relative;
 }
@@ -243,7 +243,7 @@
     background-color: transparent;
 }
 
-.vol-ctrl-bar-wrap{
+.volume-bar--wrapper{
     margin-left: 8px;
     width: 0px;
     transition: width 0.2s linear;
@@ -252,7 +252,7 @@
     height: 20px;
 }
 
-.vol-ctrl-bar{
+.volume-bar{
     width: 0px;
     background: rgba(75,75,75, 0.9);
     transition: width 0.1s linear;
@@ -266,14 +266,13 @@
     z-index: 1;
 }
 
-.vol-ctrl-div:hover{
-
-    .vol-ctrl-bar-wrap{
+.volume-ui--container:hover{
+    .volume-bar--wrapper{
         width: 52px;
         transition: width 0.2s linear;
     }
 
-    .vol-ctrl-bar{
+    .volume-bar{
         width: 50px;
         visibility: visible;
         transition: width 0.2s linear;
@@ -291,11 +290,11 @@
     }
 }
 
-.vid-ctrl-ui > section{
+.video-player-main-ui > section{
     padding: 0 2%;
 }
 
-.vid-ctrl-ui > section:first-child > div{
+.video-player-main-ui > section:first-child > div{
     margin: 0 5px;
 }
 
@@ -311,7 +310,7 @@
     display:flex;
 }
 
-.vid-player-hook{
+.video-player--container{
     grid-row: 1 / 2;
     position: relative;
     display: flex;
@@ -340,7 +339,7 @@
     100% {opacity: 0; width: 80px; height: 80px}
 }
 
-.vph-full{
+.video-player--fullscreen{
     position: fixed;
     bottom: 0;
     right: 0;
@@ -350,8 +349,8 @@
     background:transparent;
 }
 
-.vph-full {
-    .vid-ctrl, .vc-play{
+.video-player--fullscreen {
+    .video-player--control, .video-player--control--play{
         opacity: 1;
         width: 100%;
         z-index: 2003;
@@ -390,63 +389,63 @@
     right: 200px;
 }
 
-.vid-player-desc{
+.video-player--description{
     padding: 14px 16px 16px 16px;
     height: 34px;
 }
 
 
-.vid-player-desc > span:last-child{
+.video-player--description > span:last-child{
     font-size: 12px;
     color: gray;
 }
 
 
-.mini-ctrl-ui{
+.mini-player-ui{
     opacity: 0;
     transition: opacity 0.1s linear;
     background: rgba(0,0,0,0.5);
     margin: 0;
 }
 
-.mini-ctrl-ui:hover{
+.mini-player-ui:hover{
     opacity: 1;
 }
 
-.mini-ctrl-ui > div{
+.mini-player-ui > div{
     width: 100%;    
 }
 
-.mini-ctrl-ui > div:first-child{
+.mini-player-ui > div:first-child{
     display:flex;
     justify-content: flex-end;
     color:white;
 }
 
-.mini-ctrl-ui > div:first-child > * {
+.mini-player-ui > div:first-child > * {
         margin-right:12px;
         margin-top:12px;
 }
 
-.mini-ctrl-ui > div:last-child{
+.mini-player-ui > div:last-child{
     display:flex;
 }   
 
-.mini-ctrl-ui > div:last-child > * {
+.mini-player-ui > div:last-child > * {
     margin-left: 12px;
     margin-bottom: 12px;
 }
 
-.mini-scn-ply-btn{
+.mini-player--play-btn{
     width: 60px;
     height: 60px;
 }
 
-.mini-scn-ply-btn:hover{
+.mini-player--play-btn:hover{
     cursor: pointer;
 }
 
-.mini-scn-ply-btn i{
+.mini-player--play-btn i{
     width: 50px;
     height: 50px;
     font-size: 50px;

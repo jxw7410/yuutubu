@@ -23,13 +23,13 @@ const UploadDropDown = props => {
       tabIndex='0'
       onBlur={() => changeState(false)}>
       <i onClick={toggleDropdown}
-        className="fas fa-video nav-i-link" />
+        className="fas fa-video nav-icon-link" />
       
-      <div className='i-msg'>Upload Video</div>
+      <div className='icon-message'>Upload Video</div>
       
       <ul style={displayDropdown ? null : { display: 'none' }}
-        className='video-upload-dropdown box-shad-s1'>
-        <li className='flexh-1'
+        className='video-upload-dropdown box-shadow--style-1'>
+        <li className='flex-horizontal--style-1'
           style={{ height: '40px' }}
           onClick={toUploadPage}>
           Upload Video

@@ -29,33 +29,33 @@ const UserDropdown = props => {
         className="fas fa-user-circle" />
 
       <ul style={ displayDropdown ? null : {display: 'none'}} 
-        className='usr-mdl-i box-shad-s1'>
-        <li className='usr-mdl-hdr'>
-          <section className='umh-d'>
-            <section id='mpp' className='flexh-1'>
+        className='user-dropdown box-shadow--style-1'>
+        <li className='user-dropdown-header--container'>
+          <section className='user-dropdown-header'>
+            <section id='dropdown-profile-pic' className='flex-horizontal--style-1'>
               <i className='fas fa-user-circle' />
             </section>
-            <section id='mpi' className='flexv-2'>
+            <section id='dropdown-profile-info' className='flex-vertical--style-2'>
               <span>{props.user.username}</span>
               <span>{props.user.email}</span>
             </section>
           </section>
         </li>
-        <li className='um-sec-1'>
-          <ul id='um-sec-1-ul'>
+        <li className='user-dropdown-body'>
+          <ul id='user-dropdown-body--ul'>
             <li onClick={toChannelPage}>
-              <div className='flexh-1'>
+              <div className='flex-horizontal--style-1'>
                 <i className='fas fa-user' />
               </div>
-              <div className='flexh-3'>
+              <div className='flex-horizontal--style-3'>
                 Your Channel
               </div>
             </li>
             <li onClick={()=> props.logOut()}>
-              <div className='flexh-1'>
+              <div className='flex-horizontal--style-1'>
                 <i className='fas fa-sign-out-alt' />
               </div>
-              <div className='flexh-3'>
+              <div className='flex-horizontal--style-3'>
                 Sign Out
               </div>
             </li>

@@ -29,7 +29,7 @@ const SubscriptionList = ({isLoggedin, subscriptions, history}) => {
         <li key={subscription.id}
           onClick={redirectToChannel(subscription.channel_id)}>
           <i className="fas fa-user-circle" />
-          <span className='flexh-3'>
+          <span className='flex-horizontal--style-3'>
             {subscription.channelName}
           </span>
         </li>
@@ -52,7 +52,7 @@ const SubscriptionList = ({isLoggedin, subscriptions, history}) => {
                   <li id='read-less'
                     onClick={toggleRead}>
                     <i id='chev' className='fas fa-chevron-up' />
-                    <span className='flexh-3'>
+                    <span className='flex-horizontal--style-3'>
                       Show Less
                     </span>
                   </li>
@@ -60,7 +60,7 @@ const SubscriptionList = ({isLoggedin, subscriptions, history}) => {
                   <li id='read-more'
                     onClick={toggleRead}>
                       <i id = 'chev' className='fas fa-chevron-down' />
-                      <span className='flexh-3'>
+                      <span className='flex-horizontal--style-3'>
                         Show {subscriptions.length - displayLimit} More
                       </span>
                   </li>

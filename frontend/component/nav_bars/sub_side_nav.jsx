@@ -11,13 +11,13 @@ const SubSideNav = props => {
   }
 
   return (
-    <div className='ssn-ctn'>
-      <nav id='ssn'>
-        <div className='ssn-content flexh-2'>
-          <ul className='flexv-1'>
+    <div className='sub-side-nav--container'>
+      <nav id='sub-side-nav'>
+        <div className='sub-side-nav--content flex-horizontal--style-2'>
+          <ul className='flex-vertical--style-1'>
             <li id='Home'
               onClick={toMainPage}
-              className={props.location.pathname === '/' ? 'ssi-select' : ""}>
+              className={props.location.pathname === '/' ? 'sub-side-nav--icon--select' : ""}>
               <i className="fas fa-home" />
               <span>Home</span>
             </li>

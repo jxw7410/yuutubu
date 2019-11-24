@@ -26,11 +26,11 @@ const ChannelIndex = props => {
 	}
 
 	return (
-		<li className="ch-idx-item">
-			<section className="ch-idx-item-hdr flexh-6">
-				<span className='chiih-name flexh-3'>
+		<li className="channel-index">
+			<section className="channel-index--hdr flex-horizontal-style-6">
+				<span className='channel-index--hdr-name flex-horizontal--style-3'>
 					<Link to={`/channel/${props.channel.id}`}
-						className="ch-idx-item-link" >
+						className="channel-index--link" >
 						<i className="fas fa-user-circle" />
 						<span>{props.channel.name}</span>
 					</Link> Recommended channel for you</span>

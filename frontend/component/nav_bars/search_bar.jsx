@@ -104,20 +104,20 @@ const SearchBar = props => {
   }
 
   return (
-    <form className='flexh-1'
+    <form className='flex-horizontal--style-1'
       style={{ width: '100%' }}
       onSubmit={handleSubmit}
     >
       <div
         tabIndex='0'
-        className='sbi-ctn'
+        className='search-bar--input--container'
         onFocus={handleFocus(true)}
         onBlur={handleFocus(false)}
         onKeyDown={handleKeyPress}
       >
         <input
           ref={inputRef}
-          className='sbi'
+          className='search-bar--input'
           type='text'
           placeholder='Search'
           autoComplete='off'
@@ -135,7 +135,7 @@ const SearchBar = props => {
         </SearchBarContext.Provider>
 
       </div>
-      <button className='sbb'
+      <button className='search-bar--button'
         onClick={handleSubmit}
       > <i className="fas fa-search" /> </button>
     </form>

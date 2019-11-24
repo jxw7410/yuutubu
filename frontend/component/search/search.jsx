@@ -38,12 +38,12 @@ const Search = props => {
   return (
     <div
       className={[
-        'max-w-h',
-        'main-ctnt-ctn',
-        props.sideNav.toggled ? "mn-cc-tgl" : ""
+        'max-width-height',
+        'main-content--container',
+        props.sideNav.toggled ? "main-content--toggled" : ""
       ].join(" ")}>
-      <div className='flexh-2 src-vid-lst-ctn'>
-        <ul className='flexv-4 src-vid-lst'>
+      <div className='flex-horizontal--style-2 src-vid-lst-ctn'>
+        <ul className='flex-vertical--style-4 src-vid-lst'>
           {
             props.videos.map(video =>
               <VideoThumbnail

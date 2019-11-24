@@ -16,11 +16,11 @@ const MainSideNav = props => {
     <>
       {
         props.type === 'TYPETWO' ? 
-          <div className='tns-1-ctn flexh-3'>
-            <div className='tns-1 flexh-3'>
+          <div className='top-nav--section-1--container flex-horizontal--style-3'>
+            <div className='top-nav--section-1 flex-horizontal--style-3'>
               <i className='fas fa-bars' onClick={toggleSideBar} />
-              <span className="nb-i">
-                <Link to="#/" className='flexh-3'>
+              <span className="nav-bar--icon">
+                <Link to="#/" className='flex-horizontal--style-3'>
                   <i className='fab fa-youtube' />
                   <h1>YuuTubu</h1>
                 </Link>
@@ -30,13 +30,13 @@ const MainSideNav = props => {
       }
       <div 
         onScroll={ e => e.stopPropagation()}
-        className='msn'>
-        <ul className='msn-ul flexv-1'>
+        className='main-side-nav'>
+        <ul className='main-side-nav-ul flex-vertical--style-1'>
           <li id='Home'
             onClick={redirectToMainPage}
-            className={ props.location.pathname === '/' ? 'msi-select' : ""}>
+            className={ props.location.pathname === '/' ? 'main-side-nav--item' : ""}>
             <i className='fas fa-home' />
-            <span className='flexh-3'>Home</span>
+            <span className='flex-horizontal--style-3'>Home</span>
           </li>
           <SideNavLinks type='main' />
         </ul>
@@ -45,7 +45,7 @@ const MainSideNav = props => {
             <a target="_blank"
               href='https://angel.co/jian-wu-12?public_profile=1'>
                 <i className='fab fa-angellist' />
-                <span className='flexh-3'>AngelList</span>
+                <span className='flex-horizontal--style-3'>AngelList</span>
               </a>
           </li>
         </ul>

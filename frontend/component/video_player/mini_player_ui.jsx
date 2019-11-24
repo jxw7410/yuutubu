@@ -20,7 +20,7 @@ const MiniPlayerUI = props => {
 
   return (
     <div
-      className='mini-ctrl-ui max-w-h flexv-9'
+      className='mini-player-ui max-width-height flex-vertical--style-9'
       onClick={goBackToVideoPage}>
       <div>
         <i
@@ -28,8 +28,8 @@ const MiniPlayerUI = props => {
           className="material-icons">
           close</i>
       </div>
-      <div className='flexh-1'>
-        <div className='mini-scn-ply-btn flexh-1'>
+      <div className='flex-horizontal--style-1'>
+        <div className='mini-player--play-btn flex-horizontal--style-1'>
           {props.videoStateBtn}
         </div>
       </div>

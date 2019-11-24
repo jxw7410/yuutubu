@@ -43,7 +43,7 @@ export const AuthInputWidget = React.forwardRef((props, ref) => {
   const errorStyle = { paddingTop: '5px', color: errors.length ? 'red' : null }
 
   return (
-    <label style={{ position: 'relative' }} className='flexv-4'>
+    <label style={{ position: 'relative' }} className='flex-vertical--style-4'>
       <span className={topSpanClass}
         style={topSpanStyle}>
         {newText}
@@ -68,7 +68,7 @@ export const AuthInputWidget = React.forwardRef((props, ref) => {
 
 export const AuthLogo = React.memo( () => {
   return (
-    <span className='flexh-3'>
+    <span className='flex-horizontal--style-3'>
       <i className="fab fa-youtube" />
       <h1 style={{ fontSize: '25px' }}>YuuTubu</h1>
     </span>

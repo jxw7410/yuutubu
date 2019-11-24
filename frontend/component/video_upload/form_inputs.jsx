@@ -34,16 +34,16 @@ const FormInput = props => {
   }
 
   return (
-    <div className='vsf-col-2'>
-      <div className='flexh-1'>
+    <div className='upload-form--inputs--container'>
+      <div className='flex-horizontal--style-1'>
         <PublishButton videoText={videoText} />
       </div>
-      <div className='flexv-3'>
-        <label className='adfx'>
+      <div className='flex-vertical--style-3'>
+        <label className='upload-form--inputs--label'>
           <span
             className={[
               'label',
-              focusState.title || videoText.videoTitle.length ? 'ipt-fcs' : ""
+              focusState.title || videoText.videoTitle.length ? 'upload-form--input-focus' : ""
             ].join(" ")}>
             Title
           </span>
@@ -62,11 +62,11 @@ const FormInput = props => {
           />
         </label>
 
-        <label className='adfx'>
+        <label className='upload-form--inputs--label'>
           <span
             className={[
               'label',
-              focusState.description || videoText.videoDescription.length ? 'ipt-fcs' : ""
+              focusState.description || videoText.videoDescription.length ? 'upload-form--input-focus' : ""
             ].join(" ")}>
             Description
           </span>
@@ -76,7 +76,7 @@ const FormInput = props => {
               height: '100%', 
               width: 'calc(100% - 11px)' 
             }}
-            className='vid-upld-desc input-style-1'
+            className='upload-form--description input-style-1'
             onFocus={toggleFocus('description')}
             onBlur={toggleFocus('description')}
             disabled={isUploading}

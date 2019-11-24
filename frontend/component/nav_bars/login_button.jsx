@@ -5,7 +5,7 @@ const LoginButton = props => {
   return (
     <button 
       onClick={() => props.history.push('/login')}
-      className='signin-btn flexh-3' >
+      className='login-button flex-horizontal--style-3' >
       <i className='fas fa-user-circle' />
       SIGN IN
     </button>

@@ -3,27 +3,27 @@ import React from 'react';
 const SideNavLinks = ({type}) => {
 
   const anchorClass = [
-    'flexv-3',
-    type === 'top' ? "nav-i-link" : ""
+    'flex-vertical--style-3',
+    type === 'top' ? "nav-icon-link" : ""
   ].join(" ");
 
   function renderIconContainer(href, tag) {
     return (
-      <li className='i-wrap'>
+      <li className='icon-wrap'>
         <a className={anchorClass}
           target="_blank"
           href={href}>
           <i className={`fab fa-${tag.toLowerCase()}`} />
           {
             type === 'top' ? null :
-              <span className='flexh-3'>
+              <span className='flex-horizontal--style-3'>
                 {tag}
               </span>
           }
         </a>
         {
           type === 'top' ?
-            <div className='i-msg'>
+            <div className='icon-message'>
               {tag}
             </div> : null
         }

@@ -10,26 +10,26 @@ import UserDropDown from './user_drop_down';
 const TopNav = props => {
 	return (
 		<div className='top-nav'>
-			<div className='tns-1 flexh-3'>
+			<div className='top-nav--section-1 flex-horizontal--style-3'>
 				<i className='fas fa-bars' 
 					onClick={() => props.toggleSideBar()} />
-				<span className='nb-i flexh-3'>
-					<NavLink exact className='flexh-3' to='/'>
+				<span className='nav-bar--icon flex-horizontal--style-3'>
+					<NavLink exact className='flex-horizontal--style-3' to='/'>
 						<i className='fab fa-youtube' />
 						<h1>YuuTubu</h1>
 					</NavLink>
 				</span>
 			</div>
-			<div className='tns-2'>
+			<div className='top-nav--section-2'>
 				<SearchBarContainer />
 			</div>
-			<div className='tns-3 flexh-3'>
-				<ul className='nbr-ul flexh-4'>
-					<li className='i-wrap' >
+			<div className='top-nav--section-3 flex-horizontal--style-3'>
+				<ul className='nav-bar--ul flex-horizontal--style-4'>
+					<li className='icon-wrap' >
 						<UploadDropDown />
 					</li>
 					<SideNavLinks type='top' />
-					<li className='i-wrap'>
+					<li className='icon-wrap'>
 						{
 							props.isLoggedIn ?
 								<UserDropDown /> : <LoginButton />					

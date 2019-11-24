@@ -78,7 +78,7 @@ const MainNav = props => {
                   </div>
                 </>
                 :
-                <div className='msn-ctn'>
+                <div className='main-side-nav--container'>
                   {props.navBar.toggled ? <MainSideNavContainer /> : null}
                   <SubSideNav />
                 </div>

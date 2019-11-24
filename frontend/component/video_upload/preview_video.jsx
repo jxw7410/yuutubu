@@ -70,7 +70,7 @@ const PreviewVideo = props => {
     }
     return (
       <div
-        className='preview-ui pv-u-play flexh-1'
+        className='upload-form--preview-ui upload-form-preview-ui--play flex-horizontal--style-1'
         onClick={handleVideoUI}>
         <i className={`fas ${iconType}`} />
       </div>
@@ -79,7 +79,7 @@ const PreviewVideo = props => {
 
   return (
     <>
-      <div className='upld-vid-ctn'>
+      <div className='upload-form--preview-video--container'>
         <video
           muted
           ref={videoRef}

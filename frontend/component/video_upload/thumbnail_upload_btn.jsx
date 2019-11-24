@@ -24,11 +24,11 @@ const ThumbnailUploadBtn = props => {
     !props.isUploading
   );
   return (
-    <div className='upld-tbn-ctn flexv-4'>
+    <div className='thumbnail-upload--container flex-vertical--style-4'>
       <label
         className={[
-          'lbl-upld-btn',
-          'flexh-1',
+          'thumbnail-upload-btn',
+          'flex-horizontal--style-1',
           isEnabled ? 'enabled' : 'disabled'
         ].join(" ")}>
         <input 

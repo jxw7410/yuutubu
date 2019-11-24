@@ -34,7 +34,7 @@ const VideoThumbnail = props => {
   function renderInfoComponent() {
     let infoComponent;
     switch (props.type) {
-      case 'video-page':
+      case 'VIDEOPAGE':
         infoComponent = <VideoPageThumbnailInfo
           video={props.video}
           redirect={props.redirectEvent} />
@@ -108,7 +108,7 @@ const VideoThumbnail = props => {
 
   return (
     <li className='thumbnails'>
-      <div className="tbn-ctnt"
+      <div className="thumbnail-content"
         onMouseEnter={mouseEnterEvent}
         onMouseLeave={mouseLeaveEvent}
         onClick={redirectEvent} >
@@ -122,13 +122,13 @@ const VideoThumbnail = props => {
               videoUrl={props.video.videoUrl} /> : null
         }
 
-        <div className="flexh-1 thumbnail-clock">
+        <div className="flex-horizontal--style-1 thumbnail-clock">
           <i className="material-icons clock">watch_later</i>
         </div>
 
         <div className={[
-          'tbn-prev-wrap',
-          (state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'tbn-active' : "",
+          'thumbnail-preview--wrapper',
+          (state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'thumbnail-active' : "",
           state.imgLoaded ? "" : " not-loaded",
         ].join(' ')}  >
 

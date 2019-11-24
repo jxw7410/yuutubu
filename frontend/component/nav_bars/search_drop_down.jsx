@@ -13,7 +13,7 @@ const SearchDropdown = props => {
       const matchedSubstring = search.context.slice(0, inputTextLength);
       const remenantString = search.context.slice(inputTextLength);
       const className = [
-          searchBarState.selected === index ? 'sbsd_d' : "",
+          searchBarState.selected === index ? 'search-bar--item--selected' : "",
           search.category ? "history" : "",
       ].join(" ")
 
@@ -31,8 +31,8 @@ const SearchDropdown = props => {
 
   return (
     <div style={searchItems.length && searchBarState.isFocused ? null : {display: 'none'}} 
-      className='sch-mdl sm-active'>
-      <ul className='sm-list flexv-4'>
+      className='search-bar--dropdown search-bar--dropdown-active'>
+      <ul className='search-bar--item--container flex-vertical--style-4'>
         {searchItems}
       </ul>
     </div>

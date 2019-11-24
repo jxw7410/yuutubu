@@ -44,6 +44,7 @@ const VideoPlayer = props => {
   }
 
   function playPause(e) {
+    e.stopPropagation();
     if (videoState.state === PLAY)
       videoRef.current.pause();
     else if (videoState.state === PAUSE)
@@ -117,6 +118,7 @@ const VideoPlayer = props => {
         button = 'replay-button';
         buttonIcon = 'replay';
         eventHandler = e => {
+          e.stopPropagation();
           videoRef.current.currentTime = 0;
           videoRef.current.play();
         };
@@ -137,9 +139,9 @@ const VideoPlayer = props => {
     }
 
     return (
-      <div className={`i-wrap ${button}`} onClick={eventHandler}>
+      <div className={`icon-wrap ${button}`} onClick={eventHandler}>
         <i className="material-icons-enlarged">{buttonIcon}</i>
-        <div className='i-msg-v i-pos-lft'>{iconMessage}</div>
+        <div className='icon-message-v icon-position--left'>{iconMessage}</div>
       </div>
     )
   }
@@ -151,17 +153,17 @@ const VideoPlayer = props => {
         onClick={playPause}
         onDoubleClick={handleDoubleClick}
         className={[
-          'vid-player-hook',
-          isFullscreen ? 'vph-full' : ''
+          'video-player--container',
+          isFullscreen ? 'video-player--fullscreen' : ''
         ].join(" ")}
       >
         <div
           style={videoState.state === REPLAY || videoState.state === PAUSE  ? null : { display: 'none' }}
-          className='vid-dark-scn max-w-h'
+          className='video-player--cover max-width-height'
         />
         <div
           style={videoState.state === LOAD ? null : { display: 'none' }}
-          className='vid-ldr max-w-h flexh-1'>
+          className='video-loader max-width-height flex-horizontal--style-1'>
           <div className='spinner' />
         </div>
         <video
@@ -181,10 +183,10 @@ const VideoPlayer = props => {
         </video>
         <div
           className={[
-            'max-w-h',
-            'flexv-10',
-            'vid-ctrl',
-            videoState.state === PLAY ? 'vc-play' : ""
+            'max-width-height',
+            'flex-vertical--style-10',
+            'video-player--control',
+            videoState.state === PLAY ? 'video-player--control--play' : ""
           ].join(" ")}>
           <VideoPlayerContext.Provider
             value={{ 
@@ -212,7 +214,7 @@ const VideoPlayer = props => {
       </div>
       {
         props.videoPlayer.type === MINI ?
-          <div className='vid-player-desc flexv-7'>
+          <div className='video-player--description flex-vertical--style-7'>
             <span>{props.videoPlayer.video.title}</span>
             <span>{props.videoPlayer.video.description}</span>
           </div> : null

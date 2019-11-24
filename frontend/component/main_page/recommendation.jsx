@@ -21,12 +21,12 @@ const Recommendation = props => {
 
   return (
     <div>
-      <div className='mgt-24' style={{ fontWeight: 'bold' }}>
+      <div className='margin-24' style={{ fontWeight: 'bold' }}>
         Recommended
       </div>
       <ul className={[
-        'idx-rec-vid',
-        'mgt-24',
+        'recommended-video-container',
+        'margin-24',
         state.readmore ? "" : 'show-more-inactive'
       ].join(' ')}>
         {

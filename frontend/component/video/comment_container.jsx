@@ -30,14 +30,14 @@ const CommentsContainer = props => {
 
 
   return (
-    <div className='vid-pst-bd'>
-      <div className='usr-pst-frm-ctn'>
+    <div className='video-page--comment-section'>
+      <div className='comment-form--ctn'>
         <div style={{ fontSize: '36px' }}> 
           <i className="fas fa-user-circle" />
         </div>
         <CommentBox />
       </div>
-      <ul id='lopst' className='flexv-4'>
+      <ul id='comments-list' className='flex-vertical--style-4'>
         {
           props.posts.map( post => 
             <Comment

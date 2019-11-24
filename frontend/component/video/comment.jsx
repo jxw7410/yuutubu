@@ -8,17 +8,17 @@ const Comment = props => {
 
   return (
     <li>
-      <div className='vid-post'>
-        <div className='vid-post-r1'>
+      <div className='video-comment'>
+        <div className='video-comment--r1'>
           <section>
-            <i className='fas fa-user-circle vpr1c1-i' />
+            <i className='fas fa-user-circle video-comment--icon' />
           </section>
 
           <section>
-            <div className='vid-post-r1-c2-hdr flexh-5'>
-              <section className='flexh-3'>
+            <div className='video-comment--r1-c2--hdr flex-horizontal--style-5'>
+              <section className='flex-horizontal--style-3'>
                 <span>{props.post.user}</span>
-                <span className='vpr1c1hl'>
+                <span className='video-comment--date'>
                   {props.post.created_at}
                 </span>
               </section>
@@ -27,15 +27,15 @@ const Comment = props => {
 
             <div 
               className={[
-                'vid-post-bd-r1-c2',
-                state.expanded ? "expd" : ""
+                'video-comment--r1-c2--bdy',
+                state.expanded ? "comment-expanded" : ""
               ].join(" ")}>
               <div ref={contentContainer}>
                 {props.post.description}
               </div>
             </div>
             
-            <div className='vid-post-ftr-r1-c2'>
+            <div className='video-comment--r1-c2--ftr'>
               <span 
                 style={ state.readMore ? null : { display: 'none' }}
                 onClick={handleReadMore}

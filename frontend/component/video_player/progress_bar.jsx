@@ -54,7 +54,7 @@ const ProgressBar = props => {
   }
 
   return (
-    <div className='progress-bar flexh-3'
+    <div className='progress-bar flex-horizontal--style-3'
       onMouseMove={hoverProgressBar}
       onMouseLeave={leaveProgressBar}>
       <div

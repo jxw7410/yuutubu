@@ -25,14 +25,14 @@ const Recommendation = props => {
       return <VideoThumbnail
         key={video.id}
         video={video} channel={{}}
-        type={'video-page'}
+        type='VIDEOPAGE'
         handleClick={redirectToVideo(video.id)}
       />
     });
 
   return (
-    <div className='vid-mn-r'>
-      <ul className='prev-vid-lst flexv-4'>
+    <div className='video-page--preview-list--container'>
+      <ul className='video-page--preview-list flex-vertical--style-4'>
         { previews }
       </ul>
     </div>

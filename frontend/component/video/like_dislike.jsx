@@ -74,7 +74,7 @@ const LikeDislike = props => {
 
   function likeDislikeBtn(bool, count, icon) {
     return (
-      <span className='flexh-1'
+      <span className='flex-horizontal--style-1'
         onClick={handleClick(bool)}>
         <i
           className={[
@@ -89,17 +89,17 @@ const LikeDislike = props => {
   }
 
   return (
-    <div className='vid-info-hdr-utils flexv-1'>
-      <section className='vid-ld-i flexh-6'>
+    <div className='video-like-dislike--container flex-vertical--style-1'>
+      <section className='video-like-dislike--info flex-horizontal-style-6'>
         {likeDislikeBtn(true, state.likeCount, 'thumb_up')}
         {likeDislikeBtn(false, state.dislikeCount, 'thumb_down')}
       </section>
-      <section className='ld-bar'>
+      <section className='like-dislike--bar'>
         <div
           style={{ width: `${likeDislikeRatio() * 100}%` }}
           className={[
-            'ldr-bar',
-            (typeof props.likeDislike.is_liked === 'boolean') ? 'ldrb-voted' : "",
+            'like-dislike--ratio-bar',
+            (typeof props.likeDislike.is_liked === 'boolean') ? 'like-dislike--ratio-bar--voted' : "",
           ].join(" ")}
         />
       </section>

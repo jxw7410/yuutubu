@@ -57,8 +57,8 @@ const LoginFormItem = props => {
 
 
 	return (
-		<div className='auth-form-ctn'>
-			<form className='auth-form flexv-7'>
+		<div className='auth-form--container'>
+			<form className='auth-form flex-vertical--style-7'>
 				<AuthInputWidget
 					ref={authElement}
 					type={field}
@@ -73,7 +73,7 @@ const LoginFormItem = props => {
 					field === 'email' ?
 						<DemoUserLogin login={props.login} /> : null
 				}
-				<section className='flexh-5' style={{ width: '350px' }}>
+				<section className='flex-horizontal--style-5' style={{ width: '350px' }}>
 					<span>
 						{
 							field === 'email' ?

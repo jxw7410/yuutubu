@@ -7,13 +7,13 @@ import MainSideNavContainer from './main_side_nav_ctn';
 
 const TypeTwoNavBar = React.memo(({ isNavBarToggled, toggleSideBar }) => {
   const topDivStyle = [
-    'msn-ctn-2',
-    isNavBarToggled ? "" : 'mc2-toggled'
+    'main-side-nav--container-2',
+    isNavBarToggled ? "" : 'side-nav-2--toggled'
   ].join(' ');
 
   const bottomDivStyle = [
-    'msn-ctn-cvr',
-    isNavBarToggled ? "" : "mcc-toggled"
+    'main-side-nav--container-cover',
+    isNavBarToggled ? "" : "side-nav-2--cover--toggled"
   ].join(' ');
 
   return (

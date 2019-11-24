@@ -22,7 +22,7 @@ const VideoUpload = props => {
   }, []);
 
   return (
-    <div className='upld-bd flexv-3'>
+    <div className='upload-form--container flex-vertical--style-3'>
       <VideoUploadContext.Provider 
         value={{
           setIsUploadForm,

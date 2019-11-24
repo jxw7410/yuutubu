@@ -26,13 +26,13 @@ const VideoUploadArea = () => {
   }
 
   return (
-    <div className='upload-area flexv-1'
+    <div className='upload-area flex-vertical--style-1'
       onDrop={handleUpload('DROP')}
       onDragEnter={e => e.preventDefault()}
       onDragOver={e => e.preventDefault()}
       onDragLeave={e => e.preventDefault()}>
 
-      <label className='upload-input flexv-9'>
+      <label className='upload-area--input flex-vertical--style-9'>
         <input
           onChange={handleUpload('INPUT')}
           type="file"

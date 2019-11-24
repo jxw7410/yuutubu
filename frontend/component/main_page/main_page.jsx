@@ -29,15 +29,15 @@ const MainPage = props => {
  
   return (
     <div className={[
-        'max-w-h',
-        'main-ctnt-ctn',
-        props.navBar.toggled ? "mn-cc-tgl" : ""
+        'max-width-height',
+        'main-content--container',
+        props.navBar.toggled ? "main-content--toggled" : ""
       ].join(' ')}>
 
-      <div className='main-ctnt'>
-        <div className='flexv-1'>
+      <div className='main-content'>
+        <div className='flex-vertical--style-1'>
           <Recommendation />
-          <ul className='ch-list'>
+          <ul className='channel-list'>
             {
               props.channels.map(channel => 
                 <ChannelIndex key={channel.id} channel={channel} />)

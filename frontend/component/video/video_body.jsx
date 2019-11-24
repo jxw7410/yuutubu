@@ -8,18 +8,18 @@ const VideoBody = props => {
   const [state, contentContainer, handleReadMore] = useDescriptionExpander(contentHeightLimit);
   
   return (
-    <div className='vid-info-bd'>
+    <div className='video-info--body'>
       <section>
-        <div className='ch-usr-prf-pic'> 
+        <div className='video-page--user-profile-pic'> 
           <i className="fas fa-user-circle" /> 
         </div>
-        <div className='vid-info-bd-hdr flexh-5'>
-          <div className='flexv-4'>
+        <div className='video-info--body-hdr flex-horizontal--style-5'>
+          <div className='flex-vertical--style-4'>
             <Link to={`/channel/${props.channel.id}`}
-              className='vid-ch-name'>
+              className='video-page--channel-name'>
               {props.channel.name}
             </Link>
-            <span className='vid-date'>
+            <span className='video-date'>
               Published on {props.video.created_at}
             </span>
           </div>
@@ -30,19 +30,18 @@ const VideoBody = props => {
         <div />
         <div 
           className={[
-            'vid-desc',
-            state.expanded ? 'expd' : ""
+            'video-description--container',
+            state.expanded ? 'comment-expanded' : ""
           ].join(" ")}>
             <span
-              ref={contentContainer} 
-              className='post-des'>
+              ref={contentContainer} >
               {props.video.description}
             </span>
           </div>
       </section>
       <section>
         <div />
-        <div className='flexh-3'>
+        <div className='flex-horizontal--style-3'>
           <span 
             style={state.readMore ? null : { display: 'none' }}
             className='span-style-2' 

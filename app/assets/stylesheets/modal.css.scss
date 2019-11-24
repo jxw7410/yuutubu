@@ -1,4 +1,4 @@
-.usr-mdl-i{
+.user-dropdown{
     position: absolute;
     outline:none;
     border: 1px solid lightgray;
@@ -10,7 +10,7 @@
     border-radius: 2px;
 }
 
-.usr-mdl-hdr{
+.user-dropdown-header--container{
     height: 100px;
     width: 100%;
     display: grid;
@@ -18,35 +18,35 @@
     border-bottom: 1px solid lightgray;
 }
 
-.umh-d{
+.user-dropdown-header{
     display: grid;
     grid-template-columns: 25% 75%;
 }
 
 
-#mpp{
+#dropdown-profile-pic{
     font-size: 40px;
     color: rgb(39, 97, 204);
 }
 
-#mpi > span:first-child{
+#dropdown-profile-info > span:first-child{
     font-weight: bold;
 }
-#mpi > span{
+#dropdown-profile-info > span{
     font-size: 16px;
 }
 
-.um-sec-1 > ul {
+.user-dropdown-body > ul {
     display: grid;
     grid-template-rows: 50% auto;
     height: 100px;
 }
 
-#um-sec-1-ul > li:hover {
+#user-dropdown-body--ul > li:hover {
     background: lightgray;
 }
 
-#um-sec-1-ul > li {
+#user-dropdown-body--ul > li {
     display: grid;
     grid-template-columns: 60px auto;
     width: 100%;
@@ -54,7 +54,7 @@
 }
 
 
-#um-sec-1-ul > li > div:first-child > i {
+#user-dropdown-body--ul > li > div:first-child > i {
     color: white;
     background: rgb(144,144,144);
     padding: 3px;

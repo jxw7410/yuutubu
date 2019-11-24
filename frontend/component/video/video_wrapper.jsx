@@ -17,13 +17,13 @@ const VideoWrapper = (props) => {
     <div
       style={ props.videoPlayer.type ? null : {display: 'none'}} 
       className={[
-      'max-w-h',
-      'flexh-1x',
-      props.videoPlayer.type === MINI ? "vmc-mini" : ""
+      'max-width-height',
+      'flex-horizontal--style-1x',
+      props.videoPlayer.type === MINI ? "mini-player-wrapper" : ""
     ].join(" ")}>
       {
-        <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn"}`}>
-          <div className={`${props.videoPlayer.type === MINI ? "max-w-h" : "vid-mn-lf"}`} >
+        <div className={`${props.videoPlayer.type === MINI ? "max-width-height" : "video-page--main-content"}`}>
+          <div className={`${props.videoPlayer.type === MINI ? "max-width-height" : "video-page--main-content--left-section"}`} >
             <VideoPlayerContainer />
             <Route path='/video/:video_id' component={Video} />
           </div>

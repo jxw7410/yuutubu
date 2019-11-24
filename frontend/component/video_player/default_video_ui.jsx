@@ -74,21 +74,21 @@ const DefaultVideoUI = props => {
   }
 
   return (
-    <div className='vid-ctrl-ui flexh-6'>
+    <div className='video-player-main-ui flex-horizontal-style-6'>
       <section
-        className='flexh-3'
+        className='flex-horizontal--style-3'
         style={{ width: 'auto' }}>
         <div> {props.videoStateBtn} </div>
-        <div className='vol-ctrl-div flexh-3'>
-          <div className='i-wrap'>
+        <div className='volume-ui--container flex-horizontal--style-3'>
+          <div className='icon-wrap'>
             <i
               onClick={handleMute}
               className='material-icons volume-icon'>
               {getVolumeIcon()}
             </i>
           </div>
-          <div className='vol-ctrl-bar-wrap flexh-3'>
-            <div className='vol-ctrl-bar'>
+          <div className='volume-bar--wrapper flex-horizontal--style-3'>
+            <div className='volume-bar'>
               <div
                 className='vol-ctrl-track'
                 style={{ width: `${state.volumeTrackLength}px` }} />
@@ -107,35 +107,35 @@ const DefaultVideoUI = props => {
         </div>
 
         <div className='vid-time'>
-          <div className='max-w-h'>
+          <div className='max-width-height'>
             {convertDurationToTime(videoState.currentTime)} / {convertDurationToTime(videoState.duration)}
           </div>
         </div>
       </section>
 
-      <section className='flexh-3'>
+      <section className='flex-horizontal--style-3'>
         <div
           onClick={requestMiniPlayer}
-          className='i-wrap'>
+          className='icon-wrap'>
           <i
             style={{ margin: '0 5px' }}
             className="material-icons">
             picture_in_picture_alt
           </i>
-          <div className='i-msg-v i-pos-rgt'>Miniplayer</div>
+          <div className='icon-message-v icon-position-right'>Miniplayer</div>
         </div>
         {
           isFullscreen ?
-            <div className="i-wrap"
+            <div className="icon-wrap"
               onClick={minMaxScreen(false)}>
               <i className="material-icons-enlarged">fullscreen_exit</i>
-              <div className='i-msg-v i-pos-rgt'>Exit Full Screen</div>
+              <div className='icon-message-v icon-position-right'>Exit Full Screen</div>
             </div>
             :
-            <div className="i-wrap"
+            <div className="icon-wrap"
               onClick={minMaxScreen(true)}>
               <i className="material-icons-enlarged">fullscreen</i>
-              <div className='i-msg-v i-pos-rgt'>Full Screen</div>
+              <div className='icon-message-v icon-position-right'>Full Screen</div>
             </div>
         }
       </section>

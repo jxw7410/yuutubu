@@ -30,7 +30,7 @@ const ThumbnailPreviewVideo = props => {
       key={props.videoUrl}
       ref={videoRef}
       muted
-      className='tn-prev-vid-active'
+      className='thumbnail-preview-active'
       onLoadedData={props.videoUrl ? props.setDataloaded : null}
       onTimeUpdate={handleTimeUpdate}>
       <source src={props.videoUrl} type="video/mp4" />

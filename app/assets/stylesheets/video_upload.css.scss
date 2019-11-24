@@ -1,4 +1,4 @@
-.upld-bd{
+.upload-form--container{
     background: rgb(241,241,241);
     min-height: 100%;
     width: 100%;
@@ -15,11 +15,11 @@
 }
 
 
-.upload-input{
+.upload-area--input{
     height: 40%;
 }
 
-.upload-input .fa-arrow-up{
+.upload-area--input .fa-arrow-up{
     font-size:50px;
     font-weight: bold;
     padding: 0px 20px;
@@ -30,11 +30,11 @@
     
 }
 
-.upload-input > input[type="file"]{
+.upload-area--input > input[type="file"]{
     display: none;
 }
 
-.upload-input:hover{
+.upload-area--input:hover{
     cursor: pointer;
     .fa-arrow-up {
         background:red;
@@ -42,7 +42,7 @@
 }
 
 
-.vid-sbmt-frm{
+.upload-form{
     min-height: 450px;
     width: 800px;
     position: relative;
@@ -53,19 +53,19 @@
     margin-top: 70px;
 }
 
-.vsf-col-1{
+.upload-form--col-1{
     grid-column: 1 / 2;
     padding: 10px;
 }
 
-.upld-vid-ctn {
+.upload-form--preview-video--container {
     position: relative;
     width: 200px;
     height: 100px;
     margin: 10px 0px;
 }
 
-.preview-ui{
+.upload-form--preview-ui{
     width: 100%;
     height: 100px;
     position: absolute;
@@ -73,7 +73,7 @@
 }
 
 
-.pv-u-play, .pv-u-end{
+.upload-form-preview-ui--play, .pv-u-end{
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -96,19 +96,19 @@
         }
 }
 
-.preview-ui > i{
+.upload-form--preview-ui > i{
     font-size: 30px;
     color: rgba(255,255,255, 0.5);
     opacity: 0;
     transition: opacity 0.2s linear;
 }
 
-.preview-ui > i:hover{
+.upload-form--preview-ui > i:hover{
     opacity: 1;
 }
 
 
-.upld-vid-ctn > video {
+.upload-form--preview-video--container > video {
     width: 200px;
     height: 100px;
     object-fit: cover;
@@ -132,18 +132,18 @@
 }
 
 
-.vsf-col-2{
+.upload-form--inputs--container{
     grid-column: 2 / 3;
     display: grid;
     grid-template-rows: 110px auto;
 }
 
-.upld-tbn-ctn input[type="file"]{
+.thumbnail-upload--container input[type="file"]{
     display: none;
 }
 
 
-.sbmt-btn{
+.upload-form--submit-btn{
     height: 35px;
     width: 90%;
     font-size: 24px;
@@ -152,7 +152,7 @@
 }
 
 
-.lbl-upld-btn{
+.thumbnail-upload-btn{
     border-radius: 5px;
     height: 30px;
     width: 150px;
@@ -177,17 +177,17 @@
     border: 2px solid  lightgray;
 }
 
-.lbl-upld-btn:hover{
+.thumbnail-upload-btn:hover{
     cursor: pointer;
 }
 
 
-.vid-upld-desc{
+.upload-form--description{
     min-height: 250px;
     resize: vertical;
 }
 
-.tbn-img{
+.upload-form--thumbnail{
     width: 200px;
     height: 100px;
     background-size: 100%;
@@ -195,7 +195,7 @@
     margin: 10px 0px;
 }
 
-.tbn-img > img{
+.upload-form--thumbnail > img{
     width: 100%;
     height: 100%;
 }
@@ -240,17 +240,17 @@
     transition: width 0.1s linear;
 }
 
-.upld-btn{
+.upload-form--upload-btn{
     position: relative;
     overflow:hidden;
     padding: 0;
 }
 
-.upld-btn:focus{
+.upload-form--upload-btn:focus{
     outline: none;
 }
 
-.pbsh-sp{
+.upload-form--upload-bar--status{
     position: absolute;
     height: 100%;
     width: 100%;
@@ -258,7 +258,7 @@
     z-index: 1;
 }
 
-.adfx{
+.upload-form--inputs--label{
     position: relative;
     width: 90%;
     margin-bottom: 27px;
@@ -272,12 +272,12 @@
     color: rgb(143, 142, 142);
 }
 
-.ipt-fcs{
+.upload-form--input-focus{
     top: -18px;
     margin-left: 0px;
     color: rgb(54, 122, 192);
 }
 
-.ipt-fcs::after{
+.upload-form--input-focus::after{
     content: "*";
 }

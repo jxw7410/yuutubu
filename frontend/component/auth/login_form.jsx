@@ -12,8 +12,8 @@ const LoginForm = (props) => {
   }
 
   return (
-    <div className='flexh-1 max-w-h'>
-      <div className='login-ctn flexv-8'>
+    <div className='flex-horizontal--style-1 max-width-height'>
+      <div className='login-ctn flex-vertical--style-8'>
         <AuthLogo />
         {
           props.email ?
@@ -28,7 +28,7 @@ const LoginForm = (props) => {
         }
 
 
-        <div className='auth-div'>
+        <div className='auth--container'>
           <ReactCSSTransitionGroup
             transitionName="session-form"
             transitionEnterTimeout={500}

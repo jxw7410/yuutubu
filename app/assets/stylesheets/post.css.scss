@@ -1,25 +1,25 @@
-.vid-pst-bd{
+.video-page--comment-section{
     grid-row: 4/5;
     display: grid;
     margin-top: 20px;
     grid-template-rows: auto auto;
 }
 
-.usr-pst-frm-ctn{
+.comment-form--ctn{
     grid-row: 1 / 2;
     width: 100%;
     display: grid;
     grid-template-columns: 55px auto;
 }
 
-.usr-pst-frm{
+.comment-form{
     grid-column: 2/3;
     width: 100%;
     display:grid;
-    grid-template-rows: auto 2px 48px;
+    grid-template-rows: auto 2px auto;
 }   
 
-.usr-pst-frm > textarea{
+.comment-form > textarea{
     grid-row: 1 / 2;
     border: none;
     border-bottom: 1px solid lightgray;
@@ -31,7 +31,7 @@
 
 }
 
-.txtarea-brdr{
+.comment-textbox--border{
     grid-row: 2 /3;
     height: 100%;
     width: 100%;
@@ -51,87 +51,89 @@
 }
 
 
-.usr-pst-frm-btn{
+.comment-form--btn--container{
     grid-row: 3 / 4;
+    min-height: 48px;
 }
 
-.usr-pst-frm-btn > button:last-child.button-disabled{
+.comment-form--btn{
+    margin-top: 5px;
+    margin-bottom: 40px;
+}
+
+.comment-form--btn > button:last-child.button-disabled{
     background: lightgray;
 }
 
-.usr-pst-frm-btn > button:first-child{
+.comment-form--btn > button:first-child{
     background:transparent;
     color: gray;
     border:none;
 }
 
-.usr-pst-frm-btn > button:last-child{
+.comment-form--btn > button:last-child{
     background: rgb(36, 97, 204);
     color: white;
     border-radius: 3px;
 }
-.usr-pst-frm button{
+.comment-form button{
     width: 100px;
     height: 35px;
     font-size: 16px;
 }
 
-.usr-pst-frm button:active{
+.comment-form button:active{
     outline: none;
 }
 
 
-#lopst > li{
+#comments-list > li{
     margin-bottom: 10px;
 }
 
-.vid-post{
+.video-comment{
     min-height: 78px;
     display: grid;
     grid-template-rows: auto auto;
 }
 
 
-.vid-post-r1{
+.video-comment--r1{
     display: grid;
     grid-template-columns: 55px auto;
 }
 
-.vpr1c1-i{
+.video-comment--icon{
     font-size: 32px;
 }
 
-.vid-post-r1-c2{
-    display:grid;
-    grid-template-rows: 20px auto auto;
-}
 
-.vid-post-r1-c2-hdr{
+.video-comment--r1-c2--hdr{
     grid-row: 1/2;
     width: 100%;
 }
 
 
-.vpr1c1hl{
+.video-comment--date{
     font-size: 12px;
     color: rgb(126,126,126);
     margin-left: 5px;
 }
 
-.vid-post-bd-r1-c2{
+.video-comment--r1-c2--bdy{
     grid-row: 2 / 3;
     overflow: hidden;
     padding: 5px 0;
     max-height: 93px;
 }
 
-.expd{
+.comment-expanded{
     max-height: max-content;
 }
 
 
 
-.vid-post-bd-r1-c2 > div{
+.video-comment--r1-c2--bdy > div{
     word-break: break-word;
     width: 95%;
     height: auto;
@@ -140,7 +142,7 @@
     line-height: 1.2rem;
 }
 
-.vid-post-ftr-r1-c2{
+.video-comment--r1-c2--ftr{
     grid-row: 3 / 4;
 }
 

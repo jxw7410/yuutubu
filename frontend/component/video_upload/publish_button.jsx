@@ -115,12 +115,12 @@ const PublishButton = props => {
     <button
       onClick={uploadVideo}
       className={[
-        'upld-btn',
-        'sbmt-btn',
-        'flexh-3',
+        'upload-form--upload-btn',
+        'upload-form--submit-btn',
+        'flex-horizontal--style-3',
         readyToUpload && !isUploading ? "enabled" : 'disabled'
       ].join(" ")}>
-      <span className='pbsh-sp flexh-1'>
+      <span className='upload-form--upload-bar--status flex-horizontal--style-1'>
         {isUploading ? `Uploading ${parseInt(uploadPercent)}%` : "Upload"}
       </span>
       {

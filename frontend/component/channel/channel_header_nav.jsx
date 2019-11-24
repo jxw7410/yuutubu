@@ -25,13 +25,21 @@ const ChannelHeaderNav = props => {
 
 
   return (
-    <div className={`ch-hdr-nav
-      ${state.isNavBarFixed ? 'chhn-fixed' : ""}
-      ${props.isNavToggled ? 'chhn-tgl' : ""}`}>
-      <div className='flexh-1'>
-        <div className='chhw-wrap'>
-          <ul className='flexh-3' style={{ width: 'inherit' }}>
-            <li className='flexh-3 ch_tb ch_tb_active'>
+    <div
+      className={[
+        'channel-header--nav',
+        state.isNavBarFixed ? 'channel-header--nav-fixed' : "",
+        props.isNavToggled ? 'channel-header--nav-toggled' : ""
+      ].join(" ")}>
+      <div className='flex-horizontal--style-1'>
+        <div className='channel-header--body-wrapper'>
+          <ul className='flex-horizontal--style-3' style={{ width: 'inherit' }}>
+            <li
+              className={[
+                'flex-horizontal--style-3',
+                'channel-header--tab',
+                'channel-header--tab--active'
+              ].join(" ")}>
               VIDEOS
             </li>
           </ul>

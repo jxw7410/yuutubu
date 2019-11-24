@@ -59,16 +59,16 @@ const SignUpForm = props => {
   }
 
   return (
-    <div className='flexh-1 max-w-h'>
+    <div className='flex-horizontal--style-1 max-width-height'>
       <div className='c-f-grid'>
         <div className='c-f-ctn'>
-          <div className='flexv-6' style={{ padding: '10px 20px 0px 20px' }}>
+          <div className='flex-vertical--style-6' style={{ padding: '10px 20px 0px 20px' }}>
             <AuthLogo />
             <h1 style={{ fontSize: '25px' }}>Create your YuuTubu Account</h1>
             <h1>to continue to YuuTubu</h1>
           </div>
 
-          <form className='create-form flexv-6'>
+          <form className='create-form flex-vertical--style-6'>
             <AuthInputWidget
               ref={username}
               type='text'
@@ -105,7 +105,7 @@ const SignUpForm = props => {
               styleClass={{ label: "cfi-label", input: "cf-input" }}
               otherClass={{ label: "flt-f", input: "cfi-err" }}
             />
-            <section className='flexh-5'>
+            <section className='flex-horizontal--style-5'>
               <Link to='/login'> Sign In Instead </Link>
               <button onClick={handleSubmit}>Next</button>
             </section>

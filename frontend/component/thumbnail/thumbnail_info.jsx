@@ -1,9 +1,9 @@
 import React from 'react';
 
 export const VideoPageThumbnailInfo = React.memo(props => 
-    <div className='flexv-4 vpg-tbn-prev'
+    <div className='flex-vertical--style-4 video-page-thumbnail-info'
       onClick={props.redirect}>
-      <section className='ch-title'>
+      <section className='index-page-video-title'>
         {props.video.title}
       </section>
       <section>
@@ -20,10 +20,10 @@ export const VideoPageThumbnailInfo = React.memo(props =>
 export const IndexPageThumbnailInfo = React.memo(props => 
     <>
       <div onClick={props.reditect}>
-        <section className='ch-title'>
+        <section className='index-page-video-title'>
           {props.video.title}
         </section>
-        <section className='flexv-7 ch-msc'>
+        <section className='flex-vertical--style-7 ch-msc'>
           {
             props.channel.name ?
               <span>{props.channel.name}</span> : null
@@ -48,7 +48,7 @@ export const IndexPageThumbnailInfo = React.memo(props =>
 export const SearchPageThumbnailInfo = React.memo(props => 
     <div id='search-page-thumbnail-preview'
       onClick={props.redirect}>
-      <section className='ch-title'>
+      <section className='index-page-video-title'>
         {props.video.title}
       </section>
       <section>
