@@ -1,7 +1,7 @@
 import React from 'react';
 import { closeModal } from '../../actions/modal/modal_action';
 import { connect } from 'react-redux';
-
+import UnsubscribeModal from './unsubscribe_modal';
 
 
 function Modal({ modal, closeModal }) {
@@ -9,10 +9,9 @@ function Modal({ modal, closeModal }) {
     return null;
   }
   let component;
-
-  switch (modal) {
-    case 'unsubscribe':
-      component = null;
+  switch (modal.type) {
+    case 'UNSUBSCRIBE':
+      component = <UnsubscribeModal subId = {modal.payload.subId} />
       break;
     default:
       return null;
@@ -22,7 +21,7 @@ function Modal({ modal, closeModal }) {
     <React.Fragment>
       {
         component ?
-          <div className="modal-background" onClick={closeModal}>
+          <div className="modal-background flex-horizontal--style-1" onClick={closeModal}>
             <div className="modal-child" onClick={e => e.stopPropagation()}>
               {component}
             </div>
