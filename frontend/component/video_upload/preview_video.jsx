@@ -1,12 +1,13 @@
 import React from 'react';
 import { VideoUploadContext } from './video_upload';
+import Styled from 'styled-components';
 
-const PreviewVideo = props => {
+const PreviewVideo = () => {
   const videoRef = React.useRef();
   const canvasRef = React.useRef();
 
   const [videoState, setVideoState] = React.useState('PAUSE');
-  const {videoMetaState, setVideoMetaState } = React.useContext(VideoUploadContext);
+  const { videoMetaState, setVideoMetaState } = React.useContext(VideoUploadContext);
 
 
   function handleVideoState(state) {
@@ -38,7 +39,7 @@ const PreviewVideo = props => {
 
   function captureImage(e) {
     if (videoMetaState.thumbnailUrl) return;
-    setTimeout( () => {
+    setTimeout(() => {
       const video = videoRef.current;
       const canvas = canvasRef.current;
       canvas.width = video.videoWidth;
@@ -51,7 +52,7 @@ const PreviewVideo = props => {
         fileReader.onloadend = () =>
           setThumbnail(blob, fileReader.result, video.duration)
         fileReader.readAsDataURL(blob);
-      }); 
+      });
     }, 500);
   }
 
@@ -70,7 +71,11 @@ const PreviewVideo = props => {
     }
     return (
       <div
-        className='upload-form--preview-ui upload-form-preview-ui--play flex-horizontal--style-1'
+        className={[
+          'upload-form--preview-ui',
+          'upload-form-preview-ui--play',
+          'flex-horizontal--style-1'
+        ].join(" ")}
         onClick={handleVideoUI}>
         <i className={`fas ${iconType}`} />
       </div>
@@ -80,27 +85,37 @@ const PreviewVideo = props => {
   return (
     <>
       <div className='upload-form--preview-video--container'>
-        <video
-          muted
-          ref={videoRef}
-          key={videoMetaState.videoUrl}
-          onPlay={handleVideoState('PLAY')}
-          onPause={handleVideoState('PAUSE')}
-          onEnded={handleVideoState('END')}
-          onCanPlay={captureImage}>
-          <source src={videoMetaState.videoUrl} type="video/mp4" />
-        </video>
-        {renderPreviewUI()}
+        {
+          videoMetaState.videoUrl ?
+            <>
+              <video
+                muted
+                ref={videoRef}
+                onPlay={handleVideoState('PLAY')}
+                onPause={handleVideoState('PAUSE')}
+                onEnded={handleVideoState('END')}
+                onCanPlay={captureImage}>
+                <source src={videoMetaState.videoUrl} type="video/mp4" />
+              </video>
+              {renderPreviewUI()}
+            </>
+            :
+            <div 
+              style={{margin: '0px'}}
+              className='load-thumbnail flex-horizontal--style-1'>
+              <div className='spinner' />
+            </div>
+        }
       </div>
-      <span style={{ fontSize: '14px' }}>
+      <div style={{ fontSize: '14px' }}>
         <span className='tag-14 dark' >Video Status</span>
         {
           videoMetaState.videoUrl && videoMetaState.thumbnailUrl ?
-            <span style={{ color: 'green' }}> Ready</span>
+            <StatusMessage color='green'> Ready</StatusMessage>
             :
-            <span style={{ color: 'red' }}> Pending</span>
+            <StatusMessage color='red'> Pending</StatusMessage>
         }
-      </span>
+      </div>
       {
         videoMetaState.thumbnailUrl ? null :
           <canvas ref={canvasRef} className='capture-canvas' />
@@ -108,5 +123,11 @@ const PreviewVideo = props => {
     </>
   )
 }
+
+
+const StatusMessage = Styled.span`
+  color: ${props => props.color || 'black'};
+  font-weight: 600;
+`
 
 export default PreviewVideo;

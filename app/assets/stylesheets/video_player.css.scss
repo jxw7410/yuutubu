@@ -1,6 +1,7 @@
 .video-player--cover{
     background: rgba(0,0,0,0.5);
     position: absolute;
+    z-index: 9999;
 }
 
 .video-loader{
@@ -131,6 +132,7 @@
     position: absolute;
     background: linear-gradient(  rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
     opacity: 1; 
+    z-index: 10000;
 }
 
 .video-player--control--play{
@@ -353,7 +355,7 @@
     .video-player--control, .video-player--control--play{
         opacity: 1;
         width: 100%;
-        z-index: 2003;
+        z-index: 10000;
         bottom:0;
         position: absolute;
     }

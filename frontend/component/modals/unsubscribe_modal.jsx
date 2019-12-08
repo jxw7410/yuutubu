@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Style from 'styled-components';
+import Styled from 'styled-components';
 import { FlexHorizontalCentered } from '../../css-styles/css_styles';
 import { unsubscribe } from '../../actions/subscribe/subscribe_action'
 import { closeModal } from '../../actions/modal/modal_action';
@@ -40,7 +40,7 @@ const UnsubscribeModal = props => {
 
 
 
-const UnsubscribeContainer = Style.div`
+const UnsubscribeContainer = Styled.div`
   display: grid;
   grid-template-rows: 150px 50px;
   background: white;
@@ -49,19 +49,19 @@ const UnsubscribeContainer = Style.div`
   font-size: 18px;
 `
 
-const MessageBox = Style.span`
+const MessageBox = Styled.span`
   ${FlexHorizontalCentered};
   border-bottom: 1px solid gray;
 `
 
-const ButtonContainer = Style.div`
+const ButtonContainer = Styled.div`
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 175px;
   height: 50px;
 `
-const Button = Style.div`
+const Button = Styled.div`
   ${FlexHorizontalCentered};
   border-radius: 5px
   font-weight: 500;

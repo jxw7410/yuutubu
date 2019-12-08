@@ -7,6 +7,7 @@ import {
   requestDirectUpload,
   deleteDirectUpload
 } from '../../actions/video/video_action';
+import { openModal } from '../../actions/modal/modal_action';
 
 
 const PublishButton = props => {
@@ -14,6 +15,7 @@ const PublishButton = props => {
   const totalProgress = React.useRef(0);
   const { videoMetaState } = React.useContext(VideoUploadContext);
   const [uploadPercent, setUploadPercent] = React.useState(0);
+  const [isUploaded, setIsUploaded] = React.useState(false);
 
   const readyToUpload = (
     videoMetaState.thumbnailUrl &&
@@ -22,9 +24,14 @@ const PublishButton = props => {
     props.videoText.videoDescription.length
   );
 
-  function redirectOnFail() {
-    alert('Upload Failed');
-    window.location.reload(false);
+  function handleFailedUpload() {
+    props.openModal({
+      type: 'UPLOAD',
+      payload: {
+        message: 'Upload has failed.',
+        callback: () => window.location.reload(false),
+      }
+    })
   }
 
   async function createVideo(videoId, imageId) {
@@ -38,11 +45,19 @@ const PublishButton = props => {
           'thumbnail_id': imageId
         }
       })
-    } catch (err) { return redirectOnFail(); }
-    setTimeout(() => {
-      alert('Upload Successful!');
-      props.history.push(`./channel/${props.user.channel_id}/videos`);
-    }, 110)
+    } catch (err) { 
+      return handleFailedUpload(); 
+    }
+
+    props.openModal({
+      type: 'UPLOAD',
+      payload: {
+        message: 'Upload is successful!',
+        callback: () => props.history.push(`./channel/${props.user.channel_id}/videos`)
+      }
+    });
+
+    setIsUploaded(true);
   }
 
   function uploadProgressHandler() {
@@ -84,7 +99,9 @@ const PublishButton = props => {
   }
 
   async function uploadVideo(e) {
-    if (!readyToUpload || props.isUploading) return;
+    e.preventDefault();
+    if (!readyToUpload || props.isUploading || isUploaded) return;
+
     props.setIsUploading(true);
     try {
       const { image_blob, video_blob } = await requestDirectUploadURL();
@@ -105,7 +122,7 @@ const PublishButton = props => {
       }
       createVideo(video_blob.id, image_blob.id);
     } catch (err) {
-      return redirectOnFail();
+      return handleFailedUpload();
     }
   }
 
@@ -136,11 +153,14 @@ const PublishButton = props => {
 
 const msp = state => ({
   user: state.session
-})
+});
+
+
 const mdp = dispatch => ({
   createVideo: videoPayload => dispatch(createVideo(videoPayload)),
   requestDirectUpload: file => dispatch(requestDirectUpload(file)),
   deleteDirectUpload: blob_ids => dispatch(deleteDirectUpload(blob_ids)),
+  openModal: modalMetaData => dispatch(openModal(modalMetaData)),
 })
 
 export default withRouter(connect(msp, mdp)(PublishButton));

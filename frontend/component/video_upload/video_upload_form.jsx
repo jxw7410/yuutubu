@@ -1,13 +1,12 @@
 import React from 'react';
 import PreviewVideo from './preview_video';
-import { VideoUploadContext } from './video_upload';
 import ThumbnailUploadBtn from './thumbnail_upload_btn';
+import Thumbnail from './thumbnail';
 import FormInput from './form_inputs';
 
 
 
-const VideoUploadForm = props => {
-  const { videoMetaState } = React.useContext(VideoUploadContext);
+const VideoUploadForm = () => {
   const [isUploading, setIsUploading] = React.useState(false);
 
   return (
@@ -32,16 +31,7 @@ const VideoUploadForm = props => {
               style={{ fontSize: '14px' }}>
               Video Thumbnail
             </span>
-            {
-              videoMetaState.thumbnailUrl ?
-                <div className='upload-form--thumbnail flex-horizontal--style-1'>
-                  <img src={videoMetaState.thumbnailUrl} />
-                </div>
-                :
-                <div className='ld-tbn flex-horizontal--style-1'>
-                  <div className='spinner' />
-                </div>
-            }
+            <Thumbnail />
           </div>
         </div>
         <ThumbnailUploadBtn isUploading={isUploading} />

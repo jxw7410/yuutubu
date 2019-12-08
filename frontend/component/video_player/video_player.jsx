@@ -27,14 +27,15 @@ const VideoPlayer = props => {
   // This is control user input for fullscreen
   React.useEffect(() => {
     document.addEventListener('fullscreenchange', fullscreenEvent);
-  }, [fullscreenEvent])
+    return () => document.removeEventListener('fullscreenchange', fullscreenEvent);
+  }, [])
 
   function fullscreenEvent(e){
     e.preventDefault();
-    if(isFullscreen)
-      setFullScreen(false);
-    else 
+    if(document.fullscreenElement)
       setFullScreen(true);
+    else 
+      setFullScreen(false);
   }
 
   function updateViewCount() {
@@ -54,8 +55,8 @@ const VideoPlayer = props => {
   function handleDoubleClick(e) {
     if (props.videoPlayer.type === MINI) return;
     e.stopPropagation();
-    const fullScreen = !videoState.fullScreen;
-    setVideoState({ ...videoState, fullScreen })
+    if (document.fullscreenElement) document.exitFullscreen();  
+    else e.currentTarget.requestFullscreen();
   }
 
   function handleCanPlay(e) {
