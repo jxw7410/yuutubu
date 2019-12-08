@@ -5,7 +5,6 @@ import ThumbnailUploadBtn from './thumbnail_upload_btn';
 import FormInput from './form_inputs';
 
 
-export const VideoUploadFormContext = React.createContext(null);
 
 const VideoUploadForm = props => {
   const { videoMetaState } = React.useContext(VideoUploadContext);
@@ -47,9 +46,10 @@ const VideoUploadForm = props => {
         </div>
         <ThumbnailUploadBtn isUploading={isUploading} />
       </div>
-      <VideoUploadFormContext.Provider value={{ isUploading, setIsUploading }}>
-        <FormInput />
-      </VideoUploadFormContext.Provider>
+      <FormInput 
+        isUploading={isUploading}
+        setIsUploading={ () => setIsUploading(true)}
+      />
     </form>
   )
 }

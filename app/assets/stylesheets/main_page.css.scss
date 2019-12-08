@@ -33,7 +33,7 @@
 .recommended-video-container .thumbnails{
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: fit-content;
     width: 210px;
     margin-right: 4px;
     margin-bottom: 24px;

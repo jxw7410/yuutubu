@@ -17,4 +17,4 @@ const VideoHeader = props => {
 
 
 
-export default VideoHeader;
+export default React.memo(VideoHeader);

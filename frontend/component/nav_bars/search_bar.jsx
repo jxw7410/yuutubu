@@ -33,16 +33,18 @@ const SearchBar = props => {
 
   React.useEffect(() => {
     if (state.redirecting)
-      handleSubmit();
+      _handleSubmit();
   }, [state.redirecting])
 
   function handleFocus(bool) {
     return e => {
+      e.preventDefault();
       setState({ ...state, isFocused: bool });
     }
   }
 
   function handleChange(e) {
+    e.preventDefault();
     setState({
       ...state,
       selected: null,
@@ -50,7 +52,12 @@ const SearchBar = props => {
     });
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    _handleSubmit()
+  }
+
+  function _handleSubmit(){
     if (state.inputText.length) {
       props.history.push(`/search/${state.inputText}`)
       setState({ ...state, redirecting: false, isFocused: false });

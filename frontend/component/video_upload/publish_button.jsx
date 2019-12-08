@@ -1,6 +1,5 @@
 import React from 'react';
 import { VideoUploadContext } from './video_upload';
-import { VideoUploadFormContext } from './video_upload_form';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
@@ -14,7 +13,6 @@ const PublishButton = props => {
   const currentProgress = React.useRef(0);
   const totalProgress = React.useRef(0);
   const { videoMetaState } = React.useContext(VideoUploadContext);
-  const { isUploading, setIsUploading } = React.useContext(VideoUploadFormContext);
   const [uploadPercent, setUploadPercent] = React.useState(0);
 
   const readyToUpload = (
@@ -86,8 +84,8 @@ const PublishButton = props => {
   }
 
   async function uploadVideo(e) {
-    if (!readyToUpload || isUploading) return;
-    setIsUploading(true);
+    if (!readyToUpload || props.isUploading) return;
+    props.setIsUploading(true);
     try {
       const { image_blob, video_blob } = await requestDirectUploadURL();
       totalProgress.current = videoMetaState.video.size + videoMetaState.thumbnail.size;
@@ -118,13 +116,13 @@ const PublishButton = props => {
         'upload-form--upload-btn',
         'upload-form--submit-btn',
         'flex-horizontal--style-3',
-        readyToUpload && !isUploading ? "enabled" : 'disabled'
+        readyToUpload && !props.isUploading ? "enabled" : 'disabled'
       ].join(" ")}>
       <span className='upload-form--upload-bar--status flex-horizontal--style-1'>
-        {isUploading ? `Uploading ${parseInt(uploadPercent)}%` : "Upload"}
+        {props.isUploading ? `Uploading ${parseInt(uploadPercent)}%` : "Upload"}
       </span>
       {
-        isUploading ?
+        props.isUploading ?
           <div className='upload-bar'>
             <div
               style={{ width: `${uploadPercent}%` }}

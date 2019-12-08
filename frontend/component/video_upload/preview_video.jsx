@@ -6,7 +6,7 @@ const PreviewVideo = props => {
   const canvasRef = React.useRef();
 
   const [videoState, setVideoState] = React.useState('PAUSE');
-  const { videoMetaState, setVideoMetaState } = React.useContext(VideoUploadContext);
+  const {videoMetaState, setVideoMetaState } = React.useContext(VideoUploadContext);
 
 
   function handleVideoState(state) {

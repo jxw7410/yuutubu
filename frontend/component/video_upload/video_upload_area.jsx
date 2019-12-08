@@ -1,30 +1,6 @@
 import React from 'react';
-import { VideoUploadContext } from './video_upload';
 
-const VideoUploadArea = () => {
-  const {
-    setIsUploadForm,
-    setVideoMetaState,
-    videoMetaState,
-  } = React.useContext(VideoUploadContext);
-
-  function handleUpload(type) {
-    return e => {
-      e.preventDefault();
-      setIsUploadForm(true);
-      const video = type === 'DROP' ? e.dataTransfer.files[0] : e.currentTarget.files[0];
-      const fileReader = new FileReader();
-      fileReader.onloadend = () => {
-        setVideoMetaState({
-          ...videoMetaState,
-          video,
-          videoUrl: fileReader.result
-        });
-      }
-      if (video) fileReader.readAsDataURL(video)
-    }
-  }
-
+const VideoUploadArea = ({handleUpload}) => {
   return (
     <div className='upload-area flex-vertical--style-1'
       onDrop={handleUpload('DROP')}
@@ -45,4 +21,4 @@ const VideoUploadArea = () => {
   )
 }
 
-export default VideoUploadArea;
+export default React.memo(VideoUploadArea);
