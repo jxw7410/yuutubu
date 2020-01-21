@@ -17,6 +17,7 @@ const VideoPlayer = props => {
   const [viewCountUpdated, setViewCountUpdated] = React.useState(false);
   const [currentUrl, setCurrentUrl] = React.useState(null);
   const [isFullscreen, setFullScreen] = React.useState(false);
+  const [animateState, setAnimateState] = React.useState(null);
   const [videoState, setVideoState] = React.useState({
     state: LOAD,
     buffered: 0,
@@ -27,14 +28,15 @@ const VideoPlayer = props => {
   // This is control user input for fullscreen
   React.useEffect(() => {
     document.addEventListener('fullscreenchange', fullscreenEvent);
-  }, [fullscreenEvent])
+    return () => document.removeEventListener('fullscreenchange', fullscreenEvent);
+  }, [])
 
-  function fullscreenEvent(e){
+  function fullscreenEvent(e) {
     e.preventDefault();
-    if(isFullscreen)
-      setFullScreen(false);
-    else 
+    if (document.fullscreenElement)
       setFullScreen(true);
+    else
+      setFullScreen(false);
   }
 
   function updateViewCount() {
@@ -45,22 +47,25 @@ const VideoPlayer = props => {
 
   function playPause(e) {
     e.stopPropagation();
-    if (videoState.state === PLAY)
+    if (videoState.state === PLAY) {
       videoRef.current.pause();
-    else if (videoState.state === PAUSE)
+      setAnimateState('pause');
+    } else if (videoState.state === PAUSE) {
       videoRef.current.play();
+      setAnimateState('play_arrow');
+    }
   }
 
   function handleDoubleClick(e) {
     if (props.videoPlayer.type === MINI) return;
     e.stopPropagation();
-    const fullScreen = !videoState.fullScreen;
-    setVideoState({ ...videoState, fullScreen })
+    if (document.fullscreenElement) document.exitFullscreen();
+    else e.currentTarget.requestFullscreen();
   }
 
   function handleCanPlay(e) {
     if (videoState.state === PAUSE) return;
-    setTimeout( () => videoRef.current.play(), 50);
+    setTimeout(() => videoRef.current.play(), 50);
   }
 
   function handleTimeUpdate(e) {
@@ -158,9 +163,25 @@ const VideoPlayer = props => {
         ].join(" ")}
       >
         <div
-          style={videoState.state === REPLAY || videoState.state === PAUSE  ? null : { display: 'none' }}
+          style={videoState.state === REPLAY || videoState.state === PAUSE ? null : { display: 'none' }}
           className='video-player--cover max-width-height'
         />
+
+        <div
+          style={props.videoPlayer.type === MINI ? { display: 'none' } : null}
+          className='flex-horizontal--style-1 play-status--container' >
+          <i
+            className={[
+              "material-icons-enlarged",
+              "play-status",
+              animateState ? "play-status--animate" : ""
+            ].join(" ")}
+            onAnimationEnd={() => setAnimateState(null)}
+            >
+              {animateState}
+            </i>
+        </div>
+
         <div
           style={videoState.state === LOAD ? null : { display: 'none' }}
           className='video-loader max-width-height flex-horizontal--style-1'>
@@ -189,17 +210,17 @@ const VideoPlayer = props => {
             videoState.state === PLAY ? 'video-player--control--play' : ""
           ].join(" ")}>
           <VideoPlayerContext.Provider
-            value={{ 
-              videoRef: videoRef.current, 
+            value={{
+              videoRef: videoRef.current,
               videoCtnRef: videoCtnRef.current,
-              videoState, 
+              videoState,
               setVideoState,
               isFullscreen,
               currentUrl,
               setCurrentUrl
-              }}>
+            }}>
             {
-              props.videoPlayer.type === MINI ? 
+              props.videoPlayer.type === MINI ?
                 <MiniPlayerUI videoStateBtn={renderVidStateBtn()} /> : null
             }
             <ProgressBar
@@ -222,6 +243,7 @@ const VideoPlayer = props => {
     </>
   )
 }
+
 
 export default withRouter(VideoPlayer);
 

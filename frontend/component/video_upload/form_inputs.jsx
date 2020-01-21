@@ -1,9 +1,9 @@
 import React from 'react';
-import { VideoUploadFormContext } from './video_upload_form';
 import PublishButton from './publish_button';
+import { VideoUploadContext } from './video_upload';
 
 const FormInput = props => {
-  const { isUploading } = React.useContext(VideoUploadFormContext);
+  const { videoMetaState } = React.useContext(VideoUploadContext)
   const [ videoText, setVideoText] = React.useState({
     videoTitle: "",
     videoDescription: "",
@@ -36,7 +36,11 @@ const FormInput = props => {
   return (
     <div className='upload-form--inputs--container'>
       <div className='flex-horizontal--style-1'>
-        <PublishButton videoText={videoText} />
+        <PublishButton 
+          isUploading={props.isUploading}
+          setIsUploading={props.setIsUploading}
+          videoText={videoText} 
+        />
       </div>
       <div className='flex-vertical--style-3'>
         <label className='upload-form--inputs--label'>
@@ -56,7 +60,7 @@ const FormInput = props => {
             }}
             onFocus={toggleFocus('title')}
             onBlur={toggleFocus('title')}
-            disabled={isUploading}
+            disabled={props.isUploading}
             onChange={handleChange('videoTitle')}
             value={videoText.videoTitle}
           />
@@ -79,7 +83,7 @@ const FormInput = props => {
             className='upload-form--description input-style-1'
             onFocus={toggleFocus('description')}
             onBlur={toggleFocus('description')}
-            disabled={isUploading}
+            disabled={props.isUploading}
             onChange={handleChange('videoDescription')}
             rows='10' 
             value={videoText.videoDescription}

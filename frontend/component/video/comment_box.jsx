@@ -23,7 +23,8 @@ const CommentBox = props => {
   }
 
 
-  function cancelTextBox() {
+  function cancelTextBox(e) {
+    e.preventDefault();
     setBoxState({
       ...state,
       displayButton: false,
@@ -32,7 +33,8 @@ const CommentBox = props => {
     });
   }
 
-  function handleFocus() {
+  function handleFocus(e) {
+    e.preventDefault()
     setBoxState({
       ...state,
       displayButton: true,
@@ -40,7 +42,8 @@ const CommentBox = props => {
     })
   }
 
-  function handleClick() {
+  function handleClick(e) {
+    e.preventDefault()
     if (!props.isLogin) {
       props.history.push('/login')
     } else {

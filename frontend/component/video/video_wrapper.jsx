@@ -17,7 +17,7 @@ const VideoWrapper = (props) => {
     <div
       style={ props.videoPlayer.type ? null : {display: 'none'}} 
       className={[
-      'max-width-height',
+      'video-page',
       'flex-horizontal--style-1x',
       props.videoPlayer.type === MINI ? "mini-player-wrapper" : ""
     ].join(" ")}>

@@ -73,7 +73,7 @@
 }
 
 
-.upload-form-preview-ui--play, .pv-u-end{
+.upload-form-preview-ui--play:hover, .pv-u-end{
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -103,7 +103,7 @@
     transition: opacity 0.2s linear;
 }
 
-.upload-form--preview-ui > i:hover{
+.upload-form--preview-ui:hover > i{
     opacity: 1;
 }
 
@@ -200,14 +200,14 @@
     height: 100%;
 }
 
-.ld-tbn{
+.load-thumbnail{
     width: 200px;
     height: 100px;
     background: lightgray;
     margin: 10px 0px;
 }
 
-.ld-tbn .spinner{
+.load-thumbnail .spinner{
     border: 4px solid #f3f3f3; /* Light grey */
     border-top: 4px solid lightgray; /* Blue */
     border-radius: 50%;

@@ -5,9 +5,7 @@ import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { withRouter } from 'react-router-dom';
 
 const Recommendation = props => {
-  const [state, setState] = React.useState({
-    readMore: false,
-  })
+  const [readMore, setReadMore] = React.useState(false)
 
   React.useEffect(() => {
     props.fetchRecommendedVideos()
@@ -15,6 +13,7 @@ const Recommendation = props => {
 
   function redirectOnClick(videoId) {
     return e => {
+      e.preventDefault();
       props.history.push(`/video/${videoId}`)
     }
   }
@@ -27,7 +26,7 @@ const Recommendation = props => {
       <ul className={[
         'recommended-video-container',
         'margin-24',
-        state.readmore ? "" : 'show-more-inactive'
+        readMore ? "" : 'show-more-inactive'
       ].join(' ')}>
         {
           props.videos.map(video =>
@@ -40,10 +39,10 @@ const Recommendation = props => {
         }
       </ul>
       {
-        state.readMore ? null :
+        readMore ? null :
           <button
             id='show-more-button'
-            onClick={e => setState({ ...state, readMore: true })}>
+            onClick={() => setReadMore(true)}>
             Show More
           </button>
       }

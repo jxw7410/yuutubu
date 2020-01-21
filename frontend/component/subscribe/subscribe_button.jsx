@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { subscribe, unsubscribe } from '../../actions/subscribe/subscribe_action';
 import { filterSubscriptions } from '../../util/selectors';
 import { withRouter } from 'react-router-dom';
+import { openModal } from '../../actions/modal/modal_action';
 
 
 const SubscribeButton = React.memo(props => {
@@ -11,10 +12,12 @@ const SubscribeButton = React.memo(props => {
   const unsubscribe = e => {
     e.preventDefault();
     if (props.login) {
-      updating.current = true;
-      props.unsubscribe(props.sub.sub_id)
-        .then(() => updating.current = false)
-        .fail(() => updating.current = false)
+      props.openModal({
+        type: 'UNSUBSCRIBE',
+        payload: {
+          subId: props.sub.sub_id
+        }
+      });
     } else {
       props.history.push('/login')
     }
@@ -61,7 +64,7 @@ const msp = (state, props) => {
 const mdp = dispatch => {
   return {
     subscribe: channel_id => dispatch(subscribe(channel_id)),
-    unsubscribe: sub_id => dispatch(unsubscribe(sub_id)),
+    openModal: modalMeta => dispatch(openModal(modalMeta)),
   }
 }
 
