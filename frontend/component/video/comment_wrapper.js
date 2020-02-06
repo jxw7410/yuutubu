@@ -1,9 +1,9 @@
 import React from 'react';
 import Comment from './comment';
 import {useInfiniteScrolling} from '../../util/custom_hooks';
-import CommentBox from './comment_box';
+import CommentBox from './comment_box_container';
 
-const CommentsContainer = props => {
+const CommentsWrapper = props => {
   const [isFetching, setIsFetching] = useInfiniteScrolling(fetchPosts);
   const offsetRef = React.useRef(0);
 
@@ -52,4 +52,4 @@ const CommentsContainer = props => {
 }
 
 
-export default CommentsContainer;
+export default CommentsWrapper;

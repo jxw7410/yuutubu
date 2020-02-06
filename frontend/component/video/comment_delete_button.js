@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { FlexHorizontalCentered } from '../../css-styles/css_styles';
 
-const CommentDeleteBtn = props => {
+const CommentDeleteButton = props => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
 
   function handleDelete(postId) {
@@ -104,4 +104,4 @@ const mdp = dispatch => ({
   deletePost: postId => dispatch(requestDeletePost(postId)),
 })
 
-export default withRouter(connect(msp, mdp)(CommentDeleteBtn));
+export default withRouter(connect(msp, mdp)(CommentDeleteButton));

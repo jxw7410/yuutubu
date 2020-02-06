@@ -1,5 +1,6 @@
 import React from 'react';
-import CommentDeleteBtn from './comment_delete_btn';
+import CommentDeleteBtn from './comment_delete_button';
+import Styled from 'styled-components';
 import { useDescriptionExpander } from '../../util/custom_hooks';
 
 const Comment = props => {

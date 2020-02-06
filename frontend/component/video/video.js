@@ -1,7 +1,7 @@
 import React from 'react';
 import VideoHeader from './video_header';
 import VideoBody from './video_body';
-import CommentContainer from './comment_container_ctn';
+import CommentWrapper from './comment_wrapper_container';
 
 const Video = props => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -35,7 +35,7 @@ const Video = props => {
     <>
       <VideoHeader video={props.video} />
       <VideoBody video={props.video} channel={props.channel} />
-      <CommentContainer video={props.video} />
+      <CommentWrapper video={props.video} />
     </>
   )
 }

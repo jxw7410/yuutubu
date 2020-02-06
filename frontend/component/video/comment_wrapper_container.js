@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { requestPosts, removePosts } from '../../actions/video_post/video_posts_action';
-import CommentContainer from './comment_container';
+import CommentWrapper from './comment_wrapper';
 
 const msp = state => ({
   isLogin: Boolean(state.session.id),
@@ -13,4 +13,4 @@ const mdp = dispatch => ({
   clearPosts: () => dispatch(removePosts)
 })
 
-export default connect(msp, mdp)(CommentContainer);
+export default connect(msp, mdp)(CommentWrapper);

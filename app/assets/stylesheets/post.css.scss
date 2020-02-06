@@ -6,84 +6,9 @@
 }
 
 .comment-form--ctn{
-    grid-row: 1 / 2;
     width: 100%;
     display: grid;
     grid-template-columns: 55px auto;
-}
-
-.comment-form{
-    grid-column: 2/3;
-    width: 100%;
-    display:grid;
-    grid-template-rows: auto 2px auto;
-}   
-
-.comment-form > textarea{
-    grid-row: 1 / 2;
-    border: none;
-    border-bottom: 1px solid lightgray;
-    border-style: none;
-    outline: none;
-    font-size: 14px;
-    resize: none;
-    margin-bottom: 3px;
-
-}
-
-.comment-textbox--border{
-    grid-row: 2 /3;
-    height: 100%;
-    width: 100%;
-    background: lightgray;
-    position: relative;
-}
-
-.expander{
-    width: 0px;
-    height: 100%;
-    background: gray;
-    transition: width 0.3s linear;
-}
-
-.exp-active{
-    width: 100%;
-}
-
-
-.comment-form--btn--container{
-    grid-row: 3 / 4;
-    min-height: 48px;
-}
-
-.comment-form--btn{
-    margin-top: 5px;
-    margin-bottom: 40px;
-}
-
-.comment-form--btn > button:last-child.button-disabled{
-    background: lightgray;
-}
-
-.comment-form--btn > button:first-child{
-    background:transparent;
-    color: gray;
-    border:none;
-}
-
-.comment-form--btn > button:last-child{
-    background: rgb(36, 97, 204);
-    color: white;
-    border-radius: 3px;
-}
-.comment-form button{
-    width: 100px;
-    height: 35px;
-    font-size: 16px;
-}
-
-.comment-form button:active{
-    outline: none;
 }
 
 

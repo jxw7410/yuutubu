@@ -101,3 +101,27 @@ export function debouncer(callback, delay) {
     }, delay)
   }
 }
+
+
+export const trimContentEditor = (str, expr) => {
+    let splitArr = str.split(expr);
+    let start = 0;
+    let end = splitArr.length - 1;
+    
+    while(start < splitArr.length) {
+        if(!splitArr[start].length) start++;
+        else break;  
+    }
+
+    while (end > start){
+      if (!splitArr[end].length) end--;
+      else break;
+    }
+
+    splitArr = splitArr.slice(start, end + 1);
+    for(let i = 0; i < splitArr.length; i++) {
+      if(!splitArr[i].length) splitArr[i] = expr;
+    }
+
+    return splitArr.join("");
+}
