@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Styled from 'styled-components';
-import { FlexHorizontalCentered } from '../../css-styles/css_styles';
+import { CenterFlex } from '../common/flex_styles';
 import { unsubscribe } from '../../actions/subscribe/subscribe_action'
 import { closeModal } from '../../actions/modal/modal_action';
 
@@ -50,7 +50,7 @@ const UnsubscribeContainer = Styled.div`
 `
 
 const MessageBox = Styled.span`
-  ${FlexHorizontalCentered};
+  ${CenterFlex};
   border-bottom: 1px solid gray;
 `
 
@@ -62,7 +62,7 @@ const ButtonContainer = Styled.div`
   height: 50px;
 `
 const Button = Styled.div`
-  ${FlexHorizontalCentered};
+  ${CenterFlex};
   border-radius: 5px
   font-weight: 500;
   height: 40px;

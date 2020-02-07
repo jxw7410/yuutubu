@@ -1,7 +1,7 @@
 import React, { memo, useRef, useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import CommentDeleteButton from './comment_delete_button';
-
+import DOMPurify from 'dompurify';
 
 
 function Comment(props) {
@@ -21,7 +21,7 @@ function Comment(props) {
   }
 
   return (
-    <li>
+    <Wrapper>
       <CommentGrid>
         <CommentGridR1>
           <div>
@@ -38,7 +38,7 @@ function Comment(props) {
             <CommentContent expanded={expanded}>
               <div ref={contentRef} 
                 dangerouslySetInnerHTML={{
-                  __html: props.post.description 
+                  __html: DOMPurify.sanitize(props.post.description),
                 }}
               />
             </CommentContent>
@@ -51,9 +51,13 @@ function Comment(props) {
           </div>
         </CommentGridR1>
       </CommentGrid>
-    </li>
+    </ Wrapper >
   )
 }
+
+const Wrapper = Styled.li`
+  margin-bottom: 10px;
+`
 
 const CommentGrid = Styled.div`
   min-height: 78px;

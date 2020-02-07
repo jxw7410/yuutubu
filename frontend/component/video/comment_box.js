@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import Styled from 'styled-components';
 import { trimContentEditor } from '../../util/selectors';
-
+import Editor from '../common/editor';
+import DOMPurify from 'dompurify';
 
 function CommentBox(props) {
   const editorRef = useRef(null);
@@ -26,7 +27,9 @@ function CommentBox(props) {
     e.preventDefault();
     const innerContent = e.currentTarget.innerHTML;
     const expression = '<div><br></div>';
-    setEditorContent(trimContentEditor(innerContent, expression));
+    setEditorContent(
+      DOMPurify.sanitize(trimContentEditor(innerContent, expression))
+    );
   }
 
   const cancelCommentBox = e => {
@@ -49,28 +52,14 @@ function CommentBox(props) {
 
   return (
     <Form>
-      <div
-        ref={editorRef}
+      <Editor 
+        editorRef={editorRef}
         onClick={checkForAuth}
         onFocus={handleFocus(true)}
         onBlur={handleFocus(false)}
         onInput={handleChange}
-        suppressContentEditableWarning={true}
-        autoComplete="off"
-        autoCorrect="off"
-        spellCheck="true"
-        aria-autocomplete="list"
-        aria-multiline="true"
-        aria-label="Message"
-        dir="auto"
-        placeholder='Add a public comment...'
-        contentEditable="true"
-        role="textbox"
-        tabIndex='0'
       />
-
       <Expander width={isExpanded ? '100%' : '0px'} ><div /></Expander>
-
       <ButtonContainer
         btnDisabled={!editorContent.length}
         displayButton={displayButton}>

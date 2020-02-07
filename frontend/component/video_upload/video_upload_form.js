@@ -2,7 +2,7 @@ import React from 'react';
 import PreviewVideo from './preview_video';
 import ThumbnailUploadBtn from './thumbnail_upload_btn';
 import Thumbnail from './thumbnail';
-import FormInput from './form_inputs';
+import FormInput from './_form_inputs';
 
 
 

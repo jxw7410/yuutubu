@@ -1,9 +1,7 @@
 import React from 'react';
 import PublishButton from './publish_button';
-import { VideoUploadContext } from './video_upload';
 
 const FormInput = props => {
-  const { videoMetaState } = React.useContext(VideoUploadContext)
   const [ videoText, setVideoText] = React.useState({
     videoTitle: "",
     videoDescription: "",

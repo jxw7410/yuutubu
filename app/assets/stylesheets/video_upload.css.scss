@@ -1,58 +1,3 @@
-.upload-form--container{
-    background: rgb(241,241,241);
-    min-height: 100%;
-    width: 100%;
-    position: absolute;
-}
-
-.upload-area{
-    position: relative;
-    top: 70px;
-    height: 390px;
-    width: 745px;
-    border: 1px solid rgb(241,241,241);
-    background:white;
-}
-
-
-.upload-area--input{
-    height: 40%;
-}
-
-.upload-area--input .fa-arrow-up{
-    font-size:50px;
-    font-weight: bold;
-    padding: 0px 20px;
-    padding-top: 10px;
-    background: rgb(204,204,204);
-    border-radius: 10px;
-    color: white;
-    
-}
-
-.upload-area--input > input[type="file"]{
-    display: none;
-}
-
-.upload-area--input:hover{
-    cursor: pointer;
-    .fa-arrow-up {
-        background:red;
-    }
-}
-
-
-.upload-form{
-    min-height: 450px;
-    width: 800px;
-    position: relative;
-    border: 1px solid lightgray;
-    display: grid;
-    grid-template-columns: 230px auto;
-    background: white;
-    margin-top: 70px;
-}
-
 .upload-form--col-1{
     grid-column: 1 / 2;
     padding: 10px;
@@ -198,21 +143,6 @@
 .upload-form--thumbnail > img{
     width: 100%;
     height: 100%;
-}
-
-.load-thumbnail{
-    width: 200px;
-    height: 100px;
-    background: lightgray;
-    margin: 10px 0px;
-}
-
-.load-thumbnail .spinner{
-    border: 4px solid #f3f3f3; /* Light grey */
-    border-top: 4px solid lightgray; /* Blue */
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
 }
 
 .prev-vid{

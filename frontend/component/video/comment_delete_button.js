@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { requestDeletePost } from '../../actions/video_post/video_posts_action'
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-import { FlexHorizontalCentered } from '../../css-styles/css_styles';
+import { CenterFlex } from '../common/flex_styles';
 
 const CommentDeleteButton = props => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
@@ -84,7 +84,7 @@ const DropDown = styled.ul`
 `;
 
 const DropDownItem = styled.li`
-  ${FlexHorizontalCentered}
+  ${CenterFlex}
   width: 100%;
   height: 20px;
   font-size: 14px;
