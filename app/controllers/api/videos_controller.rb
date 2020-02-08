@@ -33,18 +33,15 @@ class Api::VideosController < ApplicationController
   end
 
   def create
-    # Not using user channel since I want to eager load user_channel as well
     user = User.includes(:user_channels)
       .find_by_session_token(session[:session_token])
     begin
-      # create video is a transaction, so if it fails, it will raise an error, and a rollback would occur
       Video.create_video(user, video_params)
     rescue
       DirectUpload.destroy_blobs(
         video_params[:video_id], 
         video_params[:thumbnail_id]
       )
-
       render json: ["Upload failed!"], status: 422
     end
   end

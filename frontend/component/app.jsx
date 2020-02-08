@@ -5,7 +5,7 @@ import SignUpContainer from '../component/auth/signup_container'
 import LoginContainer from '../component/auth/login_container'
 import MainPageContainer from './main_page/main_page_ctn';
 import ChannelContainer from '../component/channel/channel_ctn';
-import UploadVideoContainer from '../component/video_upload/video_upload_ctn';
+import UploadVideoContainer from '../component/video_upload/upload_page_container';
 import MainNav from './nav_bars/main_nav_ctn';
 import Modal from '../component/modals/modal';
 import VideoWrapperContainer from '../component/video/video_wrapper';

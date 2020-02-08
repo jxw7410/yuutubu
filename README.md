@@ -1,6 +1,8 @@
 # Yuutubu
 * Yuutubu is an app built in the likeness of Youtube, a website for users to stream videos, and/or upload videos to.
 
+* To all future a/A students, do not use this as a metric for how your fullstack should look like; the effort put into this extends beyond the initial 10 days, with techs, and features that you would otherwise have to research on your own to know how they work.
+
 * [Link to Yuutubu]{https://yuutubu.herokuapp.com/}
 
 # Technologies

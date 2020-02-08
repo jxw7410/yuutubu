@@ -1,22 +1,50 @@
-import React from 'react';
-import { VideoUploadContext } from './video_upload';
+import React, { memo } from 'react';
+import ThumbnailUploadButton from './thumbnail_upload_button';
+import { withUploadPageContext } from './upload_page_context';
+import Styled from 'styled-components';
+import { InfoWrapper, SpinnerContainer, MediaBox } from './styles';
+import { CenterFlex } from '../common/flex_styles';
 
-const Thumbnail = () => {
-  const { videoMetaState } = React.useContext(VideoUploadContext);
+const Thumbnail = props => {
   return (
-    <>
+    <Wrapper>
+      <InfoWrapper>
+        <h1>Thumbnail</h1>
+        <span>
+          Thumbnail is extracted from your video. You're free to choose your own.
+        </span>
+      </InfoWrapper>
       {
-        videoMetaState.thumbnailUrl ?
-          <div className='upload-form--thumbnail flex-horizontal--style-1'>
-            <img src={videoMetaState.thumbnailUrl} />
-          </div>
+        props.videoAttr.thumbnailUrl ?
+          <ImgWrapper><img src={props.videoAttr.thumbnailUrl} /></ImgWrapper>
           :
-          <div className='load-thumbnail flex-horizontal--style-1'>
-            <div className='spinner' />
-          </div>
+          <SpinnerContainer> <div className='spinner' /></SpinnerContainer>
       }
-    </>
+      <ThumbnailUploadButton isUploading={props.isUploading} />
+    </Wrapper>
   )
 }
 
-export default React.memo(Thumbnail);
+const Wrapper = Styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    width: 200px;
+    margin-top: 30px;
+`
+
+const ImgWrapper = Styled.div`
+    ${CenterFlex};
+    ${MediaBox};
+    background-size: 100%;
+    border: 1px solid lightgray;
+    & > img {
+      width: inherit;
+      height: inherit;
+    }
+`
+
+
+
+
+export default withUploadPageContext(memo(Thumbnail));

@@ -3,7 +3,7 @@ import VideoHeader from './video_header';
 import VideoBody from './video_body';
 import CommentWrapper from './comment_wrapper_container';
 
-const Video = props => {
+const VideoPage = props => {
   const [isMounted, setIsMounted] = React.useState(false);
   // It doesn't matter if true or false
   const [fetched, setFetched] = React.useState(false);
@@ -40,4 +40,4 @@ const Video = props => {
   )
 }
 
-export default Video;
+export default VideoPage;

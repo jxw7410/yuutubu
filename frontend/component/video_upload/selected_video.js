@@ -1,14 +1,13 @@
 import React, { useRef, useState } from 'react';
-import Styled, {css} from 'styled-components';
+import Styled from 'styled-components';
+import { InfoWrapper, MediaBox, SpinnerContainer} from './styles';
 import { withUploadPageContext } from './upload_page_context';
-import { CenterFlex } from '../common/flex_styles';
+import SelectedVideoUI from './selected_video_ui';
 
-
-function SelectedVideo(props) {
+function SelectedVideo({ videoAttr, setVideoAttr }) {
   const videoRef = useRef();
   const canvasRef = useRef();
   const [videoState, setVideoState] = useState('PAUSE');
-  const [renderCanvas, setRenderCanvas] = useState(true);
 
   const changeVideoState = state => e => {
     e.preventDefault();
@@ -17,71 +16,135 @@ function SelectedVideo(props) {
 
   const extractThumbnail = e => {
     e.preventDefault();
+    if (videoAttr.thumbnail) return;
+    setTimeout(() => {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      canvas.getContext('2d')
+        .drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+      canvas.toBlob(blob => {
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+          setVideoAttr({
+            ...videoAttr,
+            thumbnail: blob,
+            thumbnailUrl: fileReader.result,
+            duration: video.duration,
+          })
+        };
+        fileReader.readAsDataURL(blob);
+      })
+    }, 500)
+  }
+
+  const handleVideoUI = e => {
+    e.stopPropagation();
+    const video = videoRef.current;
+
+    switch(videoState){
+      case 'PAUSE':
+        video.play();
+        break;
+      case 'PLAY':
+        video.pause();
+        break;
+      case 'END':
+        video.currentTime = 0;
+        video.current.play();
+        break;
+      default: break;
+    }
   }
 
   return (
-    <Wrapper>
+    <div>
+      <InfoWrapper>
+        <h1>Video</h1>
+        <span>Video to be uploaded.</span>
+      </InfoWrapper>
       <VideoWrapper>
         {
-          props.videoAttr.videoUrl ?
-            <video
-              muted
-              ref={videoRef}
-              onPlay={changeVideoState('PLAY')}
-              onPause={changeVideoState('PAUSE')}
-              onEnded={changeVideoState('END')}
-              onCanPlay={extractThumbnail}
-            > 
-              <source src={props.videoAttr.videoUrl} type='video/webm' />
-              <source src={props.videoAttr.videoUrl} type='video/ogg' />
-              <source src={props.videoAttr.videoUrl} type='video/mp4' />
-            </video>
+          videoAttr.videoUrl ?
+            <>
+              <video
+                muted
+                ref={videoRef}
+                onPlay={changeVideoState('PLAY')}
+                onPause={changeVideoState('PAUSE')}
+                onEnded={changeVideoState('END')}
+                onCanPlay={extractThumbnail}
+              >
+                <source
+                  src={videoAttr.videoUrl}
+                  type={videoAttr.video ? videoAttr.video.type : '*' }
+                />
+              </video>
+              <SelectedVideoUI 
+                videoState={videoState}
+                handleVideoUI={handleVideoUI}
+              />
+            </>
             :
             <SpinnerContainer>
               <div className='spinner' />
             </SpinnerContainer>
         }
+
+        <VideoLabel>
+          <div>Filename</div>
+          <div>{videoAttr.video ? videoAttr.video.name : 'Processing...'} </div>
+        </VideoLabel>
       </VideoWrapper>
-    </Wrapper>
+      {
+        videoAttr.thumbnail ? null : <Canvas ref={canvasRef} />
+      }
+    </div>
   )
 }
 
-const Box = css`
-  width: 200px;
-  height: 100px;
-`
-
-const Wrapper = Styled.div`
-  display: inline-block;
-`;
 
 const VideoWrapper = Styled.div`
-  ${Box}
-  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
   position: relative;
 
   & > video {
-    position: absolute;
-    width: inherit;
-    height: inherit;
+    ${MediaBox}
     object-fit: cover;
     z-index: 400;
   }
 `;
 
-const SpinnerContainer = Styled.div`
-  ${CenterFlex}
-  ${Box}
-  background: lightgray;
+const VideoLabel = Styled.div`
+  padding: 5px;
+  width: calc(100% - 10px);
+  background: #eaeaea;
+  overflow-x: hidden;
 
-  & .spinner{
-    border: 4px solid #f3f3f3; /* Light grey */
-    border-top: 4px solid lightgray; /* Blue */
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
+  & > div {
+    margin: 2px 0;
+  }
+
+  & > div:first-child{
+    color: gray;
+    font-size: 12px;
+  }
+
+  & > div:last-child{
+    font-size: 16px;
   }
 `;
+
+const Canvas = Styled.canvas`
+  visibility: hidden;
+  position: absolute;
+  z-index: -1;
+`
 
 
 export default withUploadPageContext(SelectedVideo);

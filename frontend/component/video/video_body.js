@@ -1,57 +1,130 @@
-import React from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import SubscribeButton from '../subscribe/subscribe_button';
 import { Link } from 'react-router-dom';
-import {useDescriptionExpander} from '../../util/custom_hooks';
+import Styled from 'styled-components';
+import DOMPurify from 'dompurify';
+
 
 const VideoBody = props => {
-  const contentHeightLimit = 90;
-  const [state, contentContainer, handleReadMore] = useDescriptionExpander(contentHeightLimit);
-  
+  const descriptionRef = useRef(null);
+  const [canReadMore, setCanReadMore] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(()=>{
+    if (props.video.description) {
+      const height = descriptionRef.current.offsetHeight;
+      if (height > 90 ) setCanReadMore(true);
+    }
+  }, [props.video.description])
+
+  const handleExpand = e => {
+    e.preventDefault();
+    setIsExpanded(!isExpanded)
+  }
+
   return (
-    <div className='video-info--body'>
+    <Wrapper>
       <section>
-        <div className='video-page--user-profile-pic'> 
-          <i className="fas fa-user-circle" /> 
+        <div>
+          <i style={{ fontSize: '45px' }} className="fas fa-user-circle" />
         </div>
-        <div className='video-info--body-hdr flex-horizontal--style-5'>
-          <div className='flex-vertical--style-4'>
-            <Link to={`/channel/${props.channel.id}`}
-              className='video-page--channel-name'>
-              {props.channel.name}
-            </Link>
-            <span className='video-date'>
-              Published on {props.video.created_at}
-            </span>
-          </div>
+        <Header>
+          <HeaderMeta>
+            <Link to={`/channel/${props.channel.id}`}> {props.channel.name} </Link>
+            <span>{props.channel.subscriptionCount} subscribers</span>
+          </HeaderMeta>
           <SubscribeButton channel={props.channel} />
-        </div>
+        </Header>
       </section>
       <section>
         <div />
-        <div 
-          className={[
-            'video-description--container',
-            state.expanded ? 'comment-expanded' : ""
-          ].join(" ")}>
-            <span
-              ref={contentContainer} >
-              {props.video.description}
-            </span>
-          </div>
+        <Description isExpanded={isExpanded}>
+          <div
+            ref={descriptionRef} 
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(props.video.description),
+            }}
+          />
+        </Description>
       </section>
       <section>
         <div />
-        <div className='flex-horizontal--style-3'>
-          <span 
-            style={state.readMore ? null : { display: 'none' }}
-            className='span-style-2' 
-            onClick={handleReadMore}>
-              {state.expanded ? 'Show less' : 'Show More'}
+        <ReadMore canReadMore={canReadMore}>
+          <span onClick={handleExpand}>
+            { isExpanded ? 'SHOW LESS' : 'SHOW MORE'}
           </span>
-        </div>
+        </ReadMore>
       </section>
-    </div>
+    </Wrapper>
   )
 }
 
-export default VideoBody;
+const Wrapper = Styled.div`
+  min-height: 185px;
+  border-bottom: 1px solid rgb(229, 229, 229);
+
+  & > section {
+    display: grid;
+    grid-template-columns: 65px auto;
+  }
+
+  & > section:first-child{
+    padding: 15px 0;
+    height: 50px;
+  }
+
+  & > section:last-child{
+    height: 30px;
+  }
+`
+
+const Header = Styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+`
+
+const HeaderMeta = Styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & a {
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+    font-weight: 600;
+  }
+
+  & span {
+    font-size: 14px;
+    color: rgb(96, 96, 96);
+  }
+`
+
+const Description = Styled.div`
+  font-size: 14px;
+  word-break: break-word;
+  max-height: ${props => props.isExpanded ? 'max-content' : '90px'}
+  overflow: hidden;
+  line-height: 18px;
+  width: 95%;
+`
+
+const ReadMore = Styled.div`
+  display: flex;
+  align-items: center;
+
+  & > span {
+    display: ${props => props.canReadMore ? 'block' : 'none'}
+    color: gray;
+    font-size: 12px;
+  }
+
+  & > span {
+    cursor: pointer;
+  }
+`
+
+
+export default memo(VideoBody);

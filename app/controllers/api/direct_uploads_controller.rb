@@ -6,8 +6,8 @@ class Api::DirectUploadsController < ApplicationController
     begin 
       image_blob, video_blob = DirectUpload.create_blobs(valid_params)
       render json: { 
-        image_blob: DirectUpload.direct_upload_json(image_blob), 
-        video_blob: DirectUpload.direct_upload_json(video_blob) 
+        imageBlob: DirectUpload.direct_upload_json(image_blob), 
+        videoBlob: DirectUpload.direct_upload_json(video_blob) 
         }, status: 200
     rescue 
       render json: ["Request to Upload failed"], status: 422

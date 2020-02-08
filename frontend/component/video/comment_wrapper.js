@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Comment from './comment';
-import {useInfiniteScrolling} from '../../util/custom_hooks';
+import Styled from 'styled-components';
+import { useInfiniteScrolling } from '../../util/custom_hooks';
 import CommentBox from './comment_box_container';
 
 const CommentsWrapper = props => {
   const [isFetching, setIsFetching] = useInfiniteScrolling(fetchPosts);
   const offsetRef = React.useRef(0);
 
-  React.useEffect( () => {
+  useEffect(() => {
     return () => props.clearPosts();
   }, [])
 
-  React.useEffect(() => { 
+  useEffect(() => {
     fetchPosts();
   }, [props.video.id])
 
 
-  function fetchPosts(){
+  function fetchPosts() {
     const queryLimit = 12;
     const params = {
       video_id: props.video.id,
@@ -30,26 +31,38 @@ const CommentsWrapper = props => {
 
 
   return (
-    <div className='video-page--comment-section'>
-      <div className='comment-form--ctn'>
-        <div style={{ fontSize: '36px' }}> 
+    <Wrapper>
+      <CommentFormWrapper>
+        <div style={{ fontSize: '36px' }}>
           <i className="fas fa-user-circle" />
         </div>
         <CommentBox />
-      </div>
-      <ul id='comments-list' className='flex-vertical--style-4'>
+      </CommentFormWrapper>
+      <CommentList>
         {
-          props.posts.map( post => 
-            <Comment
-              key={post.id}
-              post={post}
-            />
-          )
+          props.posts.map(post => <Comment key={post.id} post={post} />)
         }
-      </ul>
-    </div>
+      </CommentList>
+    </Wrapper>
   )
 }
+
+const Wrapper = Styled.div`
+  display: grid;
+  margin-top: 20px;
+  grid-template-rows: auto auto;
+`
+
+const CommentFormWrapper = Styled.div`
+  width: 100;
+  display: grid;
+  grid-template-columns: 55px auto;
+`
+
+const CommentList = Styled.ul`
+  display: flex;
+  flex-direction: column;
+`
 
 
 export default CommentsWrapper;

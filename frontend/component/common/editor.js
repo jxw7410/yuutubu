@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-function Editor({ editorRef, onClick, onFocus, onBlur, onInput }) {
+function Editor({ editorRef, onClick, onFocus, onBlur, onInput, isDisabled = false }) {
   return (
     <div
       ref={editorRef}
@@ -17,20 +17,13 @@ function Editor({ editorRef, onClick, onFocus, onBlur, onInput }) {
       aria-label="Message"
       dir="auto"
       placeholder='Add a public comment...'
-      contentEditable="true"
+      contentEditable={!isDisabled}
       role="textbox"
       tabIndex='0'
     />
   )
 }
 
-
-Editor.defaultProps = {
-  onClick: e => e.preventDefault(),
-  onFocus: e => e.preventDefault(),
-  onBlur: e => e.preventDefault(),
-  onInput: e => e.preventDefault(),
-}
 
 export default memo(Editor);
 
