@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 
 export const VideoPageThumbnailInfo = React.memo(props => 
     <div className='flex-vertical--style-4 video-page-thumbnail-info'
@@ -69,8 +70,11 @@ export const SearchPageThumbnailInfo = React.memo(props =>
         </span>
       </section>
       <section>
-        <span>
-          {props.video.description}
+        <span
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(props.video.description)
+          }}
+        >
         </span>
       </section>
     </div>

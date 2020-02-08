@@ -39,6 +39,7 @@
     display: flex;
     flex-direction: column;
     height: 138px;
+    overflow: hidden;
 }
 
 
@@ -56,4 +57,10 @@
 #search-page-thumbnail-preview > section:last-child{
     padding-top: 8px;
     margin-bottom: 8px;
+}
+
+#search-page-thumbnail-preview a {
+    text-decoration: none;
+    color: #606060;
+    pointer-events: none;
 }

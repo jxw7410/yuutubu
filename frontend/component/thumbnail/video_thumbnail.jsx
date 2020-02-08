@@ -37,18 +37,18 @@ const VideoThumbnail = props => {
       case 'VIDEOPAGE':
         infoComponent = <VideoPageThumbnailInfo
           video={props.video}
-          redirect={props.redirectEvent} />
+          redirect={redirectEvent} />
         break;
       case 'SEARCHPAGE':
         infoComponent = <SearchPageThumbnailInfo
           video={props.video}
-          redirect={props.redirectEvent} />
+          redirect={redirectEvent} />
         break;
       default:
         infoComponent = <IndexPageThumbnailInfo
           video={props.video}
           channel={props.channel}
-          redirect={props.redirectEvent} />
+          redirect={redirectEvent} />
     }
     return infoComponent;
   }
