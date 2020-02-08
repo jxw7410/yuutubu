@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Styled from 'styled-components';
-import { FlexHorizontalCentered } from '../../css-styles/css_styles';
+import { CenterFlex } from '../common/flex_styles';
 import { closeModal } from '../../actions/modal/modal_action';
 
 const UploadModal = props => {
@@ -38,16 +38,16 @@ const UploadModalContainer = Styled.div`
 `
 
 const MessageBox = Styled.span`
-  ${FlexHorizontalCentered};
+  ${CenterFlex};
   border-bottom: 1px solid gray;
 `
 
 const ButtonContainer = Styled.section`
-  ${FlexHorizontalCentered}
+  ${CenterFlex}
 `
 
 const Button = Styled.button`
-  ${FlexHorizontalCentered}
+  ${CenterFlex}
   font-size: 18px;
   height: 40px;
   width: 90px;

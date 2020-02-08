@@ -13,7 +13,6 @@ const VideoPlayer = props => {
   const videoRef = React.useRef();
   const streamBarRef = React.useRef();
   const seekerRef = React.useRef();
-
   const [viewCountUpdated, setViewCountUpdated] = React.useState(false);
   const [currentUrl, setCurrentUrl] = React.useState(null);
   const [isFullscreen, setFullScreen] = React.useState(false);

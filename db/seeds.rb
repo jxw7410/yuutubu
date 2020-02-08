@@ -15,6 +15,7 @@ VideoPost.destroy_all
 Like.destroy_all
 SearchHistory.destroy_all
 Subscription.destroy_all
+ActiveStorage::Attachment.all.each{ |attachment| attachment.purge }
 
 demouser = User.create(username: "demouser", email: "demouser@gmail.com", password: "password123")
 UserChannel.create(name: demouser.username, user: demouser)
@@ -123,7 +124,8 @@ video.video_content.attach(io: file, filename: "nergigante6.mp4")
 video = Video.create(
   title: "FFXIV: Answers - End of an Era",
   description: "All rights belong to Square Enix. 
-  Please support the offical video: https://www.youtube.com/watch?v=39j5v8jlndM",
+  <div>Please support the offical video:</div> 
+  <a href='https://www.youtube.com/watch?v=39j5v8jlndM'>https://www.youtube.com/watch?v=39j5v8jlndM</a>",
   user_id: user2.id,
   channel_id: channel2.id,
   duration: 99.00,
@@ -137,7 +139,8 @@ video.video_content.attach(io: file, filename: "end_of_an_era.mp4")
 video = Video.create(
   title: "FFXIV: Innocence - Crown of the Immaculate.",
   description: "All rights to belong to Square Enix, and owner of video.
-  Please support the offical video: https://www.youtube.com/watch?v=Wc4w0AXWcnI",
+  <div>Please support the offical video:</div>
+  <a href='https://www.youtube.com/watch?v=Wc4w0AXWcnI'>https://www.youtube.com/watch?v=Wc4w0AXWcnI</a>",
   user_id: user2.id,
   channel_id: channel2.id,
   duration: 57.00,
@@ -151,7 +154,8 @@ video.video_content.attach(io: file, filename: "innocence.mp4")
 video = Video.create(
   title: "FFXIV: Weight of the World- YoRHa Unit No.9 Type S",
   description: "All rights belong to Square Enix, and owner of video.
-  Please support the offical video: https://www.youtube.com/watch?v=jVAgd9dbYIs",
+  <div>Please support the offical video:</div> 
+  <a href='https://www.youtube.com/watch?v=jVAgd9dbYIs'>https://www.youtube.com/watch?v=jVAgd9dbYIs</a>",
   user_id: user2.id,
   channel_id: channel2.id,
   duration: 86.00,
@@ -165,7 +169,8 @@ video.video_content.attach(io: file, filename: "yorha_9s.mp4")
 video = Video.create(
   title: "FFXIV: Wayward Daughter - Tsukuyomi",
   description: "All rights belong to Square Enix, and owner of video.
-  Please support the offical video: https://www.youtube.com/watch?v=njYgggITz2g",
+  <div>Please support the offical video:</div> 
+  <a href='https://www.youtube.com/watch?v=njYgggITz2g'>https://www.youtube.com/watch?v=njYgggITz2g</a>",
   user_id: user2.id,
   channel_id: channel2.id,
   duration: 85.00,

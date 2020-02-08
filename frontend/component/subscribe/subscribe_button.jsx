@@ -43,10 +43,10 @@ const SubscribeButton = React.memo(props => {
         props.sub.sub_id && props.login ?
           <button
             onClick={unsubscribe}
-            id='subscribed-button'> UNSUBSCRIBE {props.channel.subscriptionCount}</button> :
+            id='subscribed-button'> UNSUBSCRIBE </button> :
           <button
             onClick={subscribe}
-            id="subscribe-button"> SUBSCRIBE {props.channel.subscriptionCount}</button>
+            id="subscribe-button"> SUBSCRIBE </button>
       }
     </div>
   )

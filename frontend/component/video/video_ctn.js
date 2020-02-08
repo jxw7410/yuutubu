@@ -1,4 +1,4 @@
-import Video from './video';
+import VideoPage from './video_page';
 import { connect } from 'react-redux'
 import { fetchChannel } from '../../actions/channel/channel_action'
 import { sideBarTwo } from '../../actions/nav/nav_bar_action';
@@ -27,4 +27,4 @@ const mdp = dispatch => ({
   videoLikeDislike: video_like_dislike => dispatch(videoLikeDislike(video_like_dislike))
 })
 
-export default connect(msp, mdp)(Video);
+export default connect(msp, mdp)(VideoPage);

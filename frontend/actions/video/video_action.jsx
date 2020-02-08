@@ -11,15 +11,12 @@ const receiveVideo = video => {
   }
 }
 
-
 const receiveChannelVideos = videos => {
   return {
     type: RECEIVE_CHANNEL_VIDEOS,
     videos
   }
 }
-
-
 
 export const clearChannelVideos = () => {
   return {
@@ -31,7 +28,6 @@ export const fetchVideo = video_id => dispatch => {
   return VideoAPI.requestVideo(video_id)
     .then(video => dispatch(receiveVideo(video)));
 };
-
 
 //On index page
 export const fetchChannelVideos = (channel_id, limit, offset) => dispatch => {
