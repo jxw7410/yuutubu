@@ -61,7 +61,8 @@ const CommonAttr = css`
 
 const Wrapper = Styled.div`
   padding: 10px;
-  width: calc( 100% - 20px);
+  width: calc(100% - 20px);
+  max-width: calc( 100% - 20px);
   height: 100%;
 `
 
@@ -96,11 +97,17 @@ const DescriptionWrapper = Styled.div`
   ${CommonAttr}
 
   & > div {
+    user-select: text;
+    cursor: text;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
     height: 100%;
     width: 100%;
     padding: 5px 0;
     font-size: 16px;
     color: black;
+    max-width: 528px;
   }
 
   & > div:focus{
