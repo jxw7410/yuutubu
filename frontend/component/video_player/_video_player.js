@@ -17,6 +17,10 @@ const VideoPlayer = props => {
   const [currentUrl, setCurrentUrl] = React.useState(null);
   const [isFullscreen, setFullScreen] = React.useState(false);
   const [animateState, setAnimateState] = React.useState(null);
+  const [videoDim, setVideoDim] = React.useState({
+    width: '100%',
+    height: '660px',
+  });
   const [videoState, setVideoState] = React.useState({
     state: LOAD,
     buffered: 0,
@@ -25,10 +29,29 @@ const VideoPlayer = props => {
   });
 
   // This is control user input for fullscreen
+
+  React.useEffect(() => {
+    const width = videoCtnRef.current.offsetWidth;
+    const height = Math.floor((width * 9) / 16);
+    setVideoDim({ width, height })
+  }, [props.videoPlayer.video.videoUrl])
+
   React.useEffect(() => {
     document.addEventListener('fullscreenchange', fullscreenEvent);
-    return () => document.removeEventListener('fullscreenchange', fullscreenEvent);
+    window.addEventListener('resize', resizeHandler);
+    return () => {
+      document.removeEventListener('fullscreenchange', fullscreenEvent);
+      window.removeEventListener('resize', resizeHandler);
+    }
   }, [])
+
+  const resizeHandler = e => {
+    e.preventDefault();
+    const width = videoCtnRef.current.offsetWidth;
+    const height = Math.floor((width * 9) / 16);
+    console.log(width, height);
+    setVideoDim({ width, height })
+  }
 
   function fullscreenEvent(e) {
     e.preventDefault();
@@ -64,7 +87,10 @@ const VideoPlayer = props => {
 
   function handleCanPlay(e) {
     if (videoState.state === PAUSE) return;
-    setTimeout(() => videoRef.current.play(), 50);
+    setTimeout(() => {
+      videoRef.current.muted = false;
+      videoRef.current.play()
+    }, 50);
   }
 
   function handleTimeUpdate(e) {
@@ -187,10 +213,16 @@ const VideoPlayer = props => {
           <div className='spinner' />
         </div>
         <video
+          style={{
+            width: videoDim.width,
+            height: videoDim.height,
+          }}
+          muted
           key={props.videoPlayer.video.videoUrl}
           ref={videoRef}
           id='video-player'
           preload='auto'
+          controlsList='nodownload'
           onCanPlay={handleCanPlay}
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}

@@ -103,7 +103,10 @@ const VideoThumbnail = props => {
   }
 
   function setDataloaded(field) {
-    return e => setState({ ...state, [field]: true })
+    return e => { 
+      e.currentTarget.playbackRate = 2;
+      setState({ ...state, [field]: true })
+    }
   }
 
   return (

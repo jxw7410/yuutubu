@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import VideoPlayer from './video_player';
+import VideoPlayer from './_video_player';
 
 
 const VideoPlayerWrapper = (props) => (

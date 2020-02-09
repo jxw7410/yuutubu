@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { VideoPlayerContext } from './video_player';
+import { VideoPlayerContext } from './_video_player';
 
 
 const ProgressBar = props => {

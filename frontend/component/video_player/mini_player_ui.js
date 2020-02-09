@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { VideoPlayerContext } from './video_player';
+import { VideoPlayerContext } from './_video_player';
 import { withRouter } from 'react-router-dom';
 import { removeVideoPlayer } from '../../actions/video_player/video_player';
 import { convertDurationToTime } from '../../util/selectors';

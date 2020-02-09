@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { convertDurationToTime } from '../../util/selectors';
-import { VideoPlayerContext } from './video_player';
+import { VideoPlayerContext } from './_video_player';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestMiniPlayer } from '../../actions/video_player/video_player';

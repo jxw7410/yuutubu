@@ -32,6 +32,9 @@ const CommentsWrapper = props => {
 
   return (
     <Wrapper>
+      <Header>
+        Comments
+      </Header>
       <CommentFormWrapper>
         <div style={{ fontSize: '36px' }}>
           <i className="fas fa-user-circle" />
@@ -49,12 +52,18 @@ const CommentsWrapper = props => {
 
 const Wrapper = Styled.div`
   display: grid;
-  margin-top: 20px;
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(3, min-content);
+`
+const Header = Styled.div`
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  font-size: 18px;
+  font-weight: 500; 
 `
 
 const CommentFormWrapper = Styled.div`
-  width: 100;
+  width: 100%;
   display: grid;
   grid-template-columns: 55px auto;
 `

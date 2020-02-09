@@ -16,11 +16,12 @@ const ThumbnailPreviewVideo = props => {
 
   async function handleTimeUpdate(e) {
     e.preventDefault();
-    if (videoRef.current.currentTime > 3){
+    if (videoRef.current.currentTime > 5){
         await videoRef.current.pause();
         props.stopRenderVideo();
     }
-  }
+  } 
+  
   /*
     Key is required because React won't rerender if it doesn't know
     the video's source has changed. It only knows if there is a key change.

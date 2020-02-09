@@ -5,9 +5,7 @@ import {
   REQUEST_DEFAULT_PLAYER,
   REQUEST_SET_VIDEO,
 } from '../../actions/video_player/video_player';
-
 import { MINI, THEATER, DEFAULT } from '../../util/constants';
-
 import { merge } from 'lodash'
 
 const defaultState = {
