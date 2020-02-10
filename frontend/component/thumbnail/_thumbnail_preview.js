@@ -1,27 +1,23 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const ThumbnailPreviewVideo = props => {
   const videoRef = useRef();
-  const [play, setPlay] = useState(false);
-
-  useEffect(() => {
-    if (play) {
-      videoRef.current.play()
-        .then(() => setPlay(false), () => setPlay(false))
-    }
-  }, [play])
+  const playRef = useRef(false);
 
   useEffect(() => {
     if (props.playVid) {
       videoRef.current.currentTime = 0;
-      setPlay(true);
+      playRef.current = true;
+      videoRef.current.play()
+        .then( unsetPlayRef, unsetPlayRef );
     } else {
-      if (play) setTimeout(() => videoRef.current.pause(), 10);
+      if (playRef.current) setTimeout(() => videoRef.current.pause(), 10);
       else videoRef.current.pause();
     }
   }, [props.playVid])
 
-  function handleTimeUpdate(e) {
+  const unsetPlayRef = () => playRef.current = false;
+  const handleTimeUpdate = e => {
     e.preventDefault();
     if (videoRef.current.currentTime > 5) {
       videoRef.current.pause();
@@ -29,10 +25,6 @@ const ThumbnailPreviewVideo = props => {
     }
   }
 
-  /*
-    Key is required because React won't rerender if it doesn't know
-    the video's source has changed. It only knows if there is a key change.
-  */
   return (
     <video
       key={props.videoUrl}
