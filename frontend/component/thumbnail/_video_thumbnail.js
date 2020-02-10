@@ -2,7 +2,7 @@ import React from 'react';
 import { fetchVideo } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import ThumbnailPreviewVideo from './thumbnail_preview';
+import ThumbnailPreviewVideo from './_thumbnail_preview';
 import { VideoPageThumbnailInfo, IndexPageThumbnailInfo, SearchPageThumbnailInfo } from './thumbnail_info';
 import { convertDurationToTime } from '../../util/selectors';
 
@@ -132,7 +132,6 @@ const VideoThumbnail = props => {
         <div className={[
           'thumbnail-preview--wrapper',
           (state.vidLoaded && state.renderVideo && isMouseOver.current) ? 'thumbnail-active' : "",
-          state.imgLoaded ? "" : " not-loaded",
         ].join(' ')}  >
 
           <img

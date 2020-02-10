@@ -7,7 +7,6 @@ import { centerFlex } from '../common/flex_styles';
 import ProgressBar from './progress_bar';
 import DefaultVideoUI from './default_video_ui_container';
 import MiniPlayerUI from './mini_player_ui_container';
-import DOMPurify from 'dompurify';
 
 function VideoPlayer(props) {
   const videoPlayerWrapperRef = useRef();
@@ -28,6 +27,7 @@ function VideoPlayer(props) {
     duration: 0,
     currentTime: 0,
   });
+  const [updateCounter, setUpdateCounter] = useState(0);
 
   useEffect(() => { if (!isFullscreen) resizeHandler(); }, [isFullscreen]);
   useEffect(() => { resizeHandler(); }, [props.videoPlayer.video.videoUrl, props.videoPlayer.type]);
@@ -86,9 +86,14 @@ function VideoPlayer(props) {
   }
 
   const updateViewCount = () => {
-    if (viewCountUpdated) return;
-    updateView(props.videoPlayer.video.id);
-    setViewCountUpdated(true);
+    if (viewCountUpdated){ 
+      return;
+    } else if (updateCounter < 5) {
+      setUpdateCounter(updateCounter + 1);
+    } else {
+      updateView(props.videoPlayer.video.id);
+      setViewCountUpdated(true);
+    }
   }
 
   const handleTimeUpdate = e => {
@@ -102,10 +107,7 @@ function VideoPlayer(props) {
     setVideoState({ ...videoState, currentTime, duration });
   }
 
-  const handleEnded = e => {
-    updateViewCount();
-    setVideoState({ ...videoState, state: REPLAY });
-  }
+  const handleEnded = e => { setVideoState({ ...videoState, state: REPLAY }); }
 
   const handleProgress = e => {
     const buffered = e.currentTarget.buffered;

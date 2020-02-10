@@ -1,12 +1,10 @@
 import React from 'react';
 import { fetchRecommendedVideos } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
-import VideoThumbnail from '../thumbnail/video_thumbnail';
+import VideoThumbnail from '../thumbnail/video_thumbnail_container';
 import { withRouter } from 'react-router-dom';
 
 const Recommendation = props => {
-  const [readMore, setReadMore] = React.useState(false)
-
   React.useEffect(() => {
     props.fetchRecommendedVideos()
   }, []);
@@ -25,8 +23,7 @@ const Recommendation = props => {
       </div>
       <ul className={[
         'recommended-video-container',
-        'margin-24',
-        readMore ? "" : 'show-more-inactive'
+        'margin-24'
       ].join(' ')}>
         {
           props.videos.map(video =>
@@ -38,24 +35,15 @@ const Recommendation = props => {
           )
         }
       </ul>
-      {
-        readMore ? null :
-          <button
-            id='show-more-button'
-            onClick={() => setReadMore(true)}>
-            Show More
-          </button>
-      }
     </div>
   )
 }
 
 
-
 const msp = state => {
   const videos = Object.values(state.entities.videos)
     .sort((vid1, vid2) => vid2.views - vid1.views)
-    .slice(0, 18);
+    .slice(0, 12);
 
   return {
     videos

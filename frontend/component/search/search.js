@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoThumbnail from '../thumbnail/video_thumbnail';
+import VideoThumbnail from '../thumbnail/video_thumbnail_container';
 import { MINI } from '../../util/constants';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 
