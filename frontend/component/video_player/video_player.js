@@ -36,7 +36,7 @@ function VideoPlayer(props) {
     window.addEventListener('resize', resizeHandler);
     return () => {
       document.removeEventListener('fullscreenchange', fullscreenHandler);
-      window.addEventListener('resize', resizeHandler);
+      window.removeEventListener('resize', resizeHandler);
     }
   }, []);
 
@@ -82,7 +82,7 @@ function VideoPlayer(props) {
     setTimeout(() => {
       videoRef.current.play()
         .then(() => videoRef.current.muted = false);
-    });
+    }, 200);
   }
 
   const updateViewCount = () => {
