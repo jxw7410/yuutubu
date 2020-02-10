@@ -19,7 +19,7 @@ const VideoPage = props => {
   }, [props.match.params.video_id])
 
   useEffect(() => {
-    if (props.videoPlayer.video.id !== props.match.params.video_id) {
+    if (props.videoPlayer.video.id != props.match.params.video_id) {
       props.requestSetVideo(props.video)
       props.fetchChannel(props.video.channel_id);
       props.videoLikeDislike(props.video.like_dislike)

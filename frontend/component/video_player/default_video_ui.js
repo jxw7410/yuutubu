@@ -1,156 +1,251 @@
 import React, { useState } from 'react';
+import Styled, { css } from 'styled-components';
+import VideoStateButton from './video_state_button';
 import { convertDurationToTime } from '../../util/selectors';
-import { VideoPlayerContext } from './_video_player';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { requestMiniPlayer } from '../../actions/video_player/video_player';
+import { IconMessageVert, VideoTime } from './styles';
 
-const DefaultVideoUI = props => {
-  const { videoRef,  videoCtnRef, videoState, isFullscreen, setCurrentUrl } = React.useContext(VideoPlayerContext);
+function DefaultVideoUI(props) {
+  const currentTime = props.videoState.currentTime;
+  const duration = props.videoState.duration;
+  const time = `${convertDurationToTime(currentTime)} / ${convertDurationToTime(duration)}`;
 
-  const [state, setState] = useState({
+  const [volumeAttr, setVolumeAttr] = useState({
     volume: localStorage.getItem('volume') || 1,
     volumeTrackLength: Math.floor(50 * (localStorage.getItem('volume') || 1)),
-  });
+  })
 
-
-  function handleMute(e) {
+  const handleMute = e => {
+    e.preventDefault();
     e.stopPropagation();
+    const videoRef = props.videoRef.current;
     if (videoRef.muted) {
       const volume = localStorage.getItem('volume') || 1;
       videoRef.muted = false;
-      setState({ ...state, volume, volumeTrackLength: Math.floor(50 * volume) });
-    } else if (state.volume == 0) {
+      setVolumeAttr({ volume, volumeTrackLength: Math.floor(50 * volume) });
+    } else if (volumeAttr.volume === 0) {
       videoRef.volume = 0.5;
       localStorage.setItem('volume', 0.5);
-      setState({ ...state, volume: 0.5, volumeTrackLength: 25 });
+      setVolumeAttr({ volume, volumeTrackLength: 25 });
     } else {
       localStorage.setItem('volume', videoRef.volume);
       videoRef.muted = true;
-      setState({ ...state, volume: 0, volumeTrackLength: 0 });
+      setVolumeAttr({ volume: 0, volumeTrackLength: 0 });
     }
   }
 
-  function handleVolumeChange(e) {
+  const handleVolumeChange = e => {
     e.preventDefault();
     e.stopPropagation();
+    const videoRef = props.videoRef.current;
     if (videoRef.muted) videoRef.muted = false;
-
     const volume = e.currentTarget.value;
     videoRef.volume = volume;
     localStorage.setItem('volume', volume);
-    setState({ ...state, volume, volumeTrackLength: 50 * volume });
+    setVolumeAttr({ volume, volumeTrackLength: 50 * volume });
   }
 
-  function minMaxScreen(bool) {
-    return e => {
-      e.stopPropagation();
-      if (bool) videoCtnRef.requestFullscreen();
-      else document.exitFullscreen();
-    }
-  }
-
-  async function requestMiniPlayer(e) {
+  const minMaxScreen = bool => e => {
     e.stopPropagation();
-    if (isFullscreen) await document.exitFullscreen();
+    if (bool) props.videoPlayerWrapperRef.current.requestFullscreen();
+    else document.exitFullscreen();
+  }
+
+  const requestMiniPlayer = async (e) => {
+    e.stopPropagation();
+    if (props.isFullscreen) await document.exitFullscreen();
     props.requestMiniPlayer();
-    setCurrentUrl(`/video/${props.video.id}`);
+    props.setCurrentUrl(`/video/${props.video.id}`);
     if (!props.prevPath || props.prevPath === '/video/:video_id')
       props.history.push('/');
     else
       props.history.goBack();
   }
 
-
-  function getVolumeIcon() {
+  const getVolumeIcon = () => {
     let volumeType;
-    if (state.volume == 0)
-      volumeType = 'volume_off';
-    else if (state.volume > 0.5)
-      volumeType = 'volume_up';
-    else
-      volumeType = 'volume_down';
+    if (volumeAttr.volume == 0) volumeType = 'volume_off';
+    else if (volumeAttr.volume > 0.5) volumeType = 'volume_up';
+    else volumeType = 'volume_down';
     return volumeType;
   }
 
+
   return (
-    <div className='video-player-main-ui flex-horizontal-style-6'>
-      <section
-        className='flex-horizontal--style-3'
-        style={{ width: 'auto' }}>
-        <div> {props.videoStateBtn} </div>
-        <div className='volume-ui--container flex-horizontal--style-3'>
-          <div className='icon-wrap'>
-            <i
-              onClick={handleMute}
-              className='material-icons volume-icon'>
-              {getVolumeIcon()}
-            </i>
-          </div>
-          <div className='volume-bar--wrapper flex-horizontal--style-3'>
-            <div className='volume-bar'>
-              <div
-                className='vol-ctrl-track'
-                style={{ width: `${state.volumeTrackLength}px` }} />
-              <input
-                className='vol-ctrl'
-                type="range"
-                min="0"
-                max="1"
-                step="0.05"
-                value={state.volume}
+    <Wrapper
+      onClick={e => e.stopPropagation()}>
+      <Section>
+        <VideoStateButton />
+        <VolumeUIWrapper>
+          <i
+            onClick={handleMute}
+            className='material-icons'>
+            {getVolumeIcon()}
+          </i>
+          <VolumeBarWrapper>
+            <VolumeBar>
+              <VolumeBarTrack style={{ width: volumeAttr.volumeTrackLength + 'px' }} />
+              <VolumeBarSlider
+                type='range'
+                min='0'
+                max='1'
+                step='0.05'
+                value={volumeAttr.volume}
                 onMouseDown={e => e.stopPropagation()}
                 onClick={e => e.stopPropagation()}
-                onChange={handleVolumeChange} />
-            </div>
-          </div>
-        </div>
-
-        <div className='vid-time'>
-          <div className='max-width-height'>
-            {convertDurationToTime(videoState.currentTime)} / {convertDurationToTime(videoState.duration)}
-          </div>
-        </div>
-      </section>
-
-      <section className='flex-horizontal--style-3'>
-        <div
+                onChange={handleVolumeChange}
+              />
+            </VolumeBar>
+          </VolumeBarWrapper>
+        </VolumeUIWrapper>
+        <VideoTime>{time}</VideoTime>
+      </Section>
+      <Section>
+        <i
           onClick={requestMiniPlayer}
-          className='icon-wrap'>
-          <i
-            style={{ margin: '0 5px' }}
-            className="material-icons">
-            picture_in_picture_alt
-          </i>
-          <div className='icon-message-v icon-position-right'>Miniplayer</div>
-        </div>
+          style={{ margin: '0 5px' }}
+          className='material-icons'>
+          picture_in_picture_alt
+          <IconMessageVert style={{ right: '-15px' }}>
+            MiniPlayer
+          </IconMessageVert>
+        </i>
         {
-          isFullscreen ?
-            <div className="icon-wrap"
-              onClick={minMaxScreen(false)}>
-              <i className="material-icons-enlarged">fullscreen_exit</i>
-              <div className='icon-message-v icon-position-right'>Exit Full Screen</div>
-            </div>
+          props.isFullscreen ?
+            <i
+              onClick={minMaxScreen(false)}
+              className='material-icons-enlarged'>
+              fullscreen_exit
+              <IconMessageVert style={{ right: '-15px' }}>
+                Exit Fullscreen
+              </IconMessageVert>
+            </i>
             :
-            <div className="icon-wrap"
-              onClick={minMaxScreen(true)}>
-              <i className="material-icons-enlarged">fullscreen</i>
-              <div className='icon-message-v icon-position-right'>Full Screen</div>
-            </div>
+            <i
+              onClick={minMaxScreen(true)}
+              className='material-icons-enlarged'>
+              fullscreen_exit
+              <IconMessageVert style={{ right: '-15px' }}>
+                Fullscreen
+              </IconMessageVert>
+            </i>
         }
-      </section>
-    </div>
+      </Section>
+    </Wrapper>
   )
 }
 
+const flexCSS = css`
+  display: flex;
+  align-items: center;
+`
 
-const msp = state => ({
-  video: state.ui.videoPlayer.video,
-  prevPath: state.ui.prevPath.path,
-})
+const Section = Styled.section`
+  ${flexCSS}
+  width: min-content;
+  padding: 0 15px;
+  & i { position: relative; }
+`
 
-const mdp = dispatch => ({
-  requestMiniPlayer: () => dispatch(requestMiniPlayer()),
-})
+const VolumeBar = Styled.div`
+  width: 0px;
+  background: rgba(75,75,75, 0.9);
+  height: 3px;
+  transition: width 0.1s linear;
+`
 
-export default withRouter(connect(msp, mdp)(DefaultVideoUI));
+const VolumeBarTrack = Styled.div`
+  height: inherit;
+  background: white;
+  position: absolute;
+  z-index: 1;
+`
+
+const VolumeBarSlider = Styled.input`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  outline: none;
+  width: 101%;
+  position: absolute;
+  z-index: 2;
+  margin-top: -5px;
+  margin-left: 1px;
+
+  &::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background: white;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin-top: 1.5px;
+  }
+
+  &::-moz-range-thumb{
+    -moz-appearance: none;
+    background: white;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    border: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-track{
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    margin-top: -2px;
+  }  
+
+  &::-moz-range-progress {
+    background-color: transparent;
+  }
+`
+
+const VolumeBarWrapper = Styled.div`
+  ${flexCSS}
+  position: relative;
+  margin-left: 8px;
+  height: 20px;
+  width: 0px;
+  overflow-x: hidden;
+  transition: width 0.2s linear;
+`
+
+const VolumeUIWrapper = Styled.div`
+  ${flexCSS}
+  position: relative;
+  width: auto;
+
+  &:hover ${VolumeBarWrapper}{
+    width: 52px;
+    visibility: visible;
+  }
+  &:hover ${VolumeBar}{ width: 50px;}
+  &:hover ${VolumeBarTrack}{ visibility: visible;}
+  &:hover ${VolumeBarSlider}{
+    cursor: pointer;
+    width: 50px;
+    visibility: visible;
+  }
+`
+
+const Wrapper = Styled.div`
+  ${flexCSS}
+  justify-content: space-between;
+  margin: 2px 0;
+  width: 100%;
+  color: white;
+
+  & > section:first-child > div { margin: 0 5px; }
+  & > section:last-child {margin-right: 6px; }
+  & i:hover ${IconMessageVert} { display: block;}
+`
+
+export default DefaultVideoUI;

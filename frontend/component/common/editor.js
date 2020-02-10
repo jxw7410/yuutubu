@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
+import Styled from 'styled-components';
 
 function Editor({ editorRef, onClick, onFocus, onBlur, onInput, isDisabled = false }) {
   return (
-    <div
+    <Div
       ref={editorRef}
       onClick={onClick}
       onFocus={onFocus}
@@ -23,6 +24,15 @@ function Editor({ editorRef, onClick, onFocus, onBlur, onInput, isDisabled = fal
     />
   )
 }
+
+
+const Div = Styled.div`
+  & a{
+    color: royalblue;
+    font-weight: 500;
+    text-decoration: none;
+  }
+`
 
 
 export default memo(Editor);

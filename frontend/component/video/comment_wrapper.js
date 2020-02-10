@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 import CommentBox from './comment_box_container';
 
-const CommentsWrapper = props => {
+function CommentsWrapper(props){
   const [isFetching, setIsFetching] = useInfiniteScrolling(fetchPosts);
   const offsetRef = React.useRef(0);
 
@@ -12,8 +12,10 @@ const CommentsWrapper = props => {
     return () => props.clearPosts();
   }, [])
 
-  useEffect(() => {
-    fetchPosts();
+  useEffect(() => { 
+    offsetRef.current = 0;
+    props.clearPosts()
+      .then(() => fetchPosts())
   }, [props.video.id])
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Styled from 'styled-components';
-import { CenterFlex } from '../common/flex_styles';
+import { centerFlex } from '../common/flex_styles';
 import { unsubscribe } from '../../actions/subscribe/subscribe_action'
 import { closeModal } from '../../actions/modal/modal_action';
 
@@ -50,7 +50,7 @@ const UnsubscribeContainer = Styled.div`
 `
 
 const MessageBox = Styled.span`
-  ${CenterFlex};
+  ${centerFlex};
   border-bottom: 1px solid gray;
 `
 
@@ -62,7 +62,7 @@ const ButtonContainer = Styled.div`
   height: 50px;
 `
 const Button = Styled.div`
-  ${CenterFlex};
+  ${centerFlex};
   border-radius: 5px
   font-weight: 500;
   height: 40px;

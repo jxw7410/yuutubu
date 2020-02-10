@@ -1,19 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { memo } from 'react';
 import Styled from 'styled-components';
+import { connect } from 'react-redux';
 import { removeVideoPlayer } from '../../actions/video_player/video_player';
 import VideoThumbnail from '../thumbnail/video_thumbnail';
 import { withRouter } from 'react-router-dom';
 
 
-const ListOfRecommended = props => {
-  function redirectToVideo(videoId){
-    return e => {
-      e.preventDefault();
-      props.removeVideoPlayer();
-      props.history.push(`/video/${videoId}`)
-    }
+function ListOfRecommended(props) {
+  const redirectToVideo = videoId => e => {
+    e.preventDefault();
+    props.removeVideoPlayer();
+    props.history.push(`/video/${videoId}`)
   }
+
 
   const previews = props.otherVideos.map(video => {
     if (video.id !== props.video.id)
@@ -23,14 +22,14 @@ const ListOfRecommended = props => {
         type='VIDEOPAGE'
         handleClick={redirectToVideo(video.id)}
       />
-    });
+  });
 
   return (
     <Wrapper width={props.width}>
       <Top>
         Up Next
       </Top>
-      { previews }
+      {previews}
     </Wrapper>
   )
 }
@@ -99,4 +98,4 @@ const mdp = dispatch => ({
   removeVideoPlayer: () => dispatch(removeVideoPlayer()),
 })
 
-export default withRouter(connect(msp, mdp)(ListOfRecommended)); 
+export default withRouter(connect(msp, mdp)(memo(ListOfRecommended))); 

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import Styled from 'styled-components';
-import {CenterFlex} from '../common/flex_styles';
+import {centerFlex} from '../common/flex_styles';
 
 function SelectedVideoUI({videoState, handleVideoUI}){
   let iconType;
@@ -24,7 +24,7 @@ function SelectedVideoUI({videoState, handleVideoUI}){
 }
 
 const Wrapper = Styled.div`
-  ${CenterFlex}
+  ${centerFlex}
   width: 100%;
   height: 100px;
   position: absolute;

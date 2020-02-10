@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Styled from 'styled-components';
-import { CenterFlex } from '../common/flex_styles';
+import { centerFlex } from '../common/flex_styles';
 import { closeModal } from '../../actions/modal/modal_action';
 
 const UploadModal = props => {
@@ -38,16 +38,16 @@ const UploadModalContainer = Styled.div`
 `
 
 const MessageBox = Styled.span`
-  ${CenterFlex};
+  ${centerFlex};
   border-bottom: 1px solid gray;
 `
 
 const ButtonContainer = Styled.section`
-  ${CenterFlex}
+  ${centerFlex}
 `
 
 const Button = Styled.button`
-  ${CenterFlex}
+  ${centerFlex}
   font-size: 18px;
   height: 40px;
   width: 90px;

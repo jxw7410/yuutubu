@@ -46,7 +46,9 @@ const MiniStyle = css`
   bottom: 0px;
   right: 15px;
   width: 400px;
-  height: 290px;
+  min-height: 0px;
+  max-height: 290px;
+  padding-top: 0px;
   z-index: 3000;
   box-shadow: 0px 19px 10px -1px rgba(100,100,100, 0.5);
   background: white;
@@ -63,7 +65,7 @@ const VideoContentCSS = css`
   grid-template-columns: auto 402px;
   grid-column-gap: 24px;
   position: relative;
-  width: 90%;
+  width: calc(100% - 48px);
   margin: auto; 
   margin-top: 0px;
   @media ( max-width: 1000px ) { grid-template-columns: auto; }
