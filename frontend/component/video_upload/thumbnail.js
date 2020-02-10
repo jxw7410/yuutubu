@@ -3,7 +3,7 @@ import ThumbnailUploadButton from './thumbnail_upload_button';
 import { withUploadPageContext } from './upload_page_context';
 import Styled from 'styled-components';
 import { InfoWrapper, SpinnerContainer, MediaBox } from './styles';
-import { CenterFlex } from '../common/flex_styles';
+import { centerFlex } from '../common/flex_styles';
 
 const Thumbnail = props => {
   return (
@@ -34,7 +34,7 @@ const Wrapper = Styled.div`
 `
 
 const ImgWrapper = Styled.div`
-    ${CenterFlex};
+    ${centerFlex};
     ${MediaBox};
     background-size: 100%;
     border: 1px solid lightgray;

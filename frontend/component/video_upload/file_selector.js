@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import Styled from 'styled-components';
-import { CenterFlex } from '../common/flex_styles';
+import { centerFlex } from '../common/flex_styles';
 
 function FileSelector({handleFileUpload}){
   const preventDefault = e => e.preventDefault();
@@ -29,7 +29,7 @@ function FileSelector({handleFileUpload}){
 
 
 const Wrapper = Styled.div` 
-  ${CenterFlex}
+  ${centerFlex}
   position: relative;
   top: 70px;
   height: 390px;

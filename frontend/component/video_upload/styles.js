@@ -1,5 +1,5 @@
 import Styled, { css } from 'styled-components';
-import { CenterFlex } from '../common/flex_styles';
+import { centerFlex } from '../common/flex_styles';
 
 
 export const MediaBox = css`
@@ -18,7 +18,7 @@ export const InfoWrapper = Styled.div`
 `
 
 export const SpinnerContainer = Styled.div`
-  ${CenterFlex};
+  ${centerFlex};
   ${MediaBox};
   background: lightgray;
 

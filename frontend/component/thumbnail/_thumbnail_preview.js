@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const ThumbnailPreviewVideo = props => {
-  const videoRef = React.useRef(null);
+  const videoRef = useRef();
+  const [play, setPlay] = useState(false);
 
+  useEffect(() => {
+    if (play) {
+      videoRef.current.play()
+        .then(() => setPlay(false), () => setPlay(false))
+    }
+  }, [play])
 
-  React.useEffect(() => {
-    if (props.playVid){
+  useEffect(() => {
+    if (props.playVid) {
       videoRef.current.currentTime = 0;
-      // to block the pause() interrupting play() error msg
-      try { videoRef.current.play(); } catch {} 
+      setPlay(true);
     } else {
-      videoRef.current.pause();
+      if (play) setTimeout(() => videoRef.current.pause(), 10);
+      else videoRef.current.pause();
     }
   }, [props.playVid])
 
-  async function handleTimeUpdate(e) {
+  function handleTimeUpdate(e) {
     e.preventDefault();
-    if (videoRef.current.currentTime > 3){
-        await videoRef.current.pause();
-        props.stopRenderVideo();
+    if (videoRef.current.currentTime > 5) {
+      videoRef.current.pause();
+      props.stopRenderVideo();
     }
   }
+
   /*
     Key is required because React won't rerender if it doesn't know
     the video's source has changed. It only knows if there is a key change.

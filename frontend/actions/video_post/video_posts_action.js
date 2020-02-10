@@ -1,34 +1,26 @@
 import * as VideoPostApi from '../../util/video_posts_api';
-
-
 export const RECEIVE_DELETE_POST = 'RECEIVE_DELETE_POST';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const REMOVE_POSTS = 'REMOVE_POSTS';
 
 
-const receiveDeletePost = post => {
-  return {
+const receiveDeletePost = post => ({
     type: RECEIVE_DELETE_POST,
     post
-  }
-}
+})
 
-const receivePost = post => {
-  return {
+const receivePost = post => ({
     type: RECEIVE_POST,
     post
-  }
-}
+})
 
-const receivePosts = response => {
-  return {
+const receivePosts = response => ({
     type: RECEIVE_POSTS,
     response
-  }
-}
+})
 
-export const removePosts = {
+const removePosts = {
   type: REMOVE_POSTS
 }
 
@@ -48,3 +40,9 @@ export const requestPosts = params => dispatch => {
     .then(posts => dispatch(receivePosts(posts)));
 }
 
+export const requestRemovePost = () => dispatch => (
+  new Promise( resolve => {
+    dispatch(removePosts);
+    resolve();
+  })
+)

@@ -16,7 +16,7 @@ function UploadForm(props) {
     title: "",
     description: ""
   });
-  const disabled = isUploading || !(formInputs.title.length && formInputs.description.length);
+  const disabled = isUploading || !(formInputs.title.length && formInputs.description.length && props.videoAttr.thumbnail);
 
   useEffect(() => {
     if (isUploading) uploadVideo();

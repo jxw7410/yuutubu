@@ -109,6 +109,12 @@ const Description = Styled.div`
   overflow: hidden;
   line-height: 18px;
   width: 95%;
+
+  & a{
+    color: royalblue;
+    font-weight: 500;
+    text-decoration: none;
+  }
 `
 
 const ReadMore = Styled.div`

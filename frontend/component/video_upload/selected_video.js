@@ -115,7 +115,7 @@ const VideoWrapper = Styled.div`
 
   & > video {
     ${MediaBox}
-    object-fit: cover;
+    object-fit: contain;
     z-index: 400;
   }
 `;

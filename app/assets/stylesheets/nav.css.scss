@@ -463,6 +463,10 @@ $defaultBlue: rgb(39, 97, 204);
     transition: opacity 0.5s ease-in;
 }
 
+.dropdown-container{
+    position: relative;
+}
+
 .dropdown-container:focus{
     outline:none;
 }

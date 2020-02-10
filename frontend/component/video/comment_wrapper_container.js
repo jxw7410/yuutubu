@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { requestPosts, removePosts } from '../../actions/video_post/video_posts_action';
+import { requestPosts, requestRemovePost } from '../../actions/video_post/video_posts_action';
 import CommentWrapper from './comment_wrapper';
 
 const msp = state => ({
@@ -10,7 +10,7 @@ const msp = state => ({
 
 const mdp = dispatch => ({
   fetchPosts: params => dispatch(requestPosts(params)),
-  clearPosts: () => dispatch(removePosts)
+  clearPosts: () => dispatch(requestRemovePost())
 })
 
 export default connect(msp, mdp)(CommentWrapper);

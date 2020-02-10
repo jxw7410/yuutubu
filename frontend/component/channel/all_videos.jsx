@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import VideoThumbnail from '../thumbnail/video_thumbnail';
+import VideoThumbnail from '../thumbnail/video_thumbnail_container';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
 
 

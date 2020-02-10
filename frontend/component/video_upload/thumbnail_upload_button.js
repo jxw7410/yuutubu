@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Styled from 'styled-components';
 import { withUploadPageContext } from './upload_page_context';
 import { readFile } from './helpers';
-import { CenterFlex } from '../common/flex_styles';
+import { centerFlex } from '../common/flex_styles';
 
 function ThumbnailUploadButton(props) {
   const isEnabled = !props.isUploading && props.videoAttr.thumbnail;
@@ -50,7 +50,7 @@ const Wrapper = Styled.div`
 
 
 const UploadInput = Styled.label`
-    ${CenterFlex};
+    ${centerFlex};
     height: inherit;
     width: inherit;
     color: ${props => props.isEnabled ? 'gray' : 'lightgray'};

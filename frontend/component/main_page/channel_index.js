@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import VideoThumbnail from '../thumbnail/video_thumbnail';
+import VideoThumbnail from '../thumbnail/video_thumbnail_container';
 import SubscribeButton from '../subscribe/subscribe_button';
 
 
