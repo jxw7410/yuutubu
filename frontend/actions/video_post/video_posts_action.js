@@ -37,7 +37,15 @@ export const requestDeletePost = post_id => dispatch => {
 
 export const requestPosts = params => dispatch => {
   return VideoPostApi.requestVideoPosts(params)
-    .then(posts => dispatch(receivePosts(posts)));
+    .then(posts => dispatch(receivePosts(posts)))
+    .fail(err => {
+      switch(err.status){
+        case 404:
+          console.log('No posts');
+          break;
+        default: break;
+      }
+    });
 }
 
 export const requestRemovePost = () => dispatch => (
