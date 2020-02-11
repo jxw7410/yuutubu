@@ -21,7 +21,6 @@ const VideoPage = props => {
 
   useEffect(() => {
     if (props.videoPlayer.video.id != props.match.params.video_id) {
-      console.log(props.video);
       props.requestSetVideo(props.video)
       props.fetchChannel(props.video.channel_id);
       props.videoLikeDislike(props.video.like_dislike)
@@ -36,7 +35,7 @@ const VideoPage = props => {
 
   function fetchVideo(videoId){
     return props.fetchVideo(videoId)
-      .then(() => setFetched(!fetched))
+      .then(() => setTimeout( () => setFetched(!fetched), 100));
   }
 
   function updatePreviousPath(){

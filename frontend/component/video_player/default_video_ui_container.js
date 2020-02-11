@@ -1,7 +1,7 @@
 import DefaultVideoUI from './default_video_ui';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { requestMiniPlayer } from '../../actions/video_player/video_player';
+import { requestMiniPlayer } from '../../actions/video_player/video_player_action';
 import { withVideoPlayerContext } from './video_player_context';
 
 const msp = state => ({

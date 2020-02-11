@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
-import { removeVideoPlayer } from '../../actions/video_player/video_player';
+import { removeVideoPlayer } from '../../actions/video_player/video_player_action';
 import VideoThumbnail from '../thumbnail/video_thumbnail_container';
 import { withRouter } from 'react-router-dom';
 

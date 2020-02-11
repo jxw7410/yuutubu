@@ -2,7 +2,7 @@ import VideoPage from './video_page';
 import { connect } from 'react-redux'
 import { fetchChannel } from '../../actions/channel/channel_action'
 import { sideBarTwo } from '../../actions/nav/nav_bar_action';
-import { requestDefaultPlayer, requestSetVideo } from '../../actions/video_player/video_player';
+import { requestDefaultPlayer, requestSetVideo } from '../../actions/video_player/video_player_action';
 import { fetchVideo, fetchRecommendedVideos } from '../../actions/video/video_action';
 import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 import { videoLikeDislike } from '../../actions/like/like_dislike_action';

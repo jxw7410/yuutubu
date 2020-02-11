@@ -5,7 +5,7 @@ import VideoPage from './video_page_container';
 import ListOfRecommended from './list_of_recommended';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { requestDefaultPlayer } from '../../actions/video_player/video_player';
+import { requestDefaultPlayer } from '../../actions/video_player/video_player_action';
 
 /*
   This component right here renders both the video page routes, and the video player

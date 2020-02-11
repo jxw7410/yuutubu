@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { sideBarTwo } from '../../actions/nav/nav_bar_action'
-import { removeVideoPlayer } from '../../actions/video_player/video_player';
+import { removeVideoPlayer } from '../../actions/video_player/video_player_action';
 import UploadVideo from './upload_page';
 import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 

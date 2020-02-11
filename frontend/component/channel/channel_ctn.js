@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { sideBarOne } from '../../actions/nav/nav_bar_action';
-import { removeVideoPlayer } from '../../actions/video_player/video_player';
+import { removeVideoPlayer } from '../../actions/video_player/video_player_action';
 import Channel from './channel';
 import { fetchChannel } from '../../actions/channel/channel_action';
 import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';

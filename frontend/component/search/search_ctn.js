@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Search from './search';
 import { updateSearchHistory, requestSearchVideos } from '../../actions/search/search_action';
 import { clearChannelVideos } from '../../actions/video/video_action';
-import { removeVideoPlayer } from '../../actions/video_player/video_player';
+import { removeVideoPlayer } from '../../actions/video_player/video_player_action';
 import { sideBarOne } from '../../actions/nav/nav_bar_action';
 import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import MainPage from './main_page';
 import { fetchChannels, clearChannels } from '../../actions/channel/channel_action';
 import { sideBarOne } from '../../actions/nav/nav_bar_action';
-import { removeVideoPlayer } from '../../actions/video_player/video_player';
+import { removeVideoPlayer } from '../../actions/video_player/video_player_action';
 import { requestUpdatePrevPath } from '../../actions/history/prev_path_action';
 
 const msp = state => ({
