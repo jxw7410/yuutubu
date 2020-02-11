@@ -34,7 +34,11 @@ export const fetchChannelVideos = (channel_id, limit, offset) => dispatch => {
   return VideoAPI.requestChannelVideos(channel_id, limit, offset)
     .then(videos => {
       dispatch(receiveChannelVideos(videos));
-    });
+    })
+    .fail( err => {
+      console.log(err);
+    })
+    ;
 }
 
 //On video page

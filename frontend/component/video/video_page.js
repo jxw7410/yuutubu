@@ -12,14 +12,16 @@ const VideoPage = props => {
   // If URL changes, then fetch the video required
   useEffect(() => {
     const videoId = props.match.params.video_id;
-    props.fetchVideo(videoId).then(() => setFetched(!fetched))
+    if (!videoId) return;
+    fetchVideo(videoId);
     props.fetchRecommendedVideos(videoId);
-    if (isMounted) props.updatePrevPath(props.match.path);
-    else setIsMounted(true);
+    updatePreviousPath();
+
   }, [props.match.params.video_id])
 
   useEffect(() => {
     if (props.videoPlayer.video.id != props.match.params.video_id) {
+      console.log(props.video);
       props.requestSetVideo(props.video)
       props.fetchChannel(props.video.channel_id);
       props.videoLikeDislike(props.video.like_dislike)
@@ -31,6 +33,16 @@ const VideoPage = props => {
     props.requestDefaultPlayer();
     return () => props.updatePrevPath(props.match.path);
   }, [])
+
+  function fetchVideo(videoId){
+    return props.fetchVideo(videoId)
+      .then(() => setFetched(!fetched))
+  }
+
+  function updatePreviousPath(){
+    if (isMounted) props.updatePrevPath(props.match.path);
+    else setIsMounted(true);
+  }
 
 
   return (
