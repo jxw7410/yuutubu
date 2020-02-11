@@ -1,3 +1,5 @@
+import { requestVideo } from '../../util/video_api';
+
 export const REMOVE_VIDEO_PLAYER = "REMOVE_VIDEO_PLAYER";
 export const REQUEST_MINI_PLAYER = "REQUEST_MINI_PLAYER";
 export const REQUEST_THEATER_PLAYER = 'REQUEST_THEATHER_PLAYER';
@@ -34,3 +36,8 @@ export const requestSetVideo = video => {
     video
   }
 }
+
+export const fetchVideo = videoId => dispatch => {
+  return requestVideo(videoId)
+    .then(video => dispatch(requestSetVideo(video)));
+};

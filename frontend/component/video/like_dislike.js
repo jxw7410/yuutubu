@@ -18,9 +18,7 @@ const LikeDislike = props => {
   }, [props.video.id])
 
   React.useEffect(() => {
-    if (state.isFetching) {
-      updateLikeDislike();
-    }
+    if (state.isFetching) updateLikeDislike();
   }, [state.isFetching]);
 
 

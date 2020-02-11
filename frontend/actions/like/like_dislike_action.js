@@ -45,8 +45,3 @@ export const requestClearLikeDislike = () => dispatch => {
   dispatch(clearLikeDislike());
 }
 
-// This does not make a ajax request or whatever, this simply updates
-// like and dislike on the video page
-export const videoLikeDislike = video_like_dislike => dispatch => {
-  dispatch(receiveVideoLikeDislike(video_like_dislike))
-}

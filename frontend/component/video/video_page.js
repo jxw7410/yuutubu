@@ -13,30 +13,24 @@ const VideoPage = props => {
   useEffect(() => {
     const videoId = props.match.params.video_id;
     if (!videoId) return;
-    fetchVideo(videoId);
+
+    props.fetchVideo(videoId);
     props.fetchRecommendedVideos(videoId);
     updatePreviousPath();
 
   }, [props.match.params.video_id])
 
   useEffect(() => {
-    if (props.videoPlayer.video.id != props.match.params.video_id) {
-      props.requestSetVideo(props.video)
-      props.fetchChannel(props.video.channel_id);
-      props.videoLikeDislike(props.video.like_dislike)
+    if(props.videoPlayer.video.id) {
+      props.fetchChannel(props.videoPlayer.video.channel_id);
     }
-  }, [fetched])
+  },[props.videoPlayer.video.id])
 
   useEffect(() => {
     props.sideBarTwo();
     props.requestDefaultPlayer();
     return () => props.updatePrevPath(props.match.path);
   }, [])
-
-  function fetchVideo(videoId){
-    return props.fetchVideo(videoId)
-      .then(() => setTimeout( () => setFetched(!fetched), 100));
-  }
 
   function updatePreviousPath(){
     if (isMounted) props.updatePrevPath(props.match.path);
