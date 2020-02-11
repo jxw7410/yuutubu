@@ -7,7 +7,7 @@ function VideoPlayerRenderer(props) {
     return (
         <>
             {
-                props.videoPlayer.video.id ?
+                props.videoPlayer.video.videoUrl ?
                     <VideoPlayer
                         key={props.videoPlayer.video.id}
                         {...props}
