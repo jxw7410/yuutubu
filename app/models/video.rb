@@ -112,5 +112,5 @@ class Video < ApplicationRecord
   private
 
   # Hardcoded video limit
-  VIDEO_LIMIT = 12
+  VIDEO_LIMIT = 8
 end

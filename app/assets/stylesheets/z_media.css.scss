@@ -1,27 +1,10 @@
 @media screen and (max-width: 1530px){
-
-    .channel-list{
-        width: 1070px;
-    }
-    
-    .channel-index--hdr{
-        width: 1070px;
-    }
-
-    .recommended-video-container{
-        display:flex;
-        flex-wrap:wrap;
-        width: 1070px;
-    }
-
     .channel-videos-list{
         grid-template-columns: repeat(5, 210px);
     }
 }
 
 @media screen and (max-width: 1502px){
-
-
     .channel-header-wrap{
         width: 1000px;
     }
@@ -34,20 +17,9 @@
 
 
 @media screen and (max-width: 1305px){
-
-    .channel-list{
-        width: 856px;
-    }
-
-    .channel-index--hdr{
-        width: 856px;
-    }
-
-     .recommended-video-container{
-        display:flex;
-        flex-wrap:wrap;
-        width: 856px;
-    }
+    .main-content--container{
+        grid-template-columns: 70px auto;
+     }
 
     .search-bar--input {
         width: 541px;
@@ -94,20 +66,6 @@
 
     .channel-header--nav-fixed{
         width: calc(100% - 70px);
-    }
-
-    .channel-list{
-        width: 642px;
-    }
-
-    .channel-index--hdr{
-        width: 642px;
-    }
-
-    .recommended-video-container{
-        display:flex;
-        flex-wrap:wrap;
-        width: 642px;
     }
 
 }
@@ -160,25 +118,6 @@
         width: 0px;
     }
 
-}
-
-
-
-@media screen and (max-width: 720px){
-
-    .channel-list{
-        width: 428px;
-    }
-
-    .channel-index--hdr{
-        width: 428px;
-    }
-
-    .recommended-video-container{
-        display:flex;
-        flex-wrap:wrap;
-        width: 428px;
-    }
 }
 
 @media screen and (max-width: 660px){

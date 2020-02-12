@@ -46,6 +46,7 @@ const MiniStyle = css`
   bottom: 0px;
   right: 15px;
   width: 400px;
+  height: auto;
   min-height: 0px;
   max-height: 290px;
   padding-top: 0px;
@@ -81,8 +82,10 @@ const Wrapper = Styled.div`
   display: ${props => props.display ? 'flex' : 'none'}
   width: 100vw;
   min-height: 100vh;
+  height: max-content;
   padding-top: 85px;
   align-items: center;
+  background: rgb(249,249,249);
   ${props => props.isMini ? `${MiniStyle}` : ''}
 `
 

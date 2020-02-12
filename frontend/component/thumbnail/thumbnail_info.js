@@ -69,8 +69,13 @@ export const SearchPageThumbnailInfo = React.memo(props =>
           {props.video.created_at}
         </span>
       </section>
-      <section>
+      <section style={{
+        lineHeight: '16px',
+        overflowWrap: "break-word",
+        textOverflow: "ellipsis",
+        }}>
         <span
+          contentEditable={false}
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(props.video.description)
           }}

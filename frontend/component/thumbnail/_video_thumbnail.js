@@ -6,8 +6,6 @@ import ThumbnailPreviewVideo from './_thumbnail_preview';
 import { VideoPageThumbnailInfo, IndexPageThumbnailInfo, SearchPageThumbnailInfo } from './thumbnail_info';
 import { convertDurationToTime } from '../../util/selectors';
 
-
-
 const VideoThumbnail = props => {
   const [state, setState] = React.useState({
     renderVideo: false,

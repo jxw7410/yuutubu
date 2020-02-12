@@ -1,4 +1,6 @@
 import React from 'react';
+import Styled from 'styled-components';
+import {ListContainer} from './styles';
 import { fetchRecommendedVideos } from '../../actions/video/video_action';
 import { connect } from 'react-redux';
 import VideoThumbnail from '../thumbnail/video_thumbnail_container';
@@ -18,13 +20,8 @@ const Recommendation = props => {
 
   return (
     <div>
-      <div className='margin-24' style={{ fontWeight: 'bold' }}>
-        Recommended
-      </div>
-      <ul className={[
-        'recommended-video-container',
-        'margin-24'
-      ].join(' ')}>
+      <Header> Recommended </Header>
+      <ListContainer>
         {
           props.videos.map(video =>
             <VideoThumbnail
@@ -34,16 +31,22 @@ const Recommendation = props => {
               channel={{ id: video.channel_id, name: video.channelName }} />
           )
         }
-      </ul>
+      </ListContainer>
     </div>
   )
 }
+
+const Header = Styled.h1`
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 24px 8px 0px 8px;
+`
 
 
 const msp = state => {
   const videos = Object.values(state.entities.videos)
     .sort((vid1, vid2) => vid2.views - vid1.views)
-    .slice(0, 12);
+    .slice(0, 8);
 
   return {
     videos

@@ -44,9 +44,15 @@ const Wrapper = Styled.ul`
     justify-content: flex-start;
     flex-direction: row;
     width: 100%;
+    margin: 0;
   }
 
-  & .thumbnail-content, 
+  & .thumbnail-content {
+    min-height: 95px;
+    min-width: 170px;
+  }
+
+  .thumbnail-content,
   & .thumbnail-preview, 
   & .thumbnail-preview-video, 
   & .thumbnail-preview-active {

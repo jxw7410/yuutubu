@@ -4,6 +4,7 @@
     position: absolute;
     z-index: 103;
     margin-top: 56px;
+    background: rgb(249,249,249);
     height: fit-content;
 }
 
@@ -11,32 +12,15 @@
     grid-template-columns: 240px auto;
 }
 
-
 .main-content{
     grid-column: 2 / 3;
-    background: rgb(250,250,250);
+    background: rgb(249,249,249);
 }
 
 
 .show-more-inactive{
     height: 400px;
     overflow: hidden;
-}
-
-
-.recommended-video-container{
-    display:flex;
-    flex-wrap:wrap;
-    width: 1284px;
-}
-
-.recommended-video-container .thumbnails{
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    width: 210px;
-    margin-right: 4px;
-    margin-bottom: 24px;
 }
 
 #show-more-button{
@@ -52,7 +36,7 @@
 }
 
 .channel-list{
-    width: 1284px;
+    width: 100%;
     padding-top: 10px;
     position: relative;
     overflow: hidden;
@@ -60,14 +44,15 @@
 
 
 .channel-index{
-    height: 295px;
-    border-top: 1px solid rgb(225, 225, 255);
     display:grid;
     grid-template-rows: 70px auto;
 }
 
 .channel-index--hdr{
-    grid-row: 1 / 2;
+    width: calc(100%);
+    & > * {
+        margin: 0 16px; 
+    }
 }
 
 .channel-index--link{
@@ -98,9 +83,9 @@
 .thumbnails {
     display: flex;
     flex-direction: column;
-    height: auto;
     width: 210px;
-    margin-right: 4px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .thumbnails > div:last-child{

@@ -43,16 +43,18 @@ const Search = props => {
         props.sideNav.toggled ? "main-content--toggled" : ""
       ].join(" ")}>
       <div className='flex-horizontal--style-2 src-vid-lst-ctn'>
-        <ul className='flex-vertical--style-4 src-vid-lst'>
-          {
-            props.videos.map(video =>
-              <VideoThumbnail
-                key={video.id}
-                video={video}
-                type='SEARCHPAGE' />
-            )
-          }
-        </ul>
+        <div className='search-flex-box'>
+          <ul className='flex-vertical--style-4 src-vid-lst'>
+            {
+              props.videos.map(video =>
+                <VideoThumbnail
+                  key={video.id}
+                  video={video}
+                  type='SEARCHPAGE' />
+              )
+            }
+          </ul>
+        </div>
       </div>
     </div>
   )

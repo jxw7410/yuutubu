@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestDeletePost } from '../../actions/video_post/video_posts_action'
 import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
 import { centerFlex } from '../common/flex_styles';
 
 const CommentDeleteButton = props => {
@@ -27,21 +26,19 @@ const CommentDeleteButton = props => {
     <>
       {
         props.isOwner ?
-          <ThemeProvider theme={{ background: 'white' }}>
-            <IconButton
-              onClick={handleOpenDropdown(!openDropdown)}
-              onBlur={() => setOpenDropdown(false)}
-            >
-              <DropDown
-                onClick={e => e.stopPropagation()}
-                style={openDropdown ? null : { display: 'none' }}>
-                <DropDownItem
-                  onClick={handleDelete(props.post.id)}>
-                  Delete
+          <IconButton
+            onClick={handleOpenDropdown(!openDropdown)}
+            onBlur={() => setOpenDropdown(false)}
+          >
+            <DropDown
+              onClick={e => e.stopPropagation()}
+              style={openDropdown ? null : { display: 'none' }}>
+              <DropDownItem
+                onClick={handleDelete(props.post.id)}>
+                Delete
               </DropDownItem>
-              </DropDown>
-            </IconButton>
-          </ThemeProvider>
+            </DropDown>
+          </IconButton>
           : null
       }
     </>
@@ -62,7 +59,7 @@ const IconButton = styled(EllipsisV)`
   position: relative;
   text-align: center;
   width: 30px;
-  background: ${props => props.theme.background || 'white'};
+  background: rgb(249,249,249);
 
   &:focus{
     outline: none;

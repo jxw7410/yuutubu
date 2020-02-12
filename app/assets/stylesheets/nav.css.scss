@@ -219,22 +219,22 @@ $defaultBlue: rgb(39, 97, 204);
 .main-side-nav--container{
     width: 240px;
     position: fixed;
-    z-index: 105;
+    z-index: 100001;
     height: 100%;
     overflow-y: hidden;
     left: 0;
-    margin-top: 56px;
+    top: 56px;
 }
 
 
 .main-side-nav{
-    background:rgb(245, 245, 245);
     width: 100%;
     height: inherit;
     overflow-y:hidden;
     position: absolute;
     z-index: 101;
-}
+    background: white;
+}   
 
 
 .main-side-nav::-webkit-scrollbar{
@@ -314,7 +314,7 @@ $defaultBlue: rgb(39, 97, 204);
 }
 
 .main-side-nav--item{
-    background: rgb(220, 220, 220)
+    background: white;
 }
 
 .main-side-nav--item i{
@@ -329,12 +329,12 @@ $defaultBlue: rgb(39, 97, 204);
 
 #sub-side-nav{
     height: 100%;
-    background: rgb(245, 245, 245);
+    background: white;
     width: 70px;
 }
 
 .sub-side-nav--content{
-    background: rgb(245, 245, 245);
+    background: white;
     padding-top: 7px;
 }
 
@@ -359,7 +359,7 @@ $defaultBlue: rgb(39, 97, 204);
     width: 70px;
     height: 70px;
     font-size: 10px;
-    background: rgb(245, 245, 245);
+    background: white;
     color: rgb(144,144,144);
 }
 

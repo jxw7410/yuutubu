@@ -1,6 +1,6 @@
 .channel-main-content--grid{
     display: grid;
-    grid-template-columns: 70px auto;
+    grid-template-columns: 70px max-content;
     position: absolute;
 }
 
@@ -13,12 +13,14 @@
     grid-column: 2 / 3;
     width: 100%;
     min-height: 1045px;
+    background: rgb(241,241,241);
 }
 
 .channel-main-content--wrap{
     grid-template-rows: 55px 95px 45px auto;
     display:grid;
     height: 100%;
+    background: rgb(249,249,249);
 }
 
 .channel-header{
@@ -54,7 +56,7 @@
 
 #subscribe-button {
     height: 35px;
-    width: 150px;
+    width: 120px;
     background: rgb(187,38, 26);
     border-radius: 3px;
     color: white;
@@ -102,8 +104,7 @@
     background: rgb(250, 250, 250);
 }
 
-.channel-header--nav-toggled{
-}
+.channel-header--nav-toggled{}
 
 .channel-header--nav-fixed{
     position: fixed;
@@ -144,12 +145,14 @@
     background:rgb(225,225,225);
 }
 
-
 .thumbnail-content {
-    width: 210px;
-    height: 117.5px;
-    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+    width: 100%;
     z-index: 1;
 }
 
@@ -167,33 +170,28 @@
 }
 
 .thumbnail-preview {
-    width: 210px;
-    height: 117.5px;
+    width: 100%;
     position: relative;
-    visibility: hidden;
-}
-
-
-.loaded{
     visibility: visible;
 }
 
 
 .thumbnail-preview-active{
-    width: 210px;
-    height: 117.5px;
+    width: 100%;
     opacity: 1;
-    position: absolute;
     z-index: 1;
+    position: absolute;
     object-fit: contain;
 }
 
 .thumbnail-preview--wrapper{
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     z-index: 2;
     opacity: 1;
     transition: opacity 0.4s linear;
-    height: inherit;
 }
 
 
@@ -201,8 +199,6 @@
     opacity: 0;
     transition: opacity 0.5s linear;
 }
-
-
 
 @keyframes color-shift{
     0% {background: rgb(230,230,230)}
@@ -239,7 +235,7 @@
 
 
 .index-page-video-title{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     padding-bottom: 10px;
 }
@@ -253,7 +249,7 @@
 }
 
 .ch-msc{
-    font-size: 13px;
+    font-size: 14px;
     height: 30px;
     color: rgb(107, 107, 107);
 }
@@ -262,6 +258,7 @@
 .channel-video--container-lower{
     grid-row: 4/5;
     width: 100%;
+    background: rgb(241,241,241);
 }
 
 .channel-video--nav{

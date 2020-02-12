@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { isEmailValid } from './../../util/selectors';
+import { isEmailValid } from '../../util/selectors';
 import { AuthInputWidget, DemoUserLogin } from './utils';
 
 const LoginFormItem = props => {

@@ -5,19 +5,18 @@ import MainSideNavContainer from './main_side_nav_ctn';
 import TypeTwoNavBar from './type_two_nav_bar';
 
 const MainNav = props => {
-  const [inverseNavBar, setInverseNavBar] = React.useState(false);
-  const pixelLimit = 1090;
+  const [isTypeTwoNavBar, setTypeTwoNavBar] = React.useState(false);
+  const pixelLimit = 1305;
 
   React.useEffect(() => {
     if (props.navBar.type === 'TYPETWO' && !props.navBar.toggled)
       props.toggleSideBar();
     else if (props.navBar.type === 'TYPEONE' && !props.navBar.toggled)
       props.toggleSideBar();
-
   }, [props.navBar.type]);
 
   React.useEffect(() => {
-    if (window.innerWidth < pixelLimit) setInverseNavBar(true);
+    if (window.innerWidth < pixelLimit) setTypeTwoNavBar(true);
     window.addEventListener('resize', resizeHandler());
     return () => {
       window.removeEventListener('resize', resizeHandler());
@@ -36,20 +35,26 @@ const MainNav = props => {
       is persisted through the life time of the component, so
       if we call state, it's always the initial state.
     */
-    let isInverseNavBar = window.innerWidth < pixelLimit;
-    let isNavBarToggled = props.navBar.toggled
-    return () => {
-      if (window.innerWidth < pixelLimit && !isInverseNavBar) {
-        setInverseNavBar(true)
-        isInverseNavBar = true;
+    let _isTypeTwoNavBar = window.innerWidth < pixelLimit;
+    let isNavBarToggled = props.navBar.toggled;
 
+    return () => {
+      if (window.innerWidth < pixelLimit && !_isTypeTwoNavBar) {
+        setTypeTwoNavBar(true)
+        _isTypeTwoNavBar = true;
+        
+        /* 
+          Logical fallacy here, if we toggled the side nav
+          before we resized to a smaller window, this isNavBarToggled has no concept whether or not the 
+          bar has been toggled causing some logic error. Need to fix.
+        */
         if (!isNavBarToggled) {
           props.toggleSideBar();
           isNavBarToggled = true;
         }
-      } else if (window.innerWidth >= pixelLimit && isInverseNavBar) {
-        setInverseNavBar(false);
-        isInverseNavBar = false;
+      } else if (window.innerWidth >= pixelLimit && _isTypeTwoNavBar) {
+        setTypeTwoNavBar(false);
+        _isTypeTwoNavBar = false;
 
         if (!isNavBarToggled) {
           props.toggleSideBar();
@@ -65,7 +70,7 @@ const MainNav = props => {
         return (
           <>
             {
-              inverseNavBar ?
+              isTypeTwoNavBar ?
                 <>
                   <TypeTwoNavBar />
                   <div style={{

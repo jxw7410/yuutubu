@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: ['babel-polyfill', './frontend/yuutubu.jsx'],
+  entry: ['babel-polyfill', './frontend/yuutubu.js'],
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
     filename: 'bundle.js'
