@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Styled from 'styled-components';
 
-function Editor({ editorRef, onClick, onFocus, onBlur, onInput, isDisabled = false }) {
+function Editor({ html, placeholder, editorRef, onClick, onFocus, onBlur, onInput, isDisabled = false }) {
   return (
     <Div
       ref={editorRef}
@@ -17,7 +17,10 @@ function Editor({ editorRef, onClick, onFocus, onBlur, onInput, isDisabled = fal
       aria-multiline="true"
       aria-label="Message"
       dir="auto"
-      placeholder='Add a public comment...'
+      dangerouslySetInnerHTML={{
+        __html: html,
+      }}
+      placeholder={placeholder || 'Add a public comment...'}
       contentEditable={!isDisabled}
       role="textbox"
       tabIndex='0'

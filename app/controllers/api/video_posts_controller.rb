@@ -1,13 +1,8 @@
 class Api::VideoPostsController < ApplicationController
-  before_action :ensure_login, only: [:create, :destroy]
+  before_action :ensure_login, only: [:create, :destroy, :update]
 
   def index
-    @posts = VideoPost.where(video_id: params[:video_id])
-      .includes(:user)
-      .limit(params[:limit])
-      .offset(params[:offset])
-      .order("created_at DESC")
-
+    @posts = VideoPost.index(params[:video_id], params[:limit], params[:offset]);
     if !@posts.empty?
       render :index
     else
@@ -15,16 +10,28 @@ class Api::VideoPostsController < ApplicationController
     end
   end
 
-  def create
-    @post = VideoPost.create(user_id: current_user.id,
-                             video_id: post_params[:video_id],
-                             description: post_params[:description])
+  def index_replies
+    @post = VideoPost.find_by_id(params[:id])
+  end
 
+  def create
+    new_params = post_params.merge(user_id: current_user.id)
+    @post = VideoPost.create(new_params)
     @user = current_user
     if @post
       render :show
     else
       render json: ["Post cannot be created."], status: 422
+    end
+  end
+
+  def update 
+    @post = VideoPost.find_by_id(params[:id]);
+    @user = current_user
+    if @post.update(description: post_params[:description])
+      render :show
+    else 
+      render json: ["Post cannot be updated"], status: 422
     end
   end
 
@@ -40,6 +47,6 @@ class Api::VideoPostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:video_id, :user_id, :description)
+    params.require(:post).permit(:video_id, :description)
   end
 end

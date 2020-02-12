@@ -22,40 +22,48 @@ class User < ApplicationRecord
   has_many :user_channels,
            primary_key: :id,
            foreign_key: :user_id,
-           class_name: :UserChannel
+           class_name: :UserChannel,
+           dependent: :destroy
 
   has_many :subscriptions,
            primary_key: :id,
            foreign_key: :subscriber_id,
-           class_name: :Subscriptions
+           class_name: :Subscriptions,
+           dependent: :destroy
 
   has_many :subscribed,
            through: :subscriptions,
-           source: :channel
+           source: :channel,
+           dependent: :destroy
 
   has_many :video_likes_dislikes,
            primary_key: :id,
            foreign_key: :user_id,
-           class_name: :Like
+           class_name: :Like,
+           dependent: :destroy
 
   has_many :liked_disliked_videos,
            through: :video_likes_dislikes,
            source_type: "Video",
-           source: :likeable
+           source: :likeable,
+           dependent: :destroy
 
   has_many :video_posts,
            primary_key: :id,
            foreign_key: :user_id,
-           class_name: :VideoPost
+           class_name: :VideoPost,
+           dependent: :destroy
 
   has_many :posts_in_video,
            through: :video_posts,
-           source: :video
+           source: :video,
+           dependent: :destroy
 
   has_many :searches,
            primary_key: :id,
            foreign_key: :user_id,
-           class_name: :SearchHistory
+           class_name: :SearchHistory,
+           dependent: :destroy
 
   def self.verify_email(email)
     User.find_by_email(email)

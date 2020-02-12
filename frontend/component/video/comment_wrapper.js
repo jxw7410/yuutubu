@@ -38,15 +38,13 @@ function CommentsWrapper(props){
         Comments
       </Header>
       <CommentFormWrapper>
-        <div style={{ fontSize: '36px' }}>
-          <i className="fas fa-user-circle" />
+        <div>
+          <i style={{ fontSize: '36px', paddingRight: '20px' }} className="fas fa-user-circle" />
         </div>
         <CommentBox />
       </CommentFormWrapper>
       <CommentList>
-        {
-          props.posts.map(post => <Comment key={post.id} post={post} />)
-        }
+        { props.posts.map(post => <Comment key={post.id} post={post} />) }
       </CommentList>
     </Wrapper>
   )
@@ -67,7 +65,7 @@ const Header = Styled.div`
 const CommentFormWrapper = Styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 55px auto;
+  grid-template-columns: min-content auto;
 `
 
 const CommentList = Styled.ul`

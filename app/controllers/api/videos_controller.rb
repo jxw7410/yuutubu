@@ -3,14 +3,10 @@ class Api::VideosController < ApplicationController
   
   def index
     if params.has_key?(:user_channel_id)
-      @videos = Video.find_videos_by_channel(params)
+      @videos = Video.find_videos_by_channel(params[:user_channel_id], params[:limit],  params[:offset])
       render_index
     elsif params.has_key?(:search_query)
-      @videos = Video.query_by_string(
-        params[:search_query].downcase, 
-        params[:limit], 
-        params[:offset]
-      )
+      @videos = Video.query_by_string(params[:search_query], params[:limit],  params[:offset])
       render_index
     else
       render json: ["No parent token"], status: 422
@@ -18,9 +14,7 @@ class Api::VideosController < ApplicationController
   end
 
   def recommend
-    @videos = Video.find_by_video_id(
-      params[:id],
-      login? ? current_user.id : nil)
+    @videos = Video.find_recommend(params[:id], login? ? current_user.id : nil)
     if @videos
       render :index
     else
@@ -38,28 +32,16 @@ class Api::VideosController < ApplicationController
     begin
       Video.create_video(user, video_params)
     rescue
-      DirectUpload.destroy_blobs(
-        video_params[:video_id], 
-        video_params[:thumbnail_id]
-      )
+      DirectUpload.destroy_blobs(video_params[:video_id], video_params[:thumbnail_id])
       render json: ["Upload failed!"], status: 422
     end
   end
 
   def show
-    @video = Video.where(id: params[:id])
-      .includes(:likes)
-      .first
-
+    @video = Video.includes(:likes).find_by_id(params[:id])
     if @video
       @like_dislike = nil
-
-      if login?
-        @like_dislike = @video.likes
-          .where(user_id: current_user.id)
-          .first
-      end
-
+      @like_dislike = @video.likes.find_by_user_id(current_user.id) if login?
       render :show
     else
       render json: ["Video is unavailable"], status: 422

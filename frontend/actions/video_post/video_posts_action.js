@@ -30,6 +30,11 @@ export const requestCreatePost = post => dispatch => {
     .then(post => dispatch(receivePost(post)));
 };
 
+export const requestUpdateComment = post => dispatch => {
+  return VideoPostApi.updateVideoPost(post)
+    .then(post => dispatch(receivePost(post)));
+}
+
 export const requestDeletePost = post_id => dispatch => {
   return VideoPostApi.deleteVideoPost(post_id)
     .then(post => dispatch(receiveDeletePost(post)));

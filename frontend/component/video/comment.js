@@ -1,6 +1,7 @@
 import React, { memo, useRef, useState, useEffect } from 'react';
 import Styled from 'styled-components';
-import CommentDeleteButton from './comment_delete_button';
+import CommentDropdown from './comment_dropdown';
+import CommentBox from './comment_box_container';
 import DOMPurify from 'dompurify';
 
 
@@ -8,16 +9,27 @@ function Comment(props) {
   const contentRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const [canReadMore, setCanReadMore] = useState(false);
+  const [openCommentBox, setOpenCommentBox] = useState(null);
 
 
   useEffect( () => {
     const height = contentRef.current.offsetHeight;
     if (height > 100) setCanReadMore(true);
-  }, [])
+    else setCanReadMore(false);
+  }, [props.post.description])
 
   const handleExpand = e => {
     e.preventDefault();
     setExpanded(!expanded)
+  }
+
+  const handleOpenCommentBox = type => e => {
+    e.preventDefault();
+    setOpenCommentBox(type);
+  }
+
+  const handleCloseCommentBox = e => {
+    setOpenCommentBox(null);
   }
 
   return (
@@ -25,7 +37,7 @@ function Comment(props) {
       <CommentGrid>
         <CommentGridR1>
           <div>
-            <i style={{ fontSize: '32px' }} className='fas fa-user-circle' />
+            <i style={{ fontSize: '36px', paddingRight: '20px' }} className='fas fa-user-circle' />
           </div>
           <div>
             <CommentHeader>
@@ -33,7 +45,10 @@ function Comment(props) {
                 <span>{props.post.user}</span>
                 <span>{props.post.created_at}</span>
               </HeaderMeta>
-              <CommentDeleteButton post={props.post} />
+              <CommentDropdown 
+                openCommentBox={handleOpenCommentBox('EDIT')}
+                post={props.post} 
+              />
             </CommentHeader>
             <CommentContent expanded={expanded}>
               <div ref={contentRef} 
@@ -48,6 +63,24 @@ function Comment(props) {
             >
               { expanded ? 'Read Less' : 'Read More'}
             </CommentExpander>
+            <div style={{paddingBottom: '10px'}}>
+              <span style={{fontSize: '12px'}}>REPLY</span>
+            </div>
+            {
+              openCommentBox ? 
+                <CommentBoxWrapper>
+                  <div style={{ fontSize: '24px' }}>
+                    <i className="fas fa-user-circle" />
+                  </div>
+                  <CommentBox
+                    type={openCommentBox}
+                    cancelCommentBox={handleCloseCommentBox}
+                    description={props.post.description}
+                    postId={props.post.id}
+                    placeholder={openCommentBox === 'EDIT' ? 'Edit your comment' : null}
+                  /> 
+                </CommentBoxWrapper> : null
+            }
           </div>
         </CommentGridR1>
       </CommentGrid>
@@ -57,17 +90,18 @@ function Comment(props) {
 
 const Wrapper = Styled.li`
   margin-bottom: 10px;
+  &:hover i{ display: block !important; }
 `
 
 const CommentGrid = Styled.div`
   min-height: 78px;
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(4, min-content);
 `
 
 const CommentGridR1 = Styled.div`
   display: grid;
-  grid-template-columns: 55px auto;
+  grid-template-columns: min-content auto;
 `
 
 const CommentHeader = Styled.div`
@@ -110,6 +144,12 @@ const CommentExpander = Styled.span`
   &:hover{
     cursor: pointer;
   }
+`
+
+const CommentBoxWrapper = Styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40px auto;
 `
 
 

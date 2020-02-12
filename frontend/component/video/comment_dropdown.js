@@ -5,7 +5,7 @@ import { requestDeletePost } from '../../actions/video_post/video_posts_action'
 import styled from 'styled-components';
 import { centerFlex } from '../common/flex_styles';
 
-const CommentDeleteButton = props => {
+const CommentDropdown = props => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
 
   function handleDelete(postId) {
@@ -20,6 +20,12 @@ const CommentDeleteButton = props => {
       e.currentTarget.focus();
       setOpenDropdown(bool);
     }
+  }
+
+  const openCommentBox = e => {
+    e.preventDefault();
+    props.openCommentBox(e);
+    setOpenDropdown(false);
   }
 
   return (
@@ -37,6 +43,9 @@ const CommentDeleteButton = props => {
                 onClick={handleDelete(props.post.id)}>
                 Delete
               </DropDownItem>
+              <DropDownItem onClick={openCommentBox}>
+                Edit
+              </DropDownItem>
             </DropDown>
           </IconButton>
           : null
@@ -47,7 +56,9 @@ const CommentDeleteButton = props => {
 
 
 const EllipsisV = props => (
-  <i className={`fas fa-ellipsis-v ${props.className}`}
+  <i 
+    style={{display: 'none'}}
+    className={`fas fa-ellipsis-v ${props.className}`}
     tabIndex='0'
     onBlur={props.onBlur}
     onClick={props.onClick}>
@@ -61,23 +72,18 @@ const IconButton = styled(EllipsisV)`
   width: 30px;
   background: rgb(249,249,249);
 
-  &:focus{
-    outline: none;
-  }
-
-  &:hover{
-    color: gray;
-  }
+  &:focus{ outline: none; }
+  &:hover{ color: gray; }
 `;
 
 const DropDown = styled.ul`
   position: absolute;
   z-index: 1000;
-  border: 1px solid gray;
   border-radius: 3px;
   width: 80px;
   padding: 5px 0px;
   background: inherit;
+  box-shadow: 0px 0px 3px gray;
 `;
 
 const DropDownItem = styled.li`
@@ -87,9 +93,7 @@ const DropDownItem = styled.li`
   font-size: 14px;
   color: black;
 
-  &:hover{
-    background: lightgray;
-  }
+  &:hover{ background: lightgray; }
 `;
 
 
@@ -101,4 +105,4 @@ const mdp = dispatch => ({
   deletePost: postId => dispatch(requestDeletePost(postId)),
 })
 
-export default withRouter(connect(msp, mdp)(CommentDeleteButton));
+export default withRouter(connect(msp, mdp)(CommentDropdown));

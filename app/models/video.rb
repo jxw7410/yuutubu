@@ -86,31 +86,22 @@ class Video < ApplicationRecord
       .order(:id)
   end
 
-  def self.find_by_video_id(id = nil, user_id = nil)
-    if id
-      return self.where.not(id: id, user_id: user_id)
-        .limit(VIDEO_LIMIT)
-        .includes(:channel)
-        .order(views: :desc)
-    end 
-
-    self.where.not(user_id: user_id)
-      .limit(VIDEO_LIMIT)
-      .includes(:channel)
-      .order(views: :desc)
+  def self.find_recommend(id = nil, user_id = nil)
+    query = self.limit(VIDEO_LIMIT).includes(:channel).order(views: :desc)
+    return query.where.not(user_id: user_id) unless id
+    query.where.not(id: id, user_id: user_id)
   end
 
-  def self.find_videos_by_channel(params)
-    self.where(channel_id: params[:user_channel_id])
+  def self.find_videos_by_channel(channel_id = nil, limit = 0, offset = 0)
+    self.where(channel_id: channel_id)
+      .limit(limit)
+      .offset(offset)
       .order(id: :asc)
-      .limit(params[:limit])
-      .offset(params[:offset])
       .includes(:channel)
       .with_attached_thumbnail
   end
 
   private
-
   # Hardcoded video limit
   VIDEO_LIMIT = 8
 end

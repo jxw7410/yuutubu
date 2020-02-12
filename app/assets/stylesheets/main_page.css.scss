@@ -42,7 +42,6 @@
     overflow: hidden;
 }
 
-
 .channel-index{
     display:grid;
     grid-template-rows: 70px auto;
@@ -50,9 +49,7 @@
 
 .channel-index--hdr{
     width: calc(100%);
-    & > * {
-        margin: 0 16px; 
-    }
+    & > * { margin: 0 16px; }
 }
 
 .channel-index--link{

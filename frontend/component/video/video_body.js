@@ -65,7 +65,7 @@ const Wrapper = Styled.div`
 
   & > section {
     display: grid;
-    grid-template-columns: 65px auto;
+    grid-template-columns: 60px auto;
   }
 
   & > section:first-child{

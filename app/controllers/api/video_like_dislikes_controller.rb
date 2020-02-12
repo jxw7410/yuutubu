@@ -16,7 +16,6 @@ class Api::VideoLikeDislikesController < ApplicationController
 
   def update
     @like_dislike = Like.find_by_id(params[:id])
-
     if @like_dislike.update(is_liked: params[:bool])
       render :show
     else
