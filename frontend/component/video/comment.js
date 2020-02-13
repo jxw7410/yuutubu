@@ -44,7 +44,7 @@ function Comment(props) {
   }
 
   const replies = props.post.replies ? Object.values(props.post.replies) : [];
-
+ 
   return (
     <Wrapper>
       <CommentGrid>
@@ -114,7 +114,7 @@ function Comment(props) {
                 props.post.repliesCount || replies.length ?
                   <TextContainer>
                     <CommentShower onClick={ e => setExpandReplies(!expandedReplies)}> 
-                      { expandedReplies ? 'Hide' : 'View'} {Math.max(replies.length, props.post.repliesCount)} replies
+                      { expandedReplies ? 'Hide' : 'View'} {Math.max(replies.length, (props.post.repliesCount || 0))} replies
                     </CommentShower>
                   </TextContainer> : null
               }
