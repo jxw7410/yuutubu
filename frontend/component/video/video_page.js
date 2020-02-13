@@ -7,13 +7,10 @@ import ListOfRecommended from './list_of_recommended';
 
 const VideoPage = props => {
   const [isMounted, setIsMounted] = React.useState(false);
-  const [fetched, setFetched] = React.useState(false);
 
-  // If URL changes, then fetch the video required
   useEffect(() => {
     const videoId = props.match.params.video_id;
     if (!videoId) return;
-
     props.fetchVideo(videoId);
     props.fetchRecommendedVideos(videoId);
     updatePreviousPath();

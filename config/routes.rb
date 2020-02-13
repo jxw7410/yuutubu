@@ -11,9 +11,7 @@ Rails.application.routes.draw do
     # Emails should be done using post for security reasons, since posting does SSL, etc.
     post "/session/email", to: "sessions#email"
 
-    # shallow nesting videos because videos belong to channel
     resources :user_channels, only: [:index, :show] do
-      # The index method will exist inside of the VideosController
       resources :videos, only: [:index]
     end
 
@@ -23,20 +21,15 @@ Rails.application.routes.draw do
       resources :video_posts, only: [:index]
     end
 
-    resources :video_posts, only: [:create, :destroy]
-
+    resources :video_posts, only: [:create, :destroy, :update] do
+      get "replies", on: :member
+    end
+    
     # param is to change the default :id to :query
     resources :searches, param: :query, only: [:create] do
       get "search_titles", on: :member
-      # The index method will exist inside of the VideosController
-      # It will hit the same index as the user_channel
-      # However we can check for the keys as prescibed by rails routes to act
-      # accordingly
       resources :videos, only: [:index]
     end
-    # The reason why this route exists is if the search bar in the frontend is empty
-    # The :query parameter would be empty, thus creating the url searches/search_titiles
-    # instead. This URL should be used to fetch history only.
     get "searches/search_titles", to: "searches#history"
 
     resources :subscriptions, only: [:create, :destroy, :index]

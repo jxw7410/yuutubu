@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import { trimContentEditor } from '../../util/selectors';
 import Editor from '../common/editor';
@@ -10,12 +10,14 @@ function CommentBox(props) {
   const [displayButton, setDisplayButton] = useState(false);
   const [isExpanded, setExpanded] = useState(false);
 
+  useEffect(() => {
+    if (props.description) setEditorContent(props.description);
+  }, []);
+
   const checkForAuth = e => {
     e.preventDefault();
-    if (!props.isLogin)
-      props.history.push('/login');
-    else
-      setDisplayButton(true);
+    if (!props.isLogin) props.history.push('/login');
+    else setDisplayButton(true);
   }
 
   const handleFocus = field => e => {
@@ -26,10 +28,8 @@ function CommentBox(props) {
   const handleChange = e => {
     e.preventDefault();
     const innerContent = e.currentTarget.innerHTML;
-    const expression = '<div><br></div>';
-    setEditorContent(
-      DOMPurify.sanitize(trimContentEditor(innerContent, expression))
-    );
+    const expression = DOMPurify.sanitize(trimContentEditor(innerContent, '<div><br></div>'));
+    setEditorContent(DOMPurify.sanitize(trimContentEditor(expression, '<br>')));
   }
 
   const cancelCommentBox = e => {
@@ -39,47 +39,67 @@ function CommentBox(props) {
     editorRef.current.innerHTML = "";
   };
 
-  const postComment = e => {
+  const submitComment = async e => {
     e.preventDefault();
     if (editorContent.length) {
-      props.postComment({
-        video_id: props.video.id,
-        description: editorContent,
-      })
-      cancelCommentBox();
+      switch (props.type) {
+        case 'EDIT':
+          await props.updateComment({
+            id: props.postId,
+            description: editorContent,
+            parent_id: props.parentId,
+          });
+          props.cancelCommentBox(e);
+          break;
+        case 'REPLY':
+          await props.postReply({
+            video_id: props.video.id,
+            description: editorContent,
+            parent_id: props.parentId
+          });
+          props.cancelCommentBox(e);
+          break;
+        default:
+          await props.postComment({
+            video_id: props.video.id,
+            description: editorContent,
+          });
+          cancelCommentBox();
+      }
     }
   }
 
   return (
     <Form>
-      <Editor 
+      <Editor
         editorRef={editorRef}
         onClick={checkForAuth}
         onFocus={handleFocus(true)}
         onBlur={handleFocus(false)}
         onInput={handleChange}
+        placeholder={props.placeholder}
+        html={props.description}
       />
       <Expander width={isExpanded ? '100%' : '0px'} ><div /></Expander>
       <ButtonContainer
         btnDisabled={!editorContent.length}
-        displayButton={displayButton}>
+        displayButton={displayButton || editorContent.length}>
         <button
-          onClick={cancelCommentBox}
-        >Cancel</button>
+          onClick={props.cancelCommentBox || cancelCommentBox}
+        >CANCEL</button>
         <button
-          onClick={postComment}
+          onClick={submitComment}
           disabled={!editorContent.length}>
-          Comment
+          {props.type || 'COMMENT'}
         </button>
       </ButtonContainer>
-
     </Form>
   )
 }
 
 
 const Form = Styled.form`
-  width: 100%:
+  width: 100%;
   display: grid;
   grid-template-rows: auto 2px auto;
 
@@ -87,7 +107,7 @@ const Form = Styled.form`
     width: inherit;
     font-size: 14px;
     margin-bottom: 3px;
-    line-height: 16px;
+    line-height: 14px;
     outline: none;
   }
 
@@ -122,7 +142,7 @@ const ButtonContainer = Styled.div`
 
   & > button {
     display: ${ props => props.displayButton ? "block" : "none"}
-    width: 100px;
+    padding:0 16px;
     height: 35px;
     font-size: 16px;
     margin-top: 5px;
@@ -145,8 +165,6 @@ const ButtonContainer = Styled.div`
     border-radius: 3px;
   }
 `
-
-
 
 
 export default CommentBox;

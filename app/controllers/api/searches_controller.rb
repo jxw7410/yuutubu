@@ -3,18 +3,15 @@ class Api::SearchesController < ApplicationController
 
   # default to search by history only if user is logged in
   def history
-    if login? 
-      @histories = SearchHistory.where(
-        user_id: current_user.id 
-      ).limit(LIMIT)
-      .order(updated_at: :desc)
-      
+    if login?
+      @histories = SearchHistory.where(user_id: current_user.id)
+        .limit(LIMIT)
+        .order(updated_at: :desc)
       render :index
-    else 
+    else
       render json: {}, status: 200
     end
-  end 
-
+  end
 
   def search_titles
     if params.has_key?(:query) && !params[:query].empty?
@@ -62,8 +59,7 @@ class Api::SearchesController < ApplicationController
     end
   end
 
-  private 
+  private
   #limit for query; used in all the methods, relative to this class.
   LIMIT = 8
-
 end
