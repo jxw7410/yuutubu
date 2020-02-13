@@ -24,11 +24,13 @@ export const updateVideoPost = post => (
   })
 );
 
-export const deleteVideoPost = post_id => (
+export const deleteVideoPost = postId => (
   $.ajax({
     method: 'delete',
-    url: `/api/video_posts/${post_id}`,
+    url: `/api/video_posts/${postId}`,
   })
 );
 
-
+export const fetchVideoPostReplies = postId => (
+  $.ajax({url: `/api/video_posts/${postId}/replies`})
+)

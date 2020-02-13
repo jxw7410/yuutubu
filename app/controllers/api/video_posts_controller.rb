@@ -10,8 +10,13 @@ class Api::VideoPostsController < ApplicationController
     end
   end
 
-  def index_replies
-    @post = VideoPost.find_by_id(params[:id])
+  def replies
+    @posts = VideoPost.includes(:replies).find_by_id(params[:id]).replies
+    if !@posts.empty?
+      render :replies
+    else 
+      render json: ["Posts are not found"], status: 404
+    end
   end
 
   def create
@@ -47,6 +52,6 @@ class Api::VideoPostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:video_id, :description)
+    params.require(:post).permit(:video_id, :description, :parent_id)
   end
 end

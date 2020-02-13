@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Comment from './comment';
 import Styled from 'styled-components';
 import { useInfiniteScrolling } from '../../util/custom_hooks';
@@ -6,7 +6,8 @@ import CommentBox from './comment_box_container';
 
 function CommentsWrapper(props){
   const [isFetching, setIsFetching] = useInfiniteScrolling(fetchPosts);
-  const offsetRef = React.useRef(0);
+  const offsetRef = useRef(0);
+  const failedFetchCount = useRef(0);
 
   useEffect(() => {
     return () => props.clearPosts();
@@ -14,6 +15,7 @@ function CommentsWrapper(props){
 
   useEffect(() => { 
     offsetRef.current = 0;
+    failedFetchCount.current = 0;
     props.clearPosts()
       .then(() => fetchPosts())
   }, [props.video.id])
@@ -26,8 +28,12 @@ function CommentsWrapper(props){
       offset: offsetRef.current,
       limit: queryLimit
     }
+    
+    if (failedFetchCount.current >= 2) return;
+
     props.fetchPosts(params)
       .then(() => offsetRef.current += queryLimit)
+      .fail(() => failedFetchCount.current += 1 )
       .always(() => setIsFetching(false));
   }
 

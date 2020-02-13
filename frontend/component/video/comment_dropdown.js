@@ -8,11 +8,9 @@ import { centerFlex } from '../common/flex_styles';
 const CommentDropdown = props => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
 
-  function handleDelete(postId) {
-    return e => {
-      e.stopPropagation();
-      props.deletePost(postId)
-    }
+  function handleDelete(e) {
+    e.stopPropagation();
+    props.deletePost(props.post.id, props.parentId)
   }
 
   function handleOpenDropdown(bool) {
@@ -40,7 +38,7 @@ const CommentDropdown = props => {
               onClick={e => e.stopPropagation()}
               style={openDropdown ? null : { display: 'none' }}>
               <DropDownItem
-                onClick={handleDelete(props.post.id)}>
+                onClick={handleDelete}>
                 Delete
               </DropDownItem>
               <DropDownItem onClick={openCommentBox}>
@@ -56,8 +54,8 @@ const CommentDropdown = props => {
 
 
 const EllipsisV = props => (
-  <i 
-    style={{display: 'none'}}
+  <i
+    style={{ display: 'none' }}
     className={`fas fa-ellipsis-v ${props.className}`}
     tabIndex='0'
     onBlur={props.onBlur}
@@ -102,7 +100,7 @@ const msp = (state, props) => ({
 })
 
 const mdp = dispatch => ({
-  deletePost: postId => dispatch(requestDeletePost(postId)),
+  deletePost: (postId, parentId) => dispatch(requestDeletePost(postId, parentId)),
 })
 
 export default withRouter(connect(msp, mdp)(CommentDropdown));

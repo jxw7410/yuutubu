@@ -46,7 +46,16 @@ function CommentBox(props) {
         case 'EDIT':
           await props.updateComment({
             id: props.postId,
-            description: editorContent
+            description: editorContent,
+            parent_id: props.parentId,
+          });
+          props.cancelCommentBox(e);
+          break;
+        case 'REPLY':
+          await props.postReply({
+            video_id: props.video.id,
+            description: editorContent,
+            parent_id: props.parentId
           });
           props.cancelCommentBox(e);
           break;
@@ -84,14 +93,13 @@ function CommentBox(props) {
           {props.type || 'COMMENT'}
         </button>
       </ButtonContainer>
-
     </Form>
   )
 }
 
 
 const Form = Styled.form`
-  width: 100%:
+  width: 100%;
   display: grid;
   grid-template-rows: auto 2px auto;
 
@@ -157,8 +165,6 @@ const ButtonContainer = Styled.div`
     border-radius: 3px;
   }
 `
-
-
 
 
 export default CommentBox;
