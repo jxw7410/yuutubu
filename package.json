@@ -8,7 +8,7 @@
     "activestorage": "^5.2.4",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
-    "dompurify": "^2.0.8",
+    "dompurify": "^2.0.17",
     "lodash": "^4.17.15",
     "react": "^16.12.0",
     "react-addons-css-transition-group": "^15.6.2",
